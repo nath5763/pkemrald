@@ -11666,3 +11666,4 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .noFlip = FALSE,
     }
 };
+// touch
