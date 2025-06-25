@@ -176,6 +176,7 @@ const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_IGGLYBUFF] = _("IGGLYBUFF"),
     [SPECIES_TOGEPI] = _("TOGEPI"),
     [SPECIES_TOGETIC] = _("TOGETIC"),
+    [SPECIES_TOGEKISS] = _("TOGEKISS"),
     [SPECIES_NATU] = _("NATU"),
     [SPECIES_XATU] = _("XATU"),
     [SPECIES_MAREEP] = _("MAREEP"),

@@ -177,6 +177,7 @@ const u16 *const gLevelUpLearnsets[NUM_SPECIES] =
     [SPECIES_IGGLYBUFF] = sIgglybuffLevelUpLearnset,
     [SPECIES_TOGEPI] = sTogepiLevelUpLearnset,
     [SPECIES_TOGETIC] = sTogeticLevelUpLearnset,
+    [SPECIES_TOGEKISS] = sTogekissLevelUpLearnset,
     [SPECIES_NATU] = sNatuLevelUpLearnset,
     [SPECIES_XATU] = sXatuLevelUpLearnset,
     [SPECIES_MAREEP] = sMareepLevelUpLearnset,

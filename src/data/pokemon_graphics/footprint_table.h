@@ -177,6 +177,7 @@ const u8 *const gMonFootprintTable[] =
     [SPECIES_IGGLYBUFF] = gMonFootprint_Igglybuff,
     [SPECIES_TOGEPI] = gMonFootprint_Togepi,
     [SPECIES_TOGETIC] = gMonFootprint_Togetic,
+    [SPECIES_TOGEKISS] = gMonFootprint_Togekiss,
     [SPECIES_NATU] = gMonFootprint_Natu,
     [SPECIES_XATU] = gMonFootprint_Xatu,
     [SPECIES_MAREEP] = gMonFootprint_Mareep,

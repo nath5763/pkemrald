@@ -4549,6 +4549,13 @@ static const union AnimCmd sAnim_Jirachi_2[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Togekiss_1[] =
+{
+    ANIMCMD_FRAME(1, 30),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Deoxys_1[] =
 {
     ANIMCMD_FRAME(0, 16),
@@ -4999,6 +5006,7 @@ SINGLE_ANIMATION(Cleffa);
 DOUBLE_ANIMATION(Igglybuff);
 SINGLE_ANIMATION(Togepi);
 SINGLE_ANIMATION(Togetic);
+SINGLE_ANIMATION(Togekiss);
 DOUBLE_ANIMATION(Natu);
 DOUBLE_ANIMATION(Xatu);
 SINGLE_ANIMATION(Mareep);
@@ -5431,6 +5439,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_IGGLYBUFF]   = sAnims_Igglybuff,
     [SPECIES_TOGEPI]      = sAnims_Togepi,
     [SPECIES_TOGETIC]     = sAnims_Togetic,
+    [SPECIES_TOGEKISS]    = sAnims_Togekiss,
     [SPECIES_NATU]        = sAnims_Natu,
     [SPECIES_XATU]        = sAnims_Xatu,
     [SPECIES_MAREEP]      = sAnims_Mareep,

@@ -2124,6 +2124,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_TOGEKISS] =
+    {
+        .categoryName = _("HAPPINESS"),
+        .height = 6,
+        .weight = 32,
+        .description = gTogeticPokedexText,
+        .pokemonScale = 424,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_NATU] =
     {
         .categoryName = _("TINY BIRD"),

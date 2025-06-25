@@ -2822,3 +2822,10 @@ const u8 gMonIcon_UnownExclamationMark[] = INCBIN_U8("graphics/pokemon/unown/exc
 const u32 gMonStillFrontPic_UnownQuestionMark[] = INCBIN_U32("graphics/pokemon/unown/question_mark/front.4bpp.lz");
 const u32 gMonBackPic_UnownQuestionMark[] = INCBIN_U32("graphics/pokemon/unown/question_mark/back.4bpp.lz");
 const u8 gMonIcon_UnownQuestionMark[] = INCBIN_U8("graphics/pokemon/unown/question_mark/icon.4bpp");
+
+const u32 gMonStillFrontPic_Togetic[] = INCBIN_U32("graphics/pokemon/Togetic/front.4bpp.lz");
+const u32 gMonPalette_Togetic[] = INCBIN_U32("graphics/pokemon/Togetic/normal.gbapal.lz");
+const u32 gMonBackPic_Togetic[] = INCBIN_U32("graphics/pokemon/Togetic/back.4bpp.lz");
+const u32 gMonShinyPalette_Togetic[] = INCBIN_U32("graphics/pokemon/Togetic/shiny.gbapal.lz");
+const u8 gMonIcon_Togetic[] = INCBIN_U8("graphics/pokemon/Togetic/icon.4bpp");
+const u8 gMonFootprint_Togetic[] = INCBIN_U8("graphics/pokemon/Togetic/footprint.1bpp");

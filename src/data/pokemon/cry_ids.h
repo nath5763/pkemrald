@@ -1,4 +1,4 @@
-const u16 gSpeciesIdToCryId[] =
+const u16 gSpeTOGETICciesIdToCryId[] =
 {
     [SPECIES_TREECKO - 277] = 273,
     [SPECIES_GROVYLE - 277] = 274,

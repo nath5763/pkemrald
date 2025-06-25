@@ -2867,6 +2867,15 @@ extern const u32 gMonPalette_DoubleQuestionMark[];
 extern const u32 gMonShinyPalette_DoubleQuestionMark[];
 extern const u32 gMonStillFrontPic_DoubleQuestionMark[];
 extern const u16 gMonIconPalettes[][16];
+extern const u32 gMonFrontPic_Togekiss[];
+extern const u32 gMonBackPic_Togekiss[];
+extern const u32 gMonPalette_Togekiss[];
+extern const u32 gMonShinyPalette_Togekiss[];
+extern const u32 gMonStillFrontPic_Togekiss[];
+extern const u8 gMonIcon_Togekiss[];
+extern const u8 gMonFoorprint_Togekiss[];
+
+
 
 // trainer sprites
 extern const u32 gTrainerFrontPic_Hiker[];

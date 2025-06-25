@@ -1060,6 +1060,11 @@ const u8 gTogeticPokedexText[] = _(
     "of heart, a TOGETIC appears and shares its\n"
     "happiness with that person.");
 
+const u8 gTogekissPokedexText[] = _(
+    "It grows dispirited if it is not with kind\n"
+    "people. It can float in midair without \n"
+    "moving its wings.\n");
+
 const u8 gNatuPokedexText[] = _(
     "It runs up short trees that grow on the\n"
     "savanna to peck at new shoots.\n"

@@ -1090,6 +1090,9 @@ Cry_Togepi::
 Cry_Togetic::
 	.incbin "sound/direct_sound_samples/cries/togetic.bin"
 
+Cry_Togekiss::
+	.incbin "sound/direct_sound_samples/cries/togekiss.bin"
+
 	.align 2
 Cry_Natu::
 	.incbin "sound/direct_sound_samples/cries/natu.bin"
