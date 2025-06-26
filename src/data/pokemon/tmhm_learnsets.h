@@ -8828,7 +8828,7 @@ const union {
         .FLASH = TRUE,
     } },
 
-    [SPECIES_ROSELIA] = { .learnset = {
+    [SPECIES_ROSERADE] = { .learnset = {
         .TOXIC = TRUE,
         .BULLET_SEED = TRUE,
         .HIDDEN_POWER = TRUE,
