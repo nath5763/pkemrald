@@ -4907,7 +4907,7 @@ static const u16 sRoseliaLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const u16 sRoseliaLevelUpLearnset[] = {
+static const u16 sRoseradeLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ABSORB),
     LEVEL_UP_MOVE( 5, MOVE_GROWTH),
     LEVEL_UP_MOVE( 9, MOVE_POISON_STING),

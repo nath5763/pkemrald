@@ -2873,14 +2873,14 @@ extern const u32 gMonPalette_Togekiss[];
 extern const u32 gMonShinyPalette_Togekiss[];
 extern const u32 gMonStillFrontPic_Togekiss[];
 extern const u8 gMonIcon_Togekiss[];
-extern const u8 gMonFoorprint_Togekiss[];
+extern const u8 gMonFootprint_Togekiss[];
 extern const u32 gMonFrontPic_Roserade[];
 extern const u32 gMonBackPic_Roserade[];
 extern const u32 gMonPalette_Roserade[];
 extern const u32 gMonShinyPalette_Roserade[];
 extern const u32 gMonStillFrontPic_Roserade[];
 extern const u8 gMonIcon_Roserade[];
-extern const u8 gMonFoorprint_Roserade[];
+extern const u8 gMonFootprint_Roserade[];
 
 // trainer sprites
 extern const u32 gTrainerFrontPic_Hiker[];
