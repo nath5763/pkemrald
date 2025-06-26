@@ -5185,6 +5185,7 @@ SINGLE_ANIMATION(Wynaut);
 SINGLE_ANIMATION(Duskull);
 SINGLE_ANIMATION(Dusclops);
 SINGLE_ANIMATION(Roselia);
+SINGLE_ANIMATION(Roserade);
 SINGLE_ANIMATION(Slakoth);
 SINGLE_ANIMATION(Vigoroth);
 SINGLE_ANIMATION(Slaking);
@@ -5634,7 +5635,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_DUSKULL]     = sAnims_Duskull,
     [SPECIES_DUSCLOPS]    = sAnims_Dusclops,
     [SPECIES_ROSELIA]     = sAnims_Roselia,
-    [SPECIES_ROSERADE]     = sAnims_Roserade,
+    [SPECIES_ROSERADE]    = sAnims_Roserade,
     [SPECIES_SLAKOTH]     = sAnims_Slakoth,
     [SPECIES_VIGOROTH]    = sAnims_Vigoroth,
     [SPECIES_SLAKING]     = sAnims_Slaking,
