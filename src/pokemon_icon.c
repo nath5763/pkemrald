@@ -388,6 +388,7 @@ const u8 *const gMonIconTable[] =
     [SPECIES_DUSKULL] = gMonIcon_Duskull,
     [SPECIES_DUSCLOPS] = gMonIcon_Dusclops,
     [SPECIES_ROSELIA] = gMonIcon_Roselia,
+    [SPECIES_ROSERADE] = gMonIcon_Roserade,
     [SPECIES_SLAKOTH] = gMonIcon_Slakoth,
     [SPECIES_VIGOROTH] = gMonIcon_Vigoroth,
     [SPECIES_SLAKING] = gMonIcon_Slaking,

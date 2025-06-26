@@ -3975,6 +3975,13 @@ static const union AnimCmd sAnim_Roselia_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Roserade_1[] =
+{
+    ANIMCMD_FRAME(1, 30),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Slakoth_1[] =
 {
     ANIMCMD_FRAME(0, 13),
@@ -5627,6 +5634,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_DUSKULL]     = sAnims_Duskull,
     [SPECIES_DUSCLOPS]    = sAnims_Dusclops,
     [SPECIES_ROSELIA]     = sAnims_Roselia,
+    [SPECIES_ROSERADE]     = sAnims_Roserade,
     [SPECIES_SLAKOTH]     = sAnims_Slakoth,
     [SPECIES_VIGOROTH]    = sAnims_Vigoroth,
     [SPECIES_SLAKING]     = sAnims_Slaking,

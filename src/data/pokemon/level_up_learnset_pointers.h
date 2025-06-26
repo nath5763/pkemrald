@@ -365,6 +365,7 @@ const u16 *const gLevelUpLearnsets[NUM_SPECIES] =
     [SPECIES_DUSKULL] = sDuskullLevelUpLearnset,
     [SPECIES_DUSCLOPS] = sDusclopsLevelUpLearnset,
     [SPECIES_ROSELIA] = sRoseliaLevelUpLearnset,
+    [SPECIES_ROSERADE] = sRoseradeLevelUpLearnset,
     [SPECIES_SLAKOTH] = sSlakothLevelUpLearnset,
     [SPECIES_VIGOROTH] = sVigorothLevelUpLearnset,
     [SPECIES_SLAKING] = sSlakingLevelUpLearnset,

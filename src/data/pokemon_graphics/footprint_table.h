@@ -365,6 +365,7 @@ const u8 *const gMonFootprintTable[] =
     [SPECIES_DUSKULL] = gMonFootprint_Duskull,
     [SPECIES_DUSCLOPS] = gMonFootprint_Dusclops,
     [SPECIES_ROSELIA] = gMonFootprint_Roselia,
+    [SPECIES_ROSERADE] = gMonFootprint_Roserade,
     [SPECIES_SLAKOTH] = gMonFootprint_Slakoth,
     [SPECIES_VIGOROTH] = gMonFootprint_Vigoroth,
     [SPECIES_SLAKING] = gMonFootprint_Slaking,

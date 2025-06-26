@@ -3803,7 +3803,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-
+    [NATIONAL_DEX_ROSERADE] =
+    {
+        .categoryName = _("THORN"),
+        .height = 3,
+        .weight = 20,
+        .description = gRoseradePokedexText,
+        .pokemonScale = 677,
+        .pokemonOffset = 20,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
     [NATIONAL_DEX_GULPIN] =
     {
         .categoryName = _("STOMACH"),
