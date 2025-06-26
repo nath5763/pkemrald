@@ -254,7 +254,7 @@ gCryTable::
 	cry Cry_Celebi
 	cry Cry_Kecleon
 	cry Cry_Roselia
-	cry Cry_Roselia
+	cry Cry_Roserade
 	cry Cry_Torkoal
 	cry Cry_Electrike
 	cry Cry_Manectric

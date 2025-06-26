@@ -1401,8 +1401,8 @@ Cry_Kecleon::
 Cry_Roselia::
 	.incbin "sound/direct_sound_samples/cries/roselia.bin"
 
-Cry_Roselia::
-	.incbin "sound/direct_sound_samples/cries/roselia.bin"
+Cry_Roserade::
+	.incbin "sound/direct_sound_samples/cries/roserade.bin"
 
 	.align 2
 Cry_Torkoal::
