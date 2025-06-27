@@ -4420,6 +4420,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/AncientForest/border.bin",
       "blockdata_filepath": "data/layouts/AncientForest/map.bin"
+    },
+    {
+      "id": "LAYOUT_RESEVOIR_CAVE",
+      "name": "ResevoirCave_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_MeteorFalls",
+      "border_filepath": "data/layouts/ResevoirCave/border.bin",
+      "blockdata_filepath": "data/layouts/ResevoirCave/map.bin"
     }
   ]
 }
