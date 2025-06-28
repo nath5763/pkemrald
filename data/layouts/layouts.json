@@ -4430,6 +4430,16 @@
       "secondary_tileset": "gTileset_MeteorFalls",
       "border_filepath": "data/layouts/ResevoirCave/border.bin",
       "blockdata_filepath": "data/layouts/ResevoirCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_RESEVOIRCAVE",
+      "name": "RESEVOIRCAVE",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/RESEVOIRCAVE/border.bin",
+      "blockdata_filepath": "data/layouts/RESEVOIRCAVE/map.bin"
     }
   ]
 }

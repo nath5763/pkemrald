@@ -11640,6 +11640,37 @@ static const struct TrainerMonItemCustomMoves sParty_Steven[] = {
     }
 };
 
+static const struct TrainerMonItemCustomMoves sParty_AquaAdminNeymar[] = {
+    {
+    .iv = 255,
+    .lvl = 30,
+    .species = SPECIES_CROCONAW,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_KNOCK_OFF, MOVE_WATER_GUN, MOVE_SLAM, MOVE_BITE}
+    },
+    {
+    .iv = 255,
+    .lvl = 30,
+    .species = SPECIES_GOLBAT,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_WING_ATTACK, MOVE_POISON_FANG, MOVE_CONFUSE_RAY, MOVE_SUBSTITUTE}
+    },
+    {
+    .iv = 255,
+    .lvl = 31,
+    .species = SPECIES_SEADRA,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_DRAGON_BREATH, MOVE_EARTHQUAKE, MOVE_WATER_PULSE, MOVE_ICE_BALL}
+    },
+    {
+    .iv = 255,
+    .lvl = 31,
+    .species = SPECIES_KABUTOPS,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_ROCK_THROW, MOVE_WATERFALL, MOVE_NEEDLE_ARM, MOVE_SLASH}
+    }
+};
+
 static const struct TrainerMonNoItemDefaultMoves sParty_Anabel[] = {
     {
     .iv = 0,

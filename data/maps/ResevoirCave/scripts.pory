@@ -1,0 +1,47 @@
+#script_map ResevoirCave data/maps/ResevoirCave/scripts.pory
+
+mapscripts ResevoirCave_MapScripts {
+    on_map_load: sceneIntro
+}
+
+text AquaAdminIntroText {
+    "You're going to build me a bridge,\nright now!"
+}
+
+text RockSmashGuyReplyText {
+    "Sorry, I can't do that.\nThe rocks here are too dense."
+}
+
+script sceneIntro {
+    if (flag(FLAG_RESEVOIR_CLEARED)) {
+		removeobject(1)
+        removeobject(2)
+	}
+    if (flag(FLAG_RESEVOIR_INTRO_DONE)) {
+        end
+    }
+    lockall
+    applymovement(0, walk_up)
+    waitmovement
+    msgbox(AquaAdminIntroText) MSG_NORMAL
+    applymovement(1, walk_down)
+    waitmovement
+    msgbox(RockSmashGuyReplyText) MSG_NORMAL
+    setflag(FLAG_RESEVOIR_INTRO_DONE)
+    releaseall
+    end
+}
+
+script aquaBattleScript {
+    lock
+    faceplayer
+    msgbox("You dare oppose Team Aqua? Prepare to battle!") MSG_NORMAL
+    trainerbattle(TRAINER_TYPE_NORMAL, TRAINER_AQUA_ADMIN, "SUICUNE WILL BE MINE!", "ARG, can't find it anyways")
+    msgbox("Grr... this isn't over...") MSG_NORMAL
+    setflag(FLAG_RESEVOIR_CLEARED)
+    fadescreen(FADE_TO_BLACK)
+    removeobject(1)
+    removeobject(2)
+    releaseall
+    end
+}
