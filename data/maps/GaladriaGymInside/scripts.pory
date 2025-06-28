@@ -1,3 +1,6 @@
+mapscripts GaladriaGymInside_MapScripts {
+}
+
 text LeafIntroText {
     "Welcome challenger!\nI'm Leaf, the Grass-type Gym Leader.\p"
     "Let’s see if you can cut through my vines of victory!"
