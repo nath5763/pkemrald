@@ -302,3 +302,14 @@ Route128_Text_StevenImGoingToSootopolis:
 	.string "I'm going to SOOTOPOLIS.$"
 
 `
+text GymBlockerText {
+    "Challenge the GYM first,\nthen we'll let you through."
+}
+
+script GymBlockerScript {
+    lock
+    faceplayer
+    msgbox(GymBlockerText)
+    release
+    end
+}

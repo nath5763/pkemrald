@@ -143,30 +143,17 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 101,
-      "y": 29,
-      "elevation": 1,
-      "movement_type": "MOVEMENT_TYPE_WALK_UP_AND_DOWN",
-      "movement_range_x": 1,
-      "movement_range_y": 3,
-      "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "4",
-      "script": "Route128_EventScript_Carlee",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 101,
-      "y": 22,
-      "elevation": 1,
-      "movement_type": "MOVEMENT_TYPE_WALK_DOWN_AND_UP",
-      "movement_range_x": 1,
-      "movement_range_y": 3,
-      "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "4",
-      "script": "Route128_EventScript_Harrison",
-      "flag": "0"
+      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
+      "x": 112,
+      "y": 28,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "GymBlockerScript",
+      "flag": "FLAG_GRASS_GYM"
     }
   ],
   "warp_events": [],

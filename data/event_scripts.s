@@ -1061,3 +1061,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/AncientForest/scripts.inc"
 
 	.include "data/maps/ResevoirCave/scripts.inc"
+
+	.include "data/maps/GaladriaGymInside/scripts.inc"

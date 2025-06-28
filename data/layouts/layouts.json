@@ -4440,6 +4440,16 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/RESEVOIRCAVE/border.bin",
       "blockdata_filepath": "data/layouts/RESEVOIRCAVE/map.bin"
+    },
+    {
+      "id": "LAYOUT_GALADRIA_GYM",
+      "name": "GaladriaGym",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_FortreeGym",
+      "border_filepath": "data/layouts/GaladriaGym/border.bin",
+      "blockdata_filepath": "data/layouts/GaladriaGym/map.bin"
     }
   ]
 }

@@ -12436,32 +12436,69 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Everett[] = {
 
 static const struct TrainerMonNoItemDefaultMoves sParty_Red[] = {
     {
-    .iv = 0,
-    .lvl = 5,
-    .species = SPECIES_CHARMANDER,
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_VENUSAUR,
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_Leaf[] = {
+static const struct TrainerMonItemCustomMoves sParty_Leaf[] = {
     {
-    .iv = 0,
-    .lvl = 5,
-    .species = SPECIES_BULBASAUR,
-    }
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_PELIPPER,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_WATERFALL, MOVE_AERIAL_ACE, MOVE_TOXIC, MOVE_ICE_BEAM}
+    },
+    {
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_LUDICOLO,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_SURF, MOVE_LEECH_SEED, MOVE_SPORE, MOVE_NEEDLE_ARM}
+    },
+    {
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_SCEPTILE,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_LEAF_BLADE, MOVE_DRAGON_CLAW, MOVE_SLASH, MOVE_DRAGON_DANCE}
+    },
+    {
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_ROSERADE,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_SLUDGE_BOMB, MOVE_PETAL_DANCE, MOVE_ICE_BEAM, MOVE_EXTRASENSORY}
+    },
+    {
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_EXEGGUTOR,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_GIGA_DRAIN, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_LIGHT_SCREEN}
+    },
+    {
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_CACTURNE,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_CRUNCH, MOVE_NEEDLE_ARM, MOVE_SLASH, MOVE_EXTREME_SPEED}
+    },
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_BrendanLinkPlaceholder[] = {
     {
-    .iv = 0,
-    .lvl = 5,
-    .species = SPECIES_GROUDON,
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_BRELOOM,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_MayLinkPlaceholder[] = {
     {
-    .iv = 0,
-    .lvl = 5,
-    .species = SPECIES_KYOGRE,
+    .iv = 255,
+    .lvl = 55,
+    .species = SPECIES_MEGANIUM,
     }
 };

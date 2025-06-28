@@ -1,0 +1,79 @@
+text LeafIntroText {
+    "Welcome challenger!\nI'm Leaf, the Grass-type Gym Leader.\p"
+    "Let’s see if you can cut through my vines of victory!"
+}
+
+text LeafDefeatText {
+    "You've pruned your way to victory...\nWell done, trainer."
+}
+
+text VenusaurIntro {
+    "You don't deserve Leaf.\nMy VENUSAUR will sleep you!.\p"
+}
+
+text VenusaurDefeatText {
+    "GAH, My spore missed..."
+}
+
+text MeganiumIntro {
+    "I like sleeping all day.\nLeaf let's me, that's why she's the best!\p"
+}
+
+text MeganiumDefeatText {
+    "Hmmm, I think I need a nap."
+}
+
+text BreloomIntro {
+    "I could never beat Leaf though.\nLeaf's the best!\p"
+}
+
+text BreloomDefeatText {
+    "Ugh, I need to train more."
+}
+
+script GymLeaderLeaf {
+    lock
+    faceplayer
+    trainerbattle_single(TRAINER_LEAF, LeafIntroText, LeafDefeatText)
+    setflag(FLAG_GRASS_GYM)
+    msgbox("The Elite 4 awaits...")
+    waitmessage
+    release
+    end
+}
+
+script VenusaurTrainer {
+    lock
+    faceplayer
+    msgbox("Venesaur is slept on!")
+    waitmessage
+    trainerbattle_single(TRAINER_RED, VenusaurIntro, VenusaurDefeatText)
+    msgbox("You still won't beat Leaf!")
+    waitmessage
+    release
+    end
+}
+
+script MeganiumTrainer {
+    lock
+    faceplayer
+    msgbox("This is my dream.")
+    waitmessage
+    trainerbattle_single(TRAINER_MAY_PLACEHOLDER, MeganiumIntro, MeganiumDefeatText)
+    msgbox("I dream a lot...")
+    waitmessage
+    release
+    end
+}
+
+script BreloomTrainer {
+    lock
+    faceplayer
+    msgbox("Brawly was too weak for me.")
+    waitmessage
+    trainerbattle_single(TRAINER_BRENDAN_PLACEHOLDER, BreloomIntro, BreloomDefeatText)
+    msgbox("I know Brawly went easy on me.")
+    waitmessage
+    release
+    end
+}
