@@ -4450,6 +4450,26 @@
       "secondary_tileset": "gTileset_FortreeGym",
       "border_filepath": "data/layouts/GaladriaGym/border.bin",
       "blockdata_filepath": "data/layouts/GaladriaGym/map.bin"
+    },
+    {
+      "id": "LAYOUT_MART_LAYOUT_GALADRIA",
+      "name": "Mart_Layout_Galadria",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Mart_Layout_Galadria/border.bin",
+      "blockdata_filepath": "data/layouts/Mart_Layout_Galadria/map.bin"
+    },
+    {
+      "id": "LAYOUT_GALARIA_POKEMON_CENTER_1F_2",
+      "name": "Galaria_PokemonCenter_1F_2_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Galaria_PokemonCenter_1F_2/border.bin",
+      "blockdata_filepath": "data/layouts/Galaria_PokemonCenter_1F_2/map.bin"
     }
   ]
 }

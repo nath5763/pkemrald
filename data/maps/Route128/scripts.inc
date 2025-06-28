@@ -602,3 +602,19 @@ Route128_Text_StevenImGoingToSootopolis:
 	.string "Okay.\n"
 # 302 "data/maps/Route128/scripts.pory"
 	.string "I'm going to SOOTOPOLIS.$"
+
+GymBlockerScript::
+# 310 "data/maps/Route128/scripts.pory"
+	lock
+# 311 "data/maps/Route128/scripts.pory"
+	faceplayer
+# 312 "data/maps/Route128/scripts.pory"
+	msgbox GymBlockerText
+# 313 "data/maps/Route128/scripts.pory"
+	release
+	end
+
+
+GymBlockerText::
+# 305 "data/maps/Route128/scripts.pory"
+	.string "Challenge the GYM first,\nthen we'll let you through.$"
