@@ -31,6 +31,8 @@ bagCelebiBattle::
 # 18 "data/maps/AncientForest/scripts.pory"
 	msgbox bagCelebiBattle_Text_1
 # 19 "data/maps/AncientForest/scripts.pory"
+	fadescreen FADE_FROM_BLACK
+# 20 "data/maps/AncientForest/scripts.pory"
 	releaseall
 	end
 
