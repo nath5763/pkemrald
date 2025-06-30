@@ -16,6 +16,7 @@ script bagCelebiBattle {
 	fadescreen(FADE_TO_BLACK)
 	removeobject(1)
     msgbox("The force fades...")
+	fadescreen(FADE_FROM_BLACK)
     releaseall
     end
 }

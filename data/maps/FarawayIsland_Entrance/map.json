@@ -12,7 +12,13 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": [
+    {
+      "map": "MAP_ROUTE136",
+      "offset": 16,
+      "direction": "right"
+    }
+  ],
   "object_events": [
     {
       "local_id": "LOCALID_FARAWAY_ISLAND_SAILOR",

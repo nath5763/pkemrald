@@ -1,13 +1,11 @@
-mapscripts ThunderNestLoad {
-    specialvar(VAR_RESULT, CheckVoltorb)
-    if(VAR_RESULT == SPECIES_VOLTORB){
-        isWarpActive
-    }
-    
+mapscripts ThunderNest_MapScripts {
+    MAP_SCRIPT_ON_LOAD: ThunderNest_CheckWarp
 }
 
-script isWarpActive {
-    setdynamicwarp(0, 63, 31, 37)
-    setdynamicwarp(0, 63, 11, 12)
-    
+script ThunderNest_CheckWarp {
+    specialvar(VAR_RESULT, CheckVoltorb)
+    if(var(VAR_RESULT) == SPECIES_VOLTORB){
+        setdynamicwarp(0, 63, 31, 37)
+        setdynamicwarp(0, 63, 11, 12)
+    }
 }
