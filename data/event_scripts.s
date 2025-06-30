@@ -1067,3 +1067,11 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Galadria_Layout/scripts.inc"
 
 	.include "data/maps/Galaria_PokemonCenter_1F_2/scripts.inc"
+
+	.include "data/maps/Route135/scripts.inc"
+
+	.include "data/maps/AdventCave/scripts.inc"
+
+	.include "data/maps/ROUTE136/scripts.inc"
+
+	.include "data/maps/ThunderNest/scripts.inc"

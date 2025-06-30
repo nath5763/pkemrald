@@ -4470,6 +4470,46 @@
       "secondary_tileset": "gTileset_PokemonCenter",
       "border_filepath": "data/layouts/Galaria_PokemonCenter_1F_2/border.bin",
       "blockdata_filepath": "data/layouts/Galaria_PokemonCenter_1F_2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE135",
+      "name": "Route135_Layout",
+      "width": 60,
+      "height": 80,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Pacifidlog",
+      "border_filepath": "data/layouts/Route135/border.bin",
+      "blockdata_filepath": "data/layouts/Route135/map.bin"
+    },
+    {
+      "id": "LAYOUT_ADVENT_CAVE",
+      "name": "AdventCave_Layout",
+      "width": 60,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/AdventCave/border.bin",
+      "blockdata_filepath": "data/layouts/AdventCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE136",
+      "name": "ROUTE136_Layout",
+      "width": 60,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Mossdeep",
+      "border_filepath": "data/layouts/ROUTE136/border.bin",
+      "blockdata_filepath": "data/layouts/ROUTE136/map.bin"
+    },
+    {
+      "id": "LAYOUT_THUNDER_NEST",
+      "name": "ThunderNest_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_BikeShop",
+      "border_filepath": "data/layouts/ThunderNest/border.bin",
+      "blockdata_filepath": "data/layouts/ThunderNest/map.bin"
     }
   ]
 }

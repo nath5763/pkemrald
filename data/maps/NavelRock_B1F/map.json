@@ -19,8 +19,8 @@
       "x": 4,
       "y": 3,
       "elevation": 3,
-      "dest_map": "MAP_NAVEL_ROCK_ENTRANCE",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_ADVENT_CAVE",
+      "dest_warp_id": "2"
     },
     {
       "x": 18,
