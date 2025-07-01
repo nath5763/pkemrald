@@ -1,7 +1,7 @@
 # 1 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
 
 # 2 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
-Galadria_PokemonCenter_1F_2_MapScripts::
+Galaria_PokemonCenter_1F_2_MapScripts::
 # 3 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
 	.byte 0
 # 4 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
@@ -9,7 +9,7 @@ Galadria_PokemonCenter_1F_2_MapScripts::
 # 5 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
 
 # 6 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
-Galadria_EventScript_Nurse::
+Galaria_EventScript_Nurse::
 # 7 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"
 	setvar VAR_0x800B, LOCALID_DEWFORD_NURSE
 # 8 "data/maps/Galaria_PokemonCenter_1F_2/scripts.pory"

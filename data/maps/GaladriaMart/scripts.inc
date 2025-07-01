@@ -1,7 +1,7 @@
 # 1 "data/maps/GaladriaMart/scripts.pory"
 
 # 2 "data/maps/GaladriaMart/scripts.pory"
-Galadria_Mart_MapScripts::
+GaladriaMart_MapScripts::
 # 3 "data/maps/GaladriaMart/scripts.pory"
 	.byte 0
 # 4 "data/maps/GaladriaMart/scripts.pory"
