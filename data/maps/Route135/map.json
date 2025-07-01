@@ -32,6 +32,13 @@
       "elevation": 0,
       "dest_map": "MAP_ADVENT_CAVE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 51,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_NAVEL_ROCK_TOP",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

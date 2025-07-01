@@ -33,14 +33,14 @@
       "x": 21,
       "y": 24,
       "elevation": 0,
-      "dest_map": "MAP_ADVENT_CAVE",
+      "dest_map": "MAP_NAVEL_ROCK_BOTTOM",
       "dest_warp_id": "0"
     },
     {
       "x": 50,
       "y": 7,
       "elevation": 0,
-      "dest_map": "136",
+      "dest_map": "MAP_ROUTE136",
       "dest_warp_id": "0"
     }
   ],

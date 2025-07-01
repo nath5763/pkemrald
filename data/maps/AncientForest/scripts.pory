@@ -7,7 +7,7 @@ script bagCelebiBattle {
 	lockall
     faceplayer
 	setflag(FLAG_BAG_CELEBI_DONE)
-    msgbox("As you inspect the bag, a mysterious force emerges...")
+    msgbox("As you inspect the bag,\n a mysterious force emerges...")
     playmoncry(SPECIES_CELEBI, CRY_MODE_ENCOUNTER)
 	delay(40)
 	waitmoncry

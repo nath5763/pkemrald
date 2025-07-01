@@ -39,7 +39,7 @@ bagCelebiBattle::
 
 bagCelebiBattle_Text_0:
 # 10 "data/maps/AncientForest/scripts.pory"
-	.string "As you inspect the bag, a mysterious force emerges...$"
+	.string "As you inspect the bag,/n a mysterious force emerges...$"
 
 bagCelebiBattle_Text_1:
 # 18 "data/maps/AncientForest/scripts.pory"
