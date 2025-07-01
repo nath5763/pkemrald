@@ -1075,3 +1075,9 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/ROUTE136/scripts.inc"
 
 	.include "data/maps/ThunderNest/scripts.inc"
+
+	.include "data/maps/GaladriaHouse1/scripts.inc"
+
+	.include "data/maps/GaladriaHouse2/scripts.inc"
+
+	.include "data/maps/GaladriaHouse3/scripts.inc"

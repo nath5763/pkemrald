@@ -147,7 +147,20 @@
       "x": 112,
       "y": 28,
       "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "GymBlockerScript",
+      "flag": "FLAG_GRASS_GYM"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_HIKER",
+      "x": 112,
+      "y": 26,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -176,6 +189,27 @@
       "y": 11,
       "elevation": 0,
       "dest_map": "MAP_ROUTE128",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 91,
+      "y": 26,
+      "elevation": 0,
+      "dest_map": "MAP_GALADRIA_HOUSE1",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 95,
+      "y": 22,
+      "elevation": 0,
+      "dest_map": "MAP_GALADRIA_HOUSE2",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 106,
+      "y": 11,
+      "elevation": 0,
+      "dest_map": "MAP_GALADRIA_HOUSE3",
       "dest_warp_id": "0"
     }
   ],

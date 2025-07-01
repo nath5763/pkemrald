@@ -4510,6 +4510,36 @@
       "secondary_tileset": "gTileset_BikeShop",
       "border_filepath": "data/layouts/ThunderNest/border.bin",
       "blockdata_filepath": "data/layouts/ThunderNest/map.bin"
+    },
+    {
+      "id": "LAYOUT_GALADRIA_HOUSE1",
+      "name": "GaladriaHouse1_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/GaladriaHouse1/border.bin",
+      "blockdata_filepath": "data/layouts/GaladriaHouse1/map.bin"
+    },
+    {
+      "id": "LAYOUT_GALADRIA_HOUSE2",
+      "name": "GaladriaHouse2_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/GaladriaHouse2/border.bin",
+      "blockdata_filepath": "data/layouts/GaladriaHouse2/map.bin"
+    },
+    {
+      "id": "LAYOUT_GALADRIA_HOUSE3",
+      "name": "GaladriaHouse3_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/GaladriaHouse3/border.bin",
+      "blockdata_filepath": "data/layouts/GaladriaHouse3/map.bin"
     }
   ]
 }

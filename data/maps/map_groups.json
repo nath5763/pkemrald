@@ -99,7 +99,10 @@
     "Route135",
     "AdventCave",
     "ROUTE136",
-    "ThunderNest"
+    "ThunderNest",
+    "GaladriaHouse1",
+    "GaladriaHouse2",
+    "GaladriaHouse3"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",

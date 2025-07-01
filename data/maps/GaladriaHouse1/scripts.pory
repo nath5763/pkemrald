@@ -1,0 +1,12 @@
+raw `
+GaladriaHouse1_MapScripts::
+	.byte 0
+`
+
+script GretaText {
+    lockall
+    faceplayer
+    msgbox("As the Devon Corporation expanded,\n It became too expensive to live \n on the mainland. Here we are!")
+    release
+    end
+}

@@ -1,0 +1,12 @@
+raw `
+GaladriaHouse2_MapScripts::
+	.byte 0
+`
+
+script AshtonText {
+    lockall
+    faceplayer
+    msgbox("LEAF made a home for us here,\n away from the economic ruin\n we faced in LILYCOVE.")
+    release
+    end
+}

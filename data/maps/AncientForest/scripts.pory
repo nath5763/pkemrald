@@ -6,6 +6,11 @@ AncientForest_MapScripts::
 script bagCelebiBattle {
 	lockall
     faceplayer
+	if(flag(FLAG_BAG_CELEBI_DONE)) {
+		msgbox("It's just a plain old bag.")
+		releaseall
+    	end
+	}
 	setflag(FLAG_BAG_CELEBI_DONE)
     msgbox("As you inspect the bag,\n a mysterious force emerges...")
     playmoncry(SPECIES_CELEBI, CRY_MODE_ENCOUNTER)

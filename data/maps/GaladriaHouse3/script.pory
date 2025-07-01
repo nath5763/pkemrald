@@ -1,0 +1,11 @@
+raw `
+GaladriaHouse3_MapScripts::
+	.byte 0
+`
+script MatildaText {
+    lockall
+    faceplayer
+    msgbox("We found a gap in the market,\n GRASS types!")
+    release
+    end
+}
