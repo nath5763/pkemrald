@@ -1081,3 +1081,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/GaladriaHouse2/scripts.inc"
 
 	.include "data/maps/GaladriaHouse3/scripts.inc"
+
+	.include "data/maps/GaladriaMart/scripts.inc"
