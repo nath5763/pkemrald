@@ -1,0 +1,29 @@
+mapscripts HouseRoute135_MapScripts {
+    
+}
+
+script aquaTrainer_HouseRoute135 {
+    lockall
+    faceplayer
+    msgbox(aquaTrainer)
+    waitmessage
+    releaseall
+    end
+}
+
+script magmaTrainer_HouseRoute135 {
+    lockall
+    faceplayer
+    msgbox(magmaTrainer)
+    waitmessage
+    releaseall
+    end
+}
+
+text magmaTrainer {
+    "I had a runin with SAM,\n he convinced me that Maxie was\p going to far. I'm \n officially retired."
+}
+
+text aquaTrainer {
+    "What people do for love,\n Unrequited unfortunately.\p Archie also scares me.."
+}

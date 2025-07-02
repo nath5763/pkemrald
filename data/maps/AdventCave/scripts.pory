@@ -1,0 +1,31 @@
+mapscripts AdventCave_MapScripts {
+    MAP_SCRIPT_ON_LOAD: unblockLugia
+}
+
+text sign {
+    "Seven shades the heavens wear,\nWoven bright in molten air.\pThose who glimpse the fire-born arc,\nShall find joy's light within the dark."
+}
+
+script hoohPuzzle {
+    lockall
+    msgbox(sign)
+    waitmessage
+    if(flag(FLAG_CAUGHT_HO_OH)) {
+        fadescreen(FADE_TO_BLACK)
+        call(unblockLugia)
+        fadescreen(FADE_FROM_BLACK)
+    }
+    releaseall
+    end
+}
+
+script unblockLugia {
+    specialvar(VAR_RESULT, CheckHooh)
+    if(!var(VAR_RESULT)){
+        setmetatile(40,25, 0x202, TRUE)
+        setmetatile(40,26, 0x202, TRUE)
+    } else {
+        setmetatile(40,25, 0x201, FALSE)
+        setmetatile(40,26, 0x201, FALSE)
+    }
+}

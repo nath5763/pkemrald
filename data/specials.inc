@@ -536,3 +536,5 @@ gSpecials::
 	def_special CloseDeptStoreElevatorWindow
 	def_special TrySetBattleTowerLinkType
 	def_special CheckVoltorb
+	def_special CheckCastform
+	def_special CheckHooh

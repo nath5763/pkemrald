@@ -19,4 +19,4 @@ AshtonText::
 
 AshtonText_Text_0:
 # 9 "data/maps/GaladriaHouse2/scripts.pory"
-	.string "LEAF made a home for us here,\n away from the economic ruin\n we faced in LILYCOVE.$"
+	.string "LEAF made a home for us here,\n away from the economic ruin\p we faced in LILYCOVE.$"

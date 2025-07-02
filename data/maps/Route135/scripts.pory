@@ -1,0 +1,67 @@
+mapscripts Route135_MapScripts {
+    MAP_SCRIPT_ON_LOAD: doorLoad
+}
+
+script magmaMale {
+    lockall
+    faceplayer
+    msgbox("We defected from our respective teams \n because we were afraid of \p what we were becoming.")
+    waitmessage
+    releaseall
+    end
+}
+
+script aquaGirl {
+    lockall
+    faceplayer
+    msgbox("MAXIE is insane, we've decided \n to follow ANDREW instead. \p He said he found a secret here,\n it will save us.")
+    waitmessage
+    releaseall
+    end
+}
+
+script castformPuzzle {
+    lockall
+    msgbox("The clouds must shift, the storm must form,\nReveal the path with weather's norm.\pIf change you seek from sky to sand,\nBring nature's child in guiding hand...")
+    waitmessage
+    if (flag(FLAG_ANDREW_MAGMA)) {
+        fadescreen(FADE_TO_BLACK)
+        call(doorLoad)
+        fadescreen(FADE_FROM_BLACK)
+    }
+    releaseall
+    end
+}
+
+script doorLoad {
+    specialvar(VAR_RESULT, CheckCastform)
+    if(!var(VAR_RESULT)){
+        setmetatile(51,5, 0x2CA, TRUE)
+        setmetatile(51,4, 0x2C2, TRUE)
+    } else {
+        setmetatile(51,5, 0x2B2, FALSE)
+        setmetatile(51,4, 0x2AA, FALSE)
+    }
+}
+
+script andrewFight {
+    lockall
+    msgbox("I heard the POKEMON in here\n can bring us salvation.")
+    waitmessage
+    trainerbattle_single(TRAINER_ANDREW_MAGMA_PLACEHOLDER, andrewIntro, andrewOutro)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_ANDREW_MAGMA)
+    fadescreen(FADE_FROM_BLACK)
+    releaseall
+    end
+}
+
+text andrewIntro {
+    "I need it's power to atone for my sins."
+}
+
+text andrewOutro {
+    "My sins cannot be washed away..."
+}
+
+

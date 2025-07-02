@@ -4550,6 +4550,16 @@
       "secondary_tileset": "gTileset_Shop",
       "border_filepath": "data/layouts/GaladriaMart/border.bin",
       "blockdata_filepath": "data/layouts/GaladriaMart/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOUSE_ROUTE135",
+      "name": "HouseRoute135_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/HouseRoute135/border.bin",
+      "blockdata_filepath": "data/layouts/HouseRoute135/map.bin"
     }
   ]
 }

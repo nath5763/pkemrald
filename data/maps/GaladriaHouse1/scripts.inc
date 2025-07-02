@@ -19,4 +19,4 @@ GretaText::
 
 GretaText_Text_0:
 # 9 "data/maps/GaladriaHouse1/scripts.pory"
-	.string "As the Devon Corporation expanded,\n It became too expensive to live \n on the mainland. Here we are!$"
+	.string "As the Devon Corporation expanded,\n It became too expensive to live \p on the mainland. Here we are!$"

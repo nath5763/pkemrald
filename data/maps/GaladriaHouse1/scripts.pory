@@ -6,7 +6,7 @@ GaladriaHouse1_MapScripts::
 script GretaText {
     lockall
     faceplayer
-    msgbox("As the Devon Corporation expanded,\n It became too expensive to live \n on the mainland. Here we are!")
+    msgbox("As the Devon Corporation expanded,\n It became too expensive to live \p on the mainland. Here we are!")
     release
     end
 }

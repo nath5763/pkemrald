@@ -6,7 +6,7 @@ GaladriaHouse2_MapScripts::
 script AshtonText {
     lockall
     faceplayer
-    msgbox("LEAF made a home for us here,\n away from the economic ruin\n we faced in LILYCOVE.")
+    msgbox("LEAF made a home for us here,\n away from the economic ruin\p we faced in LILYCOVE.")
     release
     end
 }

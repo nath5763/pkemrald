@@ -12502,3 +12502,27 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayLinkPlaceholder[] = {
     .species = SPECIES_MEGANIUM,
     }
 };
+
+static const struct TrainerMonItemCustomMoves sParty_MagmaAndrewPlaceholder[] = {
+    {
+        .iv = 255,
+        .lvl = 45,
+        .species = SPECIES_HOUNDOOM,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_CRUNCH, MOVE_FLAMETHROWER, MOVE_TOXIC, MOVE_PROTECT}
+    },
+    {
+        .iv = 255,
+        .lvl = 45,
+        .species = SPECIES_TORKOAL,
+        .heldItem = ITEM_LEFTOVERS,
+        .moves = {MOVE_OVERHEAT, MOVE_FLAMETHROWER, MOVE_ATTRACT, MOVE_SOLAR_BEAM}
+    },
+    {
+        .iv = 255,
+        .lvl = 48,
+        .species = SPECIES_TYPHLOSION,
+        .heldItem = ITEM_SITRUS_BERRY,
+        .moves = {MOVE_SLASH, MOVE_FLAMETHROWER, MOVE_EARTHQUAKE, MOVE_SOLAR_BEAM}
+    },
+};
