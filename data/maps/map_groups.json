@@ -104,7 +104,12 @@
     "GaladriaHouse2",
     "GaladriaHouse3",
     "GaladriaMart",
-    "HouseRoute135"
+    "HouseRoute135",
+    "ScorchedCavern",
+    "AshenRoost",
+    "GlacierHollow",
+    "MtPyreBasement",
+    "StormwakeGrove"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",

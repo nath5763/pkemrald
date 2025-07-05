@@ -4,8 +4,16 @@ mapscripts ThunderNest_MapScripts {
 
 script ThunderNest_CheckWarp {
     specialvar(VAR_RESULT, CheckVoltorb)
-    if(var(VAR_RESULT) == SPECIES_VOLTORB){
+    if(var(VAR_RESULT)){
         setdynamicwarp(0, 63, 31, 37)
         setdynamicwarp(0, 63, 11, 12)
+    }
+}
+
+script ZapdosFight {
+    if(!flag(FLAG_ZAPDOS)) {
+        setflag(FLAG_ZAPDOS)
+        setwildbattle(SPECIES_ZAPDOS, 30)
+        dowildbattle
     }
 }

@@ -1,0 +1,27 @@
+mapscripts MtPyreBasement_MapScripts {
+    
+}
+
+text mewtwoPuzzle {
+	"When crowned by might and battles won,\nAnd journey's thread at last is spun,\pThe one who holds all forms in seed,\nShall wake the path where none yet lead."
+}
+
+script mewtwoHint {
+	lockall
+
+}
+
+script mewtwoFight {
+    lockall
+	specialvar(VAR_RESULT, CheckMew)
+	if (var(VAR_RESULT) && !flag(FLAG_MEWTWO)) {
+		setflag(FLAG_MEWTWO)
+        setwildbattle(SPECIES_MEWTWO, 70)
+        dowildbattle
+	} else {
+        msgbox(mewtwoPuzzle)
+        waitmessage
+    }
+    releaseall
+    end
+}   

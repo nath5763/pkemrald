@@ -10,11 +10,6 @@ script hoohPuzzle {
     lockall
     msgbox(sign)
     waitmessage
-    if(flag(FLAG_CAUGHT_HO_OH)) {
-        fadescreen(FADE_TO_BLACK)
-        call(unblockLugia)
-        fadescreen(FADE_FROM_BLACK)
-    }
     releaseall
     end
 }

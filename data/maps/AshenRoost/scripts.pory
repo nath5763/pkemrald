@@ -1,0 +1,11 @@
+mapscripts AshenRoost_MapScripts {
+
+}
+
+script MoltresFight {
+    if(!flag(FLAG_MOLTRES)) {
+        setflag(FLAG_MOLTRES)
+        setwildbattle(SPECIES_MOLTRES, 30)
+        dowildbattle
+    }
+}

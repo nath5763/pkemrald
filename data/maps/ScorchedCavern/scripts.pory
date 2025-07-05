@@ -1,0 +1,11 @@
+mapscripts ScorchedCavern_MapScripts {
+    
+}
+
+script enteiFight {
+    if(!flag(FLAG_ENTEI)) {
+        setflag(FLAG_ENTEI)
+        setwildbattle(SPECIES_ENTEI, 30)
+        dowildbattle
+    }
+}

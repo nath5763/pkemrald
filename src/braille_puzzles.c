@@ -113,6 +113,16 @@ bool8 CheckVoltorb(void)
     return FALSE;
 }
 
+bool8 CheckMew(void)
+{
+    
+    if (GetMonData(&gPlayerParty[0], MON_DATA_SPECIES_OR_EGG, 0) == SPECIES_MEW)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 bool8 CheckCastform(void)
 {
     

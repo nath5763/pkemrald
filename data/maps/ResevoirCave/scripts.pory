@@ -1,43 +1,52 @@
 #script_map ResevoirCave data/maps/ResevoirCave/scripts.pory
 
 mapscripts ResevoirCave_MapScripts {
-    MAP_SCRIPT_ON_LOAD: sceneIntro
 }
 
-text AquaAdminIntroText {
-    "You're going to build me a bridge,\nright now!"
+text rocksmashGuyText {
+    "There's no world where I \n break through that rock..."
 }
 
-text RockSmashGuyReplyText {
-    "Sorry, I can't do that.\nThe rocks here are too dense."
+text AquaIntro {
+    "SUICUNE WILL BE MINE!"
 }
 
-script sceneIntro {
-    if (flag(FLAG_RESEVOIR_CLEARED)) {
-		removeobject(1)
-        removeobject(2)
-	}
-    if (flag(FLAG_RESEVOIR_INTRO_DONE)) {
-        end
-    }
-    lockall
-    msgbox(AquaAdminIntroText)
-    msgbox(RockSmashGuyReplyText)
-    setflag(FLAG_RESEVOIR_INTRO_DONE)
-    releaseall
-    end
+text AquaOutro {
+    "ARG, can't find it anyways"
 }
 
 script aquaBattleScript {
     lock
     faceplayer
-    msgbox("You dare oppose Team Aqua? Prepare to battle!")
-    trainerbattle_single(TRAINER_AQUA_ADMIN, "SUICUNE WILL BE MINE!", "ARG, can't find it anyways")
-    msgbox("Grr... this isn't over...")
-    setflag(FLAG_RESEVOIR_CLEARED)
-    fadescreen(FADE_TO_BLACK)
-    removeobject(1)
-    removeobject(2)
+    msgbox("I need this guy to build me a tunnel.\nYou dare oppose Team Aqua?\p Prepare to battle!")
+    trainerbattle_single(TRAINER_AQUA_ADMIN, AquaIntro, AquaOutro)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    if(var(VAR_RESULT)==B_OUTCOME_WON) {
+        msgbox("Grr... this isn't over...")
+        waitmessage
+        setflag(FLAG_RESEVOIR_CLEARED)
+        fadescreen(FADE_TO_BLACK)
+        removeobject(1)
+        removeobject(2)
+        fadescreen(FADE_FROM_BLACK)
+    }
     releaseall
     end
+}
+
+script prisoner {
+    lock
+    faceplayer
+    msgbox(rocksmashGuyText)
+    waitmessage
+    releaseall
+    end
+}
+
+script SuicuneFight {
+    if(!flag(FLAG_SUICUNE)) {
+        setflag(FLAG_SUICUNE)
+        setwildbattle(SPECIES_SUICUNE, 30)
+        dowildbattle
+    }
 }

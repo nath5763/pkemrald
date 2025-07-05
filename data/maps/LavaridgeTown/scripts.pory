@@ -355,11 +355,11 @@ LavaridgeTown_Text_EverySoOftenEggFoundAtDayCare:
 LavaridgeTown_Text_HotSpringsNeverRunDry:
 	.string "We draw as much hot water as we need,\n"
 	.string "and yet the hot springs never run dry.\p"
-	.string "Isn't it magical?\p"
+	.string "Isn't it magical?(TEAM MAGMA THAT IS)\p"
 	.string "These hot springs appear near active\n"
 	.string "volcanoes. Veins of water under the\l"
-	.string "ground are heated by magma to well up\l"
-	.string "as hot springs.$"
+	.string "ground are heated by MAGMA to well up\l"
+	.string "as hot springs. WE WILL RISE AGAIN...$"
 
 LavaridgeTown_Text_PokemonNippedBackside:
 	.string "Being buried in this hot sand is…\n"

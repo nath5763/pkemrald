@@ -507,3 +507,38 @@ MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
 	.string "Oh, yes, I don't live in RUSTBORO CITY.\n"
 	.string "I live right here on this island.$"
 `
+script annabellSpeech {
+	lockall
+	faceplayer
+	if(flag(FLAG_DEFEATED_MAGMA_SPACE_CENTER)) {
+		if(flag(FLAG_DEOXIS)) {
+			msgbox(completedAnnabell)
+			waitmessage
+			releaseall
+			end
+		}
+		msgbox(urgentAnnabell)
+		waitmessage
+		if(flag(FLAG_RECEIVED_AURORA_TICKET)) {
+			giveitem(ITEM_AURORA_TICKET)
+			setflag(FLAG_RECEIVED_AURORA_TICKET)
+		}
+	} else {
+		msgbox(scaredAnnabell)
+		waitmessage
+	}
+	releaseall
+	end
+}
+
+text scaredAnnabell {
+	"This isn’t just about Team Magma.\p While they scramble for Groudon,\n something far older has stirred."
+}
+
+text urgentAnnabell {
+	"We calibrated the satellite for\n solar readings, but instead,\p we caught a pulse.\nIt came from an island that\p doesn’t exist. Or shouldn't.\n You're going to need that ticket."
+}
+
+text completedAnnabell {
+	"That signal we traced?\n It's gone now.\p Like it was never there at all."
+}

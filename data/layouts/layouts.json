@@ -95,7 +95,7 @@
       "id": "LAYOUT_LITTLEROOT_TOWN",
       "name": "LittlerootTown_Layout",
       "width": 20,
-      "height": 20,
+      "height": 30,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/LittlerootTown/border.bin",
@@ -125,7 +125,7 @@
       "id": "LAYOUT_LAVARIDGE_TOWN",
       "name": "LavaridgeTown_Layout",
       "width": 20,
-      "height": 20,
+      "height": 21,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Lavaridge",
       "border_filepath": "data/layouts/LavaridgeTown/border.bin",
@@ -4560,6 +4560,56 @@
       "secondary_tileset": "gTileset_GenericBuilding",
       "border_filepath": "data/layouts/HouseRoute135/border.bin",
       "blockdata_filepath": "data/layouts/HouseRoute135/map.bin"
+    },
+    {
+      "id": "LAYOUT_SCORCHED_CAVERN",
+      "name": "ScorchedCavern_Layout",
+      "width": 30,
+      "height": 50,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Lavaridge",
+      "border_filepath": "data/layouts/ScorchedCavern/border.bin",
+      "blockdata_filepath": "data/layouts/ScorchedCavern/map.bin"
+    },
+    {
+      "id": "LAYOUT_ASHEN_ROOST",
+      "name": "AshenRoost_Layout",
+      "width": 30,
+      "height": 10,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Lavaridge",
+      "border_filepath": "data/layouts/AshenRoost/border.bin",
+      "blockdata_filepath": "data/layouts/AshenRoost/map.bin"
+    },
+    {
+      "id": "LAYOUT_GLACIER_HOLLOW",
+      "name": "GlacierHollow_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_MirageTower",
+      "border_filepath": "data/layouts/GlacierHollow/border.bin",
+      "blockdata_filepath": "data/layouts/GlacierHollow/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_BASEMENT",
+      "name": "MtPyreBasement_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/MtPyreBasement/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyreBasement/map.bin"
+    },
+    {
+      "id": "LAYOUT_STORMWAKE_GROVE",
+      "name": "StormwakeGrove_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Fortree",
+      "border_filepath": "data/layouts/StormwakeGrove/border.bin",
+      "blockdata_filepath": "data/layouts/StormwakeGrove/map.bin"
     }
   ]
 }

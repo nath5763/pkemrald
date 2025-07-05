@@ -22,6 +22,11 @@
       "map": "MAP_FORTREE_CITY",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_STORMWAKE_GROVE",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [

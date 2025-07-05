@@ -1,0 +1,11 @@
+mapscripts GlacierHollow_MapScripts {
+    
+}
+
+script ArticunoFight {
+    if(!flag(FLAG_ARTICUNO)) {
+        setflag(FLAG_ARTICUNO)
+        setwildbattle(SPECIES_ARTICUNO, 30)
+        dowildbattle
+    }
+}

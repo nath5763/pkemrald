@@ -1016,3 +1016,11 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "Let's go to my LAB.$"
 
 `
+
+script JirachiFight {
+    if(!flag(FLAG_JIRACHI)) {
+        setflag(FLAG_JIRACHI)
+        setwildbattle(SPECIES_JIRACHI, 30)
+        dowildbattle
+    }
+}

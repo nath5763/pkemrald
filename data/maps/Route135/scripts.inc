@@ -40,60 +40,65 @@ castformPuzzle::
 # 26 "data/maps/Route135/scripts.pory"
 	waitmessage
 # 27 "data/maps/Route135/scripts.pory"
-	goto_if_set FLAG_ANDREW_MAGMA, castformPuzzle_2
-castformPuzzle_1:
-# 32 "data/maps/Route135/scripts.pory"
 	releaseall
 	end
 
-castformPuzzle_2:
-# 28 "data/maps/Route135/scripts.pory"
-	fadescreen FADE_TO_BLACK
-# 29 "data/maps/Route135/scripts.pory"
-	call doorLoad
-# 30 "data/maps/Route135/scripts.pory"
-	fadescreen FADE_FROM_BLACK
-	goto castformPuzzle_1
-
 
 doorLoad::
-# 37 "data/maps/Route135/scripts.pory"
+# 32 "data/maps/Route135/scripts.pory"
 	specialvar VAR_RESULT, CheckCastform
-# 38 "data/maps/Route135/scripts.pory"
+# 33 "data/maps/Route135/scripts.pory"
 	compare VAR_RESULT, 0
-	goto_if_eq doorLoad_1
-# 42 "data/maps/Route135/scripts.pory"
+	goto_if_eq doorLoad_3
+doorLoad_2:
+# 37 "data/maps/Route135/scripts.pory"
 	setmetatile 51, 5, 0x2B2, FALSE
-# 43 "data/maps/Route135/scripts.pory"
+# 38 "data/maps/Route135/scripts.pory"
 	setmetatile 51, 4, 0x2AA, FALSE
 	return
 
 doorLoad_1:
-# 39 "data/maps/Route135/scripts.pory"
+# 34 "data/maps/Route135/scripts.pory"
 	setmetatile 51, 5, 0x2CA, TRUE
-# 40 "data/maps/Route135/scripts.pory"
+# 35 "data/maps/Route135/scripts.pory"
 	setmetatile 51, 4, 0x2C2, TRUE
 	return
 
+doorLoad_3:
+# 33 "data/maps/Route135/scripts.pory"
+	goto_if_set FLAG_ANDREW_MAGMA, doorLoad_1
+	goto doorLoad_2
+
 
 andrewFight::
-# 48 "data/maps/Route135/scripts.pory"
+# 44 "data/maps/Route135/scripts.pory"
 	lockall
-# 49 "data/maps/Route135/scripts.pory"
+# 45 "data/maps/Route135/scripts.pory"
+	faceplayer
+# 46 "data/maps/Route135/scripts.pory"
 	msgbox andrewFight_Text_0
-# 50 "data/maps/Route135/scripts.pory"
+# 47 "data/maps/Route135/scripts.pory"
 	waitmessage
-# 51 "data/maps/Route135/scripts.pory"
+# 48 "data/maps/Route135/scripts.pory"
 	trainerbattle_single TRAINER_ANDREW_MAGMA_PLACEHOLDER, andrewIntro, andrewOutro
-# 52 "data/maps/Route135/scripts.pory"
-	fadescreen FADE_TO_BLACK
-# 53 "data/maps/Route135/scripts.pory"
-	setflag FLAG_ANDREW_MAGMA
-# 54 "data/maps/Route135/scripts.pory"
-	fadescreen FADE_FROM_BLACK
+# 49 "data/maps/Route135/scripts.pory"
+	checktrainerflag TRAINER_ANDREW_MAGMA_PLACEHOLDER
+	goto_if 1, andrewFight_2
+andrewFight_1:
 # 55 "data/maps/Route135/scripts.pory"
 	releaseall
 	end
+
+andrewFight_2:
+# 50 "data/maps/Route135/scripts.pory"
+	fadescreen FADE_TO_BLACK
+# 51 "data/maps/Route135/scripts.pory"
+	setflag FLAG_ANDREW_MAGMA
+# 52 "data/maps/Route135/scripts.pory"
+	removeobject 3
+# 53 "data/maps/Route135/scripts.pory"
+	fadescreen FADE_FROM_BLACK
+	goto andrewFight_1
 
 
 magmaMale_Text_0:
@@ -109,7 +114,7 @@ castformPuzzle_Text_0:
 	.string "The clouds must shift, the storm must form,\nReveal the path with weather's norm.\pIf change you seek from sky to sand,\nBring nature's child in guiding hand...$"
 
 andrewFight_Text_0:
-# 49 "data/maps/Route135/scripts.pory"
+# 46 "data/maps/Route135/scripts.pory"
 	.string "I heard the POKEMON in here\n can bring us salvation.$"
 
 andrewIntro::

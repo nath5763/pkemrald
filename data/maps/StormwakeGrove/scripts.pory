@@ -1,0 +1,11 @@
+mapscripts StormwakeGrove_MapScripts {
+    
+}
+
+script RaikouFight {
+    if(!flag(FLAG_RAIKOU)) {
+        setflag(FLAG_RAIKOU)
+        setwildbattle(FLAG_RAIKOU, 30)
+        dowildbattle
+    }
+}

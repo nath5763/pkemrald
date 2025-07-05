@@ -1014,3 +1014,59 @@ MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
 	.string "Oh, yes, I don't live in RUSTBORO CITY.\n"
 # 508 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	.string "I live right here on this island.$"
+
+annabellSpeech::
+# 511 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	lockall
+# 512 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	faceplayer
+# 513 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	goto_if_set FLAG_DEFEATED_MAGMA_SPACE_CENTER, annabellSpeech_2
+# 527 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	msgbox scaredAnnabell
+# 528 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	waitmessage
+annabellSpeech_1:
+# 530 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	releaseall
+	end
+
+annabellSpeech_2:
+# 514 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	goto_if_set FLAG_DEOXIS, annabellSpeech_6
+# 520 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	msgbox urgentAnnabell
+# 521 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	waitmessage
+# 522 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	goto_if_set FLAG_RECEIVED_AURORA_TICKET, annabellSpeech_8
+	goto annabellSpeech_1
+
+annabellSpeech_6:
+# 515 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	msgbox completedAnnabell
+# 516 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	waitmessage
+# 517 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	releaseall
+	end
+
+annabellSpeech_8:
+# 523 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	giveitem ITEM_AURORA_TICKET
+# 524 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	setflag FLAG_RECEIVED_AURORA_TICKET
+	goto annabellSpeech_1
+
+
+scaredAnnabell::
+# 534 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	.string "This isn’t just about Team Magma.\p While they scramble for Groudon,\n something far older has stirred.$"
+
+urgentAnnabell::
+# 538 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	.string "We calibrated the satellite for\n solar readings, but instead,\p we caught a pulse.\nIt came from an island that\p doesn’t exist. Or shouldn't.\n You're going to need that ticket.$"
+
+completedAnnabell::
+# 542 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	.string "That signal we traced?\n It's gone now.\p Like it was never there at all.$"

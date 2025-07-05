@@ -538,3 +538,4 @@ gSpecials::
 	def_special CheckVoltorb
 	def_special CheckCastform
 	def_special CheckHooh
+	def_special CheckMew

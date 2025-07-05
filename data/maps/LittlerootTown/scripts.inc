@@ -2030,3 +2030,18 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 # 1016 "data/maps/LittlerootTown/scripts.pory"
 	.string "Let's go to my LAB.$"
+
+JirachiFight::
+# 1021 "data/maps/LittlerootTown/scripts.pory"
+	goto_if_unset FLAG_JIRACHI, JirachiFight_1
+	return
+
+JirachiFight_1:
+# 1022 "data/maps/LittlerootTown/scripts.pory"
+	setflag FLAG_JIRACHI
+# 1023 "data/maps/LittlerootTown/scripts.pory"
+	setwildbattle SPECIES_JIRACHI, 30
+# 1024 "data/maps/LittlerootTown/scripts.pory"
+	dowildbattle
+	return
+

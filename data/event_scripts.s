@@ -1085,3 +1085,13 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/GaladriaMart/scripts.inc"
 
 	.include "data/maps/HouseRoute135/scripts.inc"
+
+	.include "data/maps/ScorchedCavern/scripts.inc"
+
+	.include "data/maps/AshenRoost/scripts.inc"
+
+	.include "data/maps/GlacierHollow/scripts.inc"
+
+	.include "data/maps/MtPyreBasement/scripts.inc"
+
+	.include "data/maps/StormwakeGrove/scripts.inc"
