@@ -6,11 +6,6 @@ text mewtwoPuzzle {
 	"When crowned by might and battles won,\nAnd journey's thread at last is spun,\pThe one who holds all forms in seed,\nShall wake the path where none yet lead."
 }
 
-script mewtwoHint {
-	lockall
-
-}
-
 script mewtwoFight {
     lockall
 	specialvar(VAR_RESULT, CheckMew)

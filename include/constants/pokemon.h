@@ -278,3 +278,8 @@
 #define SKIP_FRONT_ANIM (1 << 7)
 
 #endif // GUARD_CONSTANTS_POKEMON_H
+
+// Move category defines.
+#define DAMAGE_CATEGORY_PHYSICAL    0
+#define DAMAGE_CATEGORY_SPECIAL     1
+#define DAMAGE_CATEGORY_STATUS      2
