@@ -232,6 +232,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectCalmMind               @ EFFECT_CALM_MIND
 	.4byte BattleScript_EffectDragonDance            @ EFFECT_DRAGON_DANCE
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
+	.4byte BattleScript_EffectCloseCombat
 
 BattleScript_EffectHit::
 	jumpifnotmove MOVE_SURF, BattleScript_HitFromAtkCanceler
@@ -2769,6 +2770,22 @@ BattleScript_CantRaiseMultipleStats::
 	printstring STRINGID_STATSWONTINCREASE2
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+
+BattleScript_EffectCloseCombat::
+    jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_DEF, MIN_STAT_STAGE, BattleScript_CloseCombat_LowerDef
+    goto BattleScript_CloseCombat_CheckSpDef
+
+BattleScript_CloseCombat_LowerDef:
+    setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CloseCombat_LowerSpDef
+
+BattleScript_CloseCombat_CheckSpDef:
+    jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_SPDEF, MIN_STAT_STAGE, BattleScript_CloseCombat_LowerSpDef
+    goto BattleScript_MoveEnd
+
+BattleScript_CloseCombat_LowerSpDef:
+    setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd
 
 BattleScript_EffectDragonDance::
 	attackcanceler
