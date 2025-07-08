@@ -181,7 +181,7 @@ PetalburgWoods_EventScript_DevonResearcherPostBattle::
 # 91 "data/maps/PetalburgWoods/scripts.pory"
 	msgbox PetalburgWoods_Text_ThatWasAwfullyClose, MSGBOX_DEFAULT
 # 92 "data/maps/PetalburgWoods/scripts.pory"
-	giveitem ITEM_GREAT_BALL
+	giveitem ITEM_GREAT_BALL, 20
 # 93 "data/maps/PetalburgWoods/scripts.pory"
 	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFull
 # 94 "data/maps/PetalburgWoods/scripts.pory"
