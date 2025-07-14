@@ -972,6 +972,10 @@ static const u8 sYellowScarfDesc[] = _(
     "raises TOUGH in\n"
     "CONTESTS.");
 
+static const u8 sFocusSashDesc[] = _(
+    "A hold item that\n"
+    "prevents fainting.");    
+
 // Key items
 static const u8 sMachBikeDesc[] = _(
     "A folding bicycle\n"

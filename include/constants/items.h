@@ -253,7 +253,7 @@
 #define ITEM_METAL_POWDER 223
 #define ITEM_THICK_CLUB 224
 #define ITEM_STICK 225
-#define ITEM_0E2 226
+#define ITEM_FOCUS_SASH 226
 #define ITEM_0E3 227
 #define ITEM_0E4 228
 #define ITEM_0E5 229
@@ -416,8 +416,18 @@
 // Emerald
 #define ITEM_MAGMA_EMBLEM 375
 #define ITEM_OLD_SEA_MAP 376
-
-#define ITEMS_COUNT 377
+#define ITEM_OCCA_BERRY     377
+#define ITEM_PASSHO_BERRY   378
+#define ITEM_WACAN_BERRY    379
+#define ITEM_RINDO_BERRY    380
+#define ITEM_YACHE_BERRY    381
+#define ITEM_CHOPLE_BERRY   382
+#define ITEM_SHUCA_BERRY    383
+#define ITEM_COBA_BERRY     384
+#define ITEM_TANGA_BERRY    385
+#define ITEM_CHARTI_BERRY   386
+#define ITEM_COLBUR_BERRY   387
+#define ITEMS_COUNT 388
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

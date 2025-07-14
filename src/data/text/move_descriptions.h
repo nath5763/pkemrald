@@ -1417,6 +1417,8 @@ static const u8 sPsychoBoostDescription[] = _(
     "Allows a full-power attack,\n"
     "but sharply lowers SP. ATK.");
 
+static const u8 sNightSlashDescription[] = _(
+    "Strikes from the dark.");    
 // MOVE_NONE is ignored in this table. Make sure to always subtract 1 before getting the right pointer.
 const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 {
@@ -1774,4 +1776,32 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_WATER_PULSE - 1] = sWaterPulseDescription,
     [MOVE_DOOM_DESIRE - 1] = sDoomDesireDescription,
     [MOVE_PSYCHO_BOOST - 1] = sPsychoBoostDescription,
+    [MOVE_BUG_BUZZ - 1] = sAerialAceDescription,
+    [MOVE_XSCISSOR - 1] = sIcicleSpearDescription,
+    [MOVE_ZEN_HEADBUTT - 1] = sIronDefenseDescription,
+    [MOVE_AURA_SPHERE - 1] = sBlockDescription,
+    [MOVE_CROSS_POISON - 1] = sHowlDescription,
+    [MOVE_BULLET_PUNCH - 1] = sDragonClawDescription,
+    [MOVE_BRAVE_BIRD - 1] = sFrenzyPlantDescription,
+    [MOVE_CLOSE_COMBAT - 1] = sBulkUpDescription,
+    [MOVE_AVALANCHE - 1] = sBounceDescription,
+    [MOVE_DARK_PULSE - 1] = sMudShotDescription,
+    [MOVE_DRAGON_PULSE - 1] = sPoisonTailDescription,
+    [MOVE_EARTH_POWER - 1] = sCovetDescription,
+    [MOVE_ENERGY_BALL - 1] = sVoltTackleDescription,
+    [MOVE_FIRE_FANG - 1] = sMagicalLeafDescription,
+    [MOVE_FLASH_CANNON - 1] = sWaterSportDescription,
+    [MOVE_ICE_FANG - 1] = sCalmMindDescription,
+    [MOVE_ICE_SHARD - 1] = sLeafBladeDescription,
+    [MOVE_IRON_HEAD - 1] = sDragonDanceDescription,
+    [MOVE_LEAF_STORM - 1] = sRockBlastDescription,
+    [MOVE_MAGNET_BOMB - 1] = sShockWaveDescription,
+    [MOVE_NASTY_PLOT - 1] = sWaterPulseDescription,
+    [MOVE_NIGHT_SLASH - 1] = sDoomDesireDescription,
+    [MOVE_POISON_JAB - 1] = sPsychoBoostDescription,
+    [MOVE_POWER_GEM - 1] = sDragonDanceDescription,
+    [MOVE_PSYCHO_CUT - 1] = sRockBlastDescription,
+    [MOVE_SHADOW_CLAW - 1] = sShockWaveDescription,
+    [MOVE_THUNDER_FANG - 1] = sWaterPulseDescription,
+    [MOVE_AQUA_JET - 1] = sDoomDesireDescription,
 };

@@ -1191,7 +1191,7 @@ RustboroCity_EventScript_ReturnGoods::
 # 596 "data/maps/RustboroCity/scripts.pory"
 	msgbox RustboroCity_Text_YouGotItThankYou, MSGBOX_DEFAULT
 # 597 "data/maps/RustboroCity/scripts.pory"
-	giveitem ITEM_GREAT_BALL
+	giveitem ITEM_GREAT_BALL, 20
 # 598 "data/maps/RustboroCity/scripts.pory"
 	call_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_BagFull
 # 599 "data/maps/RustboroCity/scripts.pory"

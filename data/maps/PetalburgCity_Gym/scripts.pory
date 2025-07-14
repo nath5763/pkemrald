@@ -406,6 +406,8 @@ PetalburgCity_Gym_EventScript_GiveFacade::
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
 	setflag FLAG_RECEIVED_TM_FACADE
 	msgbox PetalburgCity_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
+	giveitem ITEM_ULTRA_BALL, 20
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
 	return
 
 PetalburgCity_Gym_EventScript_WallysDadArrivesNorth::

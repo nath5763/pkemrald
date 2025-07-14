@@ -2147,40 +2147,6 @@ const struct Item gItems[] =
         .battleUsage = ITEM_B_USE_MEDICINE,
         .battleUseFunc = ItemUseInBattle_EnigmaBerry,
     },
-
-    [ITEM_UNUSED_BERRY_1] =
-    {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-    },
-
-    [ITEM_UNUSED_BERRY_2] =
-    {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-    },
-
-    [ITEM_UNUSED_BERRY_3] =
-    {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-    },
-
 // Hold items
 
     [ITEM_BRIGHT_POWDER] =
@@ -2774,10 +2740,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E2] =
+    [ITEM_FOCUS_SASH] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("FOCUS SASH"),
+        .itemId = ITEM_FOCUS_SASH,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -4537,4 +4503,142 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
+    
+    [ITEM_OCCA_BERRY] =
+    {
+        .name = _("OCCA BERRY"),
+        .itemId = ITEM_OCCA_BERRY,
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_OCCA_BERRY,
+        .holdEffectParam = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_PASSHO_BERRY] =
+    {
+        .name = _("PASSHO BERRY"),
+        .itemId = ITEM_PASSHO_BERRY,
+        .price = 0,
+        .description = sDummyDesc,
+        .holdEffect = HOLD_EFFECT_PASSHO_BERRY,
+        .holdEffectParam = 0,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_WACAN_BERRY] =
+    {
+        .name = _("WACAN BERRY"),
+        .itemId = ITEM_WACAN_BERRY,
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_WACAN_BERRY,
+        .holdEffectParam = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_RINDO_BERRY] =
+    {
+        .name = _("RINDO BERRY"),
+        .itemId = ITEM_RINDO_BERRY,
+        .price = 0,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_RINDO_BERRY,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_YACHE_BERRY] =
+    {
+        .name = _("YACHE BERRY"),
+        .itemId = ITEM_YACHE_BERRY,
+        .price = 0,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_YACHE_BERRY,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_CHOPLE_BERRY] =
+    {
+        .name = _("CHOPLE BERRY"),
+        .itemId = ITEM_CHOPLE_BERRY,
+        .price = 0,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_CHOPLE_BERRY,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_SHUCA_BERRY] =
+    {
+        .name = _("SHUCA BERRY"),
+        .itemId = ITEM_SHUCA_BERRY,
+        .price = 0,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_SHUCA_BERRY,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_COBA_BERRY] =
+    {
+        .name = _("COBA BERRY"),
+        .itemId = ITEM_COBA_BERRY,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_COBA_BERRY,
+        .price = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse, 
+    },
+
+    [ITEM_TANGA_BERRY] =
+    {
+        .name = _("TANGA BERRY"),
+        .itemId = ITEM_TANGA_BERRY,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_TANGA_BERRY,
+        .price = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_CHARTI_BERRY] =
+    {
+        .name = _("CHARTI BERRY"),
+        .itemId = ITEM_CHARTI_BERRY,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_CHARTI_BERRY,
+        .price = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_COLBUR_BERRY] =
+    {
+        .name = _("COLBUR BERRY"),
+        .itemId = ITEM_COLBUR_BERRY,
+        .holdEffectParam = 0,
+        .holdEffect = HOLD_EFFECT_COLBUR_BERRY,
+        .price = 0,
+        .description = sDummyDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    }
 };

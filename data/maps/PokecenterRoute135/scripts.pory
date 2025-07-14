@@ -1,0 +1,21 @@
+mapscripts PokecenterRoute135_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: route135Respawn
+}
+
+script route135Respawn {
+    setrespawn(HEAL_LOCATION_ROUTE135)
+    end
+}
+
+script nurseRoute135 {
+    lockall
+    msgbox("I'm going to take your Pokemon\n and heal them.")
+    waitmessage
+    waitbuttonpress
+    special(HealPlayerParty)
+    msgbox("Here you go!\n They're all healed up!")
+	waitmessage
+	waitbuttonpress
+	releaseall
+	end
+}

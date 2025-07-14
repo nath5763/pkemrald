@@ -54,6 +54,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "ZapdosFight"
+    },
+    {
+      "type": "sign",
+      "x": 32,
+      "y": 34,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "voltorbsign"
     }
   ],
   "script": "scripts.pory"

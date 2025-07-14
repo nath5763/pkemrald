@@ -141,6 +141,7 @@ struct SpecialStatus
     s32 specialDmg;
     u8 physicalBattlerId;
     u8 specialBattlerId;
+    bool8 usedTypeResistBerry;
 };
 
 struct SideTimer

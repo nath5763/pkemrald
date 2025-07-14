@@ -2,8 +2,8 @@
   "id": "MAP_ROUTE135",
   "name": "Route135",
   "layout": "LAYOUT_ROUTE135",
-  "music": "MUS_DUMMY",
-  "region_map_section": "MAPSEC_ROUTE_134",
+  "music": "MUS_DESERT",
+  "region_map_section": "MAPSEC_Route135",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_NONE",
@@ -85,7 +85,7 @@
       "x": 42,
       "y": 70,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE135",
+      "dest_map": "MAP_POKECENTER_ROUTE135",
       "dest_warp_id": "0"
     },
     {

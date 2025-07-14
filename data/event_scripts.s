@@ -1095,3 +1095,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/MtPyreBasement/scripts.inc"
 
 	.include "data/maps/StormwakeGrove/scripts.inc"
+
+	.include "data/maps/PokecenterRoute135/scripts.inc"

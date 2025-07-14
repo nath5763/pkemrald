@@ -3331,6 +3331,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
     case ITEMEFFECT_NORMAL:
         if (gBattleMons[battler].hp)
         {
+            
             switch (battlerHoldEffect)
             {
             case HOLD_EFFECT_RESTORE_HP:
@@ -3600,6 +3601,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                     effect = ITEM_EFFECT_OTHER;
                 }
                 break;
+
             }
             if (effect != 0)
             {
@@ -3619,12 +3621,12 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 }
             }
         }
-        break;
-    case ITEMEFFECT_DUMMY:
-        break;
-    case ITEMEFFECT_MOVE_END:
-        for (battler = 0; battler < gBattlersCount; battler++)
-        {
+            break;
+        case ITEMEFFECT_DUMMY:
+            break;
+        case ITEMEFFECT_MOVE_END:
+            for (battler = 0; battler < gBattlersCount; battler++)
+            {
             gLastUsedItem = gBattleMons[battler].item;
             if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
             {
@@ -3635,6 +3637,14 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
             {
                 battlerHoldEffect = GetItemHoldEffect(gLastUsedItem);
                 battlerHoldEffectParam = GetItemHoldEffectParam(gLastUsedItem);
+            }
+            if(gSpecialStatuses[battler].usedTypeResistBerry)
+            {
+                gSpecialStatuses[battler].usedTypeResistBerry = FALSE;
+                gBattleMons[battler].item = ITEM_NONE;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_TypeResistBerry;
+                return effect;
             }
             switch (battlerHoldEffect)
             {
@@ -3805,10 +3815,11 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 }
                 break;
             }
+            break;
         }
         break;
     }
-
+    
     return effect;
 }
 

@@ -1,6 +1,4 @@
 raw `
-MauvilleCity_House1_MapScripts::
-	.byte 0
 
 MauvilleCity_House1_EventScript_RockSmashDude::
 	lock
@@ -46,3 +44,25 @@ MauvilleCity_House1_Text_MonCanFlyOutOfSmashedRock:
 	.string "Woohoo!$"
 
 `
+mapscripts MauvilleCity_House1_MapScripts {
+	MAP_SCRIPT_ON_LOAD: checkhostage
+}
+
+script checkhostage {
+	if(flag(FLAG_RESEVOIR_CLEARED)) {
+		clearflag(FLAG_HIDE_HOSTAGE)
+	} else {
+		setflag(FLAG_HIDE_HOSTAGE)
+	}
+}
+
+text hostageNote {
+	"I'm off to RESEVOIR CAVE,\n nothing fishy here!"
+}
+
+script hostageScript {
+	lockall
+	msgbox(hostageNote)
+	waitmessage
+	releaseall
+}

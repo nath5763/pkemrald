@@ -1287,6 +1287,93 @@ static void Cmd_critcalc(void)
     gBattlescriptCurrInstr++;
 }
 
+static bool8 berryUsage(u16 item, u8 moveType) 
+{
+    switch (gItems[item].holdEffect)
+    {
+        case HOLD_EFFECT_OCCA_BERRY:
+            if (moveType == TYPE_FIRE) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_PASSHO_BERRY:
+            if (moveType == TYPE_WATER) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_WACAN_BERRY:
+            if (moveType == TYPE_ELECTRIC) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_RINDO_BERRY:
+            if (moveType == TYPE_GRASS) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_YACHE_BERRY:
+            if (moveType == TYPE_ICE) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_CHOPLE_BERRY:
+            if (moveType == TYPE_FIGHTING) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_SHUCA_BERRY:
+            if (moveType == TYPE_GROUND) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_COBA_BERRY:
+            if (moveType == TYPE_FLYING) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_TANGA_BERRY:
+            if (moveType == TYPE_BUG) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_CHARTI_BERRY:
+            if (moveType == TYPE_ROCK) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        case HOLD_EFFECT_COLBUR_BERRY:
+            if (moveType == TYPE_DARK) {
+                gBattleMoveDamage /= 2;
+                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
+                return TRUE;
+            }
+            break;
+        default:
+            break;
+    }
+    return FALSE;
+}
+
 static void Cmd_damagecalc(void)
 {
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
@@ -1295,11 +1382,18 @@ static void Cmd_damagecalc(void)
                                             gBattleStruct->dynamicMoveType, gBattlerAttacker, gBattlerTarget);
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
 
-    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleStruct->dynamicMoveType == TYPE_ELECTRIC)
         gBattleMoveDamage *= 2;
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
-
+    if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+    && gBattleMoveDamage >= gBattleMons[gBattlerTarget].maxHP 
+    && gBattleMons[gBattlerTarget].item == ITEM_FOCUS_SASH)
+    {
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP - 1;
+        gBattleMons[gBattlerTarget].item = ITEM_NONE;
+    }
+     
     gBattlescriptCurrInstr++;
 }
 
@@ -1345,8 +1439,14 @@ static void ModulateDmgByType(u8 multiplier)
         {
             if (gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
                 gMoveResultFlags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
-            else
+            else {
                 gMoveResultFlags |= MOVE_RESULT_SUPER_EFFECTIVE;
+                if(gBattleMons[gBattlerTarget].item != ITEM_NONE) 
+                    {
+                        if (berryUsage(gBattleMons[gBattlerTarget].item, gBattleMoves[gCurrentMove].type))
+                            return; 
+                    }
+            }   
         }
         break;
     }
@@ -1526,8 +1626,14 @@ static void ModulateDmgByType2(u8 multiplier, u16 move, u8 *flags)
         {
             if (*flags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
                 *flags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
-            else
+            else {
                 *flags |= MOVE_RESULT_SUPER_EFFECTIVE;
+                if(gBattleMons[gBattlerTarget].item != ITEM_NONE) 
+                    {
+                       berryUsage(gBattleMons[gBattlerTarget].item, gBattleMoves[gCurrentMove].type);
+                    }
+            }
+                
         }
         break;
     }

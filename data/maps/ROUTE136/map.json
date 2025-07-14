@@ -3,7 +3,7 @@
   "name": "ROUTE136",
   "layout": "LAYOUT_ROUTE136",
   "music": "MUS_DUMMY",
-  "region_map_section": "MAPSEC_ROUTE_134",
+  "region_map_section": "MAPSEC_ROUTE_136",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_NONE",

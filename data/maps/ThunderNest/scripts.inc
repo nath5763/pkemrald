@@ -34,3 +34,19 @@ ZapdosFight_1:
 	dowildbattle
 	return
 
+
+voltorbsign::
+# 26 "data/maps/ThunderNest/scripts.pory"
+	lockall
+# 27 "data/maps/ThunderNest/scripts.pory"
+	msgbox puzzlevoltorb
+# 28 "data/maps/ThunderNest/scripts.pory"
+	waitmessage
+# 29 "data/maps/ThunderNest/scripts.pory"
+	releaseall
+	end
+
+
+puzzlevoltorb::
+# 21 "data/maps/ThunderNest/scripts.pory"
+	.string "In circuits and spheres, I dwell unseen,\n A spark in your pocket, round and keen.\p To open this path, let energy surge\nBring the living orb.$"

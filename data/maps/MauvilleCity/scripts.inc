@@ -873,456 +873,656 @@ MauvilleCity_EventScript_CompletedNewMauville::
 # 437 "data/maps/MauvilleCity/scripts.pory"
 	setflag FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON
 # 438 "data/maps/MauvilleCity/scripts.pory"
-	msgbox MauvilleCity_Text_WattsonYoungTakeCharge, MSGBOX_DEFAULT
+	giveitem ITEM_ULTRA_BALL, 20
 # 439 "data/maps/MauvilleCity/scripts.pory"
-	release
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 # 440 "data/maps/MauvilleCity/scripts.pory"
-	end
-# 441 "data/maps/MauvilleCity/scripts.pory"
-
-# 442 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_EventScript_ReceivedThunderbolt::
-# 443 "data/maps/MauvilleCity/scripts.pory"
 	msgbox MauvilleCity_Text_WattsonYoungTakeCharge, MSGBOX_DEFAULT
-# 444 "data/maps/MauvilleCity/scripts.pory"
+# 441 "data/maps/MauvilleCity/scripts.pory"
 	release
+# 442 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 443 "data/maps/MauvilleCity/scripts.pory"
+
+# 444 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_EventScript_ReceivedThunderbolt::
 # 445 "data/maps/MauvilleCity/scripts.pory"
-	end
+	msgbox MauvilleCity_Text_WattsonYoungTakeCharge, MSGBOX_DEFAULT
 # 446 "data/maps/MauvilleCity/scripts.pory"
-
+	release
 # 447 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_EventScript_RegisterWallyCall::
-# 448 "data/maps/MauvilleCity/scripts.pory"
-	lockall
-# 449 "data/maps/MauvilleCity/scripts.pory"
-	pokenavcall MauvilleCity_Text_WallyPokenavCall
-# 450 "data/maps/MauvilleCity/scripts.pory"
-	waitmessage
-# 451 "data/maps/MauvilleCity/scripts.pory"
-	delay 30
-# 452 "data/maps/MauvilleCity/scripts.pory"
-	playfanfare MUS_REGISTER_MATCH_CALL
-# 453 "data/maps/MauvilleCity/scripts.pory"
-	msgbox MauvilleCity_Text_RegisteredWally, MSGBOX_DEFAULT
-# 454 "data/maps/MauvilleCity/scripts.pory"
-	waitfanfare
-# 455 "data/maps/MauvilleCity/scripts.pory"
-	closemessage
-# 456 "data/maps/MauvilleCity/scripts.pory"
-	delay 30
-# 457 "data/maps/MauvilleCity/scripts.pory"
-	setflag FLAG_ENABLE_WALLY_MATCH_CALL
-# 458 "data/maps/MauvilleCity/scripts.pory"
-	clearflag FLAG_ENABLE_FIRST_WALLY_POKENAV_CALL
-# 459 "data/maps/MauvilleCity/scripts.pory"
-	releaseall
-# 460 "data/maps/MauvilleCity/scripts.pory"
 	end
+# 448 "data/maps/MauvilleCity/scripts.pory"
+
+# 449 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_EventScript_RegisterWallyCall::
+# 450 "data/maps/MauvilleCity/scripts.pory"
+	lockall
+# 451 "data/maps/MauvilleCity/scripts.pory"
+	pokenavcall MauvilleCity_Text_WallyPokenavCall
+# 452 "data/maps/MauvilleCity/scripts.pory"
+	waitmessage
+# 453 "data/maps/MauvilleCity/scripts.pory"
+	delay 30
+# 454 "data/maps/MauvilleCity/scripts.pory"
+	playfanfare MUS_REGISTER_MATCH_CALL
+# 455 "data/maps/MauvilleCity/scripts.pory"
+	msgbox MauvilleCity_Text_RegisteredWally, MSGBOX_DEFAULT
+# 456 "data/maps/MauvilleCity/scripts.pory"
+	waitfanfare
+# 457 "data/maps/MauvilleCity/scripts.pory"
+	closemessage
+# 458 "data/maps/MauvilleCity/scripts.pory"
+	delay 30
+# 459 "data/maps/MauvilleCity/scripts.pory"
+	setflag FLAG_ENABLE_WALLY_MATCH_CALL
+# 460 "data/maps/MauvilleCity/scripts.pory"
+	clearflag FLAG_ENABLE_FIRST_WALLY_POKENAV_CALL
 # 461 "data/maps/MauvilleCity/scripts.pory"
-
+	releaseall
 # 462 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_UncleHesTooPeppy:
+	end
 # 463 "data/maps/MauvilleCity/scripts.pory"
-	.string "UNCLE: It's because of POKéMON that\n"
+
 # 464 "data/maps/MauvilleCity/scripts.pory"
-	.string "this boy's got more pep, I suppose…\l"
+MauvilleCity_Text_UncleHesTooPeppy:
 # 465 "data/maps/MauvilleCity/scripts.pory"
-	.string "But he's become a bit too peppy…$"
+	.string "UNCLE: It's because of POKéMON that\n"
 # 466 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "this boy's got more pep, I suppose…\l"
 # 467 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyWantToChallengeGym:
+	.string "But he's become a bit too peppy…$"
 # 468 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: Aww, UNCLE, please?\p"
+
 # 469 "data/maps/MauvilleCity/scripts.pory"
-	.string "I want to challenge this GYM and see\n"
+MauvilleCity_Text_WallyWantToChallengeGym:
 # 470 "data/maps/MauvilleCity/scripts.pory"
-	.string "how much better I've become.\p"
+	.string "WALLY: Aww, UNCLE, please?\p"
 # 471 "data/maps/MauvilleCity/scripts.pory"
-	.string "Please? May I, please?$"
+	.string "I want to challenge this GYM and see\n"
 # 472 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "how much better I've become.\p"
 # 473 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_UncleYourePushingIt:
+	.string "Please? May I, please?$"
 # 474 "data/maps/MauvilleCity/scripts.pory"
-	.string "UNCLE: Now hold on, WALLY.\p"
+
 # 475 "data/maps/MauvilleCity/scripts.pory"
-	.string "Since you started living with POKéMON,\n"
+MauvilleCity_Text_UncleYourePushingIt:
 # 476 "data/maps/MauvilleCity/scripts.pory"
-	.string "you have grown quite a lot stronger.\p"
+	.string "UNCLE: Now hold on, WALLY.\p"
 # 477 "data/maps/MauvilleCity/scripts.pory"
-	.string "But don't you think you're pushing it\n"
+	.string "Since you started living with POKéMON,\n"
 # 478 "data/maps/MauvilleCity/scripts.pory"
-	.string "to suddenly challenge a GYM?$"
+	.string "you have grown quite a lot stronger.\p"
 # 479 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "But don't you think you're pushing it\n"
 # 480 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyWeCanBeatAnyone:
+	.string "to suddenly challenge a GYM?$"
 # 481 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: I'm not pushing it.\p"
+
 # 482 "data/maps/MauvilleCity/scripts.pory"
-	.string "If I combine forces with RALTS,\n"
+MauvilleCity_Text_WallyWeCanBeatAnyone:
 # 483 "data/maps/MauvilleCity/scripts.pory"
-	.string "we can beat anyone!$"
+	.string "WALLY: I'm not pushing it.\p"
 # 484 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "If I combine forces with RALTS,\n"
 # 485 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyWillYouBattleMe:
+	.string "we can beat anyone!$"
 # 486 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: Oh! Hi, {PLAYER}!\p"
+
 # 487 "data/maps/MauvilleCity/scripts.pory"
-	.string "I've gotten a lot stronger since\n"
+MauvilleCity_Text_WallyWillYouBattleMe:
 # 488 "data/maps/MauvilleCity/scripts.pory"
-	.string "we met.\p"
+	.string "WALLY: Oh! Hi, {PLAYER}!\p"
 # 489 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER}, I want you and my UNCLE to\n"
+	.string "I've gotten a lot stronger since\n"
 # 490 "data/maps/MauvilleCity/scripts.pory"
-	.string "understand that.\p"
+	.string "we met.\p"
 # 491 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER}, please, will you have\n"
+	.string "{PLAYER}, I want you and my UNCLE to\n"
 # 492 "data/maps/MauvilleCity/scripts.pory"
-	.string "a battle with me?$"
+	.string "understand that.\p"
 # 493 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "{PLAYER}, please, will you have\n"
 # 494 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyMyUncleWontKnowImStrong:
+	.string "a battle with me?$"
 # 495 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: Oh… If you won't battle me,\n"
+
 # 496 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER}, my UNCLE won't know that I've\l"
+MauvilleCity_Text_WallyMyUncleWontKnowImStrong:
 # 497 "data/maps/MauvilleCity/scripts.pory"
-	.string "become really strong.$"
+	.string "WALLY: Oh… If you won't battle me,\n"
 # 498 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "{PLAYER}, my UNCLE won't know that I've\l"
 # 499 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_UncleCanYouBattleWally:
+	.string "become really strong.$"
 # 500 "data/maps/MauvilleCity/scripts.pory"
-	.string "UNCLE: {PLAYER}{KUN}, was it?\n"
+
 # 501 "data/maps/MauvilleCity/scripts.pory"
-	.string "On WALLY's behalf, can I ask you to\l"
+MauvilleCity_Text_UncleCanYouBattleWally:
 # 502 "data/maps/MauvilleCity/scripts.pory"
-	.string "battle with him just this once?\p"
+	.string "UNCLE: {PLAYER}{KUN}, was it?\n"
 # 503 "data/maps/MauvilleCity/scripts.pory"
-	.string "I don't think he's going to listen to\n"
+	.string "On WALLY's behalf, can I ask you to\l"
 # 504 "data/maps/MauvilleCity/scripts.pory"
-	.string "any reason the way he is now.$"
+	.string "battle with him just this once?\p"
 # 505 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "I don't think he's going to listen to\n"
 # 506 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyPleaseBattleMe:
+	.string "any reason the way he is now.$"
 # 507 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: {PLAYER}, please!\n"
+
 # 508 "data/maps/MauvilleCity/scripts.pory"
-	.string "Battle with me, please.$"
+MauvilleCity_Text_WallyPleaseBattleMe:
 # 509 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "WALLY: {PLAYER}, please!\n"
 # 510 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyHereICome:
+	.string "Battle with me, please.$"
 # 511 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: {PLAYER}, thank you.\p"
+
 # 512 "data/maps/MauvilleCity/scripts.pory"
-	.string "Okay… Here I come!$"
+MauvilleCity_Text_WallyHereICome:
 # 513 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "WALLY: {PLAYER}, thank you.\p"
 # 514 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyDefeat:
+	.string "Okay… Here I come!$"
 # 515 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: … … … … … … …\p"
+
 # 516 "data/maps/MauvilleCity/scripts.pory"
-	.string "… … … … … … … …\p"
+MauvilleCity_Text_WallyDefeat:
 # 517 "data/maps/MauvilleCity/scripts.pory"
-	.string "I lost…$"
+	.string "WALLY: … … … … … … …\p"
 # 518 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "… … … … … … … …\p"
 # 519 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyIllGoBackToVerdanturf:
+	.string "I lost…$"
 # 520 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: UNCLE…\n"
+
 # 521 "data/maps/MauvilleCity/scripts.pory"
-	.string "I'll go back to VERDANTURF…$"
+MauvilleCity_Text_WallyIllGoBackToVerdanturf:
 # 522 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "WALLY: UNCLE…\n"
 # 523 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_ThankYouNotEnoughToBattle:
+	.string "I'll go back to VERDANTURF…$"
 # 524 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER}, thank you.\n"
+
 # 525 "data/maps/MauvilleCity/scripts.pory"
-	.string "Being a TRAINER is tough, isn't it?\p"
+MauvilleCity_Text_ThankYouNotEnoughToBattle:
 # 526 "data/maps/MauvilleCity/scripts.pory"
-	.string "It's not enough just to have POKéMON\n"
+	.string "{PLAYER}, thank you.\n"
 # 527 "data/maps/MauvilleCity/scripts.pory"
-	.string "and make them battle. That isn't what\l"
+	.string "Being a TRAINER is tough, isn't it?\p"
 # 528 "data/maps/MauvilleCity/scripts.pory"
-	.string "being a real TRAINER is about.$"
+	.string "It's not enough just to have POKéMON\n"
 # 529 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "and make them battle. That isn't what\l"
 # 530 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_UncleNoNeedToBeDown:
+	.string "being a real TRAINER is about.$"
 # 531 "data/maps/MauvilleCity/scripts.pory"
-	.string "UNCLE: WALLY, there's no need to be so\n"
+
 # 532 "data/maps/MauvilleCity/scripts.pory"
-	.string "down on yourself.\p"
+MauvilleCity_Text_UncleNoNeedToBeDown:
 # 533 "data/maps/MauvilleCity/scripts.pory"
-	.string "Why, what's keeping you from becoming\n"
+	.string "UNCLE: WALLY, there's no need to be so\n"
 # 534 "data/maps/MauvilleCity/scripts.pory"
-	.string "stronger and stronger?\p"
+	.string "down on yourself.\p"
 # 535 "data/maps/MauvilleCity/scripts.pory"
-	.string "Come on, let's go home.\n"
+	.string "Why, what's keeping you from becoming\n"
 # 536 "data/maps/MauvilleCity/scripts.pory"
-	.string "Everyone's waiting for you.$"
+	.string "stronger and stronger?\p"
 # 537 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Come on, let's go home.\n"
 # 538 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_UncleVisitUsSometime:
+	.string "Everyone's waiting for you.$"
 # 539 "data/maps/MauvilleCity/scripts.pory"
-	.string "UNCLE: {PLAYER}{KUN}, it just dawned on me\n"
+
 # 540 "data/maps/MauvilleCity/scripts.pory"
-	.string "that you must be the TRAINER who kept\l"
+MauvilleCity_Text_UncleVisitUsSometime:
 # 541 "data/maps/MauvilleCity/scripts.pory"
-	.string "an eye out for WALLY when he caught\l"
+	.string "UNCLE: {PLAYER}{KUN}, it just dawned on me\n"
 # 542 "data/maps/MauvilleCity/scripts.pory"
-	.string "his POKéMON.\p"
+	.string "that you must be the TRAINER who kept\l"
 # 543 "data/maps/MauvilleCity/scripts.pory"
-	.string "Why don't you visit us in VERDANTURF\n"
+	.string "an eye out for WALLY when he caught\l"
 # 544 "data/maps/MauvilleCity/scripts.pory"
-	.string "sometime?\l"
+	.string "his POKéMON.\p"
 # 545 "data/maps/MauvilleCity/scripts.pory"
-	.string "I'm sure WALLY would enjoy it.$"
+	.string "Why don't you visit us in VERDANTURF\n"
 # 546 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "sometime?\l"
 # 547 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "I'm sure WALLY would enjoy it.$"
 # 548 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WallyPokenavCall:
+
 # 549 "data/maps/MauvilleCity/scripts.pory"
-	.string "… … … … … …\n"
+
 # 550 "data/maps/MauvilleCity/scripts.pory"
-	.string "… … … … … Beep!\p"
+MauvilleCity_Text_WallyPokenavCall:
 # 551 "data/maps/MauvilleCity/scripts.pory"
-	.string "WALLY: Oh, hello, {PLAYER}!\p"
+	.string "… … … … … …\n"
 # 552 "data/maps/MauvilleCity/scripts.pory"
-	.string "I just wanted to tell you that\n"
+	.string "… … … … … Beep!\p"
 # 553 "data/maps/MauvilleCity/scripts.pory"
-	.string "my uncle bought me a POKéNAV!\p"
+	.string "WALLY: Oh, hello, {PLAYER}!\p"
 # 554 "data/maps/MauvilleCity/scripts.pory"
-	.string "Now I can get in touch with you\n"
+	.string "I just wanted to tell you that\n"
 # 555 "data/maps/MauvilleCity/scripts.pory"
-	.string "anytime, {PLAYER}!\p"
+	.string "my uncle bought me a POKéNAV!\p"
 # 556 "data/maps/MauvilleCity/scripts.pory"
-	.string "… … … … … …\n"
+	.string "Now I can get in touch with you\n"
 # 557 "data/maps/MauvilleCity/scripts.pory"
-	.string "… … … … … Click!$"
+	.string "anytime, {PLAYER}!\p"
 # 558 "data/maps/MauvilleCity/scripts.pory"
-
-# 559 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_RegisteredWally:
-# 560 "data/maps/MauvilleCity/scripts.pory"
-	.string "Registered WALLY\n"
-# 561 "data/maps/MauvilleCity/scripts.pory"
-	.string "in the POKéNAV.$"
-# 562 "data/maps/MauvilleCity/scripts.pory"
-
-# 563 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_ScottYouDidntHoldBack:
-# 564 "data/maps/MauvilleCity/scripts.pory"
-	.string "SCOTT: Hehe…\n"
-# 565 "data/maps/MauvilleCity/scripts.pory"
-	.string "I was watching that match!\p"
-# 566 "data/maps/MauvilleCity/scripts.pory"
-	.string "You're friends with that boy WALLY,\n"
-# 567 "data/maps/MauvilleCity/scripts.pory"
-	.string "aren't you?\p"
-# 568 "data/maps/MauvilleCity/scripts.pory"
-	.string "But you didn't hold anything back\n"
-# 569 "data/maps/MauvilleCity/scripts.pory"
-	.string "and beat him impressively.\p"
-# 570 "data/maps/MauvilleCity/scripts.pory"
-	.string "Yeah! That's what a real POKéMON\n"
-# 571 "data/maps/MauvilleCity/scripts.pory"
-	.string "battle is all about!\p"
-# 572 "data/maps/MauvilleCity/scripts.pory"
-	.string "I idolize TRAINERS like that!\p"
-# 573 "data/maps/MauvilleCity/scripts.pory"
 	.string "… … … … … …\n"
+# 559 "data/maps/MauvilleCity/scripts.pory"
+	.string "… … … … … Click!$"
+# 560 "data/maps/MauvilleCity/scripts.pory"
+
+# 561 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_Text_RegisteredWally:
+# 562 "data/maps/MauvilleCity/scripts.pory"
+	.string "Registered WALLY\n"
+# 563 "data/maps/MauvilleCity/scripts.pory"
+	.string "in the POKéNAV.$"
+# 564 "data/maps/MauvilleCity/scripts.pory"
+
+# 565 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_Text_ScottYouDidntHoldBack:
+# 566 "data/maps/MauvilleCity/scripts.pory"
+	.string "SCOTT: Hehe…\n"
+# 567 "data/maps/MauvilleCity/scripts.pory"
+	.string "I was watching that match!\p"
+# 568 "data/maps/MauvilleCity/scripts.pory"
+	.string "You're friends with that boy WALLY,\n"
+# 569 "data/maps/MauvilleCity/scripts.pory"
+	.string "aren't you?\p"
+# 570 "data/maps/MauvilleCity/scripts.pory"
+	.string "But you didn't hold anything back\n"
+# 571 "data/maps/MauvilleCity/scripts.pory"
+	.string "and beat him impressively.\p"
+# 572 "data/maps/MauvilleCity/scripts.pory"
+	.string "Yeah! That's what a real POKéMON\n"
+# 573 "data/maps/MauvilleCity/scripts.pory"
+	.string "battle is all about!\p"
 # 574 "data/maps/MauvilleCity/scripts.pory"
-	.string "I'll be cheering for you!$"
+	.string "I idolize TRAINERS like that!\p"
 # 575 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "… … … … … …\n"
 # 576 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WattsonNeedFavorTakeKey:
+	.string "I'll be cheering for you!$"
 # 577 "data/maps/MauvilleCity/scripts.pory"
-	.string "WATTSON: Oh, {PLAYER}{KUN}!\n"
+
 # 578 "data/maps/MauvilleCity/scripts.pory"
-	.string "You look like you have a lot of zip!\l"
+MauvilleCity_Text_WattsonNeedFavorTakeKey:
 # 579 "data/maps/MauvilleCity/scripts.pory"
-	.string "That's a good thing, wahahahaha!\p"
+	.string "WATTSON: Oh, {PLAYER}{KUN}!\n"
 # 580 "data/maps/MauvilleCity/scripts.pory"
-	.string "Fine! I've decided!\n"
+	.string "You look like you have a lot of zip!\l"
 # 581 "data/maps/MauvilleCity/scripts.pory"
-	.string "I need a favor, {PLAYER}{KUN}!\p"
+	.string "That's a good thing, wahahahaha!\p"
 # 582 "data/maps/MauvilleCity/scripts.pory"
-	.string "MAUVILLE CITY has an underground\n"
+	.string "Fine! I've decided!\n"
 # 583 "data/maps/MauvilleCity/scripts.pory"
-	.string "sector called NEW MAUVILLE.\p"
+	.string "I need a favor, {PLAYER}{KUN}!\p"
 # 584 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER}{KUN}, I'd like you to go there and\n"
+	.string "MAUVILLE CITY has an underground\n"
 # 585 "data/maps/MauvilleCity/scripts.pory"
-	.string "switch off the GENERATOR.\p"
+	.string "sector called NEW MAUVILLE.\p"
 # 586 "data/maps/MauvilleCity/scripts.pory"
-	.string "The GENERATOR has been running a bit\n"
+	.string "{PLAYER}{KUN}, I'd like you to go there and\n"
 # 587 "data/maps/MauvilleCity/scripts.pory"
-	.string "haywire. It's getting unsafe.\p"
+	.string "switch off the GENERATOR.\p"
 # 588 "data/maps/MauvilleCity/scripts.pory"
-	.string "Here, this is the KEY to get into\n"
+	.string "The GENERATOR has been running a bit\n"
 # 589 "data/maps/MauvilleCity/scripts.pory"
-	.string "NEW MAUVILLE.$"
+	.string "haywire. It's getting unsafe.\p"
 # 590 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Here, this is the KEY to get into\n"
 # 591 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WattsonWontBeChallenge:
+	.string "NEW MAUVILLE.$"
 # 592 "data/maps/MauvilleCity/scripts.pory"
-	.string "WATTSON: Don't you worry about it.\n"
+
 # 593 "data/maps/MauvilleCity/scripts.pory"
-	.string "It won't be a challenge to you.\p"
+MauvilleCity_Text_WattsonWontBeChallenge:
 # 594 "data/maps/MauvilleCity/scripts.pory"
-	.string "The entrance to NEW MAUVILLE is just\n"
+	.string "WATTSON: Don't you worry about it.\n"
 # 595 "data/maps/MauvilleCity/scripts.pory"
-	.string "a short SURF away from ROUTE 110.\p"
+	.string "It won't be a challenge to you.\p"
 # 596 "data/maps/MauvilleCity/scripts.pory"
-	.string "That's it, then, you have my trust!\n"
+	.string "The entrance to NEW MAUVILLE is just\n"
 # 597 "data/maps/MauvilleCity/scripts.pory"
-	.string "Wahahahaha!$"
+	.string "a short SURF away from ROUTE 110.\p"
 # 598 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "That's it, then, you have my trust!\n"
 # 599 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WattsonThanksTakeTM:
+	.string "Wahahahaha!$"
 # 600 "data/maps/MauvilleCity/scripts.pory"
-	.string "WATTSON: Wahahahaha!\p"
+
 # 601 "data/maps/MauvilleCity/scripts.pory"
-	.string "I knew it, {PLAYER}{KUN}! I knew I'd made\n"
+MauvilleCity_Text_WattsonThanksTakeTM:
 # 602 "data/maps/MauvilleCity/scripts.pory"
-	.string "the right choice asking you!\p"
-# 603 "data/maps/MauvilleCity/scripts.pory"
-	.string "This is my thanks--a TM containing\n"
-# 604 "data/maps/MauvilleCity/scripts.pory"
-	.string "THUNDERBOLT!\p"
-# 605 "data/maps/MauvilleCity/scripts.pory"
-	.string "Go on, you've earned it!$"
-# 606 "data/maps/MauvilleCity/scripts.pory"
-
-# 607 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_WattsonYoungTakeCharge:
-# 608 "data/maps/MauvilleCity/scripts.pory"
 	.string "WATTSON: Wahahahaha!\p"
+# 603 "data/maps/MauvilleCity/scripts.pory"
+	.string "I knew it, {PLAYER}{KUN}! I knew I'd made\n"
+# 604 "data/maps/MauvilleCity/scripts.pory"
+	.string "the right choice asking you!\p"
+# 605 "data/maps/MauvilleCity/scripts.pory"
+	.string "This is my thanks--a TM containing\n"
+# 606 "data/maps/MauvilleCity/scripts.pory"
+	.string "THUNDERBOLT!\p"
+# 607 "data/maps/MauvilleCity/scripts.pory"
+	.string "Go on, you've earned it!$"
+# 608 "data/maps/MauvilleCity/scripts.pory"
+
 # 609 "data/maps/MauvilleCity/scripts.pory"
-	.string "It pleases me to no end to see\n"
+MauvilleCity_Text_WattsonYoungTakeCharge:
 # 610 "data/maps/MauvilleCity/scripts.pory"
-	.string "the young step up and take charge!$"
+	.string "WATTSON: Wahahahaha!\p"
 # 611 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "It pleases me to no end to see\n"
 # 612 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_NurseHurtMonBackToHealth:
+	.string "the young step up and take charge!$"
 # 613 "data/maps/MauvilleCity/scripts.pory"
-	.string "You know, it's cool to have POKéMON\n"
+
 # 614 "data/maps/MauvilleCity/scripts.pory"
-	.string "battles and stuff…\p"
+MauvilleCity_Text_NurseHurtMonBackToHealth:
 # 615 "data/maps/MauvilleCity/scripts.pory"
-	.string "But if your POKéMON gets hurt,\n"
+	.string "You know, it's cool to have POKéMON\n"
 # 616 "data/maps/MauvilleCity/scripts.pory"
-	.string "you have to nurse it back to health.$"
+	.string "battles and stuff…\p"
 # 617 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "But if your POKéMON gets hurt,\n"
 # 618 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_AllSortsOfPeopleComeThrough:
+	.string "you have to nurse it back to health.$"
 # 619 "data/maps/MauvilleCity/scripts.pory"
-	.string "The roads of this town stretch north\n"
+
 # 620 "data/maps/MauvilleCity/scripts.pory"
-	.string "and south, and east and west.\p"
+MauvilleCity_Text_AllSortsOfPeopleComeThrough:
 # 621 "data/maps/MauvilleCity/scripts.pory"
-	.string "Because of that, we get all sorts of\n"
+	.string "The roads of this town stretch north\n"
 # 622 "data/maps/MauvilleCity/scripts.pory"
-	.string "people coming through.$"
+	.string "and south, and east and west.\p"
 # 623 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Because of that, we get all sorts of\n"
 # 624 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_RydelVeryGenerous:
+	.string "people coming through.$"
 # 625 "data/maps/MauvilleCity/scripts.pory"
-	.string "Have you been to RYDEL'S CYCLES yet?\p"
+
 # 626 "data/maps/MauvilleCity/scripts.pory"
-	.string "RYDEL, the owner, is a very generous\n"
+MauvilleCity_Text_RydelVeryGenerous:
 # 627 "data/maps/MauvilleCity/scripts.pory"
-	.string "man.$"
+	.string "Have you been to RYDEL'S CYCLES yet?\p"
 # 628 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "RYDEL, the owner, is a very generous\n"
 # 629 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_PokemonCanJumpYouOnBike:
+	.string "man.$"
 # 630 "data/maps/MauvilleCity/scripts.pory"
-	.string "Even if you're riding a BIKE,\n"
+
 # 631 "data/maps/MauvilleCity/scripts.pory"
-	.string "wild POKéMON could jump you.$"
+MauvilleCity_Text_PokemonCanJumpYouOnBike:
 # 632 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Even if you're riding a BIKE,\n"
 # 633 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_CitySign:
+	.string "wild POKéMON could jump you.$"
 # 634 "data/maps/MauvilleCity/scripts.pory"
-	.string "MAUVILLE CITY\n"
+
 # 635 "data/maps/MauvilleCity/scripts.pory"
-	.string "“The bright and shiny city of fun!”$"
+MauvilleCity_Text_CitySign:
 # 636 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "MAUVILLE CITY\n"
 # 637 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_GymSign:
+	.string "“The bright and shiny city of fun!”$"
 # 638 "data/maps/MauvilleCity/scripts.pory"
-	.string "MAUVILLE CITY POKéMON GYM\n"
+
 # 639 "data/maps/MauvilleCity/scripts.pory"
-	.string "LEADER: WATTSON\l"
+MauvilleCity_Text_GymSign:
 # 640 "data/maps/MauvilleCity/scripts.pory"
-	.string "“The cheerfully electrifying man!”$"
+	.string "MAUVILLE CITY POKéMON GYM\n"
 # 641 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "LEADER: WATTSON\l"
 # 642 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_BikeShopSign:
+	.string "“The cheerfully electrifying man!”$"
 # 643 "data/maps/MauvilleCity/scripts.pory"
-	.string "“Ride in gravel and shake up your\n"
+
 # 644 "data/maps/MauvilleCity/scripts.pory"
-	.string "soul!”\l"
+MauvilleCity_Text_BikeShopSign:
 # 645 "data/maps/MauvilleCity/scripts.pory"
-	.string "RYDEL'S CYCLES$"
+	.string "“Ride in gravel and shake up your\n"
 # 646 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "soul!”\l"
 # 647 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_GameCornerSign:
+	.string "RYDEL'S CYCLES$"
 # 648 "data/maps/MauvilleCity/scripts.pory"
-	.string "“The play spot for all!”\n"
+
 # 649 "data/maps/MauvilleCity/scripts.pory"
-	.string "MAUVILLE GAME CORNER$"
+MauvilleCity_Text_GameCornerSign:
 # 650 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "“The play spot for all!”\n"
 # 651 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_ExplainTV:
+	.string "MAUVILLE GAME CORNER$"
 # 652 "data/maps/MauvilleCity/scripts.pory"
-	.string "Hi, do you check out TV at all?\p"
-# 653 "data/maps/MauvilleCity/scripts.pory"
-	.string "They've added a bunch of cool new\n"
-# 654 "data/maps/MauvilleCity/scripts.pory"
-	.string "shows recently.\p"
-# 655 "data/maps/MauvilleCity/scripts.pory"
-	.string "TV is so cool. I've seen my friends on\n"
-# 656 "data/maps/MauvilleCity/scripts.pory"
-	.string "TV just out of the blue.\p"
-# 657 "data/maps/MauvilleCity/scripts.pory"
-	.string "And, sometimes, they even put you on TV\n"
-# 658 "data/maps/MauvilleCity/scripts.pory"
-	.string "without telling you.\p"
-# 659 "data/maps/MauvilleCity/scripts.pory"
-	.string "I wish I would be on TV sometime.\p"
-# 660 "data/maps/MauvilleCity/scripts.pory"
-	.string "That's why I think you should check\n"
-# 661 "data/maps/MauvilleCity/scripts.pory"
-	.string "out TVs whenever you can.$"
-# 662 "data/maps/MauvilleCity/scripts.pory"
 
+# 653 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_Text_ExplainTV:
+# 654 "data/maps/MauvilleCity/scripts.pory"
+	.string "Hi, do you check out TV at all?\p"
+# 655 "data/maps/MauvilleCity/scripts.pory"
+	.string "They've added a bunch of cool new\n"
+# 656 "data/maps/MauvilleCity/scripts.pory"
+	.string "shows recently.\p"
+# 657 "data/maps/MauvilleCity/scripts.pory"
+	.string "TV is so cool. I've seen my friends on\n"
+# 658 "data/maps/MauvilleCity/scripts.pory"
+	.string "TV just out of the blue.\p"
+# 659 "data/maps/MauvilleCity/scripts.pory"
+	.string "And, sometimes, they even put you on TV\n"
+# 660 "data/maps/MauvilleCity/scripts.pory"
+	.string "without telling you.\p"
+# 661 "data/maps/MauvilleCity/scripts.pory"
+	.string "I wish I would be on TV sometime.\p"
+# 662 "data/maps/MauvilleCity/scripts.pory"
+	.string "That's why I think you should check\n"
 # 663 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_Text_BeenCheckingOutTV:
+	.string "out TVs whenever you can.$"
 # 664 "data/maps/MauvilleCity/scripts.pory"
+
+# 665 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_Text_BeenCheckingOutTV:
+# 666 "data/maps/MauvilleCity/scripts.pory"
 	.string "Hi, have you been checking out TVs?$"
+# 667 "data/maps/MauvilleCity/scripts.pory"
+
+# 668 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_MoveRelearner::
+# 669 "data/maps/MauvilleCity/scripts.pory"
+	lockall
+# 670 "data/maps/MauvilleCity/scripts.pory"
+	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
+# 671 "data/maps/MauvilleCity/scripts.pory"
+	waitmovement 0
+# 672 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_set FLAG_TEMP_1, FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+# 673 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor, MSGBOX_DEFAULT
+# 674 "data/maps/MauvilleCity/scripts.pory"
+	setflag FLAG_TEMP_1
+# 675 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+# 676 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 677 "data/maps/MauvilleCity/scripts.pory"
+
+# 678 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_AskTeachMove::
+# 679 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_YESNO
+# 680 "data/maps/MauvilleCity/scripts.pory"
+	switch VAR_RESULT
+# 681 "data/maps/MauvilleCity/scripts.pory"
+	case NO, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+# 682 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+# 683 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 684 "data/maps/MauvilleCity/scripts.pory"
+
+# 685 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMon::
+# 686 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon, MSGBOX_DEFAULT
+# 687 "data/maps/MauvilleCity/scripts.pory"
+	special ChooseMonForMoveRelearner
+# 688 "data/maps/MauvilleCity/scripts.pory"
+	waitstate
+# 689 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+# 690 "data/maps/MauvilleCity/scripts.pory"
+	special IsSelectedMonEgg
+# 691 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_RESULT, TRUE, FallarborTown_MoveRelearnersHouse_EventScript_CantTeachEgg
+# 692 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_0x8005, 0, FallarborTown_MoveRelearnersHouse_EventScript_NoMoveToTeachMon
+# 693 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMove
+# 694 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 695 "data/maps/MauvilleCity/scripts.pory"
+
+# 696 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMove::
+# 697 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TeachWhichMove, MSGBOX_DEFAULT
+# 698 "data/maps/MauvilleCity/scripts.pory"
+	special TeachMoveRelearnerMove
+# 699 "data/maps/MauvilleCity/scripts.pory"
+	waitstate
+# 700 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_0x8004, 0, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+# 701 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_HandedOverHeartScale, MSGBOX_DEFAULT
+# 702 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+# 703 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 704 "data/maps/MauvilleCity/scripts.pory"
+
+# 705 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_NoMoveToTeachMon::
+# 706 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon, MSGBOX_DEFAULT
+# 707 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+# 708 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 709 "data/maps/MauvilleCity/scripts.pory"
+
+# 710 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_CantTeachEgg::
+# 711 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_CantTeachEgg, MSGBOX_DEFAULT
+# 712 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+# 713 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 714 "data/maps/MauvilleCity/scripts.pory"
+
+# 715 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale::
+# 716 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ComeBackWithHeartScale, MSGBOX_DEFAULT
+# 717 "data/maps/MauvilleCity/scripts.pory"
+	releaseall
+# 718 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 719 "data/maps/MauvilleCity/scripts.pory"
+
+# 720 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_ImTheMoveTutor:
+# 721 "data/maps/MauvilleCity/scripts.pory"
+	.string "I'm the MOVE TUTOR.\p"
+# 722 "data/maps/MauvilleCity/scripts.pory"
+	.string "I know all the moves that POKéMON\n"
+# 723 "data/maps/MauvilleCity/scripts.pory"
+	.string "learn--every one of them--and I can\l"
+# 724 "data/maps/MauvilleCity/scripts.pory"
+	.string "teach POKéMON those moves.\p"
+# 725 "data/maps/MauvilleCity/scripts.pory"
+	.string "I can teach a move to a POKéMON\n"
+# 726 "data/maps/MauvilleCity/scripts.pory"
+	.string "of yours if you'd like.\p"
+# 727 "data/maps/MauvilleCity/scripts.pory"
+	.string "I'll do it for FREE.$"
+# 728 "data/maps/MauvilleCity/scripts.pory"
+
+# 729 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove:
+# 730 "data/maps/MauvilleCity/scripts.pory"
+	.string "Oh! That's it! That's an honest to\n"
+# 731 "data/maps/MauvilleCity/scripts.pory"
+	.string "goodness FREEDOM!\p"
+# 732 "data/maps/MauvilleCity/scripts.pory"
+	.string "Let me guess, you want me to teach\n"
+# 733 "data/maps/MauvilleCity/scripts.pory"
+	.string "a move?$"
+# 734 "data/maps/MauvilleCity/scripts.pory"
+
+# 735 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_TutorWhichMon:
+# 736 "data/maps/MauvilleCity/scripts.pory"
+	.string "Which POKéMON needs tutoring?$"
+# 737 "data/maps/MauvilleCity/scripts.pory"
+
+# 738 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_TeachWhichMove:
+# 739 "data/maps/MauvilleCity/scripts.pory"
+	.string "Which move should I teach?$"
+# 740 "data/maps/MauvilleCity/scripts.pory"
+
+# 741 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon:
+# 742 "data/maps/MauvilleCity/scripts.pory"
+	.string "Sorry…\p"
+# 743 "data/maps/MauvilleCity/scripts.pory"
+	.string "It doesn't appear as if I have any move\n"
+# 744 "data/maps/MauvilleCity/scripts.pory"
+	.string "I can teach that POKéMON.$"
+# 745 "data/maps/MauvilleCity/scripts.pory"
+
+# 746 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_HandedOverHeartScale:
+# 747 "data/maps/MauvilleCity/scripts.pory"
+	.string "{PLAYER} handed over one FREEDOM UNIT\n"
+# 748 "data/maps/MauvilleCity/scripts.pory"
+	.string "in exchange.$"
+# 749 "data/maps/MauvilleCity/scripts.pory"
+
+# 750 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_ComeBackWithHeartScale:
+# 751 "data/maps/MauvilleCity/scripts.pory"
+	.string "If your POKéMON need to learn a move,\n"
+# 752 "data/maps/MauvilleCity/scripts.pory"
+	.string "come back with a FREEDOM UNIT.$"
+# 753 "data/maps/MauvilleCity/scripts.pory"
+
+# 754 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_Text_CantTeachEgg:
+# 755 "data/maps/MauvilleCity/scripts.pory"
+	.string "Hunh? There isn't a single move that\n"
+# 756 "data/maps/MauvilleCity/scripts.pory"
+	.string "I can teach an EGG.$"
+
+testfight::
+# 762 "data/maps/MauvilleCity/scripts.pory"
+	lockall
+# 763 "data/maps/MauvilleCity/scripts.pory"
+	trainerbattle_single TRAINER_TEST, introben, outroben
+	return
+
+
+introben::
+# 766 "data/maps/MauvilleCity/scripts.pory"
+	.string "start$"
+
+outroben::
+# 770 "data/maps/MauvilleCity/scripts.pory"
+	.string "end$"

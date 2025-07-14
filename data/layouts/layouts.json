@@ -4610,6 +4610,16 @@
       "secondary_tileset": "gTileset_Fortree",
       "border_filepath": "data/layouts/StormwakeGrove/border.bin",
       "blockdata_filepath": "data/layouts/StormwakeGrove/map.bin"
+    },
+    {
+      "id": "LAYOUT_POKECENTER_ROUTE135",
+      "name": "PokecenterRoute135_Layout",
+      "width": 20,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/PokecenterRoute135/border.bin",
+      "blockdata_filepath": "data/layouts/PokecenterRoute135/map.bin"
     }
   ]
 }
