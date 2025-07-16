@@ -705,7 +705,7 @@
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_POOCHYENA"
+                "species": "SPECIES_PONYTA"
               },
               {
                 "min_level": 12,
@@ -735,7 +735,7 @@
               {
                 "min_level": 13,
                 "max_level": 13,
-                "species": "SPECIES_MINUN"
+                "species": "SPECIES_MAREEP"
               },
               {
                 "min_level": 13,
@@ -745,7 +745,7 @@
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_ELEKID"
+                "species": "SPECIES_MAGNEMITE"
               },
               {
                 "min_level": 12,
@@ -755,7 +755,7 @@
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_PLUSLE"
+                "species": "SPECIES_MINUN"
               },
               {
                 "min_level": 13,
@@ -9267,22 +9267,22 @@
               {
                 "min_level": 37,
                 "max_level": 37,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNEASEL"
               },
               {
                 "min_level": 38,
                 "max_level": 38,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNEASEL"
               },
               {
                 "min_level": 37,
                 "max_level": 37,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNEASEL"
               },
               {
                 "min_level": 38,
                 "max_level": 38,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNEASEL"
               }
             ]
           }
@@ -9420,27 +9420,27 @@
               {
                 "min_level": 36,
                 "max_level": 36,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNORLAX"
               },
               {
                 "min_level": 37,
                 "max_level": 37,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNORLAX"
               },
               {
                 "min_level": 38,
                 "max_level": 38,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNORLAX"
               },
               {
                 "min_level": 37,
                 "max_level": 37,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNORLAX"
               },
               {
                 "min_level": 38,
                 "max_level": 38,
-                "species": "SPECIES_CLAYDOL"
+                "species": "SPECIES_SNORLAX"
               }
             ]
           }

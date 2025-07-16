@@ -430,6 +430,14 @@ static const u16 sRedOutlineFlyDestinations[][2] =
         MAPSEC_BATTLE_FRONTIER
     },
     {
+        FLAG_GALADRIA_FLY,
+        MAPSEC_ROUTE_128
+    },
+    {
+        FLAG_135_FLY,
+        MAPSEC_Route135
+    },
+    {
         -1,
         MAPSEC_NONE
     }
@@ -1216,6 +1224,10 @@ static u8 GetMapsecType(u16 mapSecId)
         return FlagGet(FLAG_LANDMARK_BATTLE_FRONTIER) ? MAPSECTYPE_BATTLE_FRONTIER : MAPSECTYPE_NONE;
     case MAPSEC_SOUTHERN_ISLAND:
         return FlagGet(FLAG_LANDMARK_SOUTHERN_ISLAND) ? MAPSECTYPE_ROUTE : MAPSECTYPE_NONE;
+    case MAPSEC_ROUTE_128:
+        return FlagGet(FLAG_GALADRIA_FLY) ? MAPSECTYPE_ROUTE_CANFLY : MAPSECTYPE_ROUTE;
+    case MAPSEC_Route135:
+        return FlagGet(FLAG_135_FLY) ? MAPSECTYPE_ROUTE_CANFLY : MAPSECTYPE_ROUTE;
     default:
         return MAPSECTYPE_ROUTE;
     }
@@ -1964,7 +1976,7 @@ static void CB_HandleFlyMapInput(void)
             DrawFlyDestTextWindow();
             break;
         case MAP_INPUT_A_BUTTON:
-            if (sFlyMap->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY || sFlyMap->regionMap.mapSecType == MAPSECTYPE_BATTLE_FRONTIER)
+            if (sFlyMap->regionMap.mapSecType == MAPSECTYPE_CITY_CANFLY || sFlyMap->regionMap.mapSecType == MAPSECTYPE_ROUTE_CANFLY || sFlyMap->regionMap.mapSecType == MAPSECTYPE_BATTLE_FRONTIER)
             {
                 m4aSongNumStart(SE_SELECT);
                 sFlyMap->choseFlyLocation = TRUE;

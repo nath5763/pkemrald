@@ -3,6 +3,7 @@ mapscripts PokecenterRoute135_MapScripts {
 }
 
 script route135Respawn {
+    setflag(FLAG_135_FLY)
     setrespawn(HEAL_LOCATION_ROUTE135)
     end
 }

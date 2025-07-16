@@ -2745,6 +2745,7 @@ const struct Item gItems[] =
         .name = _("FOCUS SASH"),
         .itemId = ITEM_FOCUS_SASH,
         .price = 0,
+        .holdEffect = HOLD_EFFECT_FOCUS_SASH,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

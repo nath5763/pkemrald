@@ -1,8 +1,4 @@
 raw `
-Galaria_PokemonCenter_1F_2_MapScripts::
-	.byte 0
-
-
 Galaria_EventScript_Nurse::
 	setvar VAR_0x800B, LOCALID_DEWFORD_NURSE
 	call Common_EventScript_PkmnCenterNurse
@@ -12,3 +8,10 @@ Galaria_EventScript_Nurse::
 	end
 
 `
+mapscripts Galaria_PokemonCenter_1F_2_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION: visitedGaladria
+}
+
+script visitedGaladria {
+	setflag(FLAG_GALADRIA_FLY)
+}

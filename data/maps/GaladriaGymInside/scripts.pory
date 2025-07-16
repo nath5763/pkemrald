@@ -10,6 +10,11 @@ text LeafDefeatText {
     "You've pruned your way to victory...\nWell done, trainer."
 }
 
+text LeafMoreText {
+    "You're not ready for this."
+}
+
+
 text VenusaurIntro {
     "You don't deserve Leaf.\nMy VENUSAUR will sleep you!.\p"
 }
@@ -37,7 +42,13 @@ text BreloomDefeatText {
 script GymLeaderLeaf {
     lock
     faceplayer
-    trainerbattle_single(TRAINER_LEAF, LeafIntroText, LeafDefeatText)
+    trainerbattle_double(TRAINER_LEAF, LeafIntroText, LeafDefeatText, LeafMoreText, LeafDefeated, NO_MUSIC)
+    release
+    end
+    
+}
+
+script LeafDefeated {
     setflag(FLAG_GRASS_GYM)
     msgbox("The Elite 4 awaits...")
     waitmessage

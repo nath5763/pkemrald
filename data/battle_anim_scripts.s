@@ -393,7 +393,7 @@ gBattleAnims_Moves::
 	.4byte Move_NASTY_PLOT
 	.4byte Move_NIGHT_SLASH
 	.4byte Move_POISON_JAB
-	.4byte MOVE_POWER_GEM
+	.4byte Move_POWER_GEM
 	.4byte Move_PSYCHO_CUT
 	.4byte Move_SEED_BOMB
 	.4byte Move_SHADOW_CLAW
@@ -10231,6 +10231,7 @@ Move_NASTY_PLOT:
 	waitforvisualfinish
 	call UnsetPsychicBackground
 	end
+
 Move_NIGHT_SLASH:
 	loadspritegfx ANIM_TAG_SLASH
 	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, -8, 0
@@ -10241,6 +10242,7 @@ Move_NIGHT_SLASH:
 	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
 	waitforvisualfinish
 	end
+
 Move_POISON_JAB:
 	loadspritegfx ANIM_TAG_SLASH
 	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, -8, 0
@@ -10252,22 +10254,13 @@ Move_POISON_JAB:
 	waitforvisualfinish
 	end
 Move_POWER_GEM:
-	loadspritegfx ANIM_TAG_ROCKS
-	createsprite gWeatherBallRockDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 1, 30, 0
-	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
-	delay 5
-	createsprite gWeatherBallRockDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 1, -40, 20
-	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
-	delay 14
-	createsprite gWeatherBallRockDownSpriteTemplate, ANIM_TARGET, 2, -30, -100, 25, 1, 0, 0
-	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
-	waitforvisualfinish
-	playsewithpan SE_M_STRENGTH, SOUND_PAN_TARGET
-	createsprite gRockScatterSpriteTemplate, ANIM_TARGET, 2, -12, 27, 2, 3
-	createsprite gRockScatterSpriteTemplate, ANIM_TARGET, 2, 8, 28, 3, 4
-	createsprite gRockScatterSpriteTemplate, ANIM_TARGET, 2, -4, 30, 2, 3
-	createsprite gRockScatterSpriteTemplate, ANIM_TARGET, 2, 12, 25, 4, 4
-	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 8, 1
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, -8, 0
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 1, 8, 0
+	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 4, 0, 18, 1
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
 	waitforvisualfinish
 	end
 Move_PSYCHO_CUT:

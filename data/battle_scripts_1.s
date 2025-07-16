@@ -232,7 +232,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectCalmMind               @ EFFECT_CALM_MIND
 	.4byte BattleScript_EffectDragonDance            @ EFFECT_DRAGON_DANCE
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
-	.4byte BattleScript_EffectCloseCombat
+	.4byte BattleScript_EffectCloseCombat			 @ EFFECT_CLOSE_COMBAT
 
 BattleScript_EffectHit::
 	jumpifnotmove MOVE_SURF, BattleScript_HitFromAtkCanceler
@@ -2806,23 +2806,7 @@ BattleScript_EffectCamouflage::
 	printstring STRINGID_PKMNCHANGEDTYPE
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
-
-BattleScript_EffectCloseCombat::
-    jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_DEF, MIN_STAT_STAGE, BattleScript_CloseCombat_LowerDef
-    goto BattleScript_CloseCombat_CheckSpDef
-
-BattleScript_CloseCombat_LowerDef:
-    setstatchanger STAT_DEF, 1, FALSE
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CloseCombat_LowerSpDef
-
-BattleScript_CloseCombat_CheckSpDef:
-    jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_SPDEF, MIN_STAT_STAGE, BattleScript_CloseCombat_LowerSpDef
-    goto BattleScript_MoveEnd
-
-BattleScript_CloseCombat_LowerSpDef:
-    setstatchanger STAT_SPDEF, 1, FALSE
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd
-	
+		
 BattleScript_FaintAttacker::
 	playfaintcry BS_ATTACKER
 	pause B_WAIT_TIME_LONG
@@ -2830,6 +2814,12 @@ BattleScript_FaintAttacker::
 	cleareffectsonfaint BS_ATTACKER
 	printstring STRINGID_ATTACKERFAINTED
 	return
+
+
+BattleScript_EffectCloseCombat::
+    setmoveeffect MOVE_EFFECT_DEF_SP_DEF_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
+
 
 BattleScript_FaintTarget::
 	playfaintcry BS_TARGET
@@ -3657,6 +3647,25 @@ BattleScript_AtkDefDown_TryDef::
 BattleScript_AtkDefDown_End::
 	return
 
+BattleScript_DefSpDefDown::
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_DEF | BIT_SPDEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE | STAT_CHANGE_MULTIPLE_STATS
+	playstatchangeanimation BS_ATTACKER, BIT_DEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_DefSpDefDown_TrySpDef
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_DefSpDefDown_TrySpDef
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefSpDefDown_TrySpDef::
+	playstatchangeanimation BS_ATTACKER, BIT_SPDEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_DefSpDefDown_End
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_DefSpDefDown_End
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefSpDefDown_End::
+	return
+	
 BattleScript_KnockedOff::
 	playanimation BS_TARGET, B_ANIM_ITEM_KNOCKOFF
 	printstring STRINGID_PKMNKNOCKEDOFF

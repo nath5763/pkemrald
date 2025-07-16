@@ -1337,192 +1337,178 @@ MauvilleCity_MoveRelearnersHouse_EventScript_MoveRelearner::
 # 669 "data/maps/MauvilleCity/scripts.pory"
 	lockall
 # 670 "data/maps/MauvilleCity/scripts.pory"
-	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
+	faceplayer
 # 671 "data/maps/MauvilleCity/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
 # 672 "data/maps/MauvilleCity/scripts.pory"
-	goto_if_set FLAG_TEMP_1, FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+	waitmovement 0
 # 673 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor, MSGBOX_DEFAULT
+	goto_if_set FLAG_TEMP_1, FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
 # 674 "data/maps/MauvilleCity/scripts.pory"
-	setflag FLAG_TEMP_1
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor, MSGBOX_DEFAULT
 # 675 "data/maps/MauvilleCity/scripts.pory"
-	goto FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+	setflag FLAG_TEMP_1
 # 676 "data/maps/MauvilleCity/scripts.pory"
-	end
+	goto FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
 # 677 "data/maps/MauvilleCity/scripts.pory"
-
+	end
 # 678 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_AskTeachMove::
+
 # 679 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_YESNO
+MauvilleCity_MoveRelearnersHouse_EventScript_AskTeachMove::
 # 680 "data/maps/MauvilleCity/scripts.pory"
-	switch VAR_RESULT
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_YESNO
 # 681 "data/maps/MauvilleCity/scripts.pory"
-	case NO, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+	switch VAR_RESULT
 # 682 "data/maps/MauvilleCity/scripts.pory"
-	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+	case NO, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
 # 683 "data/maps/MauvilleCity/scripts.pory"
-	end
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
 # 684 "data/maps/MauvilleCity/scripts.pory"
-
+	end
 # 685 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMon::
+
 # 686 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon, MSGBOX_DEFAULT
+MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMon::
 # 687 "data/maps/MauvilleCity/scripts.pory"
-	special ChooseMonForMoveRelearner
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon, MSGBOX_DEFAULT
 # 688 "data/maps/MauvilleCity/scripts.pory"
-	waitstate
+	special ChooseMonForMoveRelearner
 # 689 "data/maps/MauvilleCity/scripts.pory"
-	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
-# 690 "data/maps/MauvilleCity/scripts.pory"
-	special IsSelectedMonEgg
-# 691 "data/maps/MauvilleCity/scripts.pory"
-	goto_if_eq VAR_RESULT, TRUE, FallarborTown_MoveRelearnersHouse_EventScript_CantTeachEgg
-# 692 "data/maps/MauvilleCity/scripts.pory"
-	goto_if_eq VAR_0x8005, 0, FallarborTown_MoveRelearnersHouse_EventScript_NoMoveToTeachMon
-# 693 "data/maps/MauvilleCity/scripts.pory"
-	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMove
-# 694 "data/maps/MauvilleCity/scripts.pory"
-	end
-# 695 "data/maps/MauvilleCity/scripts.pory"
-
-# 696 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMove::
-# 697 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_TeachWhichMove, MSGBOX_DEFAULT
-# 698 "data/maps/MauvilleCity/scripts.pory"
-	special TeachMoveRelearnerMove
-# 699 "data/maps/MauvilleCity/scripts.pory"
 	waitstate
+# 690 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+# 691 "data/maps/MauvilleCity/scripts.pory"
+	special IsSelectedMonEgg
+# 692 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_RESULT, TRUE, FallarborTown_MoveRelearnersHouse_EventScript_CantTeachEgg
+# 693 "data/maps/MauvilleCity/scripts.pory"
+	goto_if_eq VAR_0x8005, 0, FallarborTown_MoveRelearnersHouse_EventScript_NoMoveToTeachMon
+# 694 "data/maps/MauvilleCity/scripts.pory"
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMove
+# 695 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 696 "data/maps/MauvilleCity/scripts.pory"
+
+# 697 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_ChooseMove::
+# 698 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TeachWhichMove, MSGBOX_DEFAULT
+# 699 "data/maps/MauvilleCity/scripts.pory"
+	special TeachMoveRelearnerMove
 # 700 "data/maps/MauvilleCity/scripts.pory"
-	goto_if_eq VAR_0x8004, 0, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+	waitstate
 # 701 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_HandedOverHeartScale, MSGBOX_DEFAULT
+	goto_if_eq VAR_0x8004, 0, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
 # 702 "data/maps/MauvilleCity/scripts.pory"
-	goto FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+	msgbox FallarborTown_MoveRelearnersHouse_Text_HandedOverHeartScale, MSGBOX_DEFAULT
 # 703 "data/maps/MauvilleCity/scripts.pory"
-	end
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
 # 704 "data/maps/MauvilleCity/scripts.pory"
-
+	end
 # 705 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_NoMoveToTeachMon::
+
 # 706 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon, MSGBOX_DEFAULT
+MauvilleCity_MoveRelearnersHouse_EventScript_NoMoveToTeachMon::
 # 707 "data/maps/MauvilleCity/scripts.pory"
-	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+	msgbox FallarborTown_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon, MSGBOX_DEFAULT
 # 708 "data/maps/MauvilleCity/scripts.pory"
-	end
-# 709 "data/maps/MauvilleCity/scripts.pory"
-
-# 710 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_CantTeachEgg::
-# 711 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_CantTeachEgg, MSGBOX_DEFAULT
-# 712 "data/maps/MauvilleCity/scripts.pory"
 	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+# 709 "data/maps/MauvilleCity/scripts.pory"
+	end
+# 710 "data/maps/MauvilleCity/scripts.pory"
+
+# 711 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_CantTeachEgg::
+# 712 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_CantTeachEgg, MSGBOX_DEFAULT
 # 713 "data/maps/MauvilleCity/scripts.pory"
-	end
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
 # 714 "data/maps/MauvilleCity/scripts.pory"
-
-# 715 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale::
-# 716 "data/maps/MauvilleCity/scripts.pory"
-	msgbox FallarborTown_MoveRelearnersHouse_Text_ComeBackWithHeartScale, MSGBOX_DEFAULT
-# 717 "data/maps/MauvilleCity/scripts.pory"
-	releaseall
-# 718 "data/maps/MauvilleCity/scripts.pory"
 	end
+# 715 "data/maps/MauvilleCity/scripts.pory"
+
+# 716 "data/maps/MauvilleCity/scripts.pory"
+MauvilleCity_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale::
+# 717 "data/maps/MauvilleCity/scripts.pory"
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ComeBackWithHeartScale, MSGBOX_DEFAULT
+# 718 "data/maps/MauvilleCity/scripts.pory"
+	releaseall
 # 719 "data/maps/MauvilleCity/scripts.pory"
-
+	end
 # 720 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_ImTheMoveTutor:
+
 # 721 "data/maps/MauvilleCity/scripts.pory"
-	.string "I'm the MOVE TUTOR.\p"
+MauvilleCity_MoveRelearnersHouse_Text_ImTheMoveTutor:
 # 722 "data/maps/MauvilleCity/scripts.pory"
-	.string "I know all the moves that POKéMON\n"
+	.string "I'm the MOVE TUTOR.\p"
 # 723 "data/maps/MauvilleCity/scripts.pory"
-	.string "learn--every one of them--and I can\l"
+	.string "I know all the moves that POKéMON\n"
 # 724 "data/maps/MauvilleCity/scripts.pory"
-	.string "teach POKéMON those moves.\p"
+	.string "learn--every one of them--and I can\l"
 # 725 "data/maps/MauvilleCity/scripts.pory"
-	.string "I can teach a move to a POKéMON\n"
+	.string "teach POKéMON those moves.\p"
 # 726 "data/maps/MauvilleCity/scripts.pory"
-	.string "of yours if you'd like.\p"
+	.string "I can teach a move to a POKéMON\n"
 # 727 "data/maps/MauvilleCity/scripts.pory"
-	.string "I'll do it for FREE.$"
+	.string "of yours if you'd like.\p"
 # 728 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "I'll do it for FREE.$"
 # 729 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove:
+
 # 730 "data/maps/MauvilleCity/scripts.pory"
-	.string "Oh! That's it! That's an honest to\n"
+MauvilleCity_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove:
 # 731 "data/maps/MauvilleCity/scripts.pory"
-	.string "goodness FREEDOM!\p"
+	.string "Oh! That's it! That's an honest to\n"
 # 732 "data/maps/MauvilleCity/scripts.pory"
-	.string "Let me guess, you want me to teach\n"
+	.string "goodness FREEDOM!\p"
 # 733 "data/maps/MauvilleCity/scripts.pory"
-	.string "a move?$"
+	.string "Let me guess, you want me to teach\n"
 # 734 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "a move?$"
 # 735 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_TutorWhichMon:
+
 # 736 "data/maps/MauvilleCity/scripts.pory"
-	.string "Which POKéMON needs tutoring?$"
+MauvilleCity_MoveRelearnersHouse_Text_TutorWhichMon:
 # 737 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Which POKéMON needs tutoring?$"
 # 738 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_TeachWhichMove:
+
 # 739 "data/maps/MauvilleCity/scripts.pory"
-	.string "Which move should I teach?$"
+MauvilleCity_MoveRelearnersHouse_Text_TeachWhichMove:
 # 740 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "Which move should I teach?$"
 # 741 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon:
+
 # 742 "data/maps/MauvilleCity/scripts.pory"
-	.string "Sorry…\p"
+MauvilleCity_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon:
 # 743 "data/maps/MauvilleCity/scripts.pory"
-	.string "It doesn't appear as if I have any move\n"
+	.string "Sorry…\p"
 # 744 "data/maps/MauvilleCity/scripts.pory"
-	.string "I can teach that POKéMON.$"
+	.string "It doesn't appear as if I have any move\n"
 # 745 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "I can teach that POKéMON.$"
 # 746 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_HandedOverHeartScale:
+
 # 747 "data/maps/MauvilleCity/scripts.pory"
-	.string "{PLAYER} handed over one FREEDOM UNIT\n"
+MauvilleCity_MoveRelearnersHouse_Text_HandedOverHeartScale:
 # 748 "data/maps/MauvilleCity/scripts.pory"
-	.string "in exchange.$"
+	.string "{PLAYER} handed over one FREEDOM UNIT\n"
 # 749 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "in exchange.$"
 # 750 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_ComeBackWithHeartScale:
+
 # 751 "data/maps/MauvilleCity/scripts.pory"
-	.string "If your POKéMON need to learn a move,\n"
+MauvilleCity_MoveRelearnersHouse_Text_ComeBackWithHeartScale:
 # 752 "data/maps/MauvilleCity/scripts.pory"
-	.string "come back with a FREEDOM UNIT.$"
+	.string "If your POKéMON need to learn a move,\n"
 # 753 "data/maps/MauvilleCity/scripts.pory"
-
+	.string "come back with a FREEDOM UNIT.$"
 # 754 "data/maps/MauvilleCity/scripts.pory"
-MauvilleCity_MoveRelearnersHouse_Text_CantTeachEgg:
+
 # 755 "data/maps/MauvilleCity/scripts.pory"
-	.string "Hunh? There isn't a single move that\n"
+MauvilleCity_MoveRelearnersHouse_Text_CantTeachEgg:
 # 756 "data/maps/MauvilleCity/scripts.pory"
+	.string "Hunh? There isn't a single move that\n"
+# 757 "data/maps/MauvilleCity/scripts.pory"
 	.string "I can teach an EGG.$"
-
-testfight::
-# 762 "data/maps/MauvilleCity/scripts.pory"
-	lockall
-# 763 "data/maps/MauvilleCity/scripts.pory"
-	trainerbattle_single TRAINER_TEST, introben, outroben
-	return
-
-
-introben::
-# 766 "data/maps/MauvilleCity/scripts.pory"
-	.string "start$"
-
-outroben::
-# 770 "data/maps/MauvilleCity/scripts.pory"
-	.string "end$"

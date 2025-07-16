@@ -97,7 +97,7 @@ SkyPillar_Top_EventScript_Rayquaza::
 # 49 "data/maps/SkyPillar_Top/scripts.pory"
 	waitmoncry
 # 50 "data/maps/SkyPillar_Top/scripts.pory"
-	setwildbattle SPECIES_RAYQUAZA, 70
+	setwildbattle SPECIES_RAYQUAZA, 60
 # 51 "data/maps/SkyPillar_Top/scripts.pory"
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 # 52 "data/maps/SkyPillar_Top/scripts.pory"

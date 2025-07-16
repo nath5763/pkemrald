@@ -1386,13 +1386,6 @@ static void Cmd_damagecalc(void)
         gBattleMoveDamage *= 2;
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
-    if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
-    && gBattleMoveDamage >= gBattleMons[gBattlerTarget].maxHP 
-    && gBattleMons[gBattlerTarget].item == ITEM_FOCUS_SASH)
-    {
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP - 1;
-        gBattleMons[gBattlerTarget].item = ITEM_NONE;
-    }
      
     gBattlescriptCurrInstr++;
 }
@@ -3003,6 +2996,10 @@ void SetMoveEffect(bool8 primary, u8 certain)
             case MOVE_EFFECT_SP_ATK_TWO_DOWN: // Overheat
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_SAtkDown2;
+                break;
+            case MOVE_EFFECT_DEF_SP_DEF_DOWN:
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_DefSpDefDown;
                 break;
             }
         }

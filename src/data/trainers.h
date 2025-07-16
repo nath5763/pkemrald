@@ -446,9 +446,9 @@ const struct Trainer gTrainers[] = {
         .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
         .trainerName = _("ARCHIE"),
         .items = {ITEM_SUPER_POTION, ITEM_SUPER_POTION, ITEM_NONE, ITEM_NONE},
-        .doubleBattle = FALSE,
+        .doubleBattle = TRUE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_Archie),
+        .party = ITEM_CUSTOM_MOVES(sParty_Archie),
         .battlestyle = OPTIONS_BATTLE_STYLE_SET,
     },
 
@@ -3292,7 +3292,7 @@ const struct Trainer gTrainers[] = {
         .trainerName = _("TATE&LIZA"),
         .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_HYPER_POTION},
         .doubleBattle = TRUE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY | AI_SCRIPT_DOUBLE_BATTLE | AI_SCRIPT_HP_AWARE,
         .party = ITEM_CUSTOM_MOVES(sParty_TateAndLiza1),
     },
 
@@ -3304,7 +3304,7 @@ const struct Trainer gTrainers[] = {
         .trainerName = _("JUAN"),
         .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_NONE, ITEM_NONE},
         .doubleBattle = TRUE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY | AI_SCRIPT_HP_AWARE,
         .party = ITEM_CUSTOM_MOVES(sParty_Juan1),
     },
 
@@ -6270,6 +6270,8 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_WallyVR1),
+        .battlestyle = OPTIONS_BATTLE_STYLE_SET,
+
     },
 
     [TRAINER_BRENDAN_ROUTE_103_MUDKIP] =
@@ -7954,7 +7956,8 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_WallyVR2),
-    },
+        .battlestyle = OPTIONS_BATTLE_STYLE_SET,
+},
 
     [TRAINER_WALLY_VR_3] =
     {
@@ -7966,6 +7969,7 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_WallyVR3),
+        .battlestyle = OPTIONS_BATTLE_STYLE_SET,
     },
 
     [TRAINER_WALLY_VR_4] =
@@ -7978,6 +7982,7 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_WallyVR4),
+        .battlestyle = OPTIONS_BATTLE_STYLE_SET,
     },
 
     [TRAINER_WALLY_VR_5] =
@@ -7990,6 +7995,7 @@ const struct Trainer gTrainers[] = {
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY ,
         .party = NO_ITEM_CUSTOM_MOVES(sParty_WallyVR5),
+        .battlestyle = OPTIONS_BATTLE_STYLE_SET,
     },
 
     [TRAINER_BRENDAN_LILYCOVE_MUDKIP] =

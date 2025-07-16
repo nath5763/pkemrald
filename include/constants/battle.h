@@ -302,7 +302,8 @@ enum BattlerId
 #define MOVE_EFFECT_NOTHING_39          57
 #define MOVE_EFFECT_NOTHING_3A          58
 #define MOVE_EFFECT_SP_ATK_TWO_DOWN     59
-#define NUM_MOVE_EFFECTS                60
+#define MOVE_EFFECT_DEF_SP_DEF_DOWN     60
+#define NUM_MOVE_EFFECTS                61
 
 #define MOVE_EFFECT_AFFECTS_USER        (1 << 6) // 64
 #define MOVE_EFFECT_CERTAIN             (1 << 7) // 128
