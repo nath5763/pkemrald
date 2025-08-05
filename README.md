@@ -20,7 +20,13 @@
   - Pokémon stat adjustments due to the split
 
 ---
-  
+
+#### Download
+
+* [**DOWNLOAD**](https://github.com/nath5763/pkemrald/releases/) `Save files might not work between versions`
+
+---
+
 This is a decompilation of Pokémon Emerald.
 
 It builds the following ROM:
