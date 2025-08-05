@@ -1,0 +1,162 @@
+mapscripts ChampionsClub_MapScripts {
+    
+}
+
+
+script benLoss {
+    setflag(FLAG_DEFEATED_BEN)
+    releaseall
+    end
+}
+
+script benFight {
+    lockall
+    faceplayer
+    if(!flag(FLAG_IS_CHAMPION)) {
+        msgbox(noChamp)
+        releaseall
+        end
+    }
+
+    if(flag(FLAG_DEFEATED_BEN)) {
+        msgbox("Others are ready.")
+        releaseall
+        end
+    }
+    if(flag(FLAG_DEFEATED_METEOR_FALLS_STEVEN)) {
+        trainerbattle_single(TRAINER_TEST, benReady, benDefeat, benLoss)
+        releaseall
+        end
+    } else {
+        msgbox(benPre)
+        releaseall
+        end
+    }
+}
+
+script ryanLoss {
+    setflag(FLAG_DEFEATED_RYAN)
+    releaseall
+    end
+}
+
+script ryanFight {
+    lockall
+    faceplayer
+    if(flag(FLAG_DEFEATED_RYAN)) {
+        msgbox("Others are ready.")
+        releaseall
+        end
+    }
+    if(flag(FLAG_DEFEATED_BEN)) {
+        trainerbattle_single(TRAINER_RYAN_TEST, ryanReady, ryanDefeat, ryanLoss)
+        releaseall
+        end
+    } else {
+        msgbox(ryanPre)
+        releaseall
+        end
+    }
+}
+
+script angieLoss {
+    setflag(FLAG_DEFEATED_ANGIE)
+    releaseall
+    end
+}
+
+script angieFight {
+    lockall
+    faceplayer
+    if(flag(FLAG_DEFEATED_ANGIE)) {
+        msgbox("Others are ready.")
+        releaseall
+        end
+    }
+    if(flag(FLAG_DEFEATED_RYAN)) {
+        trainerbattle_single(TRAINER_ANGIE_TEST, angieReady, angieDefeat, angieLoss)
+        releaseall
+        end
+    } else {
+        msgbox(angiePre)
+        releaseall
+        end
+    }
+}
+
+script sirusLoss {
+    setflag(FLAG_DEFEATED_SIRUS)
+    releaseall
+    end
+}
+
+script sirusFight {
+    lockall
+    faceplayer
+    if(flag(FLAG_DEFEATED_SIRUS)) {
+        msgbox("Others are ready.")
+        releaseall
+        end
+    }
+    if(flag(FLAG_DEFEATED_ANGIE)) {
+        trainerbattle_single(TRAINER_ANGIE_TEST, sirusReady, sirusDefeat, sirusLoss)
+        releaseall
+        end
+    } else {
+        msgbox(sirusPre)
+        releaseall
+        end
+    }
+}
+
+text noChamp {
+    "Hey Kid,\n we're all champions here.\p If you want fight,\n at least beat Steven."
+}
+
+text benPre {
+    "Congrats on champion.\n If you beat Steven I will \p give you a shot."
+}
+
+text benReady {
+    "So you can beat Steven,\n let's see how you fare."
+}
+
+text benDefeat {
+    "Wow..."
+}
+
+text ryanPre {
+    "You're not ready for me."
+}
+
+text ryanReady {
+    "Took you long enough."
+}
+
+text ryanDefeat {
+    "Fine, you're good."
+}
+
+text angiePre {
+    "Prove you're ready to fight me.\n Ryan's ego could go down a peg."
+}
+
+text angieReady {
+    "HAHA\n I love seeing ryan mad. \n Let's give it a whirl!"
+}
+
+text angieDefeat {
+    "Congrats on becoming\n one of the greatest."
+}
+
+text sirusPre {
+    "Unless you beat everyone else,\n I'm not giving you a shot."
+}
+
+text sirusReady {
+    "You have some skill, \n LETS GOOOOOO"
+}
+
+text sirusDefeat {
+    "The Champion of Champions!"
+}

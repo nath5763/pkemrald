@@ -399,6 +399,7 @@ gBattleAnims_Moves::
 	.4byte Move_SHADOW_CLAW
 	.4byte Move_THUNDER_FANG
 	.4byte Move_AQUA_JET
+	.4byte Move_ICE_SHARD
 	.4byte Move_COUNT @ cannot be reached, because last move is Psycho Boost
 
 	.align 2
@@ -9900,7 +9901,7 @@ Move_ZEN_HEADBUTT:
 
 Move_AURA_SPHERE:
 	loadspritegfx ANIM_TAG_SHADOW_BALL
-	fadetobg BG_GHOST
+	fadetobg BG_HIGHSPEED_OPPONENT
 	waitbgfadein
 	delay 15
 	createsoundtask SoundTask_LoopSEAdjustPanning, SE_M_MIST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 5, 5, 0, 5
@@ -10045,7 +10046,7 @@ Move_EARTH_POWER:
 	end
 Move_ENERGY_BALL:
 	loadspritegfx ANIM_TAG_SHADOW_BALL
-	fadetobg BG_GHOST
+	fadetobg BG_SKY
 	waitbgfadein
 	delay 15
 	createsoundtask SoundTask_LoopSEAdjustPanning, SE_M_MIST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 5, 5, 0, 5
@@ -10061,7 +10062,7 @@ Move_FIRE_FANG:
 	loadspritegfx ANIM_TAG_SHARP_TEETH
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_TARGET
-	fadetobg BG_DARK
+	fadetobg BG_IMPACT_OPPONENT
 	waitbgfadein
 	setalpha 12, 8
 	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
@@ -10086,7 +10087,7 @@ Move_FIRE_FANG:
 	end
 Move_FLASH_CANNON:
 	loadspritegfx ANIM_TAG_SHADOW_BALL
-	fadetobg BG_GHOST
+	fadetobg BG_DRILL
 	waitbgfadein
 	delay 15
 	createsoundtask SoundTask_LoopSEAdjustPanning, SE_M_MIST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 5, 5, 0, 5
@@ -10125,22 +10126,7 @@ Move_ICE_FANG:
 	restorebg
 	waitbgfadein
 	end	
-Move_ICE_SHARD:
-	loadspritegfx ANIM_TAG_IMPACT
-	monbg ANIM_ATK_PARTNER
-	setalpha 12, 8
-	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 24, 6, 1, 5
-	createvisualtask AnimTask_TraceMonBlended, 2, 0, 4, 7, 3
-	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
-	delay 4
-	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 6, 1
-	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0, 0, ANIM_TARGET, 1
-	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
-	waitforvisualfinish
-	clearmonbg ANIM_ATK_PARTNER
-	blendoff
-	waitforvisualfinish
-	end
+
 Move_IRON_HEAD:
 	loadspritegfx ANIM_TAG_IMPACT
 	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0
@@ -10311,7 +10297,7 @@ Move_THUNDER_FANG:
 	loadspritegfx ANIM_TAG_SHARP_TEETH
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_TARGET
-	fadetobg BG_DARK
+	fadetobg BG_THUNDER
 	waitbgfadein
 	setalpha 12, 8
 	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
@@ -10346,6 +10332,23 @@ Move_AQUA_JET:
 	waitforvisualfinish
 	clearmonbg ANIM_TARGET
 	blendoff
+	end
+	
+Move_ICE_SHARD:
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 24, 6, 1, 5
+	createvisualtask AnimTask_TraceMonBlended, 2, 0, 4, 7, 3
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	delay 4
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 6, 1
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0, 0, ANIM_TARGET, 1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	waitforvisualfinish
 	end
 
 Move_WEATHER_BALL:

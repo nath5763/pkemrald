@@ -3988,6 +3988,14 @@ BattleScript_DrizzleActivates::
 	call BattleScript_WeatherFormChanges
 	end3
 
+BattleScript_SnowCloakActivates::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PERMASNOW
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_HAIL_CONTINUES
+	call BattleScript_WeatherFormChanges
+	end3
+
 BattleScript_SpeedBoostActivates::
 	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	printstring STRINGID_PKMNRAISEDSPEED

@@ -668,6 +668,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [SPECIES_MAGNEZONE] = {
+        { .songId = PHONEME_ID(PH_TRAP_BLEND) },
+        { .songId = PHONEME_ID(PH_DRESS_BLEND) },
+        { .songId = PHONEME_ID(PH_STRUT_BLEND) },
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [SPECIES_FARFETCHD] = {
         { .songId = PHONEME_ID(PH_CLOTH_BLEND) },
         { .songId = PHONEME_ID(PH_DRESS_SOLO) },
@@ -1013,6 +1021,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_MAGMAR] = {
+        { .songId = PHONEME_ID(PH_TRAP_BLEND) },
+        { .songId = PHONEME_ID(PH_THOUGHT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_MAGMORTAR] = {
         { .songId = PHONEME_ID(PH_TRAP_BLEND) },
         { .songId = PHONEME_ID(PH_THOUGHT_SOLO) },
         PREV_BARD_SOUND,
@@ -1612,6 +1628,22 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [SPECIES_MISMAGIUS] = {
+        { .songId = PHONEME_ID(PH_KIT_SOLO) },
+        { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
+        { .songId = PHONEME_ID(PH_STRUT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_HONCHKROW] = {
+        { .songId = PHONEME_ID(PH_KIT_SOLO) },
+        { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
+        { .songId = PHONEME_ID(PH_STRUT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [SPECIES_UNOWN] = {
         { .songId = PHONEME_ID(PH_STRUT_BLEND) },
         { .songId = PHONEME_ID(PH_GOAT_SOLO) },
@@ -1732,6 +1764,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [SPECIES_WEAVILLE] = {
+        { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
+        { .songId = PHONEME_ID(PH_FOOT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [SPECIES_TEDDIURSA] = {
         { .songId = PHONEME_ID(PH_DRESS_BLEND) },
         { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
@@ -1773,6 +1813,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_PILOSWINE] = {
+        { .songId = PHONEME_ID(PH_KIT_SOLO) },
+        { .songId = PHONEME_ID(PH_GOAT_SOLO) },
+        { .songId = PHONEME_ID(PH_PRICE_BLEND) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_MAMOSWINE] = {
         { .songId = PHONEME_ID(PH_KIT_SOLO) },
         { .songId = PHONEME_ID(PH_GOAT_SOLO) },
         { .songId = PHONEME_ID(PH_PRICE_BLEND) },
@@ -1917,6 +1965,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_ELEKID] = {
+        { .songId = PHONEME_ID(PH_DRESS_SOLO) },
+        { .songId = PHONEME_ID(PH_DRESS_SOLO) },
+        { .songId = PHONEME_ID(PH_KIT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_ELECTIVIRE] = {
         { .songId = PHONEME_ID(PH_DRESS_SOLO) },
         { .songId = PHONEME_ID(PH_DRESS_SOLO) },
         { .songId = PHONEME_ID(PH_KIT_SOLO) },
@@ -2781,6 +2837,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_GLALIE] = {
+        { .songId = PHONEME_ID(PH_FACE_SOLO) },
+        { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_FROSLASS] = {
         { .songId = PHONEME_ID(PH_FACE_SOLO) },
         { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
         PREV_BARD_SOUND,

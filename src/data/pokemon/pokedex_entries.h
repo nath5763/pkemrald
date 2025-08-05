@@ -983,6 +983,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
+    [NATIONAL_DEX_MAGNEZONE] =
+    {
+        .categoryName = _("MAGNET"),
+        .height = 3,
+        .weight = 60,
+        .description = gMagnemitePokedexText,
+        .pokemonScale = 288,
+        .pokemonOffset = -9,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
 
     [NATIONAL_DEX_MAGNETON] =
     {
@@ -1524,6 +1535,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_MAGMORTAR] =
+    {
+        .categoryName = _("SPITFIRE"),
+        .height = 13,
+        .weight = 445,
+        .description = gMagmarPokedexText,
+        .pokemonScale = 277,
+        .pokemonOffset = 5,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
     [NATIONAL_DEX_PINSIR] =
     {
         .categoryName = _("STAG BEETLE"),
@@ -2423,7 +2445,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-
+    [NATIONAL_DEX_MISMAGIUS] =
+    {
+        .categoryName = _("SCREECH"),
+        .height = 7,
+        .weight = 10,
+        .description = gMisdreavusPokedexText,
+        .pokemonScale = 407,
+        .pokemonOffset = -8,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
     [NATIONAL_DEX_UNOWN] =
     {
         .categoryName = _("SYMBOL"),
@@ -2603,7 +2635,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-
+    [NATIONAL_DEX_WEAVILLE] =
+    {
+        .categoryName = _("SHARP CLAW"),
+        .height = 9,
+        .weight = 280,
+        .description = gSneaselPokedexText,
+        .pokemonScale = 413,
+        .pokemonOffset = -3,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
     [NATIONAL_DEX_TEDDIURSA] =
     {
         .categoryName = _("LITTLE BEAR"),
@@ -2665,6 +2707,18 @@ const struct PokedexEntry gPokedexEntries[] =
     },
 
     [NATIONAL_DEX_PILOSWINE] =
+    {
+        .categoryName = _("SWINE"),
+        .height = 11,
+        .weight = 558,
+        .description = gPiloswinePokedexText,
+        .pokemonScale = 306,
+        .pokemonOffset = 10,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_MAMOSWINE] =
     {
         .categoryName = _("SWINE"),
         .height = 11,
@@ -2881,6 +2935,18 @@ const struct PokedexEntry gPokedexEntries[] =
     },
 
     [NATIONAL_DEX_ELEKID] =
+    {
+        .categoryName = _("ELECTRIC"),
+        .height = 6,
+        .weight = 235,
+        .description = gElekidPokedexText,
+        .pokemonScale = 363,
+        .pokemonOffset = 14,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_ELECTIVIRE] =
     {
         .categoryName = _("ELECTRIC"),
         .height = 6,
@@ -4377,7 +4443,17 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 344,
         .trainerOffset = 0,
     },
-
+    [NATIONAL_DEX_FROSLASS] =
+    {
+        .categoryName = _("FACE"),
+        .height = 15,
+        .weight = 2565,
+        .description = gGlaliePokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 3,
+        .trainerScale = 344,
+        .trainerOffset = 0,
+    },
     [NATIONAL_DEX_SPHEAL] =
     {
         .categoryName = _("CLAP"),

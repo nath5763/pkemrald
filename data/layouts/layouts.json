@@ -4620,6 +4620,16 @@
       "secondary_tileset": "gTileset_PokemonCenter",
       "border_filepath": "data/layouts/PokecenterRoute135/border.bin",
       "blockdata_filepath": "data/layouts/PokecenterRoute135/map.bin"
+    },
+    {
+      "id": "LAYOUT_CHAMPIONS_CLUB",
+      "name": "ChampionsClub_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_LilycoveMuseum",
+      "border_filepath": "data/layouts/ChampionsClub/border.bin",
+      "blockdata_filepath": "data/layouts/ChampionsClub/map.bin"
     }
   ]
 }

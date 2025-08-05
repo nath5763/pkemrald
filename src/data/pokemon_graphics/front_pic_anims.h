@@ -964,6 +964,15 @@ static const union AnimCmd sAnim_Magnemite_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Magnezone_1[] =
+{
+    ANIMCMD_FRAME(0, 28),
+    ANIMCMD_FRAME(1, 28),
+    ANIMCMD_FRAME(0, 28),
+    ANIMCMD_FRAME(1, 28),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
 static const union AnimCmd sAnim_Magneton_1[] =
 {
     ANIMCMD_FRAME(0, 14),
@@ -1531,6 +1540,13 @@ static const union AnimCmd sAnim_Electabuzz_1[] =
 };
 
 static const union AnimCmd sAnim_Magmar_1[] =
+{
+    ANIMCMD_FRAME(1, 40),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Magmortar_1[] =
 {
     ANIMCMD_FRAME(1, 40),
     ANIMCMD_FRAME(0, 10),
@@ -2336,6 +2352,13 @@ static const union AnimCmd sAnim_Murkrow_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Honchkrow_1[] =
+{
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Slowking_1[] =
 {
     ANIMCMD_FRAME(0, 15),
@@ -2345,6 +2368,21 @@ static const union AnimCmd sAnim_Slowking_1[] =
 };
 
 static const union AnimCmd sAnim_Misdreavus_1[] =
+{
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Mismagius_1[] =
 {
     ANIMCMD_FRAME(1, 10),
     ANIMCMD_FRAME(0, 10),
@@ -2523,6 +2561,13 @@ static const union AnimCmd sAnim_Sneasel_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Weaville_1[] =
+{
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Teddiursa_1[] =
 {
     ANIMCMD_FRAME(1, 30),
@@ -2585,6 +2630,15 @@ static const union AnimCmd sAnim_Swinub_1[] =
 };
 
 static const union AnimCmd sAnim_Piloswine_1[] =
+{
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Mamoswine_1[] =
 {
     ANIMCMD_FRAME(1, 10),
     ANIMCMD_FRAME(0, 10),
@@ -2805,6 +2859,14 @@ static const union AnimCmd sAnim_Smoochum_1[] =
 };
 
 static const union AnimCmd sAnim_Elekid_1[] =
+{
+    ANIMCMD_FRAME(1, 50),
+    ANIMCMD_FRAME(1, 5),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Electivire_1[] =
 {
     ANIMCMD_FRAME(1, 50),
     ANIMCMD_FRAME(1, 5),
@@ -3767,6 +3829,15 @@ static const union AnimCmd sAnim_Glalie_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Froslass_1[] =
+{
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
 static const union AnimCmd sAnim_Lunatone_1[] =
 {
     ANIMCMD_FRAME(0, 15),
@@ -4918,6 +4989,7 @@ SINGLE_ANIMATION(Rapidash);
 SINGLE_ANIMATION(Slowpoke);
 SINGLE_ANIMATION(Slowbro);
 SINGLE_ANIMATION(Magnemite);
+SINGLE_ANIMATION(Magnezone);
 SINGLE_ANIMATION(Magneton);
 SINGLE_ANIMATION(Farfetchd);
 SINGLE_ANIMATION(Doduo);
@@ -4963,6 +5035,7 @@ SINGLE_ANIMATION(Scyther);
 SINGLE_ANIMATION(Jynx);
 SINGLE_ANIMATION(Electabuzz);
 SINGLE_ANIMATION(Magmar);
+SINGLE_ANIMATION(Magmortar);
 DOUBLE_ANIMATION(Pinsir);
 SINGLE_ANIMATION(Tauros);
 SINGLE_ANIMATION(Magikarp);
@@ -5036,8 +5109,10 @@ SINGLE_ANIMATION(Quagsire);
 SINGLE_ANIMATION(Espeon);
 SINGLE_ANIMATION(Umbreon);
 SINGLE_ANIMATION(Murkrow);
+SINGLE_ANIMATION(Honchkrow);
 SINGLE_ANIMATION(Slowking);
 SINGLE_ANIMATION(Misdreavus);
+SINGLE_ANIMATION(Mismagius);
 SINGLE_ANIMATION(Unown);
 DOUBLE_ANIMATION(Wobbuffet);
 DOUBLE_ANIMATION(Girafarig);
@@ -5053,12 +5128,14 @@ SINGLE_ANIMATION(Scizor);
 SINGLE_ANIMATION(Shuckle);
 DOUBLE_ANIMATION(Heracross);
 SINGLE_ANIMATION(Sneasel);
+SINGLE_ANIMATION(Weaville);
 SINGLE_ANIMATION(Teddiursa);
 SINGLE_ANIMATION(Ursaring);
 DOUBLE_ANIMATION(Slugma);
 DOUBLE_ANIMATION(Magcargo);
 SINGLE_ANIMATION(Swinub);
 SINGLE_ANIMATION(Piloswine);
+SINGLE_ANIMATION(Mamoswine);
 DOUBLE_ANIMATION(Corsola);
 SINGLE_ANIMATION(Remoraid);
 SINGLE_ANIMATION(Octillery);
@@ -5077,6 +5154,7 @@ SINGLE_ANIMATION(Tyrogue);
 SINGLE_ANIMATION(Hitmontop);
 SINGLE_ANIMATION(Smoochum);
 SINGLE_ANIMATION(Elekid);
+SINGLE_ANIMATION(Electivire);
 SINGLE_ANIMATION(Magby);
 SINGLE_ANIMATION(Miltank);
 SINGLE_ANIMATION(Blissey);
@@ -5169,6 +5247,7 @@ SINGLE_ANIMATION(Cacnea);
 SINGLE_ANIMATION(Cacturne);
 SINGLE_ANIMATION(Snorunt);
 SINGLE_ANIMATION(Glalie);
+SINGLE_ANIMATION(Froslass);
 DOUBLE_ANIMATION(Lunatone);
 DOUBLE_ANIMATION(Solrock);
 SINGLE_ANIMATION(Azurill);
@@ -5352,6 +5431,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SLOWPOKE]    = sAnims_Slowpoke,
     [SPECIES_SLOWBRO]     = sAnims_Slowbro,
     [SPECIES_MAGNEMITE]   = sAnims_Magnemite,
+    [SPECIES_MAGNEZONE]   = sAnims_Magnezone,
     [SPECIES_MAGNETON]    = sAnims_Magneton,
     [SPECIES_FARFETCHD]   = sAnims_Farfetchd,
     [SPECIES_DODUO]       = sAnims_Doduo,
@@ -5397,6 +5477,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_JYNX]        = sAnims_Jynx,
     [SPECIES_ELECTABUZZ]  = sAnims_Electabuzz,
     [SPECIES_MAGMAR]      = sAnims_Magmar,
+    [SPECIES_MAGMORTAR]   = sAnims_Magmortar,
     [SPECIES_PINSIR]      = sAnims_Pinsir,
     [SPECIES_TAUROS]      = sAnims_Tauros,
     [SPECIES_MAGIKARP]    = sAnims_Magikarp,
@@ -5470,8 +5551,10 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_ESPEON]      = sAnims_Espeon,
     [SPECIES_UMBREON]     = sAnims_Umbreon,
     [SPECIES_MURKROW]     = sAnims_Murkrow,
+    [SPECIES_HONCHKROW]   = sAnims_Honchkrow,
     [SPECIES_SLOWKING]    = sAnims_Slowking,
     [SPECIES_MISDREAVUS]  = sAnims_Misdreavus,
+    [SPECIES_MISMAGIUS]  = sAnims_Mismagius,
     [SPECIES_UNOWN]       = sAnims_Unown,
     [SPECIES_WOBBUFFET]   = sAnims_Wobbuffet,
     [SPECIES_GIRAFARIG]   = sAnims_Girafarig,
@@ -5487,12 +5570,14 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SHUCKLE]     = sAnims_Shuckle,
     [SPECIES_HERACROSS]   = sAnims_Heracross,
     [SPECIES_SNEASEL]     = sAnims_Sneasel,
+    [SPECIES_WEAVILLE]     = sAnims_Weaville,
     [SPECIES_TEDDIURSA]   = sAnims_Teddiursa,
     [SPECIES_URSARING]    = sAnims_Ursaring,
     [SPECIES_SLUGMA]      = sAnims_Slugma,
     [SPECIES_MAGCARGO]    = sAnims_Magcargo,
     [SPECIES_SWINUB]      = sAnims_Swinub,
     [SPECIES_PILOSWINE]   = sAnims_Piloswine,
+    [SPECIES_MAMOSWINE]   = sAnims_Mamoswine,
     [SPECIES_CORSOLA]     = sAnims_Corsola,
     [SPECIES_REMORAID]    = sAnims_Remoraid,
     [SPECIES_OCTILLERY]   = sAnims_Octillery,
@@ -5511,6 +5596,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_HITMONTOP]   = sAnims_Hitmontop,
     [SPECIES_SMOOCHUM]    = sAnims_Smoochum,
     [SPECIES_ELEKID]      = sAnims_Elekid,
+    [SPECIES_ELECTIVIRE]  = sAnims_Electivire,
     [SPECIES_MAGBY]       = sAnims_Magby,
     [SPECIES_MILTANK]     = sAnims_Miltank,
     [SPECIES_BLISSEY]     = sAnims_Blissey,
@@ -5619,6 +5705,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_CACTURNE]    = sAnims_Cacturne,
     [SPECIES_SNORUNT]     = sAnims_Snorunt,
     [SPECIES_GLALIE]      = sAnims_Glalie,
+    [SPECIES_FROSLASS]    = sAnims_Froslass,
     [SPECIES_LUNATONE]    = sAnims_Lunatone,
     [SPECIES_SOLROCK]     = sAnims_Solrock,
     [SPECIES_AZURILL]     = sAnims_Azurill,

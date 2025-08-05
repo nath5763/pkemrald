@@ -711,6 +711,10 @@ Cry_Magnemite::
 	.incbin "sound/direct_sound_samples/cries/magnemite.bin"
 
 	.align 2
+Cry_Magnezone::
+	.incbin "sound/direct_sound_samples/cries/magnemite.bin"
+
+	.align 2
 Cry_Magneton::
 	.incbin "sound/direct_sound_samples/cries/magneton.bin"
 
@@ -888,6 +892,10 @@ Cry_Electabuzz::
 
 	.align 2
 Cry_Magmar::
+	.incbin "sound/direct_sound_samples/cries/magmar.bin"
+
+	.align 2
+Cry_Magmortar::
 	.incbin "sound/direct_sound_samples/cries/magmar.bin"
 
 	.align 2
@@ -1190,6 +1198,14 @@ Cry_Misdreavus::
 	.incbin "sound/direct_sound_samples/cries/misdreavus.bin"
 
 	.align 2
+Cry_Mismagius::
+	.incbin "sound/direct_sound_samples/cries/misdreavus.bin"
+
+	.align 2
+Cry_Honchkrow::
+	.incbin "sound/direct_sound_samples/cries/murkrow.bin"
+
+	.align 2
 Cry_Unown::
 	.incbin "sound/direct_sound_samples/cries/unown.bin"
 
@@ -1250,6 +1266,10 @@ Cry_Sneasel::
 	.incbin "sound/direct_sound_samples/cries/sneasel.bin"
 
 	.align 2
+Cry_Weaville::
+	.incbin "sound/direct_sound_samples/cries/sneasel.bin"
+
+	.align 2
 Cry_Teddiursa::
 	.incbin "sound/direct_sound_samples/cries/teddiursa.bin"
 
@@ -1271,6 +1291,10 @@ Cry_Swinub::
 
 	.align 2
 Cry_Piloswine::
+	.incbin "sound/direct_sound_samples/cries/piloswine.bin"
+
+	.align 2
+Cry_Mamoswine::
 	.incbin "sound/direct_sound_samples/cries/piloswine.bin"
 
 	.align 2
@@ -1343,6 +1367,10 @@ Cry_Smoochum::
 
 	.align 2
 Cry_Elekid::
+	.incbin "sound/direct_sound_samples/cries/elekid.bin"
+
+	.align 2
+Cry_Electivire::
 	.incbin "sound/direct_sound_samples/cries/elekid.bin"
 
 	.align 2
@@ -1622,6 +1650,10 @@ Cry_Nosepass::
 
 	.align 2
 Cry_Glalie::
+	.incbin "sound/direct_sound_samples/cries/glalie.bin"
+
+	.align 2
+Cry_Froslass::
 	.incbin "sound/direct_sound_samples/cries/glalie.bin"
 
 	.align 2

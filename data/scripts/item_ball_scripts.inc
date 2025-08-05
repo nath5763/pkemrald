@@ -127,7 +127,7 @@ Route115_EventScript_ItemPPUp::
 	end
 
 Route116_EventScript_ItemXSpecial::
-	finditem ITEM_X_SPECIAL
+	finditem ITEM_SUN_STONE
 	end
 
 Route116_EventScript_ItemEther::
@@ -147,7 +147,7 @@ Route116_EventScript_ItemPotion::
 	end
 
 Route117_EventScript_ItemGreatBall::
-	finditem ITEM_GREAT_BALL
+	finditem ITEM_KINGS_ROCK
 	end
 
 Route117_EventScript_ItemRevive::
@@ -315,7 +315,7 @@ MauvilleCity_EventScript_ItemXSpeed::
 	end
 
 RustboroCity_EventScript_ItemXDefend::
-	finditem ITEM_X_DEFEND
+	finditem ITEM_LEAF_STONE
 	end
 
 LilycoveCity_EventScript_ItemMaxRepel::

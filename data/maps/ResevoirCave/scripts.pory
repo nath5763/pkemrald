@@ -19,19 +19,24 @@ script aquaBattleScript {
     lock
     faceplayer
     msgbox("I need this guy to build me a tunnel.\nYou dare oppose Team Aqua?\p Prepare to battle!")
-    trainerbattle_single(TRAINER_AQUA_ADMIN, AquaIntro, AquaOutro)
+    trainerbattle_single(TRAINER_AQUA_ADMIN, AquaIntro, AquaOutro, postFight)
     specialvar(VAR_RESULT, GetBattleOutcome)
-    if(var(VAR_RESULT)==B_OUTCOME_WON) {
-        msgbox("Grr... this isn't over...")
-        waitmessage
-        setflag(FLAG_RESEVOIR_CLEARED)
-        fadescreen(FADE_TO_BLACK)
-        removeobject(1)
-        removeobject(2)
-        fadescreen(FADE_FROM_BLACK)
-    }
     releaseall
     end
+}
+
+script postFight {
+    msgbox("Grr... this isn't over...")
+    waitmessage
+    setflag(FLAG_RESEVOIR_CLEARED)
+    fadescreen(FADE_TO_BLACK)
+    removeobject(1)
+    msgbox("Thanks for freeing me,\n have these!")
+    waitmessage
+    giveitem(ITEM_WATER_STONE)
+    waitbuttonpress
+    removeobject(2)
+    fadescreen(FADE_FROM_BLACK)
 }
 
 script prisoner {

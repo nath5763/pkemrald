@@ -4776,12 +4776,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MUD_SHOT] =
     {
         .effect = EFFECT_SPEED_DOWN_HIT,
-        .power = 55,
+        .power = 50,
         .type = TYPE_GROUND,
-        .accuracy = 100,
+        .accuracy = 90,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .pp = 15,
-        .secondaryEffectChance = 85,
+        .secondaryEffectChance = 100,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
@@ -5043,7 +5043,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
     [MOVE_BRAVE_BIRD] =
@@ -5074,13 +5074,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     },
     [MOVE_AVALANCHE] =
     {
-        .effect = EFFECT_HIT,
-        .power = 60,
+        .effect = EFFECT_HIGH_CRITICAL,
+        .power = 75,
         .type = TYPE_ICE,
         .accuracy = 100,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .pp = 25,
-        .secondaryEffectChance = 10,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
@@ -5186,7 +5186,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
     [MOVE_IRON_HEAD] =
@@ -5207,7 +5207,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_OVERHEAT,
         .power = 130,
         .type = TYPE_GRASS,
-        .accuracy = 90,
+        .accuracy = 100,
         .category = DAMAGE_CATEGORY_SPECIAL,
         .pp = 5,
         .secondaryEffectChance = 100,
@@ -5342,7 +5342,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
     },
 

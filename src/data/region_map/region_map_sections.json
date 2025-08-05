@@ -1705,7 +1705,11 @@
     },
     {
       "id": "MAPSEC_Route135",
-      "name": "ROUTE 135"
+      "name": "ROUTE 135",
+      "x": 17,
+      "y": 6,
+      "width": 1,
+      "height": 3
     },
     {
       "id": "MAPSEC_ROUTE_136",

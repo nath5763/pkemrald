@@ -385,7 +385,7 @@
 #define MOVE_SHADOW_CLAW 382
 #define MOVE_THUNDER_FANG 383
 #define MOVE_AQUA_JET 384
-#define MOVES_COUNT 385
+#define MOVES_COUNT 386
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

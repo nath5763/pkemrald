@@ -81,6 +81,7 @@ gCryTable::
 	cry Cry_Slowpoke
 	cry Cry_Slowbro
 	cry Cry_Magnemite
+	cry Cry_Magnezone
 	cry Cry_Magneton
 	cry Cry_Farfetchd
 	cry Cry_Doduo
@@ -126,6 +127,7 @@ gCryTable::
 	cry Cry_Jynx
 	cry Cry_Electabuzz
 	cry Cry_Magmar
+	cry Cry_Magmortar
 	cry Cry_Pinsir
 	cry Cry_Tauros
 	cry Cry_Magikarp
@@ -201,6 +203,8 @@ gCryTable::
 	cry Cry_Murkrow
 	cry Cry_Slowking
 	cry Cry_Misdreavus
+	cry Cry_Mismagius
+	cry Cry_Honchkrow
 	cry Cry_Unown
 	cry Cry_Wobbuffet
 	cry Cry_Girafarig
@@ -216,12 +220,14 @@ gCryTable::
 	cry Cry_Shuckle
 	cry Cry_Heracross
 	cry Cry_Sneasel
+	cry Cry_Weaville
 	cry Cry_Teddiursa
 	cry Cry_Ursaring
 	cry Cry_Slugma
 	cry Cry_Magcargo
 	cry Cry_Swinub
 	cry Cry_Piloswine
+	cry Cry_Mamoswine
 	cry Cry_Corsola
 	cry Cry_Remoraid
 	cry Cry_Octillery
@@ -240,6 +246,7 @@ gCryTable::
 	cry Cry_Hitmontop
 	cry Cry_Smoochum
 	cry Cry_Elekid
+	cry Cry_Electivire
 	cry Cry_Magby
 	cry Cry_Miltank
 	cry Cry_Blissey
@@ -310,6 +317,7 @@ gCryTable::
 	cry Cry_Hariyama
 	cry Cry_Nosepass
 	cry Cry_Glalie
+	cry Cry_Froslass
 	cry Cry_Plusle
 	cry Cry_Minun
 	cry Cry_Surskit
@@ -474,6 +482,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Slowpoke
 	cry_reverse Cry_Slowbro
 	cry_reverse Cry_Magnemite
+	cry_reverse Cry_Magnezone
 	cry_reverse Cry_Magneton
 	cry_reverse Cry_Farfetchd
 	cry_reverse Cry_Doduo
@@ -519,6 +528,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Jynx
 	cry_reverse Cry_Electabuzz
 	cry_reverse Cry_Magmar
+	cry_reverse Cry_Magmortar
 	cry_reverse Cry_Pinsir
 	cry_reverse Cry_Tauros
 	cry_reverse Cry_Magikarp
@@ -594,6 +604,8 @@ gCryTable_Reverse::
 	cry_reverse Cry_Murkrow
 	cry_reverse Cry_Slowking
 	cry_reverse Cry_Misdreavus
+	cry_reverse Cry_Mismagius
+	cry_reverse Cry_Honchkrow
 	cry_reverse Cry_Unown
 	cry_reverse Cry_Wobbuffet
 	cry_reverse Cry_Girafarig
@@ -609,12 +621,14 @@ gCryTable_Reverse::
 	cry_reverse Cry_Shuckle
 	cry_reverse Cry_Heracross
 	cry_reverse Cry_Sneasel
+	cry_reverse Cry_Weaville
 	cry_reverse Cry_Teddiursa
 	cry_reverse Cry_Ursaring
 	cry_reverse Cry_Slugma
 	cry_reverse Cry_Magcargo
 	cry_reverse Cry_Swinub
 	cry_reverse Cry_Piloswine
+	cry_reverse Cry_Mamoswine
 	cry_reverse Cry_Corsola
 	cry_reverse Cry_Remoraid
 	cry_reverse Cry_Octillery
@@ -633,6 +647,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Hitmontop
 	cry_reverse Cry_Smoochum
 	cry_reverse Cry_Elekid
+	cry_reverse Cry_Electivire
 	cry_reverse Cry_Magby
 	cry_reverse Cry_Miltank
 	cry_reverse Cry_Blissey
@@ -703,6 +718,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Hariyama
 	cry_reverse Cry_Nosepass
 	cry_reverse Cry_Glalie
+	cry_reverse Cry_Froslass
 	cry_reverse Cry_Plusle
 	cry_reverse Cry_Minun
 	cry_reverse Cry_Surskit
