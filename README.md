@@ -21,11 +21,13 @@
 
 ---
 
-#### Download
+### Download
 
 * [**DOWNLOAD**](https://github.com/nath5763/pkemrald/releases/) `Save files might not work between versions`
 
 ---
+
+### Credits
 
 This is a decompilation of Pokémon Emerald.
 
