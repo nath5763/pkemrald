@@ -1,36 +1,39 @@
 {
-    "id": "MAP_ROUTE136",
-    "name": "ROUTE136",
-    "layout": "LAYOUT_ROUTE136",
-    "music": "MUS_DUMMY",
-    "region_map_section": "MAPSEC_ROUTE_136",
-    "requires_flash": false,
-    "weather": "WEATHER_NONE",
-    "map_type": "MAP_TYPE_ROUTE",
-    "allow_cycling": true,
-    "allow_escaping": false,
-    "allow_running": true,
-    "show_map_name": true,
-    "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-    "connections": [{
-            "map": "MAP_ROUTE126",
-            "offset": -39,
-            "direction": "right"
-        },
-        {
-            "map": "MAP_FARAWAY_ISLAND_ENTRANCE",
-            "offset": -16,
-            "direction": "left"
-        }
-    ],
-    "object_events": [],
-    "warp_events": [{
-        "x": 11,
-        "y": 18,
-        "elevation": 0,
-        "dest_map": "MAP_ADVENT_CAVE",
-        "dest_warp_id": "3"
-    }],
-    "coord_events": [],
-    "bg_events": []
+  "id": "MAP_ROUTE136",
+  "name": "ROUTE136",
+  "layout": "LAYOUT_ROUTE136",
+  "music": "MUS_DUMMY",
+  "region_map_section": "MAPSEC_ROUTE_136",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE126",
+      "offset": -39,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_FARAWAY_ISLAND_ENTRANCE",
+      "offset": -16,
+      "direction": "left"
+    }
+  ],
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 11,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_ADVENT_CAVE",
+      "dest_warp_id": "3"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": []
 }

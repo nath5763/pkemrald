@@ -12936,9 +12936,9 @@ static const struct TrainerMonItemCustomMoves sParty_Leaf[] = {
     {
     .iv = 255,
     .lvl = 60,
-    .species = SPECIES_TORKOAL,
+    .species = SPECIES_SHIFTRY,
     .heldItem = ITEM_SITRUS_BERRY,
-    .moves = {MOVE_OVERHEAT, MOVE_BODY_SLAM, MOVE_EFFECT_TOXIC, MOVE_PROTECT}
+    .moves = {MOVE_LEAF_BLADE, MOVE_NIGHT_SLASH, MOVE_AERIAL_ACE, MOVE_PROTECT}
     },
     {
     .iv = 255,
@@ -12952,7 +12952,7 @@ static const struct TrainerMonItemCustomMoves sParty_Leaf[] = {
     .lvl = 60,
     .species = SPECIES_NINETALES,
     .heldItem = ITEM_SITRUS_BERRY,
-    .moves = {MOVE_FLAMETHROWER, MOVE_PSYCHIC, MOVE_ENERGY_BALL, MOVE_CALM_MIND}
+    .moves = {MOVE_FLAMETHROWER, MOVE_PSYCHIC, MOVE_ENERGY_BALL, MOVE_SUNNY_DAY}
     },
     {
     .iv = 255,

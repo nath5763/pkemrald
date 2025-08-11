@@ -3355,6 +3355,54 @@ static void Cmd_jumpiftype(void)
         gBattlescriptCurrInstr += 7;
 }
 
+static s8 GetLevelDeltaFromMax(u8 partyIndex)
+{
+    u8 currLevel = (u8)GetMonData(&gPlayerParty[partyIndex], MON_DATA_LEVEL);
+    u8 highestLevel = currLevel;
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i == partyIndex)
+            continue;
+
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+        {
+            u8 lvl = (u8)GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+            if (lvl > highestLevel)
+                highestLevel = lvl;
+        }
+    }
+
+    return (s8)(highestLevel - currLevel);
+}
+
+static u32 GetExpToNextLevel_ByPartyIndex(u8 partyIndex)
+{
+    u16 species;
+    u8  level;
+    u32 currExp;
+    u8  growth;
+    u32 expAtCurr;
+    u32 expAtNext;
+
+    species = (u16)GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
+    level   = (u8) GetMonData(&gPlayerParty[partyIndex], MON_DATA_LEVEL);
+    currExp = (u32)GetMonData(&gPlayerParty[partyIndex], MON_DATA_EXP);
+
+    if (species == SPECIES_NONE || level >= MAX_LEVEL)
+        return 0;
+
+    growth    = gSpeciesInfo[species].growthRate;
+    expAtCurr = gExperienceTables[growth][level];
+    expAtNext = gExperienceTables[growth][level + 1];
+
+    if (currExp < expAtCurr) // guard against bad data
+        currExp = expAtCurr;
+
+    return (expAtNext > currExp) ? (expAtNext - currExp) : 0;
+}
+
 static void Cmd_getexp(void)
 {
     u16 item;
@@ -3363,6 +3411,7 @@ static void Cmd_getexp(void)
     s32 sentIn;
     s32 viaExpShare = 0;
     u16 *exp = &gBattleStruct->expValue;
+    s8 levelDiff;
 
     gBattlerFainted = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
     sentIn = gSentPokesToOpponent[(gBattlerFainted & 2) >> 1];
@@ -3497,6 +3546,29 @@ static void Cmd_getexp(void)
                     else
                     {
                         i = STRINGID_EMPTYSTRING4;
+                    }
+
+                    levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
+
+                    if (levelDiff > 0) // only if behind
+                    {
+                        u8 idx = gBattleStruct->expGetterMonId;
+                        u16 species = (u16)GetMonData(&gPlayerParty[idx], MON_DATA_SPECIES);
+                        u8 growth = gSpeciesInfo[species].growthRate;
+                        u8 currLevel = (u8)GetMonData(&gPlayerParty[idx], MON_DATA_LEVEL);
+
+                        // EXP span of the current level
+                        u32 expAtCurr = gExperienceTables[growth][currLevel];
+                        u32 expAtNext = gExperienceTables[growth][currLevel + 1];
+                        u32 expInLevel = expAtNext - expAtCurr;
+
+                        // Bonus = (levelDiff * 2%) of current level's EXP span
+                        u32 bonusExp = (expInLevel * (levelDiff * 2)) / 100;
+
+                        if (bonusExp == 0)
+                            bonusExp = 1; // minimum bonus
+
+                        gBattleMoveDamage += (s32)bonusExp; // add to normal EXP gain
                     }
 
                     // get exp getter battler

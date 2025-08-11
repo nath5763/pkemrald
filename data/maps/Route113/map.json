@@ -260,6 +260,13 @@
       "elevation": 0,
       "dest_map": "MAP_TERRA_CAVE_ENTRANCE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 94,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_ASHEN_ROOST",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [
@@ -395,6 +402,20 @@
       "y": 7,
       "elevation": 3,
       "weather": "COORD_EVENT_WEATHER_VOLCANIC_ASH"
+    },
+    {
+      "type": "weather",
+      "x": 94,
+      "y": 8,
+      "elevation": 3,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 93,
+      "y": 6,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
     }
   ],
   "bg_events": [

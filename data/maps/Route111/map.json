@@ -683,6 +683,13 @@
       "elevation": 0,
       "dest_map": "MAP_ASHEN_ROOST",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 35,
+      "y": 2,
+      "elevation": 0,
+      "dest_map": "MAP_ASHEN_ROOST",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [
@@ -1054,13 +1061,6 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route111_EventScript_OldLadysRestStopSign"
-    },
-    {
-      "type": "secret_base",
-      "x": 35,
-      "y": 1,
-      "elevation": 0,
-      "secret_base_id": "SECRET_BASE_RED_CAVE2_3"
     },
     {
       "type": "secret_base",
