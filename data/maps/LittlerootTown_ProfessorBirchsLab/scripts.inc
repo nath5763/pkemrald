@@ -1988,3 +1988,41 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "… … … … … …\n"
 # 995 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	.string "… … … … … Click!$"
+
+backupMultiGiver::
+# 998 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	lockall
+# 999 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	faceplayer
+	checkitem ITEM_MULTI_TOOL, 1
+# 0 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	compare VAR_RESULT, TRUE
+	goto_if_eq backupMultiGiver_2
+# 1003 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	msgbox backupMultiGiver_Text_1
+# 1004 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	giveitem ITEM_MULTI_TOOL
+# 1005 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	setflag FLAG_MULTI_TOOL_GOT
+# 1006 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	waitbuttonpress
+backupMultiGiver_1:
+# 1008 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	waitmessage
+# 1009 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	releaseall
+	end
+
+backupMultiGiver_2:
+# 1001 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	msgbox backupMultiGiver_Text_0
+	goto backupMultiGiver_1
+
+
+backupMultiGiver_Text_0:
+# 1001 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	.string "I hope you're liking the\n MULTI TOOL!$"
+
+backupMultiGiver_Text_1:
+# 1003 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	.string "This is our newest creation!$"
