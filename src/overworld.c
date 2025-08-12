@@ -66,6 +66,7 @@
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
+#include "qol_field_moves.h" // qol_field_moves
 
 struct CableClubPlayer
 {
@@ -373,6 +374,7 @@ void Overworld_ResetStateAfterFly(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ClearFieldMoveFlags(); // qol_field_moves
 }
 
 void Overworld_ResetStateAfterTeleport(void)
@@ -383,6 +385,7 @@ void Overworld_ResetStateAfterTeleport(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ClearFieldMoveFlags(); // qol_field_moves
     RunScriptImmediately(EventScript_ResetMrBriney);
 }
 
@@ -394,6 +397,7 @@ void Overworld_ResetStateAfterDigEscRope(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ClearFieldMoveFlags(); // qol_field_moves
 }
 
 static void Overworld_ResetStateAfterWhiteOut(void)
@@ -404,6 +408,7 @@ static void Overworld_ResetStateAfterWhiteOut(void)
     FlagClear(FLAG_SYS_SAFARI_MODE);
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_USE_FLASH);
+    ClearFieldMoveFlags(); // qol_field_moves
     // If you were defeated by Kyogre/Groudon and the step counter has
     // maxed out, end the abnormal weather.
     if (VarGet(VAR_SHOULD_END_ABNORMAL_WEATHER) == 1)
@@ -970,12 +975,21 @@ bool32 Overworld_IsBikingAllowed(void)
 // Flash level of 8 is fully black
 void SetDefaultFlashLevel(void)
 {
+
+    // Start qol_field_moves
+#ifdef QOL_NO_MESSAGING
+    if(CanUseFlash())
+        FlagSet(FLAG_SYS_USE_FLASH);
+#endif //QOL_NO_MESSAGING
+   // End qol_field_moves
+
     if (!gMapHeader.cave)
         gSaveBlock1Ptr->flashLevel = 0;
     else if (FlagGet(FLAG_SYS_USE_FLASH))
         gSaveBlock1Ptr->flashLevel = 1;
     else
         gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+    TryUseFlash(); // qol_field_moves
 }
 
 void SetFlashLevel(s32 flashLevel)

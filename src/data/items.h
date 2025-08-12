@@ -2939,115 +2939,129 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0F4] =
+    //Start qol_field_moves
+
+    [ITEM_CUT_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Cut Tool"),
+        .itemId = ITEM_CUT_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sCutToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_CutTool,
     },
 
-    [ITEM_0F5] =
+    [ITEM_FLY_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Fly Tool"),
+        .itemId = ITEM_FLY_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sFlyToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_FlyTool,
     },
 
-    [ITEM_0F6] =
+    [ITEM_SURF_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Surf Tool"),
+        .itemId = ITEM_SURF_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sSurfToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_SurfTool,
     },
 
-    [ITEM_0F7] =
+    [ITEM_STRENGTH_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Strength Tool"),
+        .itemId = ITEM_STRENGTH_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sStrengthToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_StrengthTool,
     },
 
-    [ITEM_0F8] =
+    [ITEM_FLASH_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Flash Tool"),
+        .itemId = ITEM_FLASH_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sFlashToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_FlashTool,
     },
 
-    [ITEM_0F9] =
+    [ITEM_ROCKSMASH_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("RockSmashTool"),
+        .itemId = ITEM_ROCKSMASH_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sRockSmashToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_RockSmashTool,
     },
 
-    [ITEM_0FA] =
+    [ITEM_WATERFALL_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("WaterfallTool"),
+        .itemId = ITEM_WATERFALL_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sWaterfallToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_WaterfallTool,
     },
 
-    [ITEM_0FB] =
+    [ITEM_DIVE_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Dive Tool"),
+        .itemId = ITEM_DIVE_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sDiveToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_DiveTool,
     },
 
-    [ITEM_0FC] =
+    [ITEM_TELEPORT_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("Teleport Tool"),
+        .itemId = ITEM_TELEPORT_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sTeleportToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_TeleportTool,
     },
 
-    [ITEM_0FD] =
+    [ITEM_SWEETSCENT_TOOL] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .name = _("SweetScntTool"),
+        .itemId = ITEM_SWEETSCENT_TOOL,
         .price = 0,
-        .description = sDummyDesc,
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .importance = 1,
+        .description = sSweetScentToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_SweetScentTool,
     },
+
+    //End qol_field_moves
 
     [ITEM_RED_SCARF] =
     {
@@ -4641,15 +4655,5 @@ const struct Item gItems[] =
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-    },
-    [ITEM_MULTI_TOOL] =
-    {
-        .name = _("MULTI-TOOL"),
-        .itemId = ITEM_MULTI_TOOL,
-        .price = 0,
-        .description = sMultiToolDesc,
-        .pocket = POCKET_KEY_ITEMS,
-        .type = ITEM_USE_FIELD,
-        .fieldUseFunc = ItemUseOutOfBattle_MultiTool,
     }
 };

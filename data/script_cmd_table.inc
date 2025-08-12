@@ -242,6 +242,7 @@ gScriptCmdTable::
 	script_cmd_table_entry SCR_OP_WARPWHITEFADE                 ScrCmd_warpwhitefade                  @ 0xe0
 	script_cmd_table_entry SCR_OP_BUFFERCONTESTNAME             ScrCmd_buffercontestname              @ 0xe1
 	script_cmd_table_entry SCR_OP_BUFFERITEMNAMEPLURAL          ScrCmd_bufferitemnameplural           @ 0xe2
+	script_cmd_table_entry SCR_OP_CAN_LEARN_FIELD 				ScrCmd_checkpartylearnknowsfieldmove  @ 0xe3
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::
