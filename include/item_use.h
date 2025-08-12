@@ -30,6 +30,7 @@ void ItemUseInBattle_PPRecovery(u8 taskId);
 void ItemUseInBattle_Escape(u8 taskId);
 void ItemUseInBattle_EnigmaBerry(u8 taskId);
 void Task_UseDigEscapeRopeOnField(u8 taskId);
+void ItemUseOutOfBattle_MultiTool(u8 taskId);
 bool8 CanUseDigOrEscapeRopeOnCurMap(void);
 u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId);
 #endif // GUARD_ITEM_USE_H

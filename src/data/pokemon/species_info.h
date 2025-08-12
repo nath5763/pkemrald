@@ -459,9 +459,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_BEEDRILL] =
     {
         .baseHP        = 65,
-        .baseAttack    = 80,
-        .baseDefense   = 40,
-        .baseSpeed     = 75,
+        .baseAttack    = 100,
+        .baseDefense   = 55,
+        .baseSpeed     = 90,
         .baseSpAttack  = 45,
         .baseSpDefense = 80,
         .types = { TYPE_BUG, TYPE_POISON },
@@ -5107,12 +5107,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_ARIADOS] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 90,
-        .baseDefense   = 75,
+        .baseHP        = 90,
+        .baseAttack    = 100,
+        .baseDefense   = 85,
         .baseSpeed     = 40,
         .baseSpAttack  = 40,
-        .baseSpDefense = 75,
+        .baseSpDefense = 85,
         .types = { TYPE_BUG, TYPE_POISON },
         .catchRate = 90,
         .expYield = 134,
@@ -10647,11 +10647,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_SWALOT] =
     {
         .baseHP        = 100,
-        .baseAttack    = 73,
-        .baseDefense   = 83,
+        .baseAttack    = 53,
+        .baseDefense   = 88,
         .baseSpeed     = 55,
-        .baseSpAttack  = 73,
-        .baseSpDefense = 83,
+        .baseSpAttack  = 83,
+        .baseSpDefense = 88,
         .types = { TYPE_POISON, TYPE_POISON },
         .catchRate = 75,
         .expYield = 168,
@@ -10976,12 +10976,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_SEVIPER] =
     {
-        .baseHP        = 73,
+        .baseHP        = 83,
         .baseAttack    = 100,
-        .baseDefense   = 60,
+        .baseDefense   = 75,
         .baseSpeed     = 65,
-        .baseSpAttack  = 100,
-        .baseSpDefense = 60,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 85,
         .types = { TYPE_POISON, TYPE_POISON },
         .catchRate = 90,
         .expYield = 165,
@@ -11126,7 +11126,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_AGGRON] =
     {
-        .baseHP        = 80,
+        .baseHP        = 90,
         .baseAttack    = 110,
         .baseDefense   = 140,
         .baseSpeed     = 50,

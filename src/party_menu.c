@@ -481,6 +481,11 @@ static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
 
+bool8 PM_SetUpFieldMove_Surf(void)       { return SetUpFieldMove_Surf(); }
+bool8 PM_SetUpFieldMove_Fly(void)        { return SetUpFieldMove_Fly(); }
+bool8 PM_SetUpFieldMove_Waterfall(void)  { return SetUpFieldMove_Waterfall(); }
+bool8 PM_SetUpFieldMove_Dive(void)       { return SetUpFieldMove_Dive(); }
+
 // static const data
 #include "data/pokemon/tutor_learnsets.h"
 #include "data/party_menu.h"

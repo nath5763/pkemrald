@@ -1136,4 +1136,60 @@ void ItemUseOutOfBattle_CannotUse(u8 taskId)
     DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
 }
 
+// Forward decls: these exist in src/field_move.c
+bool8 SetUpFieldMove_Cut(void);;
+bool8 PM_SetUpFieldMove_Surf(void);
+bool8 SetUpFieldMove_RockSmash(void);
+bool8 SetUpFieldMove_Strength(void);
+bool8 SetUpFieldMove_Flash(void);
+bool8 PM_SetUpFieldMove_Fly(void);
+bool8 PM_SetUpFieldMove_Dive(void);
+bool8 PM_SetUpFieldMove_Waterfall(void);
+
+// helper from rods etc; returns to OW and runs gPostMenuFieldCallback
+static void SetUpItemUseOnFieldCB(u8 taskId)
+{
+    // Close the bag and return to the field; the HM’s SetUpFieldMove_* already
+    // set gFieldCallback2/gPostMenuFieldCallback for the actual effect.
+    SetMainCallback2(CB2_ReturnToField);
+    DestroyTask(taskId);
+}
+static const u8 sText_CantUseThatHere[] = _("You can't use that here.");
+
+void ItemUseOutOfBattle_MultiTool(u8 taskId)
+{
+    bool8 used = FALSE;
+
+    // Order matters: we try the contextually valid HM that matches the tile you’re facing.
+    if (!used && CheckBagHasItem(ITEM_HM01, 1) && FlagGet(FLAG_BADGE01_GET) && SetUpFieldMove_Cut())
+        used = TRUE;
+
+    if (!used && CheckBagHasItem(ITEM_HM06, 1) && FlagGet(FLAG_BADGE03_GET) && SetUpFieldMove_RockSmash())
+        used = TRUE;
+
+    if (!used && CheckBagHasItem(ITEM_HM04, 1) && FlagGet(FLAG_BADGE04_GET) && SetUpFieldMove_Strength())
+        used = TRUE;
+
+    if (!used && CheckBagHasItem(ITEM_HM03, 1) && FlagGet(FLAG_BADGE05_GET) && PM_SetUpFieldMove_Surf())
+        used = TRUE;
+
+    // FLY is optional since it opens the fly map UI; include if you want:
+    if (!used && CheckBagHasItem(ITEM_HM02, 1) && FlagGet(FLAG_BADGE06_GET) && PM_SetUpFieldMove_Fly())
+        used = TRUE;
+
+    if (!used && CheckBagHasItem(ITEM_HM08, 1) && FlagGet(FLAG_BADGE07_GET) && PM_SetUpFieldMove_Dive())
+        used = TRUE;
+
+    if (!used && CheckBagHasItem(ITEM_HM07, 1) && FlagGet(FLAG_BADGE08_GET) && PM_SetUpFieldMove_Waterfall())
+        used = TRUE;
+
+    if (used)
+    {
+        SetUpItemUseOnFieldCB(taskId);  // HM effect will run from the normal callbacks
+        return;
+    }
+
+    DisplayItemMessage(taskId, FONT_NORMAL, sText_CantUseThatHere, CloseItemMessage);
+}
+
 #undef tUsingRegisteredKeyItem

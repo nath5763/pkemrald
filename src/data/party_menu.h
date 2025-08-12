@@ -595,6 +595,11 @@ static const u8 sPartyBoxCurrSelectionPalIds2[] = {97, 103, 104};
 static const u8 sPartyBoxSelectedForActionPalIds2[] = {161, 167, 168};
 static const u8 sPartyBoxNoMonPalIds[] = {17, 27, 28};
 
+bool8 PM_SetUpFieldMove_Surf(void);
+bool8 PM_SetUpFieldMove_Fly(void);
+bool8 PM_SetUpFieldMove_Waterfall(void);
+bool8 PM_SetUpFieldMove_Dive(void);
+
 static const u8 *const sActionStringTable[] =
 {
     [PARTY_MSG_CHOOSE_MON]             = gText_ChoosePokemon,

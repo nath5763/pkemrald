@@ -427,7 +427,8 @@
 #define ITEM_TANGA_BERRY    385
 #define ITEM_CHARTI_BERRY   386
 #define ITEM_COLBUR_BERRY   387
-#define ITEMS_COUNT 388
+#define ITEM_MULTI_TOOL   388
+#define ITEMS_COUNT 389
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

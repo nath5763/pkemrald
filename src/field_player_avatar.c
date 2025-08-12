@@ -1838,38 +1838,19 @@ static bool8 Fishing_ShowDots(struct Task *task)
 
 static bool8 Fishing_CheckForBite(struct Task *task)
 {
-    bool8 bite;
-
     AlignFishingAnimationFrames();
-    task->tStep++;
-    bite = FALSE;
+    task->tStep++;  // advance to next state (FISHING_GOT_BITE path)
 
     if (!DoesCurrentMapHaveFishingMons())
     {
+        // Still respect maps with no fishing data.
         task->tStep = FISHING_NO_BITE;
     }
     else
     {
-        if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
-        {
-            u8 ability = GetMonAbility(&gPlayerParty[0]);
-            if (ability == ABILITY_SUCTION_CUPS || ability  == ABILITY_STICKY_HOLD)
-            {
-                if (Random() % 100 > 14)
-                    bite = TRUE;
-            }
-        }
-
-        if (!bite)
-        {
-            if (Random() & 1)
-                task->tStep = FISHING_NO_BITE;
-            else
-                bite = TRUE;
-        }
-
-        if (bite == TRUE)
-            StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
+        // Force a bite regardless of rod/ability/randomness.
+        StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId],
+                        GetFishingBiteDirectionAnimNum(GetPlayerFacingDirection()));
     }
     return TRUE;
 }
@@ -1886,21 +1867,20 @@ static bool8 Fishing_GotBite(struct Task *task)
 // We have a bite. Now, wait for the player to press A, or the timer to expire.
 static bool8 Fishing_WaitForA(struct Task *task)
 {
-    const s16 reelTimeouts[3] = {
-        [OLD_ROD]   = 36,
-        [GOOD_ROD]  = 33,
-        [SUPER_ROD] = 30
-    };
-
     AlignFishingAnimationFrames();
-    task->tFrameCounter++;
-    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
-        task->tStep = FISHING_GOT_AWAY;
-    else if (JOY_NEW(A_BUTTON))
-        task->tStep++;
-    return FALSE;
-}
 
+    // If the player presses A in time (now: anytime), advance as usual.
+    if (JOY_NEW(A_BUTTON))
+    {
+        task->tStep++;  // or whatever your next state is
+        return TRUE;
+    }
+
+    // IMPORTANT: Do NOT decrement any timer or send to GOT_AWAY here.
+    // Just keep returning TRUE and stay in this state forever until A is pressed.
+
+    return TRUE;
+}
 // Determine if we're going to play the dot game again
 static bool8 Fishing_CheckMoreDots(struct Task *task)
 {

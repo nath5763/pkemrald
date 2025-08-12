@@ -4641,5 +4641,15 @@ const struct Item gItems[] =
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    [ITEM_MULTI_TOOL] =
+    {
+        .name = _("MULTI-TOOL"),
+        .itemId = ITEM_MULTI_TOOL,
+        .price = 0,
+        .description = sMultiToolDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_MultiTool,
     }
 };
