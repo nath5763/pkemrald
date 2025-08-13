@@ -1002,6 +1002,7 @@ extern const u32 gMonShinyPalette_Flareon[];
 extern const u32 gMonStillFrontPic_Flareon[];
 extern const u8 gMonIcon_Flareon[];
 extern const u8 gMonFootprint_Flareon[];
+
 extern const u32 gMonFrontPic_Porygon[];
 extern const u32 gMonPalette_Porygon[];
 extern const u32 gMonBackPic_Porygon[];
@@ -1009,6 +1010,15 @@ extern const u32 gMonShinyPalette_Porygon[];
 extern const u32 gMonStillFrontPic_Porygon[];
 extern const u8 gMonIcon_Porygon[];
 extern const u8 gMonFootprint_Porygon[];
+
+extern const u32 gMonFrontPic_Porygonz[];
+extern const u32 gMonPalette_Porygonz[];
+extern const u32 gMonBackPic_Porygonz[];
+extern const u32 gMonShinyPalette_Porygonz[];
+extern const u32 gMonStillFrontPic_Porygonz[];
+extern const u8 gMonIcon_Porygonz[];
+extern const u8 gMonFootprint_Porygonz[];
+
 extern const u32 gMonFrontPic_Omanyte[];
 extern const u32 gMonPalette_Omanyte[];
 extern const u32 gMonBackPic_Omanyte[];
@@ -1516,6 +1526,15 @@ extern const u32 gMonShinyPalette_Gligar[];
 extern const u32 gMonStillFrontPic_Gligar[];
 extern const u8 gMonIcon_Gligar[];
 extern const u8 gMonFootprint_Gligar[];
+
+extern const u32 gMonFrontPic_Gliscor[];
+extern const u32 gMonPalette_Gliscor[];
+extern const u32 gMonBackPic_Gliscor[];
+extern const u32 gMonShinyPalette_Gliscor[];
+extern const u32 gMonStillFrontPic_Gliscor[];
+extern const u8 gMonIcon_Gliscor[];
+extern const u8 gMonFootprint_Gliscor[];
+
 extern const u32 gMonFrontPic_Steelix[];
 extern const u32 gMonPalette_Steelix[];
 extern const u32 gMonBackPic_Steelix[];
@@ -2163,6 +2182,15 @@ extern const u32 gMonShinyPalette_Nosepass[];
 extern const u32 gMonStillFrontPic_Nosepass[];
 extern const u8 gMonIcon_Nosepass[];
 extern const u8 gMonFootprint_Nosepass[];
+
+extern const u32 gMonFrontPic_Probopass[];
+extern const u32 gMonPalette_Probopass[];
+extern const u32 gMonBackPic_Probopass[];
+extern const u32 gMonShinyPalette_Probopass[];
+extern const u32 gMonStillFrontPic_Probopass[];
+extern const u8 gMonIcon_Probopass[];
+extern const u8 gMonFootprint_Probopass[];
+
 extern const u32 gMonFrontPic_Torkoal[];
 extern const u32 gMonPalette_Torkoal[];
 extern const u32 gMonBackPic_Torkoal[];
@@ -2690,6 +2718,15 @@ extern const u32 gMonShinyPalette_Gardevoir[];
 extern const u32 gMonStillFrontPic_Gardevoir[];
 extern const u8 gMonIcon_Gardevoir[];
 extern const u8 gMonFootprint_Gardevoir[];
+
+extern const u32 gMonFrontPic_Gallade[];
+extern const u32 gMonPalette_Gallade[];
+extern const u32 gMonBackPic_Gallade[];
+extern const u32 gMonShinyPalette_Gallade[];
+extern const u32 gMonStillFrontPic_Gallade[];
+extern const u8 gMonIcon_Gallade[];
+extern const u8 gMonFootprint_Gallade[];
+
 extern const u32 gMonFrontPic_Bagon[];
 extern const u32 gMonPalette_Bagon[];
 extern const u32 gMonBackPic_Bagon[];

@@ -1021,13 +1021,13 @@ annabellSpeech::
 # 512 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	faceplayer
 # 513 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
-	goto_if_set FLAG_DEFEATED_MAGMA_SPACE_CENTER, annabellSpeech_2
-# 527 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
-	msgbox scaredAnnabell
+	goto_if_set FLAG_SYS_NATIONAL_DEX, annabellSpeech_2
 # 528 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	msgbox scaredAnnabell
+# 529 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	waitmessage
 annabellSpeech_1:
-# 530 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+# 531 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	releaseall
 	end
 
@@ -1056,17 +1056,19 @@ annabellSpeech_8:
 	giveitem ITEM_AURORA_TICKET
 # 524 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	setflag FLAG_RECEIVED_AURORA_TICKET
+# 525 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+	waitbuttonpress
 	goto annabellSpeech_1
 
 
 scaredAnnabell::
-# 534 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+# 535 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	.string "This isn’t just about Team Magma.\p While they scramble for Groudon,\n something far older has stirred.$"
 
 urgentAnnabell::
-# 538 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+# 539 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	.string "We calibrated the satellite for\n solar readings, but instead,\p we caught a pulse.\nIt came from an island that\p doesn’t exist. Or shouldn't.\n You're going to need that ticket.$"
 
 completedAnnabell::
-# 542 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
+# 543 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	.string "That signal we traced?\n It's gone now.\p Like it was never there at all.$"

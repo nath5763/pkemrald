@@ -1914,13 +1914,12 @@ static bool8 Fishing_WaitForA(struct Task *task)
     if (JOY_NEW(A_BUTTON))
     {
         task->tStep++;  // or whatever your next state is
-        return TRUE;
     }
 
     // IMPORTANT: Do NOT decrement any timer or send to GOT_AWAY here.
     // Just keep returning TRUE and stay in this state forever until A is pressed.
 
-    return TRUE;
+    return FALSE;
 }
 // Determine if we're going to play the dot game again
 static bool8 Fishing_CheckMoreDots(struct Task *task)

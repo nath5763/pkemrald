@@ -404,6 +404,7 @@ static const u32 sUnused[] =
     [SPECIES_RALTS]       = 0x886,
     [SPECIES_KIRLIA]      = 0x886,
     [SPECIES_GARDEVOIR]   = 0x88,
+    [SPECIES_GALLADE]   = 0x88,
     [SPECIES_BAGON]       = 0x88,
     [SPECIES_SHELGON]     = 0x88,
     [SPECIES_SALAMENCE]   = 0x88,

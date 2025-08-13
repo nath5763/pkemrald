@@ -1124,6 +1124,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [SPECIES_PORYGONZ] = {
+        { .songId = PHONEME_ID(PH_GOAT_BLEND) },
+        { .songId = PHONEME_ID(PH_FLEECE_BLEND) },
+        { .songId = PHONEME_ID(PH_LOT_BLEND) },
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [SPECIES_OMANYTE] = {
         { .songId = PHONEME_ID(PH_GOAT_BLEND) },
         { .songId = PHONEME_ID(PH_TRAP_BLEND) },
@@ -1693,6 +1701,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_GLIGAR] = {
+        { .songId = PHONEME_ID(PH_PRICE_BLEND) },
+        { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_GLISCOR] = {
         { .songId = PHONEME_ID(PH_PRICE_BLEND) },
         { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
         PREV_BARD_SOUND,
@@ -2628,6 +2644,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [SPECIES_PROBOPASS] = {
+        { .songId = PHONEME_ID(PH_GOAT_BLEND) },
+        { .songId = PHONEME_ID(PH_TRAP_BLEND) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [SPECIES_TORKOAL] = {
         { .songId = PHONEME_ID(PH_GOAT_BLEND) },
         { .songId = PHONEME_ID(PH_GOAT_SOLO) },
@@ -3221,6 +3245,14 @@ static const struct BardSoundTemplate sBardSoundTemplates_Pokemon[NUM_SPECIES][M
         NULL_BARD_SOUND,
     },
     [SPECIES_GARDEVOIR] = {
+        { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
+        { .songId = PHONEME_ID(PH_DRESS_BLEND) },
+        { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [SPECIES_GALLADE] = {
         { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },
         { .songId = PHONEME_ID(PH_DRESS_BLEND) },
         { .songId = PHONEME_ID(PH_THOUGHT_BLEND) },

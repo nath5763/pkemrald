@@ -2001,15 +2001,17 @@ backupMultiGiver::
 # 1003 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	msgbox backupMultiGiver_Text_1
 # 1004 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	giveitem ITEM_MULTI_TOOL
+	waitmessage
 # 1005 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	setflag FLAG_MULTI_TOOL_GOT
+	giveitem ITEM_MULTI_TOOL
 # 1006 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	setflag FLAG_MULTI_TOOL_GOT
+# 1007 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	waitbuttonpress
 backupMultiGiver_1:
-# 1008 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	waitmessage
 # 1009 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
+	waitmessage
+# 1010 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	releaseall
 	end
 

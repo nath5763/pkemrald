@@ -139,6 +139,7 @@ gCryTable::
 	cry Cry_Jolteon
 	cry Cry_Flareon
 	cry Cry_Porygon
+	cry Cry_PorygonZ
 	cry Cry_Omanyte
 	cry Cry_Omastar
 	cry Cry_Kabuto
@@ -212,6 +213,7 @@ gCryTable::
 	cry Cry_Forretress
 	cry Cry_Dunsparce
 	cry Cry_Gligar
+	cry Cry_Gliscor
 	cry Cry_Steelix
 	cry Cry_Snubbull
 	cry Cry_Granbull
@@ -307,6 +309,7 @@ gCryTable::
 	cry Cry_Ralts
 	cry Cry_Kirlia
 	cry Cry_Gardevoir
+	cry Cry_Gallade
 	cry Cry_Slakoth
 	cry Cry_Vigoroth
 	cry Cry_Slaking
@@ -316,6 +319,7 @@ gCryTable::
 	cry Cry_Makuhita
 	cry Cry_Hariyama
 	cry Cry_Nosepass
+	cry Cry_Probopass
 	cry Cry_Glalie
 	cry Cry_Froslass
 	cry Cry_Plusle
@@ -540,6 +544,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Jolteon
 	cry_reverse Cry_Flareon
 	cry_reverse Cry_Porygon
+	cry_reverse Cry_PorygonZ
 	cry_reverse Cry_Omanyte
 	cry_reverse Cry_Omastar
 	cry_reverse Cry_Kabuto
@@ -613,6 +618,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Forretress
 	cry_reverse Cry_Dunsparce
 	cry_reverse Cry_Gligar
+	cry_reverse Cry_Gliscor
 	cry_reverse Cry_Steelix
 	cry_reverse Cry_Snubbull
 	cry_reverse Cry_Granbull
@@ -708,6 +714,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Ralts
 	cry_reverse Cry_Kirlia
 	cry_reverse Cry_Gardevoir
+	cry_reverse Cry_Gallade
 	cry_reverse Cry_Slakoth
 	cry_reverse Cry_Vigoroth
 	cry_reverse Cry_Slaking
@@ -717,6 +724,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Makuhita
 	cry_reverse Cry_Hariyama
 	cry_reverse Cry_Nosepass
+	cry_reverse Cry_Probopass
 	cry_reverse Cry_Glalie
 	cry_reverse Cry_Froslass
 	cry_reverse Cry_Plusle

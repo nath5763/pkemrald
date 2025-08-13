@@ -1001,6 +1001,7 @@ script backupMultiGiver {
 		msgbox("I hope you're liking the\n MULTI TOOL!")
 	} else {
 		msgbox("This is our newest creation!")
+		waitmessage
 		giveitem(ITEM_MULTI_TOOL)
 		setflag(FLAG_MULTI_TOOL_GOT)
 		waitbuttonpress

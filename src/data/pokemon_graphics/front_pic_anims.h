@@ -1656,6 +1656,15 @@ static const union AnimCmd sAnim_Porygon_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Porygonz_1[] =
+{
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Omanyte_1[] =
 {
     ANIMCMD_FRAME(1, 10),
@@ -2477,6 +2486,13 @@ static const union AnimCmd sAnim_Dunsparce_1[] =
 };
 
 static const union AnimCmd sAnim_Gligar_1[] =
+{
+    ANIMCMD_FRAME(1, 17),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Gliscor_1[] =
 {
     ANIMCMD_FRAME(1, 17),
     ANIMCMD_FRAME(0, 10),
@@ -3511,6 +3527,18 @@ static const union AnimCmd sAnim_Nosepass_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Probopass_1[] =
+{
+    ANIMCMD_FRAME(0, 27),
+    ANIMCMD_FRAME(1, 27),
+    ANIMCMD_FRAME(0, 27),
+    ANIMCMD_FRAME(1, 27),
+    ANIMCMD_FRAME(0, 27),
+    ANIMCMD_FRAME(1, 27),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Torkoal_1[] =
 {
     ANIMCMD_FRAME(0, 15),
@@ -4400,6 +4428,24 @@ static const union AnimCmd sAnim_Gardevoir_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Gallade_1[] =
+{
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 3),
+    ANIMCMD_FRAME(1, 3),
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Bagon_1[] =
 {
     ANIMCMD_FRAME(0, 15),
@@ -5047,6 +5093,7 @@ SINGLE_ANIMATION(Vaporeon);
 SINGLE_ANIMATION(Jolteon);
 SINGLE_ANIMATION(Flareon);
 SINGLE_ANIMATION(Porygon);
+SINGLE_ANIMATION(Porygonz);
 SINGLE_ANIMATION(Omanyte);
 SINGLE_ANIMATION(Omastar);
 SINGLE_ANIMATION(Kabuto);
@@ -5120,6 +5167,7 @@ SINGLE_ANIMATION(Pineco);
 SINGLE_ANIMATION(Forretress);
 SINGLE_ANIMATION(Dunsparce);
 SINGLE_ANIMATION(Gligar);
+SINGLE_ANIMATION(Gliscor);
 SINGLE_ANIMATION(Steelix);
 SINGLE_ANIMATION(Snubbull);
 SINGLE_ANIMATION(Granbull);
@@ -5220,6 +5268,7 @@ SINGLE_ANIMATION(Kecleon);
 SINGLE_ANIMATION(Baltoy);
 SINGLE_ANIMATION(Claydol);
 SINGLE_ANIMATION(Nosepass);
+SINGLE_ANIMATION(Probopass);
 SINGLE_ANIMATION(Torkoal);
 SINGLE_ANIMATION(Sableye);
 SINGLE_ANIMATION(Barboach);
@@ -5301,6 +5350,7 @@ SINGLE_ANIMATION(Armaldo);
 SINGLE_ANIMATION(Ralts);
 SINGLE_ANIMATION(Kirlia);
 SINGLE_ANIMATION(Gardevoir);
+SINGLE_ANIMATION(Gallade);
 SINGLE_ANIMATION(Bagon);
 SINGLE_ANIMATION(Shelgon);
 SINGLE_ANIMATION(Salamence);
@@ -5489,6 +5539,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_JOLTEON]     = sAnims_Jolteon,
     [SPECIES_FLAREON]     = sAnims_Flareon,
     [SPECIES_PORYGON]     = sAnims_Porygon,
+    [SPECIES_PORYGONZ]     = sAnims_Porygonz,
     [SPECIES_OMANYTE]     = sAnims_Omanyte,
     [SPECIES_OMASTAR]     = sAnims_Omastar,
     [SPECIES_KABUTO]      = sAnims_Kabuto,
@@ -5562,6 +5613,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_FORRETRESS]  = sAnims_Forretress,
     [SPECIES_DUNSPARCE]   = sAnims_Dunsparce,
     [SPECIES_GLIGAR]      = sAnims_Gligar,
+    [SPECIES_GLISCOR]      = sAnims_Gliscor,
     [SPECIES_STEELIX]     = sAnims_Steelix,
     [SPECIES_SNUBBULL]    = sAnims_Snubbull,
     [SPECIES_GRANBULL]    = sAnims_Granbull,
@@ -5678,6 +5730,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_BALTOY]      = sAnims_Baltoy,
     [SPECIES_CLAYDOL]     = sAnims_Claydol,
     [SPECIES_NOSEPASS]    = sAnims_Nosepass,
+    [SPECIES_PROBOPASS]    = sAnims_Probopass,
     [SPECIES_TORKOAL]     = sAnims_Torkoal,
     [SPECIES_SABLEYE]     = sAnims_Sableye,
     [SPECIES_BARBOACH]    = sAnims_Barboach,
@@ -5754,6 +5807,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_RALTS]       = sAnims_Ralts,
     [SPECIES_KIRLIA]      = sAnims_Kirlia,
     [SPECIES_GARDEVOIR]   = sAnims_Gardevoir,
+    [SPECIES_GALLADE]   = sAnims_Gallade,
     [SPECIES_BAGON]       = sAnims_Bagon,
     [SPECIES_SHELGON]     = sAnims_Shelgon,
     [SPECIES_SALAMENCE]   = sAnims_Salamence,

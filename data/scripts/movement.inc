@@ -98,3 +98,23 @@ Common_Movement_WalkUp2::
 	walk_up
 	walk_up
 	step_end
+
+Galadria_Movement_Ven:
+	face_up
+	walk_up
+	walk_up
+	walk_up
+	face_left
+	walk_left
+	face_right
+	step_end
+
+Galadria_Movement_Meg:
+	walk_right
+	face_left
+	step_end
+
+Galadria_Movement_Bre:
+	walk_up
+	face_down
+	step_end

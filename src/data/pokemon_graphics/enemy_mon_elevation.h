@@ -37,6 +37,7 @@ const u8 gEnemyMonElevation[NUM_SPECIES] =
     [SPECIES_HONCHKROW] = 8,
     [SPECIES_UNOWN] = 8,
     [SPECIES_GLIGAR] = 6,
+    [SPECIES_GLISCOR] = 6,
     [SPECIES_LUGIA] = 6,
     [SPECIES_HO_OH] = 6,
     [SPECIES_CELEBI] = 15,

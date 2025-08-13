@@ -510,7 +510,7 @@ MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
 script annabellSpeech {
 	lockall
 	faceplayer
-	if(flag(FLAG_DEFEATED_MAGMA_SPACE_CENTER)) {
+	if(flag(FLAG_SYS_NATIONAL_DEX)) {
 		if(flag(FLAG_DEOXIS)) {
 			msgbox(completedAnnabell)
 			waitmessage
@@ -522,6 +522,7 @@ script annabellSpeech {
 		if(flag(FLAG_RECEIVED_AURORA_TICKET)) {
 			giveitem(ITEM_AURORA_TICKET)
 			setflag(FLAG_RECEIVED_AURORA_TICKET)
+			waitbuttonpress
 		}
 	} else {
 		msgbox(scaredAnnabell)

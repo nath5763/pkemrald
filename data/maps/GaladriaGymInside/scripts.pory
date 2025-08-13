@@ -59,35 +59,71 @@ script LeafDefeated {
 script VenusaurTrainer {
     lock
     faceplayer
+    if(flag(TRAINER_RED)) {
+        call(venesaurDefeat)
+    }
     msgbox("Venesaur is slept on!")
     waitmessage
-    trainerbattle_single(TRAINER_RED, VenusaurIntro, VenusaurDefeatText)
+    trainerbattle_single(TRAINER_RED, VenusaurIntro, VenusaurDefeatText, venesaurDefeat)
     msgbox("You still won't beat Leaf!")
     waitmessage
     release
     end
 }
 
+script venesaurDefeat {
+    msgbox("You still won't beat Leaf!")
+    waitmessage
+    applymovement(Venesaur, Galadria_Movement_Ven)
+    waitmovement
+    releaseall
+    end
+}
+
 script MeganiumTrainer {
     lock
     faceplayer
+    if (flag(TRAINER_MAY_PLACEHOLDER)) {
+        call(meganiumDefeat)
+    }
     msgbox("This is my dream.")
     waitmessage
-    trainerbattle_single(TRAINER_MAY_PLACEHOLDER, MeganiumIntro, MeganiumDefeatText)
+    trainerbattle_single(TRAINER_MAY_PLACEHOLDER, MeganiumIntro, MeganiumDefeatText, meganiumDefeat)
     msgbox("I dream a lot...")
     waitmessage
     release
     end
 }
 
+script meganiumDefeat {
+    msgbox("I dream a lot...")
+    waitmessage
+    applymovement(Meganium, Galadria_Movement_Meg)
+    waitmovement
+    releaseall
+    end
+}
+
 script BreloomTrainer {
     lock
     faceplayer
+    if(flag(TRAINER_BRENDAN_PLACEHOLDER)) {
+        call(breloomDefeat)
+    }
     msgbox("Brawly was too weak for me.")
     waitmessage
-    trainerbattle_single(TRAINER_BRENDAN_PLACEHOLDER, BreloomIntro, BreloomDefeatText)
+    trainerbattle_single(TRAINER_BRENDAN_PLACEHOLDER, BreloomIntro, BreloomDefeatText, breloomDefeat)
     msgbox("I know Brawly went easy on me.")
     waitmessage
     release
+    end
+}
+
+script breloomDefeat {
+    msgbox("I know Brawly went easy on me.")
+    waitmessage
+    applymovement(Breloom, Galadria_Movement_Bre)
+    waitmovement
+    releaseall
     end
 }

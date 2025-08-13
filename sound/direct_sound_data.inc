@@ -943,6 +943,10 @@ Cry_Porygon::
 	.incbin "sound/direct_sound_samples/cries/porygon.bin"
 
 	.align 2
+Cry_PorygonZ::
+	.incbin "sound/direct_sound_samples/cries/porygon.bin"
+
+	.align 2
 Cry_Omanyte::
 	.incbin "sound/direct_sound_samples/cries/omanyte.bin"
 
@@ -1231,6 +1235,10 @@ Cry_Dunsparce::
 
 	.align 2
 Cry_Gligar::
+	.incbin "sound/direct_sound_samples/cries/gligar.bin"
+
+	.align 2
+Cry_Gliscor::
 	.incbin "sound/direct_sound_samples/cries/gligar.bin"
 
 	.align 2
@@ -1613,6 +1621,10 @@ Cry_Gardevoir::
 	.incbin "sound/direct_sound_samples/cries/gardevoir.bin"
 
 	.align 2
+Cry_Gallade::
+	.incbin "sound/direct_sound_samples/cries/gardevoir.bin"
+
+	.align 2
 Cry_Slakoth::
 	.incbin "sound/direct_sound_samples/cries/slakoth.bin"
 
@@ -1649,6 +1661,10 @@ Cry_Nosepass::
 	.incbin "sound/direct_sound_samples/cries/nosepass.bin"
 
 	.align 2
+Cry_Probopass::
+	.incbin "sound/direct_sound_samples/cries/nosepass.bin"
+	.align 2
+
 Cry_Glalie::
 	.incbin "sound/direct_sound_samples/cries/glalie.bin"
 

@@ -1676,6 +1676,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 15,
         .trainerScale = 256,
         .trainerOffset = 0,
+    },    
+    
+    [NATIONAL_DEX_PORYGONZ] =
+    {
+        .categoryName = _("VIRTUAL"),
+        .height = 8,
+        .weight = 365,
+        .description = gPorygonPokedexText,
+        .pokemonScale = 328,
+        .pokemonOffset = 15,
+        .trainerScale = 256,
+        .trainerOffset = 0,
     },
 
     [NATIONAL_DEX_OMANYTE] =
@@ -2529,6 +2541,18 @@ const struct PokedexEntry gPokedexEntries[] =
     },
 
     [NATIONAL_DEX_GLIGAR] =
+    {
+        .categoryName = _("FLYSCORPION"),
+        .height = 11,
+        .weight = 648,
+        .description = gGligarPokedexText,
+        .pokemonScale = 350,
+        .pokemonOffset = -1,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_GLISCOR] =
     {
         .categoryName = _("FLYSCORPION"),
         .height = 11,
@@ -3474,6 +3498,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_GALLADE] =
+    {
+        .categoryName = _("EMBRACE"),
+        .height = 16,
+        .weight = 484,
+        .description = gGardevoirPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_SURSKIT] =
     {
         .categoryName = _("POND SKATER"),
@@ -3667,6 +3703,18 @@ const struct PokedexEntry gPokedexEntries[] =
     },
 
     [NATIONAL_DEX_NOSEPASS] =
+    {
+        .categoryName = _("COMPASS"),
+        .height = 10,
+        .weight = 970,
+        .description = gNosepassPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 9,
+        .trainerScale = 289,
+        .trainerOffset = 3,
+    },
+
+    [NATIONAL_DEX_PROBOPASS] =
     {
         .categoryName = _("COMPASS"),
         .height = 10,
