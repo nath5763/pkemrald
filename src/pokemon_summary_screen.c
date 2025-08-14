@@ -311,6 +311,17 @@ static void DestroyMoveSelectorSprites(u8);
 static void SetMainMoveSelectorColor(u8);
 static void KeepMoveSelectorVisible(u8);
 static void SummaryScreen_DestroyAnimDelayTask(void);
+static void PrintCategoryNextToPower(u8 winPowAccLabels, u16 move, s16 powerLabelX, s16 powerLabelY, u8 font);
+
+static const u8 sCatLabel_Physical[] = _("PHYSICAL");
+static const u8 sCatLabel_Special[]  = _("SPECIAL");
+static const u8 sCatLabel_Status[]   = _("STATUS");
+
+static const u8 *const sCatLabels[] = {
+    [DAMAGE_CATEGORY_PHYSICAL] = sCatLabel_Physical,
+    [DAMAGE_CATEGORY_SPECIAL]  = sCatLabel_Special,
+    [DAMAGE_CATEGORY_STATUS]   = sCatLabel_Status,
+};
 
 // const rom data
 #include "data/text/move_descriptions.h"
@@ -3629,6 +3640,7 @@ static void PrintContestMoveDescription(u8 moveSlot)
         PrintTextOnWindow(windowId, gContestEffectDescriptionPointers[gContestMoves[move].effect], 6, 1, 0, 0);
     }
 }
+
 
 static void PrintMoveDetails(u16 move)
 {

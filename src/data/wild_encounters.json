@@ -169,7 +169,7 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_WURMPLE"
+                "species": "SPECIES_SKITTY"
               },
               {
                 "min_level": 3,
@@ -1603,7 +1603,7 @@
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_FURRET"
+                "species": "SPECIES_ZANGOOSE"
               },
               {
                 "min_level": 26,

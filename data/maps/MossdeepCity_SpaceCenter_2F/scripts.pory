@@ -519,7 +519,7 @@ script annabellSpeech {
 		}
 		msgbox(urgentAnnabell)
 		waitmessage
-		if(flag(FLAG_RECEIVED_AURORA_TICKET)) {
+		if(!flag(FLAG_RECEIVED_AURORA_TICKET)) {
 			giveitem(ITEM_AURORA_TICKET)
 			setflag(FLAG_RECEIVED_AURORA_TICKET)
 			waitbuttonpress

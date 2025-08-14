@@ -10452,7 +10452,7 @@ const struct Trainer gTrainers[] = {
     },
     [FLAG_MAXIE_POST] =
     {
-        .trainerClass = TRAINER_CLASS_CHAMPION,
+        .trainerClass = TRAINER_CLASS_MAGMA_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
         .trainerName = _("MAXIE"),
@@ -10463,7 +10463,7 @@ const struct Trainer gTrainers[] = {
     },
     [FLAG_ARCHIE_POST] =
     {
-        .trainerClass = TRAINER_CLASS_CHAMPION,
+        .trainerClass = TRAINER_CLASS_AQUA_LEADER,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
         .trainerName = _("ARCHIE"),

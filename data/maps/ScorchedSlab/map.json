@@ -38,5 +38,14 @@
     }
   ],
   "coord_events": [],
-  "bg_events": []
+  "bg_events": [
+    {
+      "type": "hidden_item",
+      "x": 7,
+      "y": 3,
+      "elevation": 0,
+      "item": "ITEM_TM35",
+      "flag": "FLAG_FLAMETHROWER_GET"
+    }
+  ]
 }

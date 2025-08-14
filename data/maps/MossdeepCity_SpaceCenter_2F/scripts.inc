@@ -1039,7 +1039,7 @@ annabellSpeech_2:
 # 521 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	waitmessage
 # 522 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
-	goto_if_set FLAG_RECEIVED_AURORA_TICKET, annabellSpeech_8
+	goto_if_unset FLAG_RECEIVED_AURORA_TICKET, annabellSpeech_8
 	goto annabellSpeech_1
 
 annabellSpeech_6:
