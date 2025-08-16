@@ -23,7 +23,7 @@
 
 ### Download
 
-* [**DOWNLOAD**](https://github.com/nath5763/pkemrald/releases/) `Save files might not work between versions`
+* [**DOWNLOAD**](https://github.com/nath5763/pkemrald/releases/) `Pre 1.0 save files might not be compatible with future versions`
 
 ---
 

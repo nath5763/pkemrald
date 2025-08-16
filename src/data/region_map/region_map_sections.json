@@ -394,7 +394,7 @@
     },
     {
       "id": "MAPSEC_ROUTE_134",
-      "name": "ADVENT CAVE",
+      "name": "THUNDER NEST",
       "x": 9,
       "y": 10,
       "width": 3,
@@ -490,7 +490,7 @@
     },
     {
       "id": "MAPSEC_ABANDONED_SHIP",
-      "name": "GLACIER HOLLOW",
+      "name": "SCORCHED CAVERN",
       "x": 6,
       "y": 14,
       "width": 1,

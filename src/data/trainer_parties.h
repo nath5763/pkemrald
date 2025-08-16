@@ -8376,7 +8376,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_MaxieMagmaHideout[] = {
         .iv = 150,
         .lvl = 46,
         .species = SPECIES_HOUNDOOM,
-        .moves = { MOVE_DARK_PULSE, MOVE_FLAMETHROWER, MOVE_SOLAR_BEAM, MOVE_PSYCHIC},
+        .moves = { MOVE_DARK_PULSE, MOVE_FLAMETHROWER, MOVE_SOLAR_BEAM, MOVE_ENERGY_BALL},
     }
 };
 
