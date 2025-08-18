@@ -34,9 +34,11 @@ script postFight {
     msgbox("Thanks for freeing me,\n have these!")
     waitmessage
     giveitem(ITEM_WATER_STONE)
-    waitbuttonpress
+    waitmessage
     removeobject(2)
     fadescreen(FADE_FROM_BLACK)
+    releaseall
+    end
 }
 
 script prisoner {

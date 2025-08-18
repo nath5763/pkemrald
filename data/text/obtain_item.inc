@@ -29,3 +29,9 @@ gText_NoRoomLeftForAnother::
 gText_TheDecorWasTransferredToThePC::
 	.string "The {STR_VAR_2} was transferred\n"
 	.string "to the PC.$"
+
+gText_ItemSentToPC::
+	.string "Your BAG is full.\n"
+	.string "The {STR_VAR_2} was transferred\n"
+	.string "to your PC.$"
+	

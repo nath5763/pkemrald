@@ -36,39 +36,41 @@ postFight::
 # 36 "data/maps/ResevoirCave/scripts.pory"
 	giveitem ITEM_WATER_STONE
 # 37 "data/maps/ResevoirCave/scripts.pory"
-	waitbuttonpress
+	waitmessage
 # 38 "data/maps/ResevoirCave/scripts.pory"
 	removeobject 2
 # 39 "data/maps/ResevoirCave/scripts.pory"
 	fadescreen FADE_FROM_BLACK
-	return
+# 40 "data/maps/ResevoirCave/scripts.pory"
+	releaseall
+	end
 
 
 prisoner::
-# 43 "data/maps/ResevoirCave/scripts.pory"
-	lock
-# 44 "data/maps/ResevoirCave/scripts.pory"
-	faceplayer
 # 45 "data/maps/ResevoirCave/scripts.pory"
-	msgbox rocksmashGuyText
+	lock
 # 46 "data/maps/ResevoirCave/scripts.pory"
-	waitmessage
+	faceplayer
 # 47 "data/maps/ResevoirCave/scripts.pory"
+	msgbox rocksmashGuyText
+# 48 "data/maps/ResevoirCave/scripts.pory"
+	waitmessage
+# 49 "data/maps/ResevoirCave/scripts.pory"
 	releaseall
 	end
 
 
 SuicuneFight::
-# 52 "data/maps/ResevoirCave/scripts.pory"
+# 54 "data/maps/ResevoirCave/scripts.pory"
 	goto_if_unset FLAG_SUICUNE, SuicuneFight_1
 	return
 
 SuicuneFight_1:
-# 53 "data/maps/ResevoirCave/scripts.pory"
-	setflag FLAG_SUICUNE
-# 54 "data/maps/ResevoirCave/scripts.pory"
-	setwildbattle SPECIES_SUICUNE, 30
 # 55 "data/maps/ResevoirCave/scripts.pory"
+	setflag FLAG_SUICUNE
+# 56 "data/maps/ResevoirCave/scripts.pory"
+	setwildbattle SPECIES_SUICUNE, 30
+# 57 "data/maps/ResevoirCave/scripts.pory"
 	dowildbattle
 	return
 

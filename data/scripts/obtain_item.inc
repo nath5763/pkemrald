@@ -2,10 +2,31 @@
 .set AMOUNT, VAR_0x8001
 
 Std_ObtainItem::
-	additem ITEMID, AMOUNT
-	copyvar VAR_0x8007, VAR_RESULT
-	call EventScript_ObtainItemMessage
-	return
+    additem ITEMID, AMOUNT
+    copyvar VAR_0x8007, VAR_RESULT
+    setvar VAR_0x8008, 0
+
+    goto_if_eq VAR_0x8007, TRUE, DoMsg
+
+    addpcitem ITEMID, AMOUNT
+    copyvar VAR_0x8007, VAR_RESULT
+    goto_if_eq VAR_0x8007, TRUE, SetPC
+
+    goto DoMsg
+
+SetPC::
+    setvar VAR_0x8008, 1
+
+DoMsg::
+    call EventScript_ObtainItemMessage
+    return
+
+EventScript_SentItemToPC::
+    message gText_ObtainedTheItem        
+    waitfanfare
+    msgbox gText_ItemSentToPC, MSGBOX_DEFAULT
+    setvar VAR_RESULT, TRUE
+    return
 
 EventScript_ObtainItemMessage::
 	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
@@ -54,6 +75,7 @@ EventScript_ObtainedItem::
 	waitfanfare
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	setvar VAR_RESULT, TRUE
+	closemessage
 	return
 
 EventScript_NoRoomForItem::
@@ -93,20 +115,42 @@ EventScript_NoRoomForDecor::
 	return
 
 Std_FindItem::
-	lock
-	faceplayer
-	waitse
-	copyvar VAR_0x8004, ITEMID
-	copyvar VAR_0x8005, AMOUNT
-	checkitemspace ITEMID, AMOUNT
-	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
-	checkitemtype ITEMID
-	call EventScript_BufferPocketNameAndTryFanfare
-	call_if_eq VAR_0x8007, TRUE, EventScript_PickUpItem
-	call_if_eq VAR_0x8007, FALSE, EventScript_NoRoomToPickUpItem
-	release
-	return
+    lock
+    faceplayer
+    waitse
+    copyvar VAR_0x8004, ITEMID
+    copyvar VAR_0x8005, AMOUNT
+    checkitemspace ITEMID, AMOUNT
+    copyvar VAR_0x8007, VAR_RESULT
+    setvar VAR_0x8008, 0                      @ 0 = bag, 1 = PC
+
+    bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
+    checkitemtype ITEMID
+    call EventScript_BufferPocketNameAndTryFanfare
+
+    goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpItem
+
+    addpcitem VAR_0x8004, VAR_0x8005
+    copyvar VAR_0x8007, VAR_RESULT
+    goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpItemToPC
+
+    call EventScript_NoRoomToPickUpItem
+    release
+    return
+
+EventScript_PickUpItemToPC::
+    removeobject VAR_LAST_TALKED
+    specialvar VAR_RESULT, BufferTMHMMoveName
+    copyvar VAR_0x8008, VAR_RESULT
+    call_if_eq VAR_0x8008, TRUE, EventScript_FoundTMHM
+    call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
+    waitfanfare
+    waitmessage
+    bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
+    msgbox gText_ItemSentToPC, MSGBOX_DEFAULT
+	waitmessage
+    release
+    return
 
 EventScript_PickUpItem::
 	removeobject VAR_LAST_TALKED
@@ -121,6 +165,7 @@ EventScript_PickUpItem::
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	closemessage
 	return
 
 EventScript_PutBattlePyramidItemInBag::
@@ -143,16 +188,21 @@ EventScript_NoRoomToPickUpItem::
 	return
 
 EventScript_HiddenItemScript::
-	lockall
-	waitse
-	additem VAR_0x8005
-	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, VAR_0x8005, 1
-	checkitemtype VAR_0x8005
-	call EventScript_BufferPocketNameAndTryFanfare
-	goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpHiddenItem
-	goto_if_eq VAR_0x8007, FALSE, EventScript_NoRoomForHiddenItem
-	end
+    lockall
+    waitse
+    additem VAR_0x8005
+    copyvar VAR_0x8007, VAR_RESULT
+    bufferitemnameplural STR_VAR_2, VAR_0x8005, 1
+    checkitemtype VAR_0x8005
+    call EventScript_BufferPocketNameAndTryFanfare
+    goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpHiddenItem
+
+    addpcitem VAR_0x8005, 1
+    copyvar VAR_0x8007, VAR_RESULT
+    goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpHiddenItemToPC
+
+    goto EventScript_NoRoomForHiddenItem
+    end
 
 EventScript_PickUpHiddenItem::
 	copyvar VAR_0x8008, VAR_0x8004
@@ -181,6 +231,7 @@ EventScript_PutHiddenItemInPocket::
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	special TryPutTreasureInvestigatorsOnAir
 	special SetHiddenItemFlag
+	closemessage
 	releaseall
 	end
 
@@ -190,3 +241,22 @@ EventScript_NoRoomForHiddenItem::
 	setvar VAR_RESULT, 0
 	releaseall
 	end
+
+EventScript_PickUpHiddenItemToPC::
+    copyvar VAR_0x8008, VAR_0x8004         @ preserve whatever you store here; matches your flow
+    copyvar VAR_0x8004, VAR_0x8005         @ for BufferTMHMMoveName
+    specialvar VAR_RESULT, BufferTMHMMoveName
+    goto_if_eq VAR_RESULT, TRUE, EventScript_FoundHiddenTMHM
+    goto_if_eq VAR_RESULT, FALSE, EventScript_FoundHiddenItem
+    end
+
+EventScript_PutHiddenItemInPC::
+    waitmessage
+    waitfanfare
+    bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
+    copyvar VAR_0x8004, VAR_0x8008
+    msgbox gText_ItemSentToPC, MSGBOX_DEFAULT
+    special TryPutTreasureInvestigatorsOnAir
+    special SetHiddenItemFlag
+    releaseall
+    end

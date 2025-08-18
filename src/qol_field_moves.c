@@ -421,6 +421,10 @@ u32 CanUseRockSmash(s16 x, s16 y)
 
 u32 UseRockSmash(u32 fieldMoveStatus)
 {
+    if (!FlagGet(FLAG_RESEVOIR_CLEARED)){
+        return COLLISION_IMPASSABLE;
+    }
+
     HideMapNamePopUpWindow();
     LockPlayerAndLoadMon();
 #ifdef QOL_NO_MESSAGING
