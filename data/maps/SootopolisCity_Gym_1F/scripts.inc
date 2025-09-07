@@ -165,7 +165,7 @@ SootopolisCity_Gym_1F_Movement_FallThroughIce:
 # 83 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
 SootopolisCity_Gym_1F_EventScript_Juan::
 # 84 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
-	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
+	trainerbattle_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, Juan_No_Mon, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
 # 85 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 # 86 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
@@ -636,3 +636,7 @@ SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons:
 	.string "I wish that you would return with\n"
 # 319 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
 	.string "two, perhaps more, POKéMON, please.$"
+
+Juan_No_Mon::
+# 323 "data/maps/SootopolisCity_Gym_1F/scripts.pory"
+	.string "My word…\n Is this truly your full team?$"

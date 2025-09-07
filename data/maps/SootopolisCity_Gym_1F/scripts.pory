@@ -81,7 +81,7 @@ SootopolisCity_Gym_1F_Movement_FallThroughIce:
 	step_end
 
 SootopolisCity_Gym_1F_EventScript_Juan::
-	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
+	trainerbattle_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, Juan_No_Mon, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	goto_if_unset FLAG_RECEIVED_TM_WATER_PULSE, SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2
@@ -319,3 +319,7 @@ SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons:
 	.string "two, perhaps more, POKéMON, please.$"
 
 `
+
+text Juan_No_Mon {
+	"My word…\n Is this truly your full team?"
+}

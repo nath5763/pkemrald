@@ -45,7 +45,7 @@ LavaridgeTown_Gym_1F_EventScript_EndCheckBuryTrainers::
 	return
 
 LavaridgeTown_Gym_1F_EventScript_Flannery::
-	trainerbattle_single TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
+	trainerbattle_double TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, Flannery_Two_Mons, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, LavaridgeTown_Gym_1F_EventScript_FlanneryRematch
 	goto_if_unset FLAG_RECEIVED_TM_OVERHEAT, LavaridgeTown_Gym_1F_EventScript_GiveOverheat2
@@ -399,3 +399,7 @@ LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons:
 	.string "I hate to say this, but when you come\n"
 	.string "see me, bring at least two POKéMON.$"
 `
+
+text Flannery_Two_Mons {
+	"Hmm...\n You're only weilding ONE Pokemon?\p No, you can't fight me yet."
+}

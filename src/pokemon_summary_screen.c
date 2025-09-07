@@ -312,6 +312,10 @@ static void SetMainMoveSelectorColor(u8);
 static void KeepMoveSelectorVisible(u8);
 static void SummaryScreen_DestroyAnimDelayTask(void);
 static void PrintCategoryNextToPower(u8 winPowAccLabels, u16 move, s16 powerLabelX, s16 powerLabelY, u8 font);
+static const u8 *getMoveColor(u16 move);
+static const u8 *GetColorsForNatureDelta(s8 delta);
+static s8 GetNatureDeltaForSummaryStat(const struct Pokemon *mon, u8 summaryStatIndex);
+
 
 static const u8 sCatLabel_Physical[] = _("PHYSICAL");
 static const u8 sCatLabel_Special[]  = _("SPECIAL");
@@ -322,6 +326,9 @@ static const u8 *const sCatLabels[] = {
     [DAMAGE_CATEGORY_SPECIAL]  = sCatLabel_Special,
     [DAMAGE_CATEGORY_STATUS]   = sCatLabel_Status,
 };
+static const u8 sTextColors_Red[] = { TEXT_COLOR_TRANSPARENT, 0x5, 0x4 }; // bg=0, fg=red(4),   shadow=dark grey(2)
+static const u8 sTextColors_Blue[]  = { TEXT_COLOR_TRANSPARENT, TEXT_COLOR_BLUE, 0x4 }; // bg=0, fg=blue(6),  shadow=dark grey(2)
+static const u8 sTextColors_Green[]   = { TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, 0x4 }; // bg=0, fg=green(5), shadow=dark grey(2)
 
 // const rom data
 #include "data/text/move_descriptions.h"
@@ -695,6 +702,29 @@ static const struct WindowTemplate sPageMovesTemplate[] = // This is used for bo
         .paletteNum = 6,
         .baseBlock = 599,
     },
+};
+
+enum {
+    SUMMARY_STAT_HP  = 0,
+    SUMMARY_STAT_ATK = 1,
+    SUMMARY_STAT_DEF = 2,
+    SUMMARY_STAT_SPA = 3,
+    SUMMARY_STAT_SPD = 4,
+    SUMMARY_STAT_SPE = 5,
+};
+
+static const u16 sSummaryMoveTextPal[16] = {
+    RGB(0, 0, 0),      // 0: bg/transparent (usually ignored)
+    RGB(31, 31, 31),   // 1: white
+    RGB(8, 8, 8),      // 2: dark grey (shadow)
+    RGB(20, 20, 20),   // 3: light grey (spare)
+    RGB(31, 0, 0),     // 4: red
+    RGB(0, 31, 0),     // 5: green
+    RGB(0, 0, 31),     // 6: blue
+    RGB(31, 31, 0),    // 7: yellow (spare)
+    RGB(0, 31, 31),    // 8: cyan (spare)
+    RGB(31, 0, 31),    // 9: magenta (spare)
+    0,0,0,0,0,0        // 10–15 unused
 };
 static const u8 sTextColors[][3] =
 {
@@ -3401,6 +3431,26 @@ static void PrintLeftColumnStats(void)
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 1, 0, 0);
 }
 
+static s8 GetNatureDeltaForSummaryStatFromNature(u8 nature, u8 sIdx)
+{
+    switch (sIdx)
+    {
+    case SUMMARY_STAT_ATK: return gNatureStatTable[nature][0];
+    case SUMMARY_STAT_DEF: return gNatureStatTable[nature][1];
+    case SUMMARY_STAT_SPE: return gNatureStatTable[nature][2];
+    case SUMMARY_STAT_SPA: return gNatureStatTable[nature][3];
+    case SUMMARY_STAT_SPD: return gNatureStatTable[nature][4];
+    default:               return 0; // HP/invalid -> neutral
+    }
+}
+
+static const u8 *GetColorsForNatureDelta(s8 delta)
+{
+    if (delta > 0)  return sTextColors_Red;   // +1 → red
+    if (delta < 0)  return sTextColors_Blue;  // -1 → blue
+    return sTextColors_Green;                  //  0 → gray
+}
+
 static void BufferRightColumnStats(void)
 {
     ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.spatk, STR_CONV_MODE_RIGHT_ALIGN, 3);
@@ -3507,20 +3557,34 @@ static void Task_PrintBattleMoves(u8 taskId)
     data[0]++;
 }
 
+static const u8 *getMoveColor(u16 move) {
+    const u8 *moveColors;
+
+    switch(gBattleMoves[move].category) {
+        case DAMAGE_CATEGORY_PHYSICAL:
+            return sTextColors_Red;
+        case DAMAGE_CATEGORY_SPECIAL:
+            return sTextColors_Blue;
+        case DAMAGE_CATEGORY_STATUS:
+            return sTextColors_Green;
+    }
+}
+
 static void PrintMoveNameAndPP(u8 moveIndex)
 {
     u8 pp;
     int ppState, x;
     const u8 *text;
+    u16 move;
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
     u8 moveNameWindowId = AddWindowFromTemplateList(sPageMovesTemplate, PSS_DATA_WINDOW_MOVE_NAMES);
     u8 ppValueWindowId = AddWindowFromTemplateList(sPageMovesTemplate, PSS_DATA_WINDOW_MOVE_PP);
-    u16 move = summary->moves[moveIndex];
+    move = summary->moves[moveIndex];
 
     if (move != 0)
     {
         pp = CalculatePPWithBonus(move, summary->ppBonuses, moveIndex);
-        PrintTextOnWindow(moveNameWindowId, gMoveNames[move], 0, moveIndex * 16 + 1, 0, 1);
+        AddTextPrinterParameterized3(moveNameWindowId, FONT_NORMAL, 0, moveIndex * 16 + 1, getMoveColor(move), 0, gMoveNames[move]);
         ConvertIntToDecimalStringN(gStringVar1, summary->pp[moveIndex], STR_CONV_MODE_RIGHT_ALIGN, 2);
         ConvertIntToDecimalStringN(gStringVar2, pp, STR_CONV_MODE_RIGHT_ALIGN, 2);
         DynamicPlaceholderTextUtil_Reset();

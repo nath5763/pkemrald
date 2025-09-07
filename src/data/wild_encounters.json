@@ -11802,6 +11802,71 @@
                 "species": "SPECIES_FEEBAS"
               }
             ]
+          },
+          "land_mons": {
+            "encounter_rate": 10,
+            "mons": [
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_BELLSPROUT"
+              },
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_DUNSPARCE"
+              },
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_ONIX"
+              },
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_CLEFFA"
+              },
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_DELIBIRD"
+              },
+              {
+                "min_level": 15,
+                "max_level": 15,
+                "species": "SPECIES_DIGLETT"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_QWILFISH"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_FURRET"
+              },
+              {
+                "min_level": 35,
+                "max_level": 35,
+                "species": "SPECIES_CHANSEY"
+              },
+              {
+                "min_level": 35,
+                "max_level": 35,
+                "species": "SPECIES_LICKITUNG"
+              },
+              {
+                "min_level": 45,
+                "max_level": 45,
+                "species": "SPECIES_TANGELA"
+              },
+              {
+                "min_level": 45,
+                "max_level": 45,
+                "species": "SPECIES_FARFETCHD"
+              }
+            ]
           }
         },
         {

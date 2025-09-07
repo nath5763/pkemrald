@@ -42,7 +42,7 @@ text BreloomDefeatText {
 script GymLeaderLeaf {
     lock
     faceplayer
-    trainerbattle_double(TRAINER_LEAF, LeafIntroText, LeafDefeatText, LeafMoreText, LeafDefeated, NO_MUSIC)
+    trainerbattle_double(TRAINER_LEAF, LeafIntroText, LeafDefeatText, Leaf_no_mon, LeafDefeated, NO_MUSIC)
     release
     end
     
@@ -126,4 +126,8 @@ script breloomDefeat {
     waitmovement
     releaseall
     end
+}
+
+text Leaf_no_mon {
+    "A single blossom is beautiful,\n but a garden thrives in numbers…"
 }

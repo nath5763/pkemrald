@@ -93,7 +93,7 @@ LavaridgeTown_Gym_1F_EventScript_EndCheckBuryTrainers::
 # 47 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
 LavaridgeTown_Gym_1F_EventScript_Flannery::
 # 48 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
-	trainerbattle_single TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
+	trainerbattle_double TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, Flannery_Two_Mons, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
 # 49 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 # 50 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
@@ -798,3 +798,7 @@ LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons:
 	.string "I hate to say this, but when you come\n"
 # 400 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
 	.string "see me, bring at least two POKéMON.$"
+
+Flannery_Two_Mons::
+# 403 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
+	.string "Hmm...\n You're only weilding ONE Pokemon?\p No, you can't fight me yet.$"

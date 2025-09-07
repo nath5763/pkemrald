@@ -8,7 +8,7 @@ GymLeaderLeaf::
 # 44 "data/maps/GaladriaGymInside/scripts.pory"
 	faceplayer
 # 45 "data/maps/GaladriaGymInside/scripts.pory"
-	trainerbattle_double TRAINER_LEAF, LeafIntroText, LeafDefeatText, LeafMoreText, LeafDefeated, NO_MUSIC
+	trainerbattle_double TRAINER_LEAF, LeafIntroText, LeafDefeatText, Leaf_no_mon, LeafDefeated, NO_MUSIC
 # 46 "data/maps/GaladriaGymInside/scripts.pory"
 	release
 	end
@@ -216,3 +216,7 @@ BreloomIntro::
 BreloomDefeatText::
 # 38 "data/maps/GaladriaGymInside/scripts.pory"
 	.string "Ugh, I need to train more.$"
+
+Leaf_no_mon::
+# 131 "data/maps/GaladriaGymInside/scripts.pory"
+	.string "A single blossom is beautiful,\n but a garden thrives in numbers…$"
