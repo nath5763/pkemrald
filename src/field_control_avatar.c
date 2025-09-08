@@ -69,6 +69,28 @@ static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
 static void UpdateFriendshipStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
+static bool8 TryToggleBikeModeOnR(void);
+
+
+static bool8 TryToggleBikeModeOnR(void)
+{
+    // Must be on some bike to toggle
+    if (!(gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)))
+        return FALSE;
+
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
+    {
+        // Switch Mach -> Acro
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ACRO_BIKE);
+    }
+    else
+    {
+        // Switch Acro -> Mach
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_MACH_BIKE);
+    }
+
+    return TRUE;
+}
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -159,6 +181,9 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         IncrementBirthIslandRockStepCount();
         if (TryStartStepBasedScript(&position, metatileBehavior, playerDirection) == TRUE)
             return TRUE;
+    }
+    if (input -> pressedAButton) {
+        TryToggleBikeModeOnR();
     }
     if (input->checkStandardWildEncounter && CheckStandardWildEncounter(metatileBehavior) == TRUE)
         return TRUE;

@@ -879,6 +879,11 @@ static void Task_UseRepel(u8 taskId)
 {
     if (!IsSEPlaying())
     {
+        if(gSpecialVar_ItemId == ITEM_REPEL || gSpecialVar_ItemId == ITEM_SUPER_REPEL || gSpecialVar_ItemId == ITEM_MAX_REPEL) {
+            VarSet(VAR_LAST_REPEL_USED, gSpecialVar_ItemId);
+        } else {
+            VarSet(VAR_LAST_REPEL_USED, ITEM_NONE);
+        }
         VarSet(VAR_REPEL_STEP_COUNT, GetItemHoldEffectParam(gSpecialVar_ItemId));
         RemoveUsedItem();
         if (!InBattlePyramid())

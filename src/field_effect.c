@@ -2461,6 +2461,7 @@ static void TeleportWarpOutFieldEffect_End(struct Task *task)
     }
 }
 
+
 static void FieldCallback_TeleportWarpIn(void)
 {
     Overworld_PlaySpecialMapMusic();
