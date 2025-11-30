@@ -186,3 +186,14 @@ script aquaBlocker {
     releaseall
     end
 }
+
+script leftovers_get {
+    lockall
+    if(!flag(FLAG_LEFTOVERS_135)) {
+        giveitem(ITEM_LEFTOVERS)
+        setflag(FLAG_LEFTOVERS_135)
+        removeobject(20)
+    }
+    releaseall
+    end
+}

@@ -1533,8 +1533,8 @@
 #define FLAG_MAXIE_135_DEFEATED      (SYSTEM_FLAGS + 0x9B)
 #define FLAG_ARCHIE_135_DEFEATED     (SYSTEM_FLAGS + 0x9C)
 #define FLAG_FLAMETHROWER_GET                           (SYSTEM_FLAGS + 0x9D) // Unused Flag
-#define FLAG_UNUSED_0x8FE                           (SYSTEM_FLAGS + 0x9E) // Unused Flag
-#define FLAG_UNUSED_0x8FF                           (SYSTEM_FLAGS + 0x9F) // Unused Flag
+#define FLAG_CATCHUP_ENABLED                           (SYSTEM_FLAGS + 0x9E) // Unused Flag
+#define FLAG_LEFTOVERS_135                           (SYSTEM_FLAGS + 0x9F) // Unused Flag
 #define FLAG_UNUSED_0x900                           (SYSTEM_FLAGS + 0xA0) // Unused Flag
 #define FLAG_UNUSED_0x901                           (SYSTEM_FLAGS + 0xA1) // Unused Flag
 #define FLAG_UNUSED_0x902                           (SYSTEM_FLAGS + 0xA2) // Unused Flag

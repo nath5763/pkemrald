@@ -3548,27 +3548,28 @@ static void Cmd_getexp(void)
                         i = STRINGID_EMPTYSTRING4;
                     }
 
-                    levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
+                    if (FlagGet(FLAG_CATCHUP_ENABLED)) {
+                        levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
+                        if (levelDiff > 0) // only if behind
+                        {
+                            u8 idx = gBattleStruct->expGetterMonId;
+                            u16 species = (u16)GetMonData(&gPlayerParty[idx], MON_DATA_SPECIES);
+                            u8 growth = gSpeciesInfo[species].growthRate;
+                            u8 currLevel = (u8)GetMonData(&gPlayerParty[idx], MON_DATA_LEVEL);
 
-                    if (levelDiff > 0) // only if behind
-                    {
-                        u8 idx = gBattleStruct->expGetterMonId;
-                        u16 species = (u16)GetMonData(&gPlayerParty[idx], MON_DATA_SPECIES);
-                        u8 growth = gSpeciesInfo[species].growthRate;
-                        u8 currLevel = (u8)GetMonData(&gPlayerParty[idx], MON_DATA_LEVEL);
+                            // EXP span of the current level
+                            u32 expAtCurr = gExperienceTables[growth][currLevel];
+                            u32 expAtNext = gExperienceTables[growth][currLevel + 1];
+                            u32 expInLevel = expAtNext - expAtCurr;
 
-                        // EXP span of the current level
-                        u32 expAtCurr = gExperienceTables[growth][currLevel];
-                        u32 expAtNext = gExperienceTables[growth][currLevel + 1];
-                        u32 expInLevel = expAtNext - expAtCurr;
+                            // Bonus = (levelDiff * 2%) of current level's EXP span
+                            u32 bonusExp = (expInLevel * (levelDiff * 2)) / 100;
 
-                        // Bonus = (levelDiff * 2%) of current level's EXP span
-                        u32 bonusExp = (expInLevel * (levelDiff * 2)) / 100;
+                            if (bonusExp == 0)
+                                bonusExp = 1; // minimum bonus
 
-                        if (bonusExp == 0)
-                            bonusExp = 1; // minimum bonus
-
-                        gBattleMoveDamage += (s32)bonusExp; // add to normal EXP gain
+                            gBattleMoveDamage += (s32)bonusExp; // add to normal EXP gain
+                        }
                     }
 
                     // get exp getter battler

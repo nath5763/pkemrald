@@ -250,6 +250,26 @@ aquaBlocker::
 	end
 
 
+leftovers_get::
+# 191 "data/maps/Route135/scripts.pory"
+	lockall
+# 192 "data/maps/Route135/scripts.pory"
+	goto_if_unset FLAG_LEFTOVERS_135, leftovers_get_2
+leftovers_get_1:
+# 197 "data/maps/Route135/scripts.pory"
+	releaseall
+	end
+
+leftovers_get_2:
+# 193 "data/maps/Route135/scripts.pory"
+	giveitem ITEM_LEFTOVERS
+# 194 "data/maps/Route135/scripts.pory"
+	setflag FLAG_LEFTOVERS_135
+# 195 "data/maps/Route135/scripts.pory"
+	removeobject 20
+	goto leftovers_get_1
+
+
 magmaMale_Text_0:
 # 8 "data/maps/Route135/scripts.pory"
 	.string "We defected from our respective teams \n because we were afraid of \p what we were becoming.$"

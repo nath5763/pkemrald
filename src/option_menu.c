@@ -15,6 +15,8 @@
 #include "window.h"
 #include "gba/m4a_internal.h"
 #include "constants/rgb.h"
+#include "event_data.h"
+#include "constants/flags.h" 
 
 #define tMenuSelection data[0]
 #define tTextSpeed data[1]
@@ -23,6 +25,7 @@
 #define tSound data[4]
 #define tButtonMode data[5]
 #define tWindowFrameType data[6]
+#define tCatchupExp data[7]
 
 enum
 {
@@ -31,6 +34,7 @@ enum
     MENUITEM_BATTLESTYLE,
     MENUITEM_SOUND,
     MENUITEM_BUTTONMODE,
+    MENUITEM_CATCHUPEXP,
     MENUITEM_FRAMETYPE,
     MENUITEM_CANCEL,
     MENUITEM_COUNT,
@@ -46,6 +50,7 @@ enum
 #define YPOS_BATTLESCENE  (MENUITEM_BATTLESCENE * 16)
 #define YPOS_BATTLESTYLE  (MENUITEM_BATTLESTYLE * 16)
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
+#define YPOS_CATCHUPEXP   (MENUITEM_CATCHUPEXP * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
 
@@ -69,8 +74,15 @@ static void ButtonMode_DrawChoices(u8 selection);
 static void DrawHeaderText(void);
 static void DrawOptionMenuTexts(void);
 static void DrawBgWindowFrames(void);
+static u8  CatchupExp_ProcessInput(u8 selection);
+static void CatchupExp_DrawChoices(u8 selection);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
+
+static const u8 sText_CatchupExp[] = _("Catch-up EXP");
+static const u8 sText_Off[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
+static const u8 sText_On[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
+static const u8 *const sCatchupChoices[] = { sText_Off, sText_On };
 
 static const u16 sOptionMenuText_Pal[] = INCBIN_U16("graphics/interface/option_menu_text.gbapal");
 // note: this is only used in the Japanese release
@@ -82,6 +94,7 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_BATTLESCENE] = gText_BattleScene,
     [MENUITEM_BATTLESTYLE] = gText_BattleStyle,
     [MENUITEM_SOUND]       = gText_Sound,
+    [MENUITEM_CATCHUPEXP]  = sText_CatchupExp,
     [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
     [MENUITEM_FRAMETYPE]   = gText_Frame,
     [MENUITEM_CANCEL]      = gText_OptionMenuCancel,
@@ -133,6 +146,7 @@ static const struct BgTemplate sOptionMenuBgTemplates[] =
 };
 
 static const u16 sOptionMenuBg_Pal[] = {RGB(17, 18, 31)};
+ 
 
 static void MainCB2(void)
 {
@@ -234,11 +248,13 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
+        gTasks[taskId].tCatchupExp = FlagGet(FLAG_CATCHUP_ENABLED);
 
         TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed);
         BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff);
         BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle);
         Sound_DrawChoices(gTasks[taskId].tSound);
+        CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp);
         ButtonMode_DrawChoices(gTasks[taskId].tButtonMode);
         FrameType_DrawChoices(gTasks[taskId].tWindowFrameType);
         HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
@@ -322,6 +338,12 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tSound)
                 Sound_DrawChoices(gTasks[taskId].tSound);
             break;
+        case MENUITEM_CATCHUPEXP:
+            previousOption = gTasks[taskId].tCatchupExp;
+            gTasks[taskId].tCatchupExp = CatchupExp_ProcessInput(gTasks[taskId].tCatchupExp);
+            if (previousOption != gTasks[taskId].tCatchupExp)
+                CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp);
+            break;
         case MENUITEM_BUTTONMODE:
             previousOption = gTasks[taskId].tButtonMode;
             gTasks[taskId].tButtonMode = ButtonMode_ProcessInput(gTasks[taskId].tButtonMode);
@@ -356,6 +378,10 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
+    if (gTasks[taskId].tCatchupExp)
+        FlagSet(FLAG_CATCHUP_ENABLED);
+    else
+        FlagClear(FLAG_CATCHUP_ENABLED);
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -439,6 +465,27 @@ static void TextSpeed_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_TextSpeedMid, xMid, YPOS_TEXTSPEED, styles[1]);
 
     DrawOptionMenuChoice(gText_TextSpeedFast, GetStringRightAlignXOffset(FONT_NORMAL, gText_TextSpeedFast, 198), YPOS_TEXTSPEED, styles[2]);
+}
+
+static u8 CatchupExp_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;      // flip
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void CatchupExp_DrawChoices(u8 selection)
+{
+    u8 styles[2] = {0,0};
+    styles[selection] = 1;
+
+    // Right-side value column mimics other rows (x=104 and right-align at 198)
+    DrawOptionMenuChoice(sText_Off, 104, YPOS_CATCHUPEXP, styles[0]);
+    DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
+                         YPOS_CATCHUPEXP, styles[1]);
 }
 
 static u8 BattleScene_ProcessInput(u8 selection)
