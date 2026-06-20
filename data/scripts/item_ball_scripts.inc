@@ -75,7 +75,7 @@ Route111_EventScript_ItemElixir::
 	end
 
 Route112_EventScript_ItemNugget::
-	finditem ITEM_NUGGET
+	finditem ITEM_FIRE_STONE
 	end
 
 Route113_EventScript_ItemMaxEther::
