@@ -16,7 +16,9 @@
 #include "gba/m4a_internal.h"
 #include "constants/rgb.h"
 #include "event_data.h"
-#include "constants/flags.h" 
+#include "constants/flags.h"
+#include "feature_flags.h"
+#include "menu_feature_flags.h" 
 
 #define tMenuSelection data[0]
 #define tTextSpeed data[1]
@@ -26,6 +28,7 @@
 #define tButtonMode data[5]
 #define tWindowFrameType data[6]
 #define tCatchupExp data[7]
+#define tFeatureFlagSelection data[8]
 
 enum
 {
@@ -34,6 +37,7 @@ enum
     MENUITEM_BATTLESTYLE,
     MENUITEM_SOUND,
     MENUITEM_BUTTONMODE,
+    MENUITEM_FEATURE_FLAGS,
     MENUITEM_CATCHUPEXP,
     MENUITEM_FRAMETYPE,
     MENUITEM_CANCEL,
@@ -50,6 +54,7 @@ enum
 #define YPOS_BATTLESCENE  (MENUITEM_BATTLESCENE * 16)
 #define YPOS_BATTLESTYLE  (MENUITEM_BATTLESTYLE * 16)
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
+#define YPOS_FEATURE_FLAGS (MENUITEM_FEATURE_FLAGS * 16)
 #define YPOS_CATCHUPEXP   (MENUITEM_CATCHUPEXP * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
@@ -76,10 +81,13 @@ static void DrawOptionMenuTexts(void);
 static void DrawBgWindowFrames(void);
 static u8  CatchupExp_ProcessInput(u8 selection);
 static void CatchupExp_DrawChoices(u8 selection);
+static u8 FeatureFlags_ProcessInput(u8 selection);
+static void FeatureFlags_DrawChoices(u8 selection);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
 
 static const u8 sText_CatchupExp[] = _("Catch-up EXP");
+static const u8 sText_FeatureFlags[] = _("Feature Flags");
 static const u8 sText_Off[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 static const u8 sText_On[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
 static const u8 *const sCatchupChoices[] = { sText_Off, sText_On };
@@ -94,6 +102,7 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_BATTLESCENE] = gText_BattleScene,
     [MENUITEM_BATTLESTYLE] = gText_BattleStyle,
     [MENUITEM_SOUND]       = gText_Sound,
+    [MENUITEM_FEATURE_FLAGS] = sText_FeatureFlags,
     [MENUITEM_CATCHUPEXP]  = sText_CatchupExp,
     [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
     [MENUITEM_FRAMETYPE]   = gText_Frame,
@@ -249,6 +258,7 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tCatchupExp = FlagGet(FLAG_CATCHUP_ENABLED);
+        gTasks[taskId].tFeatureFlagSelection = 0;
 
         TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed);
         BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff);
@@ -257,6 +267,7 @@ void CB2_InitOptionMenu(void)
         CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp);
         ButtonMode_DrawChoices(gTasks[taskId].tButtonMode);
         FrameType_DrawChoices(gTasks[taskId].tWindowFrameType);
+        FeatureFlags_DrawChoices(gTasks[taskId].tFeatureFlagSelection);
         HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
 
         CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
@@ -337,6 +348,13 @@ static void Task_OptionMenuProcessInput(u8 taskId)
 
             if (previousOption != gTasks[taskId].tSound)
                 Sound_DrawChoices(gTasks[taskId].tSound);
+            break;
+        case MENUITEM_FEATURE_FLAGS:
+            previousOption = gTasks[taskId].tFeatureFlagSelection;
+            gTasks[taskId].tFeatureFlagSelection = FeatureFlags_ProcessInput(gTasks[taskId].tFeatureFlagSelection);
+
+            if (previousOption != gTasks[taskId].tFeatureFlagSelection)
+                FeatureFlags_DrawChoices(gTasks[taskId].tFeatureFlagSelection);
             break;
         case MENUITEM_CATCHUPEXP:
             previousOption = gTasks[taskId].tCatchupExp;
@@ -660,6 +678,51 @@ static void ButtonMode_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_ButtonTypeLR, xLR, YPOS_BUTTONMODE, styles[1]);
 
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(FONT_NORMAL, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
+}
+
+static u8 FeatureFlags_ProcessInput(u8 selection)
+{
+    u32 flagCount = GetFeatureFlagCount();
+    
+    if (flagCount == 0)
+        return selection;
+    
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection < flagCount - 1)
+            selection++;
+        else
+            selection = 0;
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection > 0)
+            selection--;
+        else
+            selection = flagCount - 1;
+        sArrowPressed = TRUE;
+    }
+    
+    return selection;
+}
+
+static void FeatureFlags_DrawChoices(u8 selection)
+{
+    u32 flagCount = GetFeatureFlagCount();
+    
+    // Display the currently selected flag's state
+    if (flagCount > 0)
+    {
+        u32 flagIndex = selection % flagCount;
+        bool8 isEnabled = GetFeatureFlagState(flagIndex);
+        
+        // Draw the state directly using the pre-defined strings
+        const u8 *stateText = isEnabled ? sText_On : sText_Off;
+        DrawOptionMenuChoice(stateText, 
+                           GetStringRightAlignXOffset(FONT_NORMAL, stateText, 198), 
+                           YPOS_FEATURE_FLAGS, 1);
+    }
 }
 
 static void DrawHeaderText(void)
