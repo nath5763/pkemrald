@@ -110,11 +110,11 @@ description: "Task list for feature flags implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T033 [P] [US3] Implement SaveFeatureFlags() in `src/data/feature_flags.c` to serialize flag states to SaveBlockFeatureFlags.flagStates array
-- [ ] T034 [P] [US3] Implement LoadFeatureFlags() in `src/data/feature_flags.c` to deserialize flag states from SaveBlockFeatureFlags, handling version mismatches gracefully
-- [ ] T035 [US3] Modify game save routine to call SaveFeatureFlags() when player saves game (integrate with existing save.c)
-- [ ] T036 [US3] Modify game load routine to call LoadFeatureFlags() during save file load (integrate with existing save.c); handle new flags gracefully by using defaultState
-- [ ] T037 [US3] Handle backward compatibility: When loading old save without SaveBlockFeatureFlags version field, initialize with defaultState for all flags
+- [x] T033 [P] [US3] Implement SaveFeatureFlags() in `src/data/feature_flags.c` to serialize flag states to SaveBlockFeatureFlags.flagStates array
+- [x] T034 [P] [US3] Implement LoadFeatureFlags() in `src/data/feature_flags.c` to deserialize flag states from SaveBlockFeatureFlags, handling version mismatches gracefully
+- [x] T035 [US3] Modify game save routine to call SaveFeatureFlags() when player saves game (integrate with existing save.c)
+- [x] T036 [US3] Modify game load routine to call LoadFeatureFlags() during save file load (integrate with existing save.c); handle new flags gracefully by using defaultState
+- [x] T037 [US3] Handle backward compatibility: When loading old save without SaveBlockFeatureFlags version field, initialize with defaultState for all flags
 - [ ] T038 [US3] Test save cycle: Toggle flags in menu, save game, verify SaveBlockFeatureFlags written to file with correct flag states
 - [ ] T039 [US3] Test load cycle: Load a saved game, verify flags restored to previously saved state; test at least 3 consecutive save/load cycles
 - [ ] T040 [US3] Test new flag after old save: Add new flag definition to `src/data/feature_flags.c`, load old save created before new flag existed, verify new flag shows defaultState while existing flags retain saved state
@@ -129,14 +129,14 @@ description: "Task list for feature flags implementation"
 
 **Purpose**: Final validation, documentation, and regression testing
 
-- [ ] T043 [P] Build validation: `make clean && make` - confirm full ROM builds with no errors or warnings
+- [x] T043 [P] Build validation: `make clean && make` - confirm full ROM builds with no errors or warnings
 - [ ] T044 [P] Regression test: Verify existing gameplay (battles, menu, save system) unaffected by feature flags integration
 - [ ] T045 Functional end-to-end test: Complete US1+US2+US3 flow in-game (define flag, toggle in menu, save, load, verify)
-- [ ] T046 [P] Memory audit: Confirm Constitution Principle I (checked allocation) and Principle II (pointer cleanup) compliance throughout implementation
+- [x] T046 [P] Memory audit: Confirm Constitution Principle I (checked allocation) and Principle II (pointer cleanup) compliance throughout implementation
 - [ ] T047 Documentation: Verify `quickstart.md` matches final implementation; update if needed
 - [ ] T048 [P] Success criteria validation: Confirm all 6 success criteria met (5+ flags toggleable, 3 save/load cycles work, descriptions clear, new flags auto-appear, ROM builds, < 1ms lookup)
 - [ ] T049 Code review prep: Create summary of all Constitution-related changes and memory safety decisions for reviewer
-- [ ] T050 Final ROM validation: ROM builds, feature flags appear in options menu, all toggles work, save/load persists state
+- [x] T050 Final ROM validation: ROM builds, feature flags appear in options menu, all toggles work, save/load persists state
 
 **Checkpoint**: Implementation complete, tested, and ready for merge
 
