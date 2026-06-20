@@ -67,12 +67,12 @@ description: "Task list for feature flags implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T016 [P] [US1] Implement SetFeatureFlagState(flagId, newState) in `src/data/feature_flags.c` to update registry state and persist to SaveBlockFeatureFlags
-- [ ] T017 [US1] Audit SetFeatureFlagState for save persistence: Confirm flag state written to save file and retrievable on next load (Constitution verification)
-- [ ] T018 [US1] Create documentation in `specs/001-options-menu-feature-flags/quickstart.md` demonstrating how to add a new flag (Step 1)
-- [ ] T019 [US1] Verify GetFeatureFlagState works correctly with all test flags defined in T012: Test at least 5 flags with different default states
-- [ ] T020 [US1] Test flag state toggling: Call SetFeatureFlagState multiple times on same flag, verify state updates each time and persists
-- [ ] T021 [US1] Add memory safety comments to `src/data/feature_flags.c` documenting flag ownership and cleanup (Constitution requirements)
+- [x] T016 [P] [US1] Implement SetFeatureFlagState(flagId, newState) in `src/data/feature_flags.c` to update registry state and persist to SaveBlockFeatureFlags
+- [x] T017 [US1] Audit SetFeatureFlagState for save persistence: Confirm flag state written to save file and retrievable on next load (Constitution verification)
+- [x] T018 [US1] Create documentation in `specs/001-options-menu-feature-flags/quickstart.md` demonstrating how to add a new flag (Step 1)
+- [x] T019 [US1] Verify GetFeatureFlagState works correctly with all test flags defined in T012: Test at least 5 flags with different default states
+- [x] T020 [US1] Test flag state toggling: Call SetFeatureFlagState multiple times on same flag, verify state updates each time and persists
+- [x] T021 [US1] Add memory safety comments to `src/data/feature_flags.c` documenting flag ownership and cleanup (Constitution requirements)
 
 **Checkpoint**: User Story 1 complete - developers can add feature flags, query state, and toggle programmatically
 

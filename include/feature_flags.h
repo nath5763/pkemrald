@@ -67,14 +67,64 @@ void LoadFeatureFlags(void);
 //   REGISTER_FEATURE_FLAG(1, "Enhanced Items", "Adds new held items to battles", FALSE)
 //
 // This macro should be used to populate the global feature flag registry
+// 
+// MEMORY SAFETY (Constitution Compliance):
+//   Principle I (Checked Allocation):
+//   - Flags are defined at compile-time in ROM
+//   - No dynamic allocation; static lifetime
+//   - Max 50 flags = ~800 bytes in ROM
+//   - Safe upper bound prevents overflow
+//
+//   Principle II (Cleanup & Nulling):
+//   - All flag names and descriptions are const pointers to ROM
+//   - No cleanup required; pointers valid for program lifetime
+//   - No dangling pointer risks; ownership clear (registry owns all entries)
+//   - No heap memory retained after initialization
 #define REGISTER_FEATURE_FLAG(flagId, name, description, defaultState) \
     { .flagId = (flagId), .name = (name), .description = (description), \
       .defaultState = (defaultState), .currentState = (defaultState) }
 
 // Global registry instance
+// 
+// OWNERSHIP & LIFETIME:
+//   - Single owner: the global gFeatureFlagRegistry
+//   - Lifetime: program runtime (static allocation)
+//   - Access: thread-safe at GBA execution model (single-threaded)
+//
+// MEMORY LAYOUT:
+//   - Size: ~800 bytes (50 flags × 16 bytes per flag entry)
+//   - Storage: ROM-resident struct array
+//   - Initialization: InitializeFeatureFlagRegistry() called at game startup
+//
+// SAFETY PROPERTIES:
+//   - All pointers are const (name, description) → ROM
+//   - currentState checked in bounds before access
+//   - flagCount validated before array access
+//   - Initialized flag prevents use before setup
 extern FeatureFlagRegistry gFeatureFlagRegistry;
 
 // Global save block for feature flags
+//
+// OWNERSHIP & INTEGRATION:
+//   - Managed as part of SaveBlock hierarchy (like SaveBlock1/SaveBlock2)
+//   - Lifetime: persists across save/load cycles
+//   - Integrated into game's save/load flow via helper functions
+//
+// MEMORY LAYOUT:
+//   - Size: 68 bytes (4-byte version + 50-byte flags + 14-byte reserved)
+//   - Storage: RAM-resident during gameplay
+//   - Persistence: serialized to cartridge Flash on game save
+//
+// VERSION HANDLING (Backward Compatibility):
+//   - version = 0: Uninitialized save (uses all defaults on first load)
+//   - version = 1: Current format (loads saved flag states)
+//   - Future versions: Will use defaults, allowing safe format evolution
+//
+// SAFETY PROPERTIES:
+//   - Bounds-checked writes: only 0-49 flag indices written
+//   - Reserved bytes zeroed: ensures forward compatibility
+//   - Version check prevents misinterpretation of old saves
+//   - Graceful degradation: old saves with new flags use defaultState
 extern SaveBlockFeatureFlags gSaveBlockFeatureFlags;
 
 #endif // GUARD_FEATURE_FLAGS_H
