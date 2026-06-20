@@ -1,17 +1,10 @@
 #ifndef GUARD_FEATURE_FLAGS_H
 #define GUARD_FEATURE_FLAGS_H
 
-#include "gba/types.h"
+#include "global.h"
 
-// Feature flag registry configuration
-#define MAX_FEATURE_FLAGS 50
-
-// Feature flag save block structure
-typedef struct {
-    u32 version;           // Version: 1 for current, 0 for uninitialized
-    u8 flagStates[MAX_FEATURE_FLAGS];  // One byte per flag: 1=enabled, 0=disabled
-    u8 reserved[14];       // Reserved for future use (must be zero)
-} SaveBlockFeatureFlags;  // sizeof: 68 bytes
+// Feature flag registry configuration (MAX_FEATURE_FLAGS defined in global.h)
+// Feature flag save block structure (SaveBlockFeatureFlags defined in global.h)
 
 // Individual feature flag entry
 typedef struct {
@@ -59,6 +52,36 @@ void SaveFeatureFlags(void);
 // Called during game load; handles version mismatches gracefully
 // New flags will use defaultState; existing flags restored from save
 void LoadFeatureFlags(void);
+
+// ============================================================================
+// RANDOM BIRCH STARTER API
+// ============================================================================
+//
+// Feature: Replaces Professor Birch's standard starter trio with a random
+//          Pokémon (BST < 320) when the RandomBirchStarter flag is enabled.
+//
+// Integration Point: Call AssignStarterPokemon() from Birch starter assignment code
+//
+// Memory Safety:
+// - No dynamic allocation (Constitution Principle I)
+// - Uses static eligible pool data only
+// - Defensive error handling with fallback to Torchic
+
+// Assign starter Pokémon based on RandomBirchStarter flag state
+// 
+// Returns: Species ID of Pokémon to give to player
+// 
+// Behavior:
+//   - If RandomBirchStarter flag is ENABLED: Returns random Pokémon (BST < 320)
+//   - If RandomBirchStarter flag is DISABLED: Returns standard starter choice
+//
+// Error Handling: Falls back to Torchic (BST 316) on Pokédex lookup failure
+// 
+// Usage: Call from Birch encounter script where starter Pokémon is assigned to party
+// Example:
+//   u16 starter_species = AssignStarterPokemon();
+//   CreatePokemon(..., starter_species, ...);
+u16 AssignStarterPokemon(void);
 
 // Macro for registering feature flags at compile-time
 // Usage: Place in src/data/feature_flags.c
@@ -125,6 +148,6 @@ extern FeatureFlagRegistry gFeatureFlagRegistry;
 //   - Reserved bytes zeroed: ensures forward compatibility
 //   - Version check prevents misinterpretation of old saves
 //   - Graceful degradation: old saves with new flags use defaultState
-extern SaveBlockFeatureFlags gSaveBlockFeatureFlags;
+// Note: SaveBlockFeatureFlags is stored in gSaveBlock2Ptr->featureFlags
 
 #endif // GUARD_FEATURE_FLAGS_H

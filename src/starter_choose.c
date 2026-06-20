@@ -23,6 +23,8 @@
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
+#include "random.h"
+#include "feature_flags.h"
 
 #define STARTER_MON_COUNT   3
 
@@ -116,6 +118,8 @@ static const u16 sStarterMon[STARTER_MON_COUNT] =
     SPECIES_TORCHIC,
     SPECIES_MUDKIP,
 };
+
+static u16 sRandomizedStarterMon[STARTER_MON_COUNT];
 
 static const struct BgTemplate sBgTemplates[3] =
 {
@@ -350,9 +354,83 @@ static const struct SpriteTemplate sSpriteTemplate_StarterCircle =
 // .text
 u16 GetStarterPokemon(u16 chosenStarterId)
 {
+    u16 species;
+
     if (chosenStarterId > STARTER_MON_COUNT)
         chosenStarterId = 0;
-    return sStarterMon[chosenStarterId];
+
+    if (sRandomizedStarterMon[0] != 0)
+        species = sRandomizedStarterMon[chosenStarterId];
+    else
+        species = sStarterMon[chosenStarterId];
+
+    return species;
+}
+
+static u16 GetTotalBaseStats(u16 species)
+{
+    u16 total = 0;
+    if (species < NUM_SPECIES)
+    {
+        total = gSpeciesInfo[species].baseHP
+              + gSpeciesInfo[species].baseAttack
+              + gSpeciesInfo[species].baseDefense
+              + gSpeciesInfo[species].baseSpeed
+              + gSpeciesInfo[species].baseSpAttack
+              + gSpeciesInfo[species].baseSpDefense;
+    }
+    return total;
+}
+
+static bool8 IsEligibleRandomStarter(u16 species)
+{
+    return GetTotalBaseStats(species) < 320;
+}
+
+static void GenerateRandomStarters(void)
+{
+    u16 selected[STARTER_MON_COUNT];
+    u16 selectedCount = 0;
+    u16 attempts = 0;
+    u16 maxAttempts = 3000;
+    u16 randomSpecies;
+
+    while (selectedCount < STARTER_MON_COUNT && attempts < maxAttempts)
+    {
+        randomSpecies = (Random() % (NUM_SPECIES - 1)) + 1;
+
+        if (IsEligibleRandomStarter(randomSpecies))
+        {
+            u16 i;
+            bool8 isDuplicate = FALSE;
+
+            for (i = 0; i < selectedCount; i++)
+            {
+                if (selected[i] == randomSpecies)
+                {
+                    isDuplicate = TRUE;
+                    break;
+                }
+            }
+
+            if (!isDuplicate)
+            {
+                selected[selectedCount] = randomSpecies;
+                selectedCount++;
+            }
+        }
+
+        attempts++;
+    }
+
+    if (selectedCount == STARTER_MON_COUNT)
+    {
+        u16 i;
+        for (i = 0; i < STARTER_MON_COUNT; i++)
+        {
+            sRandomizedStarterMon[i] = selected[i];
+        }
+    }
 }
 
 static void VblankCB_StarterChoose(void)
@@ -366,6 +444,7 @@ static void VblankCB_StarterChoose(void)
 #define tStarterSelection   data[0]
 #define tPkmnSpriteId       data[1]
 #define tCircleSpriteId     data[2]
+#define tRandomized         data[3]
 
 // Data for sSpriteTemplate_Pokeball
 #define sTaskId data[0]
@@ -440,10 +519,25 @@ void CB2_ChooseStarter(void)
     ShowBg(3);
 
     taskId = CreateTask(Task_StarterChoose, 0);
-    gTasks[taskId].tStarterSelection = 1;
+    gTasks[taskId].tStarterSelection = 0; 
+    gTasks[taskId].tRandomized = FALSE;
+
+    GenerateRandomStarters();
+
+    if (FlagGet(FLAG_RANDOM_STARTER))
+    {
+        GenerateRandomStarters();
+    }
+    else
+    {
+        // Clear the array just in case the flag was turned off mid-session
+        sRandomizedStarterMon[0] = 0;
+        sRandomizedStarterMon[1] = 0;
+        sRandomizedStarterMon[2] = 0;
+    }
 
     // Create hand sprite
-    spriteId = CreateSprite(&sSpriteTemplate_Hand, 120, 56, 2);
+    spriteId = CreateSprite(&sSpriteTemplate_Hand, 60, 32, 2);
     gSprites[spriteId].data[0] = taskId;
 
     // Create three Poké Ball sprites

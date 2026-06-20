@@ -40,3 +40,7 @@ prefabs.json
 *.js
 /pokeemerald-*.png
 /pokeemerald_modern-*.png
+specify
+github
+agents
+specs/

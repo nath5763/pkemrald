@@ -13,6 +13,7 @@
 #include "random.h"
 #include "starter_choose.h"
 #include "script_pokemon_util.h"
+#include "feature_flags.h"
 #include "palette.h"
 #include "window.h"
 #include "event_object_movement.h"

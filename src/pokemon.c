@@ -47,6 +47,8 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/union_room.h"
+#include "constants/opponents.h"
+#include "data.h"
 
 #define DAY_EVO_HOUR_BEGIN       12
 #define DAY_EVO_HOUR_END         HOURS_PER_DAY
@@ -96,6 +98,20 @@ static const struct CombinedMove sCombinedMoves[2] =
     {MOVE_EMBER, MOVE_GUST, MOVE_HEAT_WAVE},
     {0xFFFF, 0xFFFF, 0xFFFF}
 };
+
+u8 GetCurrentLevelCap(void)
+{
+    if (!FlagGet(FLAG_BADGE01_GET)) return GetHighestLevelInTrainerParty(TRAINER_ROXANNE_1);
+    if (!FlagGet(FLAG_BADGE02_GET)) return GetHighestLevelInTrainerParty(TRAINER_BRAWLY_1);
+    if (!FlagGet(FLAG_BADGE03_GET)) return GetHighestLevelInTrainerParty(TRAINER_WATTSON_1);
+    if (!FlagGet(FLAG_BADGE04_GET)) return GetHighestLevelInTrainerParty(TRAINER_FLANNERY_1);
+    if (!FlagGet(FLAG_BADGE05_GET)) return GetHighestLevelInTrainerParty(TRAINER_NORMAN_1);
+    if (!FlagGet(FLAG_BADGE06_GET)) return GetHighestLevelInTrainerParty(TRAINER_WINONA_1);
+    if (!FlagGet(FLAG_BADGE07_GET)) return GetHighestLevelInTrainerParty(TRAINER_TATE_AND_LIZA_1);
+    if (!FlagGet(FLAG_BADGE08_GET)) return GetHighestLevelInTrainerParty(TRAINER_JUAN_1);
+    
+    return MAX_LEVEL; // Post-game cap
+}
 
 // NOTE: The order of the elements in the 3 arrays below is irrelevant.
 // To reorder the pokedex, see the values in include/constants/pokedex.h.
@@ -2030,6 +2046,33 @@ const struct SpriteTemplate gBattlerSpriteTemplates[MAX_BATTLERS_COUNT] =
         .callback = SpriteCB_WildMon
     },
 };
+
+static u8 GetHighestLevelInTrainerParty(u16 trainerId)
+{
+    u8 i;
+    u8 maxLevel = 0;
+    u8 currentLevel = 0;
+    const struct Trainer *trainer = &gTrainers[trainerId];
+
+    for (i = 0; i < trainer->partySize; i++)
+    {
+        // Pokeemerald uses 4 different data structures for trainer parties
+        // We must check the flags to read the 'lvl' variable from the correct struct
+        if (trainer->partyFlags == 0)
+            currentLevel = trainer->party.NoItemDefaultMoves[i].lvl;
+        else if (trainer->partyFlags == F_TRAINER_PARTY_CUSTOM_MOVESET)
+            currentLevel = trainer->party.NoItemCustomMoves[i].lvl;
+        else if (trainer->partyFlags == F_TRAINER_PARTY_HELD_ITEM)
+            currentLevel = trainer->party.ItemDefaultMoves[i].lvl;
+        else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM))
+            currentLevel = trainer->party.ItemCustomMoves[i].lvl;
+
+        if (currentLevel > maxLevel)
+            maxLevel = currentLevel;
+    }
+
+    return maxLevel;
+}
 
 static const struct SpriteTemplate sTrainerBackSpriteTemplates[] =
 {

@@ -3572,6 +3572,31 @@ static void Cmd_getexp(void)
                         }
                     }
 
+                    if (FlagGet(FLAG_LEVEL_CAP_ENABLED))
+                    {
+                        u32 currentExp;
+                        u32 maxExp;
+                        u16 species;
+                        u8 currentLevel;
+                        u8 monId = gBattleStruct->expGetterMonId;
+
+                        species = GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, NULL);
+                        currentLevel = GetMonData(&gPlayerParty[monId], MON_DATA_LEVEL, NULL);
+                        currentExp = GetMonData(&gPlayerParty[monId], MON_DATA_EXP, NULL);
+
+                        maxExp = gExperienceTables[gSpeciesInfo[species].growthRate][GetCurrentLevelCap()];
+
+                        if (currentExp + gBattleMoveDamage > maxExp)
+                        {
+                            if (currentExp >= maxExp){
+                                gBattleMoveDamage = 0;
+                            }
+                            else {
+                                gBattleMoveDamage = maxExp - currentExp;
+                            }
+                        }
+                    }
+
                     // get exp getter battler
                     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                     {
