@@ -86,13 +86,13 @@ description: "Task list for feature flags implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T022 [P] [US2] Extend `src/ui/menu_options.c` to add "Feature Flags" menu option to main options menu
-- [ ] T023 [US2] Create OptionsMenuFeatureFlagsScreen struct in `src/ui/menu_options.c` with selectedFlagIndex, scrollOffset, isOpen fields
-- [ ] T024 [US2] Implement HandleFeatureFlagMenuInput() in `src/ui/menu_options.c` to process up/down arrow keys for navigation and A button to toggle
-- [ ] T025 [US2] Implement RenderFeatureFlagMenu() in `src/ui/menu_options.c` to display flag list with names, descriptions, and current state (on/off)
-- [ ] T026 [P] [US2] Implement OnFeatureFlagToggle() callback in `src/ui/menu_options.c` to call SetFeatureFlagState when player toggles a flag
-- [ ] T027 [US2] Handle menu scrolling: If flagCount > max displayable flags, implement scroll logic to show subset with cursor movement
-- [ ] T028 [US2] Add button legend to menu display: Show "(↑↓: move, A: toggle, B: close)" below flag list
+- [x] T022 [P] [US2] Extend `src/ui/menu_options.c` to add "Feature Flags" menu option to main options menu
+- [x] T023 [US2] Create OptionsMenuFeatureFlagsScreen struct in `src/ui/menu_options.c` with selectedFlagIndex, scrollOffset, isOpen fields
+- [x] T024 [US2] Implement HandleFeatureFlagMenuInput() in `src/ui/menu_options.c` to process up/down arrow keys for navigation and A button to toggle
+- [x] T025 [US2] Implement RenderFeatureFlagMenu() in `src/ui/menu_options.c` to display flag list with names, descriptions, and current state (on/off)
+- [x] T026 [P] [US2] Implement OnFeatureFlagToggle() callback in `src/ui/menu_options.c` to call SetFeatureFlagState when player toggles a flag
+- [x] T027 [US2] Handle menu scrolling: If flagCount > max displayable flags, implement scroll logic to show subset with cursor movement
+- [x] T028 [US2] Add button legend to menu display: Show "(↑↓: move, A: toggle, B: close)" below flag list
 - [ ] T029 [US2] Test menu navigation: Start options menu, navigate to Feature Flags, verify all flags display, test up/down cursor movement
 - [ ] T030 [US2] Test flag toggle from menu: Select flag, press A, verify state updates in display, toggle another flag and repeat
 - [ ] T031 [US2] Test menu close/reopen: Toggle flags in menu, press B to close, reopen options and navigate back to Feature Flags - verify previous selections still shown
