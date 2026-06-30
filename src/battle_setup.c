@@ -15,6 +15,7 @@
 #include "script_pokemon_util.h"
 #include "feature_flags.h"
 #include "palette.h"
+#include "permadeath.h"
 #include "window.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -604,6 +605,7 @@ static void CB2_EndWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
+    TryRetireFaintedPlayerPartyMons();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE && !InBattlePyramid() && !InBattlePike())
     {
@@ -620,6 +622,7 @@ static void CB2_EndScriptedWildBattle(void)
 {
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
+    TryRetireFaintedPlayerPartyMons();
 
     if (IsPlayerDefeated(gBattleOutcome) == TRUE)
     {
@@ -951,6 +954,7 @@ static void CB2_StartFirstBattle(void)
 static void CB2_EndFirstBattle(void)
 {
     Overworld_ClearSavedMusic();
+    TryRetireFaintedPlayerPartyMons();
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
@@ -1327,6 +1331,7 @@ void BattleSetup_StartTrainerBattle(void)
 
 static void CB2_EndTrainerBattle(void)
 {
+    TryRetireFaintedPlayerPartyMons();
     if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
@@ -1351,6 +1356,7 @@ static void CB2_EndTrainerBattle(void)
 
 static void CB2_EndRematchBattle(void)
 {
+    TryRetireFaintedPlayerPartyMons();
     if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);

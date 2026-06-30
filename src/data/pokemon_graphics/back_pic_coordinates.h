@@ -118,6 +118,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_WEEZING]     = { .size = MON_COORDS_SIZE(56, 56), .y_offset =  6 },
     [SPECIES_RHYHORN]     = { .size = MON_COORDS_SIZE(64, 40), .y_offset = 12 },
     [SPECIES_RHYDON]      = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  3 },
+    [SPECIES_RHYPERIOR]   = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
     [SPECIES_CHANSEY]     = { .size = MON_COORDS_SIZE(64, 48), .y_offset = 11 },
     [SPECIES_TANGELA]     = { .size = MON_COORDS_SIZE(64, 40), .y_offset = 14 },
     [SPECIES_KANGASKHAN]  = { .size = MON_COORDS_SIZE(56, 56), .y_offset =  5 },
@@ -194,6 +195,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_MARILL]      = { .size = MON_COORDS_SIZE(56, 40), .y_offset = 12 },
     [SPECIES_AZUMARILL]   = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  8 },
     [SPECIES_SUDOWOODO]   = { .size = MON_COORDS_SIZE(48, 48), .y_offset =  8 },
+    [SPECIES_BONSLY]      = { .size = MON_COORDS_SIZE(40, 64), .y_offset =  6 },
     [SPECIES_POLITOED]    = { .size = MON_COORDS_SIZE(48, 48), .y_offset =  9 },
     [SPECIES_HOPPIP]      = { .size = MON_COORDS_SIZE(48, 48), .y_offset = 11 },
     [SPECIES_SKIPLOOM]    = { .size = MON_COORDS_SIZE(48, 40), .y_offset = 13 },
@@ -430,6 +432,8 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_JIRACHI]     = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  5 },
     [SPECIES_DEOXYS]      = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  9 },
     [SPECIES_CHIMECHO]    = { .size = MON_COORDS_SIZE(32, 56), .y_offset =  7 },
+    [SPECIES_BUDEW]       = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  8 },
+    [SPECIES_MUNCHLAX]    = { .size = MON_COORDS_SIZE(64, 48), .y_offset = 11 },
     [SPECIES_EGG]         = { .size = MON_COORDS_SIZE(24, 48), .y_offset = 10 },
     [SPECIES_UNOWN_B]     = { .size = MON_COORDS_SIZE(40, 48), .y_offset =  9 },
     [SPECIES_UNOWN_C]     = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  6 },
@@ -459,4 +463,3 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_UNOWN_EMARK] = { .size = MON_COORDS_SIZE(24, 56), .y_offset =  6 },
     [SPECIES_UNOWN_QMARK] = { .size = MON_COORDS_SIZE(32, 56), .y_offset =  6 },
 };
-

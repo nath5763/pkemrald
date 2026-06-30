@@ -65,6 +65,7 @@ static bool8 IsTwoTurnsMove(u16 move);
 static void TrySetDestinyBondToHappen(void);
 static u8 AttacksThisTurn(u8 battler, u16 move); // Note: returns 1 if it's a charging turn, otherwise 2.
 static void CheckWonderGuardAndLevitate(void);
+static bool8 IsScrappyGhostMove(u8 moveType, u8 attackerAbility, u8 targetType1, u8 targetType2);
 static u8 ChangeStatBuffs(s8 statValue, u8 statId, u8, const u8 *BS_ptr);
 static bool32 IsMonGettingExpSentOut(void);
 static void InitLevelUpBanner(void);
@@ -1449,6 +1450,7 @@ static void Cmd_typecalc(void)
 {
     s32 i = 0;
     u8 moveType;
+    bool8 scrappyGhostHit;
 
     if (gCurrentMove == MOVE_STRUGGLE)
     {
@@ -1464,6 +1466,9 @@ static void Cmd_typecalc(void)
         gBattleMoveDamage = gBattleMoveDamage * 15;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
+
+    scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[gBattlerAttacker].ability,
+                                         gBattleMons[gBattlerTarget].types[0], gBattleMons[gBattlerTarget].types[1]);
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
@@ -1488,11 +1493,13 @@ static void Cmd_typecalc(void)
             else if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
             {
                 // check type1
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[0])
+                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[0]
+                    && !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
                 // check type2
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[1] &&
-                    gBattleMons[gBattlerTarget].types[0] != gBattleMons[gBattlerTarget].types[1])
+                    gBattleMons[gBattlerTarget].types[0] != gBattleMons[gBattlerTarget].types[1] &&
+                    !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     ModulateDmgByType(TYPE_EFFECT_MULTIPLIER(i));
             }
             i += 3;
@@ -1521,11 +1528,14 @@ static void CheckWonderGuardAndLevitate(void)
     u8 flags = 0;
     s32 i = 0;
     u8 moveType;
+    bool8 scrappyGhostHit;
 
     if (gCurrentMove == MOVE_STRUGGLE || !gBattleMoves[gCurrentMove].power)
         return;
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
+    scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[gBattlerAttacker].ability,
+                                         gBattleMons[gBattlerTarget].types[0], gBattleMons[gBattlerTarget].types[1]);
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
@@ -1548,14 +1558,16 @@ static void CheckWonderGuardAndLevitate(void)
         {
             // check no effect
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[0]
-                && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT
+                && !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                 gProtectStructs[gBattlerAttacker].targetNotAffected = 1;
             }
             if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[1] &&
                 gBattleMons[gBattlerTarget].types[0] != gBattleMons[gBattlerTarget].types[1] &&
-                TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT &&
+                !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                 gProtectStructs[gBattlerAttacker].targetNotAffected = 1;
@@ -1589,6 +1601,13 @@ static void CheckWonderGuardAndLevitate(void)
             RecordAbilityBattle(gBattlerTarget, ABILITY_WONDER_GUARD);
         }
     }
+}
+
+static bool8 IsScrappyGhostMove(u8 moveType, u8 attackerAbility, u8 targetType1, u8 targetType2)
+{
+    return attackerAbility == ABILITY_SCRAPPY
+        && (moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+        && (targetType1 == TYPE_GHOST || targetType2 == TYPE_GHOST);
 }
 
 // Same as ModulateDmgByType except different arguments
@@ -1637,6 +1656,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     s32 i = 0;
     u8 flags = 0;
     u8 moveType;
+    bool8 scrappyGhostHit;
 
     if (move == MOVE_STRUGGLE)
         return 0;
@@ -1649,6 +1669,9 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
         gBattleMoveDamage = gBattleMoveDamage * 15;
         gBattleMoveDamage = gBattleMoveDamage / 10;
     }
+
+    scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[attacker].ability,
+                                         gBattleMons[defender].types[0], gBattleMons[defender].types[1]);
 
     if (gBattleMons[defender].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
@@ -1669,11 +1692,13 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
             else if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
             {
                 // check type1
-                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[defender].types[0])
+                if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[defender].types[0]
+                    && !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     ModulateDmgByType2(TYPE_EFFECT_MULTIPLIER(i), move, &flags);
                 // check type2
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[defender].types[1] &&
-                    gBattleMons[defender].types[0] != gBattleMons[defender].types[1])
+                    gBattleMons[defender].types[0] != gBattleMons[defender].types[1] &&
+                    !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     ModulateDmgByType2(TYPE_EFFECT_MULTIPLIER(i), move, &flags);
             }
             i += 3;
@@ -1696,11 +1721,15 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u8 targetAbility)
     u8 flags = 0;
     u8 type1 = gSpeciesInfo[targetSpecies].types[0], type2 = gSpeciesInfo[targetSpecies].types[1];
     u8 moveType;
+    bool8 scrappyGhostHit;
 
     if (move == MOVE_STRUGGLE)
         return 0;
 
     moveType = gBattleMoves[move].type;
+    scrappyGhostHit = targetAbility == ABILITY_SCRAPPY
+        && (moveType == TYPE_NORMAL || moveType == TYPE_FIGHTING)
+        && (type1 == TYPE_GHOST || type2 == TYPE_GHOST);
 
     if (targetAbility == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
@@ -1719,10 +1748,24 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u8 targetAbility)
             {
                 // check type1
                 if (TYPE_EFFECT_DEF_TYPE(i) == type1)
+                {
+                    if (scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST)
+                    {
+                        i += 3;
+                        continue;
+                    }
                     ModulateDmgByType2(TYPE_EFFECT_MULTIPLIER(i), move, &flags);
+                }
                 // check type2
                 if (TYPE_EFFECT_DEF_TYPE(i) == type2 && type1 != type2)
+                {
+                    if (scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST)
+                    {
+                        i += 3;
+                        continue;
+                    }
                     ModulateDmgByType2(TYPE_EFFECT_MULTIPLIER(i), move, &flags);
+                }
             }
             i += 3;
         }
@@ -4703,6 +4746,10 @@ static void Cmd_typecalc2(void)
     u8 flags = 0;
     s32 i = 0;
     u8 moveType = gBattleMoves[gCurrentMove].type;
+    bool8 scrappyGhostHit;
+
+    scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[gBattlerAttacker].ability,
+                                         gBattleMons[gBattlerTarget].types[0], gBattleMons[gBattlerTarget].types[1]);
 
     if (gBattleMons[gBattlerTarget].ability == ABILITY_LEVITATE && moveType == TYPE_GROUND)
     {
@@ -4734,7 +4781,8 @@ static void Cmd_typecalc2(void)
                 // check type1
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[0])
                 {
-                    if (TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                    if (TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT
+                        && !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     {
                         gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                         break;
@@ -4752,7 +4800,8 @@ static void Cmd_typecalc2(void)
                 if (TYPE_EFFECT_DEF_TYPE(i) == gBattleMons[gBattlerTarget].types[1])
                 {
                     if (gBattleMons[gBattlerTarget].types[0] != gBattleMons[gBattlerTarget].types[1]
-                        && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT)
+                        && TYPE_EFFECT_MULTIPLIER(i) == TYPE_MUL_NO_EFFECT
+                        && !(scrappyGhostHit && TYPE_EFFECT_DEF_TYPE(i) == TYPE_GHOST))
                     {
                         gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
                         break;

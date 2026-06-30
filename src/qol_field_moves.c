@@ -403,13 +403,14 @@ void TryUseFlash(void)
 u32 CanUseRockSmash(s16 x, s16 y)
 {
     bool32 monHasMove = PartyHasMonLearnsKnowsFieldMove(ITEM_HM06);
+    bool32 hasHmItem = CheckBagHasItem(ITEM_HM06, 1);
     bool32 bagHasItem = CheckBagHasItem(ITEM_ROCKSMASH_TOOL,1);
     bool32 playerHasBadge = FlagGet(FLAG_BADGE03_GET);
 
     if (
             CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_BREAKABLE_ROCK)
             && GetObjectEventIdByPosition(x, y, 1) == OBJECT_EVENTS_COUNT
-            && ((monHasMove && playerHasBadge) || bagHasItem)
+            && ((monHasMove && hasHmItem && playerHasBadge) || bagHasItem)
        )
 
     {
@@ -684,7 +685,7 @@ static bool32 PartyCanLearnMoveLevelUp(u16 species, u16 moveId)
 bool32 PartyHasMonLearnsKnowsFieldMove(u16 itemId)
 {
     struct Pokemon *mon;
-    u32 species, i, monCanLearnTM, monCanLearnTutor;
+    u32 species, i, monCanLearnTM;
     u16 moveId = ItemIdToBattleMoveId(itemId);
     gSpecialVar_Result = PARTY_SIZE;
     gSpecialVar_0x8004 = 0;
@@ -703,12 +704,6 @@ bool32 PartyHasMonLearnsKnowsFieldMove(u16 itemId)
                 || (monCanLearnTM) == CAN_LEARN_MOVE)
             return SetMonResultVariables(i,species);
 
-        for (i = 0; i < TUTOR_MOVE_COUNT; i++)
-        {
-            monCanLearnTutor = CanMonLearnTMTutor(mon, 0, i);
-            if (monCanLearnTutor == ALREADY_KNOWS_MOVE || monCanLearnTutor == CAN_LEARN_MOVE)
-                return SetMonResultVariables(i,species);
-        }
     }
     return FALSE;
 }

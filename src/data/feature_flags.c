@@ -50,9 +50,13 @@ static const FeatureFlag sDefaultFlags[MAX_FEATURE_FLAGS] = {
     // Description: Replaces Birch's standard starter trio with a random Pokémon (BST < 320)
     // Implementation: See RandomBirchStarter functions below
     {.flagId = 5, .name = "Random Birch Starter", .description = "Replaces Birch's starter with a random Pokémon (BST < 320)", .defaultState = FALSE, .currentState = FALSE},
+
+    // Permadeath feature
+    // Description: Permanently retires player-owned Pokémon after they faint in battle
+    {.flagId = 6, .name = "Permadeath Mode", .description = "Fainted Pokémon are retired and recorded in a memorial hall", .defaultState = FALSE, .currentState = FALSE},
 };
 
-#define DEFAULT_FLAG_COUNT 6
+#define DEFAULT_FLAG_COUNT 7
 
 // =============================================================================
 // Public API Implementation

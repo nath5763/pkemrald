@@ -99,7 +99,34 @@ static const struct CombinedMove sCombinedMoves[2] =
     {0xFFFF, 0xFFFF, 0xFFFF}
 };
 
-u8 GetCurrentLevelCap(void)
+static u8 GetHighestLevelInTrainerParty(u16 trainerId)
+{
+    u8 i;
+    u8 maxLevel = 0;
+    u8 currentLevel = 0;
+    const struct Trainer *trainer = &gTrainers[trainerId];
+
+    for (i = 0; i < trainer->partySize; i++)
+    {
+        // Pokeemerald uses 4 different data structures for trainer parties
+        // We must check the flags to read the 'lvl' variable from the correct struct
+        if (trainer->partyFlags == 0)
+            currentLevel = trainer->party.NoItemDefaultMoves[i].lvl;
+        else if (trainer->partyFlags == F_TRAINER_PARTY_CUSTOM_MOVESET)
+            currentLevel = trainer->party.NoItemCustomMoves[i].lvl;
+        else if (trainer->partyFlags == F_TRAINER_PARTY_HELD_ITEM)
+            currentLevel = trainer->party.ItemDefaultMoves[i].lvl;
+        else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM))
+            currentLevel = trainer->party.ItemCustomMoves[i].lvl;
+
+        if (currentLevel > maxLevel)
+            maxLevel = currentLevel;
+    }
+
+    return maxLevel;
+}
+
+u32 GetCurrentLevelCap(void)
 {
     if (!FlagGet(FLAG_BADGE01_GET)) return GetHighestLevelInTrainerParty(TRAINER_ROXANNE_1);
     if (!FlagGet(FLAG_BADGE02_GET)) return GetHighestLevelInTrainerParty(TRAINER_BRAWLY_1);
@@ -109,8 +136,13 @@ u8 GetCurrentLevelCap(void)
     if (!FlagGet(FLAG_BADGE06_GET)) return GetHighestLevelInTrainerParty(TRAINER_WINONA_1);
     if (!FlagGet(FLAG_BADGE07_GET)) return GetHighestLevelInTrainerParty(TRAINER_TATE_AND_LIZA_1);
     if (!FlagGet(FLAG_BADGE08_GET)) return GetHighestLevelInTrainerParty(TRAINER_JUAN_1);
-    
-    return MAX_LEVEL; // Post-game cap
+
+    if (!FlagGet(FLAG_GRASS_GYM))
+        return GetHighestLevelInTrainerParty(TRAINER_LEAF);
+
+    if (!FlagGet(FLAG_IS_CHAMPION)) return GetHighestLevelInTrainerParty(TRAINER_WALLACE);
+
+    return MAX_LEVEL; // No level cap after defeating Wallace
 }
 
 // NOTE: The order of the elements in the 3 arrays below is irrelevant.
@@ -236,6 +268,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(WEEZING),
     SPECIES_TO_HOENN(RHYHORN),
     SPECIES_TO_HOENN(RHYDON),
+    SPECIES_TO_HOENN(RHYPERIOR),
     SPECIES_TO_HOENN(CHANSEY),
     SPECIES_TO_HOENN(TANGELA),
     SPECIES_TO_HOENN(KANGASKHAN),
@@ -268,6 +301,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(KABUTO),
     SPECIES_TO_HOENN(KABUTOPS),
     SPECIES_TO_HOENN(AERODACTYL),
+    SPECIES_TO_HOENN(MUNCHLAX),
     SPECIES_TO_HOENN(SNORLAX),
     SPECIES_TO_HOENN(ARTICUNO),
     SPECIES_TO_HOENN(ZAPDOS),
@@ -312,6 +346,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(MARILL),
     SPECIES_TO_HOENN(AZUMARILL),
     SPECIES_TO_HOENN(SUDOWOODO),
+    SPECIES_TO_HOENN(BONSLY),
     SPECIES_TO_HOENN(POLITOED),
     SPECIES_TO_HOENN(HOPPIP),
     SPECIES_TO_HOENN(SKIPLOOM),
@@ -497,6 +532,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(WYNAUT),
     SPECIES_TO_HOENN(DUSKULL),
     SPECIES_TO_HOENN(DUSCLOPS),
+    SPECIES_TO_HOENN(BUDEW),
     SPECIES_TO_HOENN(ROSELIA),
     SPECIES_TO_HOENN(ROSERADE),
     SPECIES_TO_HOENN(SLAKOTH),
@@ -666,6 +702,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(WEEZING),
     SPECIES_TO_NATIONAL(RHYHORN),
     SPECIES_TO_NATIONAL(RHYDON),
+    SPECIES_TO_NATIONAL(RHYPERIOR),
     SPECIES_TO_NATIONAL(CHANSEY),
     SPECIES_TO_NATIONAL(TANGELA),
     SPECIES_TO_NATIONAL(KANGASKHAN),
@@ -698,6 +735,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(KABUTO),
     SPECIES_TO_NATIONAL(KABUTOPS),
     SPECIES_TO_NATIONAL(AERODACTYL),
+    SPECIES_TO_NATIONAL(MUNCHLAX),
     SPECIES_TO_NATIONAL(SNORLAX),
     SPECIES_TO_NATIONAL(ARTICUNO),
     SPECIES_TO_NATIONAL(ZAPDOS),
@@ -742,6 +780,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(MARILL),
     SPECIES_TO_NATIONAL(AZUMARILL),
     SPECIES_TO_NATIONAL(SUDOWOODO),
+    SPECIES_TO_NATIONAL(BONSLY),
     SPECIES_TO_NATIONAL(POLITOED),
     SPECIES_TO_NATIONAL(HOPPIP),
     SPECIES_TO_NATIONAL(SKIPLOOM),
@@ -927,6 +966,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(WYNAUT),
     SPECIES_TO_NATIONAL(DUSKULL),
     SPECIES_TO_NATIONAL(DUSCLOPS),
+    SPECIES_TO_NATIONAL(BUDEW),
     SPECIES_TO_NATIONAL(ROSELIA),
     SPECIES_TO_NATIONAL(ROSERADE),
     SPECIES_TO_NATIONAL(SLAKOTH),
@@ -1573,6 +1613,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_WEEZING - 1]     = ANIM_V_SLIDE,
     [SPECIES_RHYHORN - 1]     = ANIM_V_SHAKE,
     [SPECIES_RHYDON - 1]      = ANIM_SHRINK_GROW,
+    [SPECIES_RHYPERIOR - 1]   = ANIM_V_SHAKE_TWICE,
     [SPECIES_CHANSEY - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
     [SPECIES_TANGELA - 1]     = ANIM_BOUNCE_ROTATE_TO_SIDES_SMALL,
     [SPECIES_KANGASKHAN - 1]  = ANIM_V_STRETCH,
@@ -1605,6 +1646,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_KABUTOPS - 1]    = ANIM_H_SHAKE,
     [SPECIES_AERODACTYL - 1]  = ANIM_V_SLIDE_SLOW,
     [SPECIES_SNORLAX - 1]     = ANIM_SWING_CONCAVE,
+    [SPECIES_MUNCHLAX - 1]    = ANIM_SWING_CONCAVE,
     [SPECIES_ARTICUNO - 1]    = ANIM_GROW_VIBRATE,
     [SPECIES_ZAPDOS - 1]      = ANIM_FLASH_YELLOW,
     [SPECIES_MOLTRES - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
@@ -1648,6 +1690,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_MARILL - 1]      = ANIM_V_SQUISH_AND_BOUNCE,
     [SPECIES_AZUMARILL - 1]   = ANIM_BOUNCE_ROTATE_TO_SIDES_SMALL_SLOW,
     [SPECIES_SUDOWOODO - 1]   = ANIM_H_SLIDE_SLOW,
+    [SPECIES_BONSLY - 1]      = ANIM_BOUNCE_ROTATE_TO_SIDES,
     [SPECIES_POLITOED - 1]    = ANIM_H_JUMPS_V_STRETCH,
     [SPECIES_HOPPIP - 1]      = ANIM_V_SLIDE_WOBBLE,
     [SPECIES_SKIPLOOM - 1]    = ANIM_RISING_WOBBLE,
@@ -1809,6 +1852,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_WYNAUT - 1]      = ANIM_H_JUMPS_V_STRETCH,
     [SPECIES_DUSKULL - 1]     = ANIM_ZIGZAG_FAST,
     [SPECIES_DUSCLOPS - 1]    = ANIM_H_VIBRATE,
+    [SPECIES_BUDEW - 1]       = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
     [SPECIES_ROSELIA - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
     [SPECIES_ROSERADE - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
     [SPECIES_SLAKOTH - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
@@ -2046,33 +2090,6 @@ const struct SpriteTemplate gBattlerSpriteTemplates[MAX_BATTLERS_COUNT] =
         .callback = SpriteCB_WildMon
     },
 };
-
-static u8 GetHighestLevelInTrainerParty(u16 trainerId)
-{
-    u8 i;
-    u8 maxLevel = 0;
-    u8 currentLevel = 0;
-    const struct Trainer *trainer = &gTrainers[trainerId];
-
-    for (i = 0; i < trainer->partySize; i++)
-    {
-        // Pokeemerald uses 4 different data structures for trainer parties
-        // We must check the flags to read the 'lvl' variable from the correct struct
-        if (trainer->partyFlags == 0)
-            currentLevel = trainer->party.NoItemDefaultMoves[i].lvl;
-        else if (trainer->partyFlags == F_TRAINER_PARTY_CUSTOM_MOVESET)
-            currentLevel = trainer->party.NoItemCustomMoves[i].lvl;
-        else if (trainer->partyFlags == F_TRAINER_PARTY_HELD_ITEM)
-            currentLevel = trainer->party.ItemDefaultMoves[i].lvl;
-        else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM))
-            currentLevel = trainer->party.ItemCustomMoves[i].lvl;
-
-        if (currentLevel > maxLevel)
-            maxLevel = currentLevel;
-    }
-
-    return maxLevel;
-}
 
 static const struct SpriteTemplate sTrainerBackSpriteTemplates[] =
 {

@@ -2329,3 +2329,15 @@ const u8 gDeoxysPokedexText[] = _(
     "extraterrestrial virus exposed to a laser\n"
     "beam. Its body is configured for superior\n"
     "agility and speed.");
+
+const u8 gRhyperiorPokedexText[] = _(
+    "It can hurl the rocks it holds like\n"
+    "missiles by tightening and releasing its\n"
+    "muscles in an instant. Its power is\n"
+    "enough to send boulders flying.");
+
+const u8 gBonslyPokedexText[] = _(
+    "Bonsly prefers dry air. To balance the\n"
+    "fluids in its body, it leaks water from\n"
+    "its eyes, which makes it look as if\n"
+    "it is always crying.");

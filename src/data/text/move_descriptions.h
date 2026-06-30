@@ -213,6 +213,14 @@ static const u8 sFlamethrowerDescription[] = _(
     "A powerful fire attack that\n"
     "may inflict a burn.");
 
+static const u8 sIncinerateDescription[] = _(
+    "A searing fire attack that\n"
+    "may inflict a burn.");
+
+static const u8 sBulldozeDescription[] = _(
+    "Tramples the foe with a\n"
+    "heavy stomp. May lower SPEED.");
+
 static const u8 sMistDescription[] = _(
     "Creates a mist that stops\n"
     "reduction of abilities.");
@@ -1475,6 +1483,8 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_ACID - 1] = sAcidDescription,
     [MOVE_EMBER - 1] = sEmberDescription,
     [MOVE_FLAMETHROWER - 1] = sFlamethrowerDescription,
+    [MOVE_INCINERATE - 1] = sIncinerateDescription,
+    [MOVE_BULLDOZE - 1] = sBulldozeDescription,
     [MOVE_MIST - 1] = sMistDescription,
     [MOVE_WATER_GUN - 1] = sWaterGunDescription,
     [MOVE_HYDRO_PUMP - 1] = sHydroPumpDescription,

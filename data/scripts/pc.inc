@@ -19,8 +19,9 @@ EventScript_AccessPC::
 	switch VAR_RESULT
 	case 0, EventScript_AccessPokemonStorage
 	case 1, EventScript_AccessPlayersPC
-	case 2, EventScript_AccessHallOfFame
-	case 3, EventScript_TurnOffPC
+	case 2, EventScript_AccessMemorialPC
+	case 3, EventScript_AccessHallOfFame
+	case 4, EventScript_TurnOffPC
 	case MULTI_B_PRESSED, EventScript_TurnOffPC
 	end
 
@@ -55,6 +56,14 @@ EventScript_TurnOffPC::
 	playse SE_PC_OFF
 	special DoPCTurnOffEffect
 	releaseall
+	end
+
+EventScript_AccessMemorialPC::
+	playse SE_PC_LOGIN
+	msgbox gText_AccessedMemorialPC, MSGBOX_DEFAULT
+	special AccessMemorialPC
+	waitstate
+	goto EventScript_PCMainMenu
 	end
 
 EventScript_AccessHallOfFame::

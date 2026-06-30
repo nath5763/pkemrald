@@ -78,6 +78,7 @@ static void EndLinkBattleInSteps(void);
 static void CB2_InitAskRecordBattle(void);
 static void CB2_AskRecordBattle(void);
 static void AskRecordBattle(void);
+static void ForceWattsonManectricHiddenPowerGrass(struct Pokemon *mon, u16 trainerNum, u16 species);
 static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite);
 static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite);
 static void SpriteCB_WildMonAnimate(struct Sprite *sprite);
@@ -2010,6 +2011,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ForceWattsonManectricHiddenPowerGrass(&party[i], trainerNum, partyData[i].species);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -2022,6 +2024,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ForceWattsonManectricHiddenPowerGrass(&party[i], trainerNum, partyData[i].species);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
@@ -2040,6 +2043,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ForceWattsonManectricHiddenPowerGrass(&party[i], trainerNum, partyData[i].species);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
                 break;
@@ -2054,6 +2058,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ForceWattsonManectricHiddenPowerGrass(&party[i], trainerNum, partyData[i].species);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
@@ -2071,6 +2076,38 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     }
 
     return gTrainers[trainerNum].partySize;
+}
+
+static void ForceWattsonManectricHiddenPowerGrass(struct Pokemon *mon, u16 trainerNum, u16 species)
+{
+    u8 iv;
+
+    if (species != SPECIES_MANECTRIC)
+        return;
+
+    if (trainerNum != TRAINER_WATTSON_1
+        && trainerNum != TRAINER_WATTSON_2
+        && trainerNum != TRAINER_WATTSON_3
+        && trainerNum != TRAINER_WATTSON_4
+        && trainerNum != TRAINER_WATTSON_5)
+    {
+        return;
+    }
+
+    // Atk / Spe / SpDef odd, the rest even -> Hidden Power Grass in Gen 3.
+    iv = 30;
+    SetMonData(mon, MON_DATA_HP_IV, &iv);
+    iv = 31;
+    SetMonData(mon, MON_DATA_ATK_IV, &iv);
+    iv = 30;
+    SetMonData(mon, MON_DATA_DEF_IV, &iv);
+    iv = 31;
+    SetMonData(mon, MON_DATA_SPEED_IV, &iv);
+    iv = 30;
+    SetMonData(mon, MON_DATA_SPATK_IV, &iv);
+    iv = 31;
+    SetMonData(mon, MON_DATA_SPDEF_IV, &iv);
+    CalculateMonStats(mon);
 }
 
 static void UNUSED HBlankCB_Battle(void)

@@ -1367,6 +1367,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 2,
     },
 
+    [NATIONAL_DEX_RHYPERIOR] =
+    {
+        .categoryName = _("DRILL"),
+        .height = 24,
+        .weight = 2828,
+        .description = gRhyperiorPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 3,
+        .trainerScale = 369,
+        .trainerOffset = 7,
+    },
+
     [NATIONAL_DEX_CHANSEY] =
     {
         .categoryName = _("EGG"),
@@ -1748,6 +1760,14 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 0,
         .trainerScale = 302,
         .trainerOffset = 4,
+    },
+
+    [NATIONAL_DEX_MUNCHLAX] =
+    {
+        .categoryName = _("BIG EATER"),
+        .height = 6,
+        .weight = 1050,
+        .description = gSnorlaxPokedexText,
     },
 
     [NATIONAL_DEX_SNORLAX] =
@@ -2274,6 +2294,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .description = gSudowoodoPokedexText,
         .pokemonScale = 305,
         .pokemonOffset = 8,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_BONSLY] =
+    {
+        .categoryName = _("BONSAI"),
+        .height = 5,
+        .weight = 150,
+        .description = gBonslyPokedexText,
+        .pokemonScale = 432,
+        .pokemonOffset = 13,
         .trainerScale = 256,
         .trainerOffset = 0,
     },
@@ -3904,6 +3936,14 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 19,
         .trainerScale = 256,
         .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_BUDEW] =
+    {
+        .categoryName = _("BUD"),
+        .height = 2,
+        .weight = 12,
+        .description = gRoseliaPokedexText,
     },
 
     [NATIONAL_DEX_ROSELIA] =

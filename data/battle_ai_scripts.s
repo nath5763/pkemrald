@@ -1137,6 +1137,7 @@ AI_CV_SpeedDownFromChance:
 	if_move MOVE_ICY_WIND, AI_CV_SpeedDown
 	if_move MOVE_ROCK_TOMB, AI_CV_SpeedDown
 	if_move MOVE_MUD_SHOT, AI_CV_SpeedDown
+	if_move MOVE_BULLDOZE, AI_CV_SpeedDown
 	end
 
 AI_CV_SpeedDown:
@@ -2799,6 +2800,7 @@ AI_DoubleBattle:
 	get_curr_move_type
 	if_move MOVE_EARTHQUAKE, AI_DoubleBattleAllHittingGroundMove
 	if_move MOVE_MAGNITUDE, AI_DoubleBattleAllHittingGroundMove
+	if_move MOVE_BULLDOZE, AI_DoubleBattleAllHittingGroundMove
 	if_equal TYPE_ELECTRIC, AI_DoubleBattleElectricMove
 	if_equal TYPE_FIRE, AI_DoubleBattleFireMove
 	get_ability AI_USER

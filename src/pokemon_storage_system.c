@@ -1745,6 +1745,7 @@ void ResetPokemonStorageSystem(void)
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
         SetBoxWallpaper(boxId, boxId % (MAX_DEFAULT_WALLPAPER + 1));
 
+    ClearRetiredMonHistory();
     ResetWaldaWallpaper();
 }
 
@@ -9650,6 +9651,69 @@ bool32 AnyStorageMonWithMove(u16 move)
     }
 
     return FALSE;
+}
+
+u16 GetRetiredMonCount(void)
+{
+    if (gPokemonStoragePtr->retiredMonsCount > RETIRED_MON_HISTORY_CAPACITY)
+        return RETIRED_MON_HISTORY_CAPACITY;
+
+    return gPokemonStoragePtr->retiredMonsCount;
+}
+
+bool8 GetRetiredMonRecord(u16 index, struct RetiredMonRecord *dst)
+{
+    if (index >= GetRetiredMonCount() || dst == NULL)
+        return FALSE;
+
+    *dst = gPokemonStoragePtr->retiredMons[index];
+    return TRUE;
+}
+
+bool8 SetRetiredMonRecord(u16 index, const struct RetiredMonRecord *src)
+{
+    if (index >= RETIRED_MON_HISTORY_CAPACITY || src == NULL)
+        return FALSE;
+
+    gPokemonStoragePtr->retiredMons[index] = *src;
+    return TRUE;
+}
+
+bool8 AppendRetiredMonRecord(const struct RetiredMonRecord *src)
+{
+    u16 count;
+    u16 i;
+
+    if (src == NULL)
+        return FALSE;
+
+    count = GetRetiredMonCount();
+    if (count >= RETIRED_MON_HISTORY_CAPACITY)
+    {
+        count = RETIRED_MON_HISTORY_CAPACITY - 1;
+        for (i = 0; i < count; i++)
+            gPokemonStoragePtr->retiredMons[i] = gPokemonStoragePtr->retiredMons[i + 1];
+    }
+    else
+    {
+        gPokemonStoragePtr->retiredMonsCount++;
+    }
+
+    gPokemonStoragePtr->retiredMons[count] = *src;
+    return TRUE;
+}
+
+void ClearRetiredMonRecord(u16 index)
+{
+    if (index < RETIRED_MON_HISTORY_CAPACITY)
+        CpuFill16(0, &gPokemonStoragePtr->retiredMons[index], sizeof(struct RetiredMonRecord));
+}
+
+void ClearRetiredMonHistory(void)
+{
+    gPokemonStoragePtr->retiredMonsCount = 0;
+    gPokemonStoragePtr->retiredMonsReserved = 0;
+    CpuFill16(0, gPokemonStoragePtr->retiredMons, sizeof(gPokemonStoragePtr->retiredMons));
 }
 
 

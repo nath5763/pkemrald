@@ -70,6 +70,8 @@ EventScript_RockSmash::
 	//checkpartymove MOVE_ROCK_SMASH
     checkitem ITEM_ROCKSMASH_TOOL,1
     goto_if_eq VAR_RESULT, TRUE, EventScript_UseRockSmashTool
+    checkitem ITEM_HM06, 1
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantSmashRock
     checkpartylearnknowsfieldmove ITEM_HM06
 	goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
 @ End qol_field_moves

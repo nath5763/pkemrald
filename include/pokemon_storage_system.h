@@ -6,6 +6,16 @@
 #define IN_BOX_COLUMNS          6 // Number of columns, 5 Pokémon per column
 #define IN_BOX_COUNT            (IN_BOX_ROWS * IN_BOX_COLUMNS)
 #define BOX_NAME_LENGTH         8
+#define RETIRED_MON_HISTORY_CAPACITY 122
+
+// Compact save-backed snapshot used by the read-only memorial PC viewer.
+struct RetiredMonRecord
+{
+    u32 personality;
+    u16 species:9;
+    u16 level:7;
+    u8 nickname[POKEMON_NAME_LENGTH];
+};
 
 /*
             COLUMNS
@@ -22,6 +32,9 @@ struct PokemonStorage
     /*0x0001*/ struct BoxPokemon boxes[TOTAL_BOXES_COUNT][IN_BOX_COUNT];
     /*0x8344*/ u8 boxNames[TOTAL_BOXES_COUNT][BOX_NAME_LENGTH + 1];
     /*0x83C2*/ u8 boxWallpapers[TOTAL_BOXES_COUNT];
+    /*0x83D0*/ u16 retiredMonsCount;
+    /*0x83D2*/ u16 retiredMonsReserved;
+    /*0x83D4*/ struct RetiredMonRecord retiredMons[RETIRED_MON_HISTORY_CAPACITY];
 };
 
 extern struct PokemonStorage *gPokemonStoragePtr;
@@ -58,6 +71,12 @@ bool32 CheckBoxMonSanityAt(u32 boxId, u32 boxPosition);
 u32 CountStorageNonEggMons(void);
 u32 CountAllStorageMons(void);
 bool32 AnyStorageMonWithMove(u16 move);
+u16 GetRetiredMonCount(void);
+bool8 GetRetiredMonRecord(u16 index, struct RetiredMonRecord *dst);
+bool8 SetRetiredMonRecord(u16 index, const struct RetiredMonRecord *src);
+bool8 AppendRetiredMonRecord(const struct RetiredMonRecord *src);
+void ClearRetiredMonRecord(u16 index);
+void ClearRetiredMonHistory(void);
 
 void ResetWaldaWallpaper(void);
 void SetWaldaWallpaperLockedOrUnlocked(bool32 unlocked);

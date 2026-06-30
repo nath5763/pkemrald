@@ -55,6 +55,12 @@ static const FeatureFlagLabel sFeatureFlagLabels[] = {
         .label = "Randomized Starters",
         .description = "Start with a random Pokémon under BST 320 instead of a chosen starter"
     },
+
+    {
+        .flagId = 6,
+        .label = "Permadeath Mode",
+        .description = "Fainted Pokémon are retired and moved to a memorial hall"
+    },
 };
 
 #define FEATURE_FLAG_LABEL_COUNT (sizeof(sFeatureFlagLabels) / sizeof(FeatureFlagLabel))

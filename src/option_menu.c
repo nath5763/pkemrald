@@ -29,9 +29,11 @@
 #define tButtonMode data[5]
 #define tWindowFrameType data[6]
 #define tCatchupExp data[7]
-#define tRandomizedStarters data[8]
-#define tMenuScrollOffset data[9]
-#define tPreviousSelection data[10]
+#define tLevelCap data[8]
+#define tRandomizedStarters data[9]
+#define tMenuScrollOffset data[10]
+#define tPreviousSelection data[11]
+#define tPermadeath data[12]
 
 enum
 {
@@ -40,8 +42,10 @@ enum
     MENUITEM_BATTLESTYLE,
     MENUITEM_SOUND,
     MENUITEM_RANDOMIZED_STARTERS,
-    MENUITEM_BUTTONMODE,
     MENUITEM_CATCHUPEXP,
+    MENUITEM_LEVELCAP,
+    MENUITEM_PERMADEATH,
+    MENUITEM_BUTTONMODE,
     MENUITEM_FRAMETYPE,
     MENUITEM_CANCEL,
     MENUITEM_COUNT,
@@ -58,8 +62,10 @@ enum
 #define YPOS_BATTLESTYLE  (MENUITEM_BATTLESTYLE * 16)
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_RANDOMIZED_STARTERS (MENUITEM_RANDOMIZED_STARTERS * 16)
-#define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_CATCHUPEXP   (MENUITEM_CATCHUPEXP * 16)
+#define YPOS_LEVELCAP     (MENUITEM_LEVELCAP * 16)
+#define YPOS_PERMADEATH   (MENUITEM_PERMADEATH * 16)
+#define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
 
 // Calculate Y position accounting for scroll offset
@@ -87,14 +93,20 @@ static void DrawOptionMenuTexts(u8 scrollOffset);
 static void DrawBgWindowFrames(void);
 static u8  CatchupExp_ProcessInput(u8 selection);
 static void CatchupExp_DrawChoices(u8 selection, u8 scrollOffset);
+static u8  LevelCap_ProcessInput(u8 selection);
+static void LevelCap_DrawChoices(u8 selection, u8 scrollOffset);
 static u8  RandomizedStarters_ProcessInput(u8 selection);
 static void RandomizedStarters_DrawChoices(u8 selection, u8 scrollOffset);
+static u8  Permadeath_ProcessInput(u8 selection);
+static void Permadeath_DrawChoices(u8 selection, u8 scrollOffset);
 static void HighlightOptionMenuItem(u8 index, u8 scrollOffset);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
 
 static const u8 sText_CatchupExp[] = _("Catch-up EXP");
+static const u8 sText_LevelCap[] = _("Level Cap");
 static const u8 sText_RandomizedStarters[] = _("Random Starters");
+static const u8 sText_Permadeath[] = _("Permadeath");
 static const u8 sText_Off[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 static const u8 sText_On[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
 static const u8 *const sCatchupChoices[] = { sText_Off, sText_On };
@@ -134,6 +146,12 @@ static void DrawAllOptionChoices(u8 taskId)
             case MENUITEM_CATCHUPEXP:
                 CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, scrollOffset);
                 break;
+            case MENUITEM_LEVELCAP:
+                LevelCap_DrawChoices(gTasks[taskId].tLevelCap, scrollOffset);
+                break;
+            case MENUITEM_PERMADEATH:
+                Permadeath_DrawChoices(gTasks[taskId].tPermadeath, scrollOffset);
+                break;
             case MENUITEM_BUTTONMODE:
                 ButtonMode_DrawChoices(gTasks[taskId].tButtonMode, scrollOffset);
                 break;
@@ -153,6 +171,8 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_SOUND]       = gText_Sound,
     [MENUITEM_RANDOMIZED_STARTERS] = sText_RandomizedStarters,
     [MENUITEM_CATCHUPEXP]  = sText_CatchupExp,
+    [MENUITEM_LEVELCAP]    = sText_LevelCap,
+    [MENUITEM_PERMADEATH]  = sText_Permadeath,
     [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
     [MENUITEM_FRAMETYPE]   = gText_Frame,
     [MENUITEM_CANCEL]      = gText_OptionMenuCancel,
@@ -309,6 +329,8 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tCatchupExp = FlagGet(FLAG_CATCHUP_ENABLED);
+        gTasks[taskId].tLevelCap = FlagGet(FLAG_LEVEL_CAP_ENABLED);
+        gTasks[taskId].tPermadeath = FlagGet(FLAG_PERMADEATH);
         gTasks[taskId].tRandomizedStarters = FlagGet(FLAG_RANDOM_STARTER);
 
         TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed, 0);
@@ -316,6 +338,8 @@ void CB2_InitOptionMenu(void)
         BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle, 0);
         Sound_DrawChoices(gTasks[taskId].tSound, 0);
         CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, 0);
+        LevelCap_DrawChoices(gTasks[taskId].tLevelCap, 0);
+        Permadeath_DrawChoices(gTasks[taskId].tPermadeath, 0);
         RandomizedStarters_DrawChoices(gTasks[taskId].tRandomizedStarters, 0);
         ButtonMode_DrawChoices(gTasks[taskId].tButtonMode, 0);
         FrameType_DrawChoices(gTasks[taskId].tWindowFrameType, 0);
@@ -434,6 +458,18 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tCatchupExp)
                 CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, gTasks[taskId].tMenuScrollOffset);
             break;
+        case MENUITEM_LEVELCAP:
+            previousOption = gTasks[taskId].tLevelCap;
+            gTasks[taskId].tLevelCap = LevelCap_ProcessInput(gTasks[taskId].tLevelCap);
+            if (previousOption != gTasks[taskId].tLevelCap)
+                LevelCap_DrawChoices(gTasks[taskId].tLevelCap, gTasks[taskId].tMenuScrollOffset);
+            break;
+        case MENUITEM_PERMADEATH:
+            previousOption = gTasks[taskId].tPermadeath;
+            gTasks[taskId].tPermadeath = Permadeath_ProcessInput(gTasks[taskId].tPermadeath);
+            if (previousOption != gTasks[taskId].tPermadeath)
+                Permadeath_DrawChoices(gTasks[taskId].tPermadeath, gTasks[taskId].tMenuScrollOffset);
+            break;
         case MENUITEM_BUTTONMODE:
             previousOption = gTasks[taskId].tButtonMode;
             gTasks[taskId].tButtonMode = ButtonMode_ProcessInput(gTasks[taskId].tButtonMode);
@@ -482,6 +518,12 @@ static void Task_OptionMenuProcessInput(u8 taskId)
         case MENUITEM_CATCHUPEXP:
             CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, gTasks[taskId].tMenuScrollOffset);
             break;
+        case MENUITEM_LEVELCAP:
+            LevelCap_DrawChoices(gTasks[taskId].tLevelCap, gTasks[taskId].tMenuScrollOffset);
+            break;
+        case MENUITEM_PERMADEATH:
+            Permadeath_DrawChoices(gTasks[taskId].tPermadeath, gTasks[taskId].tMenuScrollOffset);
+            break;
         case MENUITEM_BUTTONMODE:
             ButtonMode_DrawChoices(gTasks[taskId].tButtonMode, gTasks[taskId].tMenuScrollOffset);
             break;
@@ -507,6 +549,16 @@ static void Task_OptionMenuSave(u8 taskId)
         FlagSet(FLAG_CATCHUP_ENABLED);
     else
         FlagClear(FLAG_CATCHUP_ENABLED);
+
+    if (gTasks[taskId].tLevelCap)
+        FlagSet(FLAG_LEVEL_CAP_ENABLED);
+    else
+        FlagClear(FLAG_LEVEL_CAP_ENABLED);
+        
+    if (gTasks[taskId].tPermadeath)
+        FlagSet(FLAG_PERMADEATH);
+    else
+        FlagClear(FLAG_PERMADEATH);
     
     gTasks[taskId].tRandomizedStarters ? FlagSet(FLAG_RANDOM_STARTER) : FlagClear(FLAG_RANDOM_STARTER);
 
@@ -614,6 +666,48 @@ static void CatchupExp_DrawChoices(u8 selection, u8 scrollOffset)
     styles[selection] = 1;
 
     // Right-side value column mimics other rows (x=104 and right-align at 198)
+    DrawOptionMenuChoice(sText_Off, 104, yPos, styles[0]);
+    DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
+                         yPos, styles[1]);
+}
+
+static u8 LevelCap_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void LevelCap_DrawChoices(u8 selection, u8 scrollOffset)
+{
+    u8 styles[2] = {0, 0};
+    s32 yPos = CALC_YPOS(MENUITEM_LEVELCAP, scrollOffset);
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(sText_Off, 104, yPos, styles[0]);
+    DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
+                         yPos, styles[1]);
+}
+
+static u8 Permadeath_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void Permadeath_DrawChoices(u8 selection, u8 scrollOffset)
+{
+    u8 styles[2] = {0, 0};
+    s32 yPos = CALC_YPOS(MENUITEM_PERMADEATH, scrollOffset);
+    styles[selection] = 1;
+
     DrawOptionMenuChoice(sText_Off, 104, yPos, styles[0]);
     DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
                          yPos, styles[1]);
