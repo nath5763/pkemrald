@@ -18,6 +18,7 @@
 #include "event_data.h"
 #include "constants/flags.h"
 #include "feature_flags.h"
+#include "permadeath.h"
 #include "menu_feature_flags.h"
 #include "data/feature_flags_labels.h"
 
@@ -100,6 +101,8 @@ static void RandomizedStarters_DrawChoices(u8 selection, u8 scrollOffset);
 static u8  Permadeath_ProcessInput(u8 selection);
 static void Permadeath_DrawChoices(u8 selection, u8 scrollOffset);
 static void HighlightOptionMenuItem(u8 index, u8 scrollOffset);
+static void UpdateOptionMenuScroll(u8 taskId);
+static void RedrawOptionMenu(u8 taskId);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
 
@@ -107,6 +110,7 @@ static const u8 sText_CatchupExp[] = _("Catch-up EXP");
 static const u8 sText_LevelCap[] = _("Level Cap");
 static const u8 sText_RandomizedStarters[] = _("Random Starters");
 static const u8 sText_Permadeath[] = _("Permadeath");
+static const u8 sText_OptionCursor[] = _(">");
 static const u8 sText_Off[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 static const u8 sText_On[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
 static const u8 *const sCatchupChoices[] = { sText_Off, sText_On };
@@ -269,12 +273,12 @@ void CB2_InitOptionMenu(void)
         DeactivateAllTextPrinters();
         SetGpuReg(REG_OFFSET_WIN0H, 0);
         SetGpuReg(REG_OFFSET_WIN0V, 0);
-        SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG0);
-        SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG0 | WINOUT_WIN01_BG1 | WINOUT_WIN01_CLR);
-        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0 | BLDCNT_EFFECT_DARKEN);
+        SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG0 | WININ_WIN0_BG1 | WININ_WIN0_OBJ);
+        SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG0 | WINOUT_WIN01_BG1 | WINOUT_WIN01_OBJ | WINOUT_WIN01_CLR);
+        SetGpuReg(REG_OFFSET_BLDCNT, 0);
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-        SetGpuReg(REG_OFFSET_BLDY, 4);
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+        SetGpuReg(REG_OFFSET_BLDY, 0);
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
         ShowBg(0);
         ShowBg(1);
         gMain.state++;
@@ -330,7 +334,7 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tCatchupExp = FlagGet(FLAG_CATCHUP_ENABLED);
         gTasks[taskId].tLevelCap = FlagGet(FLAG_LEVEL_CAP_ENABLED);
-        gTasks[taskId].tPermadeath = FlagGet(FLAG_PERMADEATH);
+    gTasks[taskId].tPermadeath = FlagGet(FLAG_PERMADEATH);
         gTasks[taskId].tRandomizedStarters = FlagGet(FLAG_RANDOM_STARTER);
 
         TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed, 0);
@@ -365,7 +369,6 @@ static void Task_OptionMenuFadeIn(u8 taskId)
 
 static void Task_OptionMenuProcessInput(u8 taskId)
 {
-    u8 maxVisibleRows = 7;
     u8 previousSelection = gTasks[taskId].tPreviousSelection;
 
     if (JOY_NEW(A_BUTTON))
@@ -381,36 +384,17 @@ static void Task_OptionMenuProcessInput(u8 taskId)
     {
         if (gTasks[taskId].tMenuSelection > 0)
             gTasks[taskId].tMenuSelection--;
-        else
-            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL;
 
-        // Auto-scroll if selection is above visible window
-        if (gTasks[taskId].tMenuSelection < gTasks[taskId].tMenuScrollOffset)
-            gTasks[taskId].tMenuScrollOffset = gTasks[taskId].tMenuSelection;
-
-        DrawOptionMenuTexts(gTasks[taskId].tMenuScrollOffset);
-        DrawAllOptionChoices(taskId);
-        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection, gTasks[taskId].tMenuScrollOffset);
-        CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+        UpdateOptionMenuScroll(taskId);
+        RedrawOptionMenu(taskId);
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
         if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL)
             gTasks[taskId].tMenuSelection++;
-        else
-            gTasks[taskId].tMenuSelection = 0;
 
-        // Auto-scroll if selection is below visible window
-        if (gTasks[taskId].tMenuSelection >= gTasks[taskId].tMenuScrollOffset + maxVisibleRows)
-            gTasks[taskId].tMenuScrollOffset = gTasks[taskId].tMenuSelection - maxVisibleRows + 1;
-
-        // Ensure scroll offset doesn't go below 0
-        if (gTasks[taskId].tMenuScrollOffset > gTasks[taskId].tMenuSelection)
-            gTasks[taskId].tMenuScrollOffset = 0;
-
-        DrawOptionMenuTexts(gTasks[taskId].tMenuScrollOffset);
-        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection, gTasks[taskId].tMenuScrollOffset);
-        CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+        UpdateOptionMenuScroll(taskId);
+        RedrawOptionMenu(taskId);
     }
     else
     {
@@ -498,42 +482,8 @@ static void Task_OptionMenuProcessInput(u8 taskId)
     // If selection changed, redraw the choices for the new menu item
     if (gTasks[taskId].tMenuSelection != previousSelection)
     {
-        switch (gTasks[taskId].tMenuSelection)
-        {
-        case MENUITEM_TEXTSPEED:
-            TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_BATTLESCENE:
-            BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_BATTLESTYLE:
-            BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_SOUND:
-            Sound_DrawChoices(gTasks[taskId].tSound, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_RANDOMIZED_STARTERS:
-            RandomizedStarters_DrawChoices(gTasks[taskId].tRandomizedStarters, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_CATCHUPEXP:
-            CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_LEVELCAP:
-            LevelCap_DrawChoices(gTasks[taskId].tLevelCap, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_PERMADEATH:
-            Permadeath_DrawChoices(gTasks[taskId].tPermadeath, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_BUTTONMODE:
-            ButtonMode_DrawChoices(gTasks[taskId].tButtonMode, gTasks[taskId].tMenuScrollOffset);
-            break;
-        case MENUITEM_FRAMETYPE:
-            FrameType_DrawChoices(gTasks[taskId].tWindowFrameType, gTasks[taskId].tMenuScrollOffset);
-            break;
-        }
-
         gTasks[taskId].tPreviousSelection = gTasks[taskId].tMenuSelection;
-        CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+        RedrawOptionMenu(taskId);
     }
 }
 
@@ -579,9 +529,30 @@ static void Task_OptionMenuFadeOut(u8 taskId)
 static void HighlightOptionMenuItem(u8 index, u8 scrollOffset)
 {
     s32 yPos;
-    yPos = (index - scrollOffset) * 16 + 40;
-    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(16, DISPLAY_WIDTH - 16));
-    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(yPos, yPos + 16));
+    yPos = CALC_YPOS(index, scrollOffset);
+    AddTextPrinterParameterized(WIN_OPTIONS, FONT_NORMAL, sText_OptionCursor, 0, yPos + 1, TEXT_SKIP_DRAW, NULL);
+}
+
+static void UpdateOptionMenuScroll(u8 taskId)
+{
+    u8 selection = gTasks[taskId].tMenuSelection;
+    u8 scrollOffset = gTasks[taskId].tMenuScrollOffset;
+    const u8 maxVisibleRows = 7;
+
+    if (selection < scrollOffset)
+        scrollOffset = selection;
+    else if (selection >= scrollOffset + maxVisibleRows)
+        scrollOffset = selection - maxVisibleRows + 1;
+
+    gTasks[taskId].tMenuScrollOffset = scrollOffset;
+}
+
+static void RedrawOptionMenu(u8 taskId)
+{
+    DrawOptionMenuTexts(gTasks[taskId].tMenuScrollOffset);
+    DrawAllOptionChoices(taskId);
+    HighlightOptionMenuItem(gTasks[taskId].tMenuSelection, gTasks[taskId].tMenuScrollOffset);
+    CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
 
 static void DrawOptionMenuChoice(const u8 *text, u8 x, u8 y, u8 style)

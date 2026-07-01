@@ -43,8 +43,7 @@ static EWRAM_DATA struct MemorialMenuState sMemorialMenu = {0};
 
 static const u8 sTextMemorialTitle[] = _("MEMORIAL HALL");
 static const u8 sTextMemorialEmpty[] = _("No retired POKéMON.");
-static const u8 sTextMemorialHint[] = _("B: Exit");
-static const u8 sTextMemorialStatus[] = _("Retired from use.");
+static const u8 sTextMemorialGender[] = _("Gender");
 static const u8 sTextMemorialLv[] = _("Lv");
 
 static const struct WindowTemplate sMemorialWindowTemplates[MEMORIAL_WIN_COUNT] =
@@ -93,7 +92,7 @@ static void CopyRetiredMonNickname(u8 *dst, const struct RetiredMonRecord *recor
 
 bool8 IsPermadeathEnabled(void)
 {
-    return GetFeatureFlagState(FEATURE_FLAG_PERMADEATH);
+    return FlagGet(FLAG_PERMADEATH);
 }
 
 void TryRetireFaintedPlayerPartyMons(void)
@@ -225,7 +224,6 @@ static void BuildMemorialList(void)
         FillWindowPixelBuffer(sMemorialMenu.windowIds[MEMORIAL_WIN_LIST], PIXEL_FILL(1));
         FillWindowPixelBuffer(sMemorialMenu.windowIds[MEMORIAL_WIN_DETAILS], PIXEL_FILL(1));
         AddTextPrinterParameterized(sMemorialMenu.windowIds[MEMORIAL_WIN_DETAILS], FONT_NORMAL, sTextMemorialEmpty, 8, 8, 0, NULL);
-        AddTextPrinterParameterized(sMemorialMenu.windowIds[MEMORIAL_WIN_DETAILS], FONT_NORMAL, sTextMemorialHint, 8, 32, 0, NULL);
         CopyWindowToVram(sMemorialMenu.windowIds[MEMORIAL_WIN_LIST], COPYWIN_FULL);
         CopyWindowToVram(sMemorialMenu.windowIds[MEMORIAL_WIN_DETAILS], COPYWIN_FULL);
         return;
@@ -291,14 +289,17 @@ static void DrawMemorialTitle(void)
 static void DrawMemorialDetails(s32 itemIndex)
 {
     u8 nickname[POKEMON_NAME_LENGTH + 1];
+    u8 genderText[32];
     u8 levelText[8];
     u8 windowId = sMemorialMenu.windowIds[MEMORIAL_WIN_DETAILS];
     const struct RetiredMonRecord *record;
+    u8 gender;
 
     if (itemIndex < 0 || itemIndex >= sMemorialMenu.count)
         return;
 
     record = &sMemorialMenu.records[itemIndex];
+    gender = GetGenderFromSpeciesAndPersonality(record->species, record->personality);
 
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     CopyRetiredMonNickname(nickname, record);
@@ -310,8 +311,22 @@ static void DrawMemorialDetails(s32 itemIndex)
     StringCopy(levelText, sTextMemorialLv);
     ConvertIntToDecimalStringN(levelText + 2, record->level, STR_CONV_MODE_LEFT_ALIGN, 3);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, levelText, 8, 40, 0, NULL);
-    AddTextPrinterParameterized(windowId, FONT_NORMAL, sTextMemorialStatus, 8, 64, 0, NULL);
-    AddTextPrinterParameterized(windowId, FONT_NORMAL, sTextMemorialHint, 8, 88, 0, NULL);
+    StringCopy(genderText, sTextMemorialGender);
+    StringAppend(genderText, gText_Colon2);
+    StringAppend(genderText, gText_Space);
+    switch (gender)
+    {
+    case MON_MALE:
+        StringAppend(genderText, gText_MaleSymbol);
+        break;
+    case MON_FEMALE:
+        StringAppend(genderText, gText_FemaleSymbol);
+        break;
+    default:
+        StringAppend(genderText, gText_HealthboxGender_None);
+        break;
+    }
+    AddTextPrinterParameterized(windowId, FONT_NORMAL, genderText, 8, 56, 0, NULL);
     CopyWindowToVram(windowId, COPYWIN_FULL);
 }
 

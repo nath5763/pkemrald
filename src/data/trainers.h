@@ -10474,9 +10474,9 @@ const struct Trainer gTrainers[] = {
     },
     [FLAG_EEVEE_TRAINER] =
     {
-        .trainerClass = TRAINER_CLASS_CHAMPION,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_NINJA_BOY,
+        .trainerClass = TRAINER_CLASS_COOLTRAINER,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_COOL,
+        .trainerPic = TRAINER_PIC_COOLTRAINER_M,
         .trainerName = _("EEMILEE"),
         .items = {},
         .doubleBattle = FALSE,

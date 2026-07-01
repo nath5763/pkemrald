@@ -44,9 +44,9 @@ script doorLoad {
     }
 
     if (flag(FLAG_IS_CHAMPION)) {
-        setmetatile(43,55, 0x021, TRUE)
+        setmetatile(42,47, 0x021, TRUE)
     } else {
-        setmetatile(43,55, 0x021, FALSE)
+        setmetatile(42,47, 0x021, FALSE)
     }
 }
 
@@ -75,7 +75,7 @@ script giftEevee {
     givemon(SPECIES_EEVEE, 15, ITEM_EVERSTONE)
     setflag(FLAG_EEVEE_GIFTED)
     waitmessage
-    releaseall
+    release
     end
 }
 

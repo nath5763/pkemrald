@@ -267,6 +267,8 @@ SlateportCity_Pokemart_EnergyGuru:
 # 134 "data/maps/SlateportCity/scripts.pory"
 	.2byte ITEM_HP_UP
 # 135 "data/maps/SlateportCity/scripts.pory"
+	.2byte ITEM_NATURE_CANDY
+# 135 "data/maps/SlateportCity/scripts.pory"
 	pokemartlistend
 # 136 "data/maps/SlateportCity/scripts.pory"
 
