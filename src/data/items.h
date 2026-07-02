@@ -778,15 +778,15 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_03D] =
+    [ITEM_NATURE_CANDY] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("NATURE CANDY"),
+        .itemId = ITEM_NATURE_CANDY,
+        .price = 9800,
+        .description = sNatureCandyDesc,
         .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_NatureCandy,
     },
 
     [ITEM_03E] =

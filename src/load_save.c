@@ -13,6 +13,7 @@
 #include "gba/flash_internal.h"
 #include "decoration_inventory.h"
 #include "agb_flash.h"
+#include "feature_flags.h"
 
 static void ApplyNewEncryptionKeyToAllEncryptedData(u32 encryptionKey);
 
@@ -234,6 +235,9 @@ void LoadPlayerBag(void)
         gLoadedSaveData.mail[i] = gSaveBlock1Ptr->mail[i];
 
     gLastEncryptionKey = gSaveBlock2Ptr->encryptionKey;
+    
+    // Initialize feature flag registry and load saved states from save block
+    InitializeFeatureFlagRegistry();
 }
 
 void SavePlayerBag(void)
@@ -269,6 +273,9 @@ void SavePlayerBag(void)
     gSaveBlock2Ptr->encryptionKey = gLastEncryptionKey;
     ApplyNewEncryptionKeyToBagItems(encryptionKeyBackup);
     gSaveBlock2Ptr->encryptionKey = encryptionKeyBackup; // updated twice?
+    
+    // Save feature flag states to save block
+    SaveFeatureFlags();
 }
 
 void ApplyNewEncryptionKeyToHword(u16 *hWord, u32 newKey)

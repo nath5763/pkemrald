@@ -438,6 +438,22 @@ static const struct BardSoundTemplate sBardSoundTemplates_Moves[MOVES_COUNT][MAX
         NULL_BARD_SOUND,
         NULL_BARD_SOUND,
     },
+    [MOVE_INCINERATE] = {
+        { .songId = PHONEME_ID(PH_TRAP_BLEND) },
+        { .songId = PHONEME_ID(PH_GOAT_SOLO) },
+        { .songId = PHONEME_ID(PH_NURSE_BLEND) },
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
+    [MOVE_BULLDOZE] = {
+        { .songId = PHONEME_ID(PH_STRUT_SOLO) },
+        { .songId = PHONEME_ID(PH_THOUGHT_SOLO) },
+        PREV_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+        NULL_BARD_SOUND,
+    },
     [MOVE_MIST] = {
         { .songId = PHONEME_ID(PH_KIT_SOLO) },
         PREV_BARD_SOUND,

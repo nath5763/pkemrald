@@ -78,6 +78,7 @@ static const u8 sCacophonyDescription[] = _("Avoids sound-based moves.");
 static const u8 sAirLockDescription[] = _("Negates weather effects.");
 static const u8 sTechnicianDescription[] = _("Boosts weaker moves.");
 static const u8 sSnowCloakDescription[] = _("Whips up a snow storm.");
+static const u8 sScrappyDescription[] = _("Lets normal and fighting moves hit Ghosts.");
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
@@ -161,6 +162,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_AIR_LOCK] = _("AIR LOCK"),
     [ABILITY_TECHNICIAN] = _("TECHNICIAN"),
     [ABILITY_SNOW_CLOAK] = _("SNOW CLOAK"),
+    [ABILITY_SCRAPPY] = _("SCRAPPY"),
 };
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
@@ -245,4 +247,5 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_AIR_LOCK] = sAirLockDescription,
     [ABILITY_TECHNICIAN] = sTechnicianDescription,
     [ABILITY_SNOW_CLOAK] = sSnowCloakDescription,
+    [ABILITY_SCRAPPY] = sScrappyDescription,
 };

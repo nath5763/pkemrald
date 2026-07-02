@@ -72,7 +72,7 @@
 #define ITEM_03A 58
 #define ITEM_03B 59
 #define ITEM_03C 60
-#define ITEM_03D 61
+#define ITEM_NATURE_CANDY 61
 #define ITEM_03E 62
 #define ITEM_HP_UP 63
 #define ITEM_PROTEIN 64

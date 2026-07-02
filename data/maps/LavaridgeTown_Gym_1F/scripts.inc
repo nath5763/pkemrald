@@ -134,8 +134,6 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated::
 	call Common_EventScript_SetGymTrainers
 # 68 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
 	setflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WALLY
-# 69 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
-	setvar VAR_LAVARIDGE_TOWN_STATE, 1
 # 70 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"
 	call LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 # 71 "data/maps/LavaridgeTown_Gym_1F/scripts.pory"

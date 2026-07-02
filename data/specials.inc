@@ -275,6 +275,7 @@ gSpecials::
 	def_special SetTrickHouseNuggetFlag
 	def_special ScriptMenu_CreatePCMultichoice
 	def_special AccessHallOfFamePC
+	def_special AccessMemorialPC
 	def_special Special_ShowDiploma
 	def_special CheckLeadMonCool
 	def_special CheckLeadMonBeauty

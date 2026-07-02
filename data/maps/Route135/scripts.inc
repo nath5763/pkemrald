@@ -65,7 +65,7 @@ doorLoad_7:
 # 46 "data/maps/Route135/scripts.pory"
 	goto_if_set FLAG_IS_CHAMPION, doorLoad_13
 # 49 "data/maps/Route135/scripts.pory"
-	setmetatile 43, 55, 0x021, FALSE
+	setmetatile 42, 47, 0x021, FALSE
 	return
 
 doorLoad_2:
@@ -92,7 +92,7 @@ doorLoad_10:
 
 doorLoad_13:
 # 47 "data/maps/Route135/scripts.pory"
-	setmetatile 43, 55, 0x021, TRUE
+	setmetatile 42, 47, 0x021, TRUE
 	return
 
 
@@ -117,7 +117,7 @@ eeveeTrainer::
 	trainerbattle_single FLAG_EEVEE_TRAINER, eeveeIntro, eeveeOutro, giftEevee
 eeveeTrainer_1:
 # 69 "data/maps/Route135/scripts.pory"
-	releaseall
+	release
 	end
 
 eeveeTrainer_2:
@@ -138,7 +138,7 @@ giftEevee::
 # 77 "data/maps/Route135/scripts.pory"
 	waitmessage
 # 78 "data/maps/Route135/scripts.pory"
-	releaseall
+	release
 	end
 
 

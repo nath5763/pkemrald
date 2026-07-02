@@ -501,6 +501,18 @@ struct RankingHall2P
     //u8 padding;
 };
 
+// Feature flags configuration and save block structure
+// Defined here to avoid circular dependency with feature_flags.h
+#define MAX_FEATURE_FLAGS 50
+
+struct SaveBlockFeatureFlags {
+    u32 version;           // Version: 1 for current, 0 for uninitialized
+    u8 flagStates[MAX_FEATURE_FLAGS];  // One byte per flag: 1=enabled, 0=disabled
+    u8 reserved[14];       // Reserved for future use (must be zero)
+}; // sizeof: 68 bytes
+
+typedef struct SaveBlockFeatureFlags SaveBlockFeatureFlags;
+
 struct SaveBlock2
 {
     /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -535,7 +547,8 @@ struct SaveBlock2
     /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
-}; // sizeof=0xF2C
+    /*0xF2C*/ struct SaveBlockFeatureFlags featureFlags;
+}; // sizeof=0xF70
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 

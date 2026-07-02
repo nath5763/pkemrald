@@ -385,7 +385,9 @@
 #define MOVE_THUNDER_FANG 381
 #define MOVE_AQUA_JET 382
 #define MOVE_ICE_SHARD 383
-#define MOVES_COUNT 384
+#define MOVE_INCINERATE 384
+#define MOVE_BULLDOZE 385
+#define MOVES_COUNT 386
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

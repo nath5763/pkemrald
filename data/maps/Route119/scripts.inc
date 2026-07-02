@@ -261,7 +261,7 @@ Route119_EventScript_DefeatedBrendan::
 # 131 "data/maps/Route119/scripts.pory"
 Route119_EventScript_GiveFlyHM::
 # 132 "data/maps/Route119/scripts.pory"
-	giveitem ITEM_HM_FLY
+	giveitem ITEM_FLY_TOOL
 # 133 "data/maps/Route119/scripts.pory"
 	setflag FLAG_RECEIVED_HM_FLY
 # 134 "data/maps/Route119/scripts.pory"

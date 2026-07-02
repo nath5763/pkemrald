@@ -281,6 +281,11 @@ static const u8 sRareCandyDesc[] = _(
     "of a POKéMON by\n"
     "one.");
 
+static const u8 sNatureCandyDesc[] = _(
+    "Changes a POKéMON's\n"
+    "nature to a new\n"
+    "one.");
+
 static const u8 sPPUpDesc[] = _(
     "Raises the maximum\n"
     "PP of a selected\n"

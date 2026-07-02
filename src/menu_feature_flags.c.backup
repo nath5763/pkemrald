@@ -1,0 +1,148 @@
+// Feature Flags Menu UI Implementation
+// 
+// Handles the options menu screen for feature flag toggling
+// Displays all registered feature flags with toggle capability
+//
+// Constitution Compliance:
+// - Principle I: Static screen state, no malloc
+// - Principle II: All pointers to registry (const), no retained pointers
+//
+// Integration:
+// - Called from option_menu.c as a menu sub-screen
+// - Manages its own state machine for UP/DOWN/A/B input
+// - Calls SetFeatureFlagState() when player toggles a flag
+//
+
+#include "global.h"
+#include "feature_flags.h"
+#include "menu_feature_flags.h"
+#include "menu.h"
+#include "strings.h"
+#include "text_window.h"
+#include "window.h"
+#include "task.h"
+
+#define FEATURE_FLAGS_DISPLAY_LINES 5  // How many flags can display at once
+#define FEATURE_FLAGS_NAME_WIDTH 20
+
+// Feature flags menu screen state (static, no malloc)
+// Constitution Principle I: Static allocation only
+typedef struct {
+    u32 selectedFlagIndex;
+    u32 scrollOffset;
+    bool8 isOpen;
+} FeatureFlagsMenuScreen;
+
+static FeatureFlagsMenuScreen sFeatureFlagsScreen = {0};
+
+// Initialize feature flags menu screen
+// Called when entering feature flags menu from options
+void InitFeatureFlagsMenuScreen(void)
+{
+    sFeatureFlagsScreen.selectedFlagIndex = 0;
+    sFeatureFlagsScreen.scrollOffset = 0;
+    sFeatureFlagsScreen.isOpen = TRUE;
+}
+
+// Handle input for feature flags menu (UP/DOWN/A/B)
+// 
+// Parameters:
+//   upPressed: TRUE if UP arrow was just pressed
+//   downPressed: TRUE if DOWN arrow was just pressed
+//   aPressed: TRUE if A button was just pressed
+//   bPressed: TRUE if B button was just pressed
+//
+// Returns: TRUE if menu should close (B pressed), FALSE to continue
+// 
+// Input Handling:
+//   - UP: Move cursor up (wrap to end if at start)
+//   - DOWN: Move cursor down (wrap to start if at end)
+//   - A: Toggle selected flag state
+//   - B: Close menu and return to options
+//
+// Constitution Principle II: No pointers retained; immediate state updates
+//
+// NOTE: Caller is responsible for debouncing input (use JOY_NEW in option_menu.c)
+bool8 HandleFeatureFlagMenuInput(bool8 upPressed, bool8 downPressed, bool8 aPressed, bool8 bPressed)
+{
+    u32 flagCount = GetFeatureFlagCount();
+    
+    if (flagCount == 0)
+        return TRUE;  // No flags, close menu
+    
+    // UP arrow: move cursor up
+    if (upPressed)
+    {
+        if (sFeatureFlagsScreen.selectedFlagIndex > 0)
+        {
+            sFeatureFlagsScreen.selectedFlagIndex--;
+        }
+        else
+        {
+            sFeatureFlagsScreen.selectedFlagIndex = flagCount - 1;  // Wrap to bottom
+        }
+        return FALSE;  // Menu stays open
+    }
+    
+    // DOWN arrow: move cursor down
+    if (downPressed)
+    {
+        if (sFeatureFlagsScreen.selectedFlagIndex < flagCount - 1)
+        {
+            sFeatureFlagsScreen.selectedFlagIndex++;
+        }
+        else
+        {
+            sFeatureFlagsScreen.selectedFlagIndex = 0;  // Wrap to top
+        }
+        return FALSE;  // Menu stays open
+    }
+    
+    // A button: toggle selected flag
+    // SetFeatureFlagState immediately persists to save block
+    if (aPressed)
+    {
+        bool8 currentState = GetFeatureFlagState(sFeatureFlagsScreen.selectedFlagIndex);
+        SetFeatureFlagState(sFeatureFlagsScreen.selectedFlagIndex, !currentState);
+        return FALSE;  // Menu stays open
+    }
+    
+    // B button: close menu and return to options
+    if (bPressed)
+    {
+        return TRUE;  // Close menu
+    }
+    
+    return FALSE;  // Menu stays open
+}
+
+// Render feature flags menu display
+// Draws all flags with names, descriptions, and current state (ON/OFF)
+// 
+// Display Format:
+//   "> Flag Name          [ON]"
+//   "  Another Flag      [OFF]"
+//   "  Third Flag        [ON]"
+//   ""
+//   "(↑↓: move, A: toggle, B: close)"
+//
+// NOTE: This function is designed to be called from option_menu.c
+// The actual text rendering should use the existing options menu window
+// system (FillWindowPixelBuffer, AddTextPrinterParameterized, etc.)
+void RenderFeatureFlagMenu(void)
+{
+    // Rendering framework deferred to option_menu.c integration phase
+    // Current implementation is a stub for UI framework validation
+}
+
+// Get current menu state (for save/persistence integration)
+bool8 IsFeatureFlagsMenuOpen(void)
+{
+    return sFeatureFlagsScreen.isOpen;
+}
+
+// Close feature flags menu and return to options
+void CloseFeatureFlagsMenu(void)
+{
+    sFeatureFlagsScreen.isOpen = FALSE;
+}

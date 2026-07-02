@@ -22,11 +22,9 @@ LavaridgeTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 # 12 "data/maps/LavaridgeTown/scripts.pory"
 	call Common_EventScript_SetupRivalOnBikeGfxId
+	call_if_unset FLAG_RECEIVED_GO_GOGGLES, LavaridgeTown_EventScript_StartRivalScene
 # 13 "data/maps/LavaridgeTown/scripts.pory"
 	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_CheckSetRivalPos
-# 14 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_HideMapNamePopup
-# 15 "data/maps/LavaridgeTown/scripts.pory"
 	end
 # 16 "data/maps/LavaridgeTown/scripts.pory"
 
@@ -41,19 +39,15 @@ LavaridgeTown_EventScript_ClearLavaridgeWhiteOut::
 # 21 "data/maps/LavaridgeTown/scripts.pory"
 LavaridgeTown_EventScript_CheckSetRivalPos::
 # 22 "data/maps/LavaridgeTown/scripts.pory"
-	getplayerxy VAR_0x8004, VAR_0x8005
-# 23 "data/maps/LavaridgeTown/scripts.pory"
-	goto_if_eq VAR_0x8004, 9, LavaridgeTown_EventScript_SetRivalPos
-# 24 "data/maps/LavaridgeTown/scripts.pory"
-	return
+	goto LavaridgeTown_EventScript_SetRivalPos
 # 25 "data/maps/LavaridgeTown/scripts.pory"
 
 # 26 "data/maps/LavaridgeTown/scripts.pory"
 LavaridgeTown_EventScript_SetRivalPos::
 # 27 "data/maps/LavaridgeTown/scripts.pory"
-	setobjectxyperm LOCALID_LAVARIDGE_RIVAL, 11, 9
+	setobjectxyperm LOCALID_LAVARIDGE_RIVAL, 6, 15
 # 28 "data/maps/LavaridgeTown/scripts.pory"
-	setobjectxyperm LOCALID_LAVARIDGE_RIVAL_ON_BIKE, 9, 8
+	setobjectxyperm LOCALID_LAVARIDGE_RIVAL_ON_BIKE, 6, 15
 # 29 "data/maps/LavaridgeTown/scripts.pory"
 	setobjectmovementtype LOCALID_LAVARIDGE_RIVAL_ON_BIKE, MOVEMENT_TYPE_FACE_UP
 # 30 "data/maps/LavaridgeTown/scripts.pory"
@@ -70,51 +64,42 @@ LavaridgeTown_EventScript_ShowMtChimneyTrainers::
 	return
 # 36 "data/maps/LavaridgeTown/scripts.pory"
 
+LavaridgeTown_EventScript_StartRivalScene::
 # 37 "data/maps/LavaridgeTown/scripts.pory"
-LavaridgeTown_EventScript_HideMapNamePopup::
+	setvar VAR_LAVARIDGE_TOWN_STATE, 1
 # 38 "data/maps/LavaridgeTown/scripts.pory"
-	setflag FLAG_HIDE_MAP_NAME_POPUP
+	return
 # 39 "data/maps/LavaridgeTown/scripts.pory"
+
+LavaridgeTown_EventScript_HideMapNamePopup::
+# 40 "data/maps/LavaridgeTown/scripts.pory"
+	setflag FLAG_HIDE_MAP_NAME_POPUP
+# 41 "data/maps/LavaridgeTown/scripts.pory"
 	return
 # 40 "data/maps/LavaridgeTown/scripts.pory"
 
 # 41 "data/maps/LavaridgeTown/scripts.pory"
 LavaridgeTown_OnFrame:
 # 42 "data/maps/LavaridgeTown/scripts.pory"
-	map_script_2 VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_RivalGiveGoGoggles
-# 43 "data/maps/LavaridgeTown/scripts.pory"
 	.2byte 0
-# 44 "data/maps/LavaridgeTown/scripts.pory"
 
 # 45 "data/maps/LavaridgeTown/scripts.pory"
 LavaridgeTown_EventScript_RivalGiveGoGoggles::
 # 46 "data/maps/LavaridgeTown/scripts.pory"
 	lockall
 # 47 "data/maps/LavaridgeTown/scripts.pory"
-	getplayerxy VAR_0x8008, VAR_0x8009
+	faceplayer
 # 48 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalNoticePlayer
+	checkplayergender
 # 49 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExitHerbShop
-# 50 "data/maps/LavaridgeTown/scripts.pory"
-	delay 20
-# 51 "data/maps/LavaridgeTown/scripts.pory"
-	checkplayergender
-# 52 "data/maps/LavaridgeTown/scripts.pory"
 	call_if_eq VAR_RESULT, MALE, LavaridgeTown_EventScript_PlayMayMusic
-# 53 "data/maps/LavaridgeTown/scripts.pory"
+# 50 "data/maps/LavaridgeTown/scripts.pory"
 	call_if_eq VAR_RESULT, FEMALE, LavaridgeTown_EventScript_PlayBrendanMusic
-# 54 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalApproachPlayer1
-# 55 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalApproachPlayer2
-# 56 "data/maps/LavaridgeTown/scripts.pory"
-	checkplayergender
-# 57 "data/maps/LavaridgeTown/scripts.pory"
+# 51 "data/maps/LavaridgeTown/scripts.pory"
 	goto_if_eq VAR_RESULT, MALE, LavaridgeTown_EventScript_MayGiveGoGoggles
-# 58 "data/maps/LavaridgeTown/scripts.pory"
+# 52 "data/maps/LavaridgeTown/scripts.pory"
 	goto_if_eq VAR_RESULT, FEMALE, LavaridgeTown_EventScript_BrendanGiveGoGoggles
-# 59 "data/maps/LavaridgeTown/scripts.pory"
+# 53 "data/maps/LavaridgeTown/scripts.pory"
 	end
 # 60 "data/maps/LavaridgeTown/scripts.pory"
 
@@ -160,23 +145,19 @@ LavaridgeTown_EventScript_RivalExit::
 	addobject LOCALID_LAVARIDGE_RIVAL_ON_BIKE
 # 81 "data/maps/LavaridgeTown/scripts.pory"
 	delay 30
+	applymovement LOCALID_LAVARIDGE_RIVAL_ON_BIKE, LavaridgeTown_Movement_RivalExit2
+	waitmovement 0
 # 82 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit1
-# 83 "data/maps/LavaridgeTown/scripts.pory"
-	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit2
-# 84 "data/maps/LavaridgeTown/scripts.pory"
 	removeobject LOCALID_LAVARIDGE_RIVAL_ON_BIKE
-# 85 "data/maps/LavaridgeTown/scripts.pory"
+# 83 "data/maps/LavaridgeTown/scripts.pory"
 	setvar VAR_LAVARIDGE_TOWN_STATE, 2
-# 86 "data/maps/LavaridgeTown/scripts.pory"
-	clearflag FLAG_HIDE_MAP_NAME_POPUP
-# 87 "data/maps/LavaridgeTown/scripts.pory"
+# 84 "data/maps/LavaridgeTown/scripts.pory"
 	savebgm MUS_DUMMY
-# 88 "data/maps/LavaridgeTown/scripts.pory"
+# 85 "data/maps/LavaridgeTown/scripts.pory"
 	fadedefaultbgm
-# 89 "data/maps/LavaridgeTown/scripts.pory"
+# 86 "data/maps/LavaridgeTown/scripts.pory"
 	releaseall
-# 90 "data/maps/LavaridgeTown/scripts.pory"
+# 87 "data/maps/LavaridgeTown/scripts.pory"
 	end
 # 91 "data/maps/LavaridgeTown/scripts.pory"
 

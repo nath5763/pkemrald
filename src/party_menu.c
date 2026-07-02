@@ -48,6 +48,7 @@
 #include "pokemon_jump.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_summary_screen.h"
+#include "random.h"
 #include "region_map.h"
 #include "reshow_battle_screen.h"
 #include "scanline_effect.h"
@@ -4999,6 +5000,68 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc task)
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
     }
+}
+
+static u8 GetNatureCandyTargetNature(struct Pokemon *mon)
+{
+    u8 currentNature = GetNature(mon);
+    u8 targetNature;
+
+    do
+    {
+        targetNature = Random() % NUM_NATURES;
+    } while (targetNature == currentNature);
+
+    return targetNature;
+}
+
+static u32 GetNatureCandyPersonality(struct Pokemon *mon, u8 targetNature)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 gender = GetMonGender(mon);
+    u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    u32 personality;
+
+    do
+    {
+        personality = Random32();
+    } while (GetNatureFromPersonality(personality) != targetNature
+          || (personality & 1) != abilityNum
+          || (gender != MON_GENDERLESS && GetGenderFromSpeciesAndPersonality(species, personality) != gender));
+
+    return personality;
+}
+
+void ItemUseCB_NatureCandy(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u8 targetNature;
+    u32 personality;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        PlaySE(SE_SELECT);
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    targetNature = GetNatureCandyTargetNature(mon);
+    personality = GetNatureCandyPersonality(mon, targetNature);
+    SetMonData(mon, MON_DATA_PERSONALITY, &personality);
+    CalculateMonStats(mon);
+
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gNatureNamePointers[targetNature]);
+    StringExpandPlaceholders(gStringVar4, gText_PkmnNatureChangedToVar2);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
 }
 
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)
