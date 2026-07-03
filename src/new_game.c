@@ -167,6 +167,7 @@ void NewGameInitData(void)
     InitEventData();
     FlagSet(FLAG_CATCHUP_ENABLED);
     FlagSet(FLAG_LEVEL_CAP_ENABLED);
+    FlagClear(FLAG_TEAM_EXP_SHARE);
     ClearTVShowData();
     ResetGabbyAndTy();
     ClearSecretBases();

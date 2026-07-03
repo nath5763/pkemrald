@@ -197,3 +197,104 @@ script leftovers_get {
     releaseall
     end
 }
+
+script punchTutor {
+    lock
+    faceplayer
+    msgbox(punchTutorIntro)
+    waitmessage
+    call(punchTutorChooseMove)
+    msgbox(punchTutorComeBack)
+    waitmessage
+    release
+    end
+}
+
+script punchTutorChooseMove {
+    multichoice(0, 0, MULTI_ROUTE135_PUNCH_TUTOR, FALSE)
+    if(var(VAR_RESULT) == 0) {
+        call(punchTutorTeachFire)
+        return
+    }
+    if(var(VAR_RESULT) == 1) {
+        call(punchTutorTeachThunder)
+        return
+    }
+    if(var(VAR_RESULT) == 2) {
+        call(punchTutorTeachIce)
+        return
+    }
+    if(var(VAR_RESULT) == 3) {
+        call(punchTutorTeachMega)
+        return
+    }
+    if(var(VAR_RESULT) == 4) {
+        call(punchTutorTeachDynamic)
+    }
+    return
+}
+
+script punchTutorTeachFire {
+    setvar(VAR_0x8005, TUTOR_MOVE_FIRE_PUNCH)
+    call(punchTutorTeachSelectedMove)
+    return
+}
+
+script punchTutorTeachThunder {
+    setvar(VAR_0x8005, TUTOR_MOVE_THUNDER_PUNCH)
+    call(punchTutorTeachSelectedMove)
+    return
+}
+
+script punchTutorTeachIce {
+    setvar(VAR_0x8005, TUTOR_MOVE_ICE_PUNCH)
+    call(punchTutorTeachSelectedMove)
+    return
+}
+
+script punchTutorTeachMega {
+    setvar(VAR_0x8005, TUTOR_MOVE_MEGA_PUNCH)
+    call(punchTutorTeachSelectedMove)
+    return
+}
+
+script punchTutorTeachDynamic {
+    setvar(VAR_0x8005, TUTOR_MOVE_DYNAMIC_PUNCH)
+    call(punchTutorTeachSelectedMove)
+    return
+}
+
+script punchTutorTeachSelectedMove {
+    msgbox(punchTutorChooseMon)
+    waitmessage
+    special(ChooseMonForMoveTutor)
+    waitstate
+    lock
+    faceplayer
+    if(var(VAR_RESULT) == TRUE) {
+        msgbox(punchTutorAnythingElse, MSGBOX_YESNO)
+        if(var(VAR_RESULT) == YES) {
+            call(punchTutorChooseMove)
+        }
+    }
+    return
+}
+
+text punchTutorIntro {
+    "I've trained my fists against rock,\n"
+    "ice, and thunder itself.\p"
+    "If your POKeMON can handle it,\n"
+    "I can teach some serious punches."
+}
+
+text punchTutorChooseMon {
+    "Which POKeMON should throw the punch?$"
+}
+
+text punchTutorAnythingElse {
+    "Want me to teach another punching move?$"
+}
+
+text punchTutorComeBack {
+    "Come back if you want to hit harder.$"
+}

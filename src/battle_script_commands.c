@@ -66,6 +66,7 @@ static void TrySetDestinyBondToHappen(void);
 static u8 AttacksThisTurn(u8 battler, u16 move); // Note: returns 1 if it's a charging turn, otherwise 2.
 static void CheckWonderGuardAndLevitate(void);
 static bool8 IsScrappyGhostMove(u8 moveType, u8 attackerAbility, u8 targetType1, u8 targetType2);
+static bool8 IsLeafGuardProtected(u8 battler);
 static u8 ChangeStatBuffs(s8 statValue, u8 statId, u8, const u8 *BS_ptr);
 static bool32 IsMonGettingExpSentOut(void);
 static void InitLevelUpBanner(void);
@@ -1463,8 +1464,10 @@ static void Cmd_typecalc(void)
     // check stab
     if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType))
     {
-        gBattleMoveDamage = gBattleMoveDamage * 15;
-        gBattleMoveDamage = gBattleMoveDamage / 10;
+        if (gBattleMons[gBattlerAttacker].ability == ABILITY_ADAPTABILITY)
+            gBattleMoveDamage = gBattleMoveDamage * 20 / 10;
+        else
+            gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
     }
 
     scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[gBattlerAttacker].ability,
@@ -1610,6 +1613,13 @@ static bool8 IsScrappyGhostMove(u8 moveType, u8 attackerAbility, u8 targetType1,
         && (targetType1 == TYPE_GHOST || targetType2 == TYPE_GHOST);
 }
 
+static bool8 IsLeafGuardProtected(u8 battler)
+{
+    return WEATHER_HAS_EFFECT
+        && (gBattleWeather & B_WEATHER_SUN)
+        && gBattleMons[battler].ability == ABILITY_LEAF_GUARD;
+}
+
 // Same as ModulateDmgByType except different arguments
 static void ModulateDmgByType2(u8 multiplier, u16 move, u8 *flags)
 {
@@ -1666,8 +1676,10 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     // check stab
     if (IS_BATTLER_OF_TYPE(attacker, moveType))
     {
-        gBattleMoveDamage = gBattleMoveDamage * 15;
-        gBattleMoveDamage = gBattleMoveDamage / 10;
+        if (gBattleMons[attacker].ability == ABILITY_ADAPTABILITY)
+            gBattleMoveDamage = gBattleMoveDamage * 20 / 10;
+        else
+            gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
     }
 
     scrappyGhostHit = IsScrappyGhostMove(moveType, gBattleMons[attacker].ability,
@@ -2430,6 +2442,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 break;
             if (gActiveBattler != gBattlersCount)
                 break;
+            if (IsLeafGuardProtected(gEffectBattler))
+                break;
             if (gBattleMons[gEffectBattler].ability == ABILITY_VITAL_SPIRIT)
                 break;
             if (gBattleMons[gEffectBattler].ability == ABILITY_INSOMNIA)
@@ -2475,6 +2489,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 break;
             if (gBattleMons[gEffectBattler].status1)
                 break;
+            if (IsLeafGuardProtected(gEffectBattler))
+                break;
             if (gBattleMons[gEffectBattler].ability == ABILITY_IMMUNITY)
                 break;
 
@@ -2515,6 +2531,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
             if (gBattleMons[gEffectBattler].ability == ABILITY_WATER_VEIL)
                 break;
             if (gBattleMons[gEffectBattler].status1)
+                break;
+            if (IsLeafGuardProtected(gEffectBattler))
                 break;
 
             statusChanged = TRUE;
@@ -2563,6 +2581,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
             }
             if (gBattleMons[gEffectBattler].status1)
                 break;
+            if (IsLeafGuardProtected(gEffectBattler))
+                break;
 
             statusChanged = TRUE;
             break;
@@ -2600,6 +2620,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 break;
             if (!IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_POISON) && !IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_STEEL))
             {
+                if (IsLeafGuardProtected(gEffectBattler))
+                    break;
                 if (gBattleMons[gEffectBattler].ability == ABILITY_IMMUNITY)
                     break;
 
@@ -3451,8 +3473,11 @@ static void Cmd_getexp(void)
     u16 item;
     s32 i; // also used as stringId
     u8 holdEffect;
+    u16 species;
     s32 sentIn;
     s32 viaExpShare = 0;
+    bool8 hasExpShare;
+    bool8 teamExpShareEnabled;
     u16 *exp = &gBattleStruct->expValue;
     s8 levelDiff;
 
@@ -3484,9 +3509,13 @@ static void Cmd_getexp(void)
             u16 calculatedExp;
             s32 viaSentIn;
 
+            teamExpShareEnabled = FlagGet(FLAG_TEAM_EXP_SHARE);
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; i++)
             {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
+                species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
+                if (species == SPECIES_NONE
+                 || GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)
+                 || GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
                     continue;
                 if (gBitTable[i] & sentIn)
                     viaSentIn++;
@@ -3498,7 +3527,8 @@ static void Cmd_getexp(void)
                 else
                     holdEffect = GetItemHoldEffect(item);
 
-                if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                hasExpShare = holdEffect == HOLD_EFFECT_EXP_SHARE;
+                if (teamExpShareEnabled || hasExpShare)
                     viaExpShare++;
             }
 
@@ -3531,19 +3561,26 @@ static void Cmd_getexp(void)
         if (gBattleControllerExecFlags == 0)
         {
             item = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HELD_ITEM);
+            species = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES);
+            teamExpShareEnabled = FlagGet(FLAG_TEAM_EXP_SHARE);
 
             if (item == ITEM_ENIGMA_BERRY)
                 holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
             else
                 holdEffect = GetItemHoldEffect(item);
 
-            if (holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
+            hasExpShare = holdEffect == HOLD_EFFECT_EXP_SHARE;
+
+            if (species == SPECIES_NONE
+             || GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_IS_EGG)
+             || GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) == 0
+             || GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
                 gBattleMoveDamage = 0; // used for exp
             }
-            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) == MAX_LEVEL)
+            else if (!teamExpShareEnabled && !hasExpShare && !(gBattleStruct->sentInPokes & 1))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
@@ -3559,110 +3596,99 @@ static void Cmd_getexp(void)
                     gBattleStruct->wildVictorySong++;
                 }
 
-                if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
+                if (gBattleStruct->sentInPokes & 1)
+                    gBattleMoveDamage = *exp;
+                else
+                    gBattleMoveDamage = 0;
+
+                if (teamExpShareEnabled || hasExpShare)
+                    gBattleMoveDamage += gExpShareExp;
+                if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
+                    gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+                    gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+
+                if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                 {
-                    if (gBattleStruct->sentInPokes & 1)
-                        gBattleMoveDamage = *exp;
-                    else
-                        gBattleMoveDamage = 0;
-
-                    if (holdEffect == HOLD_EFFECT_EXP_SHARE)
-                        gBattleMoveDamage += gExpShareExp;
-                    if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-
-                    if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
-                    {
-                        // check if the Pokémon doesn't belong to the player
-                        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gBattleStruct->expGetterMonId >= 3)
-                        {
-                            i = STRINGID_EMPTYSTRING4;
-                        }
-                        else
-                        {
-                            gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                            i = STRINGID_ABOOSTED;
-                        }
-                    }
-                    else
+                    // check if the Pokémon doesn't belong to the player
+                    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gBattleStruct->expGetterMonId >= 3)
                     {
                         i = STRINGID_EMPTYSTRING4;
                     }
-
-                    if (FlagGet(FLAG_CATCHUP_ENABLED)) {
-                        levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
-                        if (levelDiff > 0) // only if behind
-                        {
-                            u8 idx = gBattleStruct->expGetterMonId;
-                            u16 species = (u16)GetMonData(&gPlayerParty[idx], MON_DATA_SPECIES);
-                            u8 growth = gSpeciesInfo[species].growthRate;
-                            u8 currLevel = (u8)GetMonData(&gPlayerParty[idx], MON_DATA_LEVEL);
-
-                            // EXP span of the current level
-                            u32 expAtCurr = gExperienceTables[growth][currLevel];
-                            u32 expAtNext = gExperienceTables[growth][currLevel + 1];
-                            u32 expInLevel = expAtNext - expAtCurr;
-
-                            // Bonus = (levelDiff * 2%) of current level's EXP span
-                            u32 bonusExp = (expInLevel * (levelDiff * 2)) / 100;
-
-                            if (bonusExp == 0)
-                                bonusExp = 1; // minimum bonus
-
-                            gBattleMoveDamage += (s32)bonusExp; // add to normal EXP gain
-                        }
-                    }
-
-                    if (FlagGet(FLAG_LEVEL_CAP_ENABLED))
-                    {
-                        u32 currentExp;
-                        u32 maxExp;
-                        u16 species;
-                        u8 currentLevel;
-                        u8 monId = gBattleStruct->expGetterMonId;
-
-                        species = GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, NULL);
-                        currentLevel = GetMonData(&gPlayerParty[monId], MON_DATA_LEVEL, NULL);
-                        currentExp = GetMonData(&gPlayerParty[monId], MON_DATA_EXP, NULL);
-
-                        maxExp = gExperienceTables[gSpeciesInfo[species].growthRate][GetCurrentLevelCap()];
-
-                        if (currentExp + gBattleMoveDamage > maxExp)
-                        {
-                            if (currentExp >= maxExp){
-                                gBattleMoveDamage = 0;
-                            }
-                            else {
-                                gBattleMoveDamage = maxExp - currentExp;
-                            }
-                        }
-                    }
-
-                    // get exp getter battler
-                    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-                    {
-                        if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && !(gAbsentBattlerFlags & gBitTable[2]))
-                            gBattleStruct->expGetterBattlerId = 2;
-                        else if (!(gAbsentBattlerFlags & gBitTable[0]))
-                            gBattleStruct->expGetterBattlerId = 0;
-                        else
-                            gBattleStruct->expGetterBattlerId = 2;
-                    }
                     else
                     {
-                        gBattleStruct->expGetterBattlerId = 0;
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                        i = STRINGID_ABOOSTED;
                     }
-
-                    PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, gBattleStruct->expGetterMonId);
-                    // buffer 'gained' or 'gained a boosted'
-                    PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
-                    PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
-
-                    PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
-                    MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId], gBattleMons[gBattlerFainted].species);
                 }
+                else
+                {
+                    i = STRINGID_EMPTYSTRING4;
+                }
+
+                if (FlagGet(FLAG_CATCHUP_ENABLED)) {
+                    levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
+                    if (levelDiff > 0) // only if behind
+                    {
+                        u8 idx = gBattleStruct->expGetterMonId;
+                        u8 growth = gSpeciesInfo[species].growthRate;
+                        u8 currLevel = (u8)GetMonData(&gPlayerParty[idx], MON_DATA_LEVEL);
+
+                        // EXP span of the current level
+                        u32 expAtCurr = gExperienceTables[growth][currLevel];
+                        u32 expAtNext = gExperienceTables[growth][currLevel + 1];
+                        u32 expInLevel = expAtNext - expAtCurr;
+
+                        // Bonus = (levelDiff * 2%) of current level's EXP span
+                        u32 bonusExp = (expInLevel * (levelDiff * 2)) / 100;
+
+                        if (bonusExp == 0)
+                            bonusExp = 1; // minimum bonus
+
+                        gBattleMoveDamage += (s32)bonusExp; // add to normal EXP gain
+                    }
+                }
+
+                if (FlagGet(FLAG_LEVEL_CAP_ENABLED))
+                {
+                    u32 currentExp;
+                    u32 maxExp;
+                    u8 monId = gBattleStruct->expGetterMonId;
+
+                    currentExp = GetMonData(&gPlayerParty[monId], MON_DATA_EXP, NULL);
+                    maxExp = gExperienceTables[gSpeciesInfo[species].growthRate][GetCurrentLevelCap()];
+
+                    if (currentExp + gBattleMoveDamage > maxExp)
+                    {
+                        if (currentExp >= maxExp)
+                            gBattleMoveDamage = 0;
+                        else
+                            gBattleMoveDamage = maxExp - currentExp;
+                    }
+                }
+
+                // get exp getter battler
+                if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                {
+                    if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && !(gAbsentBattlerFlags & gBitTable[2]))
+                        gBattleStruct->expGetterBattlerId = 2;
+                    else if (!(gAbsentBattlerFlags & gBitTable[0]))
+                        gBattleStruct->expGetterBattlerId = 0;
+                    else
+                        gBattleStruct->expGetterBattlerId = 2;
+                }
+                else
+                {
+                    gBattleStruct->expGetterBattlerId = 0;
+                }
+
+                PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattleStruct->expGetterBattlerId, gBattleStruct->expGetterMonId);
+                // buffer 'gained' or 'gained a boosted'
+                PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
+                PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
+
+                PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
+                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId], gBattleMons[gBattlerFainted].species);
                 gBattleStruct->sentInPokes >>= 1;
                 gBattleScripting.getexpState++;
             }

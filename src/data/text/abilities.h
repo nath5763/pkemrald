@@ -79,6 +79,9 @@ static const u8 sAirLockDescription[] = _("Negates weather effects.");
 static const u8 sTechnicianDescription[] = _("Boosts weaker moves.");
 static const u8 sSnowCloakDescription[] = _("Whips up a snow storm.");
 static const u8 sScrappyDescription[] = _("Lets normal and fighting moves hit Ghosts.");
+static const u8 sDownloadDescription[] = _("Adjusts power by foe's defenses.");
+static const u8 sAdaptabilityDescription[] = _("Powers up same-type moves.");
+static const u8 sLeafGuardDescription[] = _("Blocks status in sunshine.");
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
@@ -163,6 +166,9 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TECHNICIAN] = _("TECHNICIAN"),
     [ABILITY_SNOW_CLOAK] = _("SNOW CLOAK"),
     [ABILITY_SCRAPPY] = _("SCRAPPY"),
+    [ABILITY_DOWNLOAD] = _("DOWNLOAD"),
+    [ABILITY_ADAPTABILITY] = _("ADAPTABILITY"),
+    [ABILITY_LEAF_GUARD] = _("LEAF GUARD"),
 };
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
@@ -248,4 +254,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_TECHNICIAN] = sTechnicianDescription,
     [ABILITY_SNOW_CLOAK] = sSnowCloakDescription,
     [ABILITY_SCRAPPY] = sScrappyDescription,
+    [ABILITY_DOWNLOAD] = sDownloadDescription,
+    [ABILITY_ADAPTABILITY] = sAdaptabilityDescription,
+    [ABILITY_LEAF_GUARD] = sLeafGuardDescription,
 };

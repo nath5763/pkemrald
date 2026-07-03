@@ -311,6 +311,7 @@ static bool8 IsSelectedMonNotEgg(u8 *);
 static void PartyMenuRemoveWindow(u8 *);
 static void CB2_SetUpExitToBattleScreen(void);
 static void Task_ClosePartyMenuAfterText(u8);
+static void Task_ClosePartyMenuOnAorBAfterText(u8);
 static void TryTutorSelectedMon(u8);
 static void TryGiveMailToSelectedMon(u8);
 static void TryGiveItemOrMailToSelectedMon(u8);
@@ -4490,6 +4491,18 @@ static void Task_ClosePartyMenuAfterText(u8 taskId)
     }
 }
 
+static void Task_ClosePartyMenuOnAorBAfterText(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE
+     && ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON))))
+    {
+        PlaySE(SE_SELECT);
+        if (gPartyMenuUseExitCallback == FALSE)
+            sPartyMenuInternal->exitCallback = NULL;
+        Task_ClosePartyMenu(taskId);
+    }
+}
+
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -5020,12 +5033,15 @@ static u32 GetNatureCandyPersonality(struct Pokemon *mon, u8 targetNature)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u8 gender = GetMonGender(mon);
     u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    u32 otId = GetMonData(mon, MON_DATA_OT_ID);
+    bool8 isShiny = IsShinyOtIdPersonality(otId, GetMonData(mon, MON_DATA_PERSONALITY));
     u32 personality;
 
     do
     {
         personality = Random32();
     } while (GetNatureFromPersonality(personality) != targetNature
+          || IsShinyOtIdPersonality(otId, personality) != isShiny
           || (personality & 1) != abilityNum
           || (gender != MON_GENDERLESS && GetGenderFromSpeciesAndPersonality(species, personality) != gender));
 
@@ -5061,7 +5077,7 @@ void ItemUseCB_NatureCandy(u8 taskId, TaskFunc task)
     StringExpandPlaceholders(gStringVar4, gText_PkmnNatureChangedToVar2);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
-    gTasks[taskId].func = task;
+    gTasks[taskId].func = Task_ClosePartyMenuOnAorBAfterText;
 }
 
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)

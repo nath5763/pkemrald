@@ -2588,6 +2588,42 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                     gSpecialStatuses[battler].traced = 1;
                 }
                 break;
+            case ABILITY_DOWNLOAD:
+                if (gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE
+                 || gBattleMons[battler].statStages[STAT_SPATK] < MAX_STAT_STAGE)
+                {
+                    u8 statId = STAT_SPATK;
+                    u16 totalDefense = 0;
+                    u16 totalSpDefense = 0;
+
+                    for (target1 = 0; target1 < gBattlersCount; target1++)
+                    {
+                        if (GetBattlerSide(target1) == GetBattlerSide(battler))
+                            continue;
+                        if (gAbsentBattlerFlags & gBitTable[target1])
+                            continue;
+
+                        totalDefense += gBattleMons[target1].defense;
+                        totalSpDefense += gBattleMons[target1].spDefense;
+                    }
+
+                    if (totalDefense < totalSpDefense)
+                        statId = STAT_ATK;
+
+                    if (gBattleMons[battler].statStages[statId] < MAX_STAT_STAGE)
+                    {
+                        gEffectBattler = battler;
+                        gBattlerAttacker = battler;
+                        PREPARE_STAT_BUFFER(gBattleTextBuff1, statId);
+                        SET_STATCHANGER(statId, 1, FALSE);
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ATTACKER_STAT_ROSE;
+                        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + statId;
+                        gBattleScripting.animArg2 = 0;
+                        BattleScriptPushCursorAndCallback(BattleScript_StatUp);
+                        effect++;
+                    }
+                }
+                break;
             case ABILITY_CLOUD_NINE:
             case ABILITY_AIR_LOCK:
                 {

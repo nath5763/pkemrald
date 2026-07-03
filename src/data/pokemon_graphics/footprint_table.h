@@ -429,5 +429,9 @@ const u8 *const gMonFootprintTable[] =
     [SPECIES_CHIMECHO] = gMonFootprint_Chimecho,
     [SPECIES_BUDEW] = gMonFootprint_Roselia,
     [SPECIES_MUNCHLAX] = gMonFootprint_Snorlax,
+    [SPECIES_LICKILICKY] = gMonFootprint_Lickilicky,
+    [SPECIES_TANGROWTH] = gMonFootprint_Tangrowth,
+    [SPECIES_AMBIPOM] = gMonFootprint_Ambipom,
+    [SPECIES_DUSKNOIR] = gMonFootprint_Dusknoir,
     [SPECIES_EGG] = gMonFootprint_Bulbasaur,
 };

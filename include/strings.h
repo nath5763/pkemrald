@@ -654,6 +654,11 @@ extern const u8 gText_WhiteFlute[];
 extern const u8 gText_BlackFlute[];
 extern const u8 gText_PrettyChair[];
 extern const u8 gText_PrettyDesk[];
+extern const u8 gText_FirePunch[];
+extern const u8 gText_ThunderPunch[];
+extern const u8 gText_IcePunch[];
+extern const u8 gText_MegaPunch[];
+extern const u8 gText_DynamicPunch[];
 
 extern const u8 gText_0Pts[];
 extern const u8 gText_10Pts[];

@@ -257,6 +257,16 @@ static const struct MenuAction MultichoiceList_UnusedAshVendor[] =
     {gText_Cancel2},
 };
 
+static const struct MenuAction MultichoiceList_Route135PunchTutor[] =
+{
+    {gText_FirePunch},
+    {gText_ThunderPunch},
+    {gText_IcePunch},
+    {gText_MegaPunch},
+    {gText_DynamicPunch},
+    {gText_Cancel2},
+};
+
 static const struct MenuAction MultichoiceList_GameCornerDolls[] =
 {
     {gText_TreeckoDollAndPrice},
@@ -898,6 +908,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_ROUTE135_PUNCH_TUTOR]       = MULTICHOICE(MultichoiceList_Route135PunchTutor),
 };
 
 const u8 *const gStdStrings[] =

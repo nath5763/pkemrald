@@ -462,4 +462,8 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_UNOWN_Z]     = { .size = MON_COORDS_SIZE(32, 48), .y_offset = 10 },
     [SPECIES_UNOWN_EMARK] = { .size = MON_COORDS_SIZE(24, 56), .y_offset =  6 },
     [SPECIES_UNOWN_QMARK] = { .size = MON_COORDS_SIZE(32, 56), .y_offset =  6 },
+    [SPECIES_LICKILICKY]  = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  2 },
+    [SPECIES_TANGROWTH]   = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  6 },
+    [SPECIES_AMBIPOM]     = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  3 },
+    [SPECIES_DUSKNOIR]    = { .size = MON_COORDS_SIZE(64, 56), .y_offset =  6 },
 };

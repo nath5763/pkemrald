@@ -68,6 +68,7 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static void EncryptBoxMon(struct BoxPokemon *boxMon);
 static void DecryptBoxMon(struct BoxPokemon *boxMon);
+static void SetBoxMonPersonality(struct BoxPokemon *boxMon, u32 personality);
 static void Task_PlayMapChosenOrBattleBGM(u8 taskId);
 static bool8 ShouldGetStatBadgeBoost(u16 flagId, u8 battler);
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
@@ -1018,6 +1019,10 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(JIRACHI),
     SPECIES_TO_NATIONAL(DEOXYS),
     SPECIES_TO_NATIONAL(CHIMECHO),
+    SPECIES_TO_NATIONAL(LICKILICKY),
+    SPECIES_TO_NATIONAL(TANGROWTH),
+    SPECIES_TO_NATIONAL(AMBIPOM),
+    SPECIES_TO_NATIONAL(DUSKNOIR),
 };
 
 // Assigns all Hoenn Dex Indexes to a National Dex Index
@@ -3707,6 +3712,40 @@ static void DecryptBoxMon(struct BoxPokemon *boxMon)
     }
 }
 
+static void SetBoxMonPersonality(struct BoxPokemon *boxMon, u32 personality)
+{
+    union PokemonSubstruct substructs[4];
+    u32 oldPersonality = boxMon->personality;
+    struct PokemonSubstruct3 *substruct3;
+    s32 i;
+
+    if (oldPersonality == personality)
+        return;
+
+    DecryptBoxMon(boxMon);
+
+    if (CalculateBoxMonChecksum(boxMon) != boxMon->checksum)
+    {
+        substruct3 = &(GetSubstruct(boxMon, oldPersonality, 3)->type3);
+        boxMon->isBadEgg = TRUE;
+        boxMon->isEgg = TRUE;
+        substruct3->isEgg = TRUE;
+        EncryptBoxMon(boxMon);
+        return;
+    }
+
+    for (i = 0; i < (s32)ARRAY_COUNT(substructs); i++)
+        substructs[i] = *GetSubstruct(boxMon, oldPersonality, i);
+
+    boxMon->personality = personality;
+
+    for (i = 0; i < (s32)ARRAY_COUNT(substructs); i++)
+        *GetSubstruct(boxMon, personality, i) = substructs[i];
+
+    boxMon->checksum = CalculateBoxMonChecksum(boxMon);
+    EncryptBoxMon(boxMon);
+}
+
 #define SUBSTRUCT_CASE(n, v1, v2, v3, v4)                               \
 case n:                                                                 \
     {                                                                   \
@@ -4304,7 +4343,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     switch (field)
     {
     case MON_DATA_PERSONALITY:
-        SET32(boxMon->personality);
+        SetBoxMonPersonality(boxMon, data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24));
         break;
     case MON_DATA_OT_ID:
         SET32(boxMon->otId);

@@ -315,6 +315,7 @@ static void PrintCategoryNextToPower(u8 winPowAccLabels, u16 move, s16 powerLabe
 static const u8 *getMoveColor(u16 move);
 static const u8 *GetColorsForNatureDelta(s8 delta);
 static s8 GetNatureDeltaForSummaryStat(const struct Pokemon *mon, u8 summaryStatIndex);
+static s8 GetNatureDeltaForSummaryStatFromNature(u8 nature, u8 summaryStatIndex);
 
 
 static const u8 sCatLabel_Physical[] = _("PHYSICAL");
@@ -2748,6 +2749,11 @@ static void PrintTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 line
     AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, lineSpacing, sTextColors[colorId], 0, string);
 }
 
+static void PrintTextOnWindowWithColors(u8 windowId, const u8 *string, u8 x, u8 y, u8 lineSpacing, const u8 *colors)
+{
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, lineSpacing, colors, 0, string);
+}
+
 static void PrintMonInfo(void)
 {
     FillWindowPixelBuffer(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, PIXEL_FILL(0));
@@ -3428,7 +3434,26 @@ static void BufferLeftColumnStats(void)
 
 static void PrintLeftColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 1, 0, 0);
+    u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT);
+    u8 currentHPString[8];
+    u8 maxHPString[8];
+    u8 attackString[8];
+    u8 defenseString[8];
+
+    ConvertIntToDecimalStringN(currentHPString, sMonSummaryScreen->summary.currentHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    ConvertIntToDecimalStringN(maxHPString, sMonSummaryScreen->summary.maxHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    ConvertIntToDecimalStringN(attackString, sMonSummaryScreen->summary.atk, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    ConvertIntToDecimalStringN(defenseString, sMonSummaryScreen->summary.def, STR_CONV_MODE_RIGHT_ALIGN, 7);
+
+    StringCopy(gStringVar4, currentHPString);
+    StringAppend(gStringVar4, gText_Slash);
+    StringAppend(gStringVar4, maxHPString);
+
+    PrintTextOnWindow(windowId, gStringVar4, 4, 1, 0, 0);
+    PrintTextOnWindowWithColors(windowId, attackString, 4, 17, 0,
+                                GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_ATK)));
+    PrintTextOnWindowWithColors(windowId, defenseString, 4, 33, 0,
+                                GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_DEF)));
 }
 
 static s8 GetNatureDeltaForSummaryStatFromNature(u8 nature, u8 sIdx)
@@ -3466,7 +3491,14 @@ static void BufferRightColumnStats(void)
 
 static void PrintRightColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar4, 2, 1, 0, 0);
+    u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT);
+
+    PrintTextOnWindowWithColors(windowId, gStringVar1, 2, 1, 0,
+                                GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPA)));
+    PrintTextOnWindowWithColors(windowId, gStringVar2, 2, 17, 0,
+                                GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPD)));
+    PrintTextOnWindowWithColors(windowId, gStringVar3, 2, 33, 0,
+                                GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPE)));
 }
 
 static void PrintExpPointsNextLevel(void)

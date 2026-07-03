@@ -652,6 +652,12 @@ const u8 gLickitungPokedexText[] = _(
     "memorizes things by texture and taste.\n"
     "It is somewhat put off by sour things.");
 
+const u8 gLickilickyPokedexText[] = _(
+    "Its saliva can dissolve anything.\n"
+    "If that saliva gets on you and you\n"
+    "don't clean it off, the area will\n"
+    "turn itchy and then go numb.");
+
 const u8 gKoffingPokedexText[] = _(
     "Getting up close to a KOFFING will give\n"
     "you a chance to observe, through its thin\n"
@@ -687,6 +693,12 @@ const u8 gTangelaPokedexText[] = _(
     "if they are grabbed, allowing it to make a\n"
     "quick getaway. The lost vines are replaced\n"
     "by new growth the very next day.");
+
+const u8 gTangrowthPokedexText[] = _(
+    "It ensnares prey by extending arms made\n"
+    "of vines. Losing arms to predators does\n"
+    "not trouble it, because it regenerates\n"
+    "them almost instantly.");
 
 const u8 gKangaskhanPokedexText[] = _(
     "If you come across a young KANGASKHAN\n"
@@ -825,6 +837,12 @@ const u8 gPorygonPokedexText[] = _(
     "back to program data in order to enter\n"
     "cyberspace. A PORYGON is copy-\n"
     "protected so it cannot be duplicated.");
+
+const u8 gPorygonZPokedexText[] = _(
+    "Additional software was installed to\n"
+    "improve it. The upgrade worked, but it\n"
+    "also left the POKeMON acting in odd and\n"
+    "unstable ways.");
 
 const u8 gOmanytePokedexText[] = _(
     "One of the ancient and long-since-extinct\n"
@@ -1148,6 +1166,12 @@ const u8 gAipomPokedexText[] = _(
     "appendage. However, because it uses the\n"
     "tail so much, AIPOM's real hands have\n"
     "become rather clumsy.");
+
+const u8 gAmbipomPokedexText[] = _(
+    "They work in large colonies and use\n"
+    "their paired tails more skillfully than\n"
+    "their hands. They almost never use those\n"
+    "hands anymore.");
 
 const u8 gSunkernPokedexText[] = _(
     "SUNKERN try to minimize movement to\n"
@@ -2149,6 +2173,12 @@ const u8 gDusclopsPokedexText[] = _(
     "only a spectral ball of fire burning inside.\n"
     "However, no one has been able to\n"
     "confirm this theory as fact.");
+
+const u8 gDusknoirPokedexText[] = _(
+    "This feared POKeMON is said to travel to\n"
+    "worlds unknown. Some legends say it takes\n"
+    "wandering spirits and guides them to the\n"
+    "afterlife.");
 
 const u8 gTropiusPokedexText[] = _(
     "It flies by flapping its broad leaves.\n"

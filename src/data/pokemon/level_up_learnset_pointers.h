@@ -430,4 +430,8 @@ const u16 *const gLevelUpLearnsets[NUM_SPECIES] =
     [SPECIES_CHIMECHO] = sChimechoLevelUpLearnset,
     [SPECIES_RHYPERIOR] = sRhyperiorLevelUpLearnset,
     [SPECIES_BONSLY] = sBonslyLevelUpLearnset,
+    [SPECIES_LICKILICKY] = sLickilickyLevelUpLearnset,
+    [SPECIES_TANGROWTH] = sTangrowthLevelUpLearnset,
+    [SPECIES_AMBIPOM] = sAmbipomLevelUpLearnset,
+    [SPECIES_DUSKNOIR] = sDusknoirLevelUpLearnset,
 };

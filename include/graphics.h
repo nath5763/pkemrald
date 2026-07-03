@@ -5194,4 +5194,33 @@ extern const u32 gMailTilemap_Retro[];
 extern const u8 gMonMarkingsMenu_Gfx[];
 extern const u16 gMonMarkingsMenu_Pal[];
 
+extern const u32 gMonFrontPic_Lickilicky[];
+extern const u32 gMonPalette_Lickilicky[];
+extern const u32 gMonBackPic_Lickilicky[];
+extern const u32 gMonShinyPalette_Lickilicky[];
+extern const u32 gMonStillFrontPic_Lickilicky[];
+extern const u8 gMonIcon_Lickilicky[];
+extern const u8 gMonFootprint_Lickilicky[];
+extern const u32 gMonFrontPic_Tangrowth[];
+extern const u32 gMonPalette_Tangrowth[];
+extern const u32 gMonBackPic_Tangrowth[];
+extern const u32 gMonShinyPalette_Tangrowth[];
+extern const u32 gMonStillFrontPic_Tangrowth[];
+extern const u8 gMonIcon_Tangrowth[];
+extern const u8 gMonFootprint_Tangrowth[];
+extern const u32 gMonFrontPic_Ambipom[];
+extern const u32 gMonPalette_Ambipom[];
+extern const u32 gMonBackPic_Ambipom[];
+extern const u32 gMonShinyPalette_Ambipom[];
+extern const u32 gMonStillFrontPic_Ambipom[];
+extern const u8 gMonIcon_Ambipom[];
+extern const u8 gMonFootprint_Ambipom[];
+extern const u32 gMonFrontPic_Dusknoir[];
+extern const u32 gMonPalette_Dusknoir[];
+extern const u32 gMonBackPic_Dusknoir[];
+extern const u32 gMonShinyPalette_Dusknoir[];
+extern const u32 gMonStillFrontPic_Dusknoir[];
+extern const u8 gMonIcon_Dusknoir[];
+extern const u8 gMonFootprint_Dusknoir[];
+
 #endif //GUARD_GRAPHICS_H

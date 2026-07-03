@@ -1319,6 +1319,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_LICKILICKY] =
+    {
+        .categoryName = _("LICKING"),
+        .height = 17,
+        .weight = 1400,
+        .description = gLickilickyPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 1,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_KOFFING] =
     {
         .categoryName = _("POISON GAS"),
@@ -1401,6 +1413,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 1,
         .trainerScale = 256,
         .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_TANGROWTH] =
+    {
+        .categoryName = _("VINE"),
+        .height = 20,
+        .weight = 1286,
+        .description = gTangrowthPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 296,
+        .trainerOffset = 4,
     },
 
     [NATIONAL_DEX_KANGASKHAN] =
@@ -1693,9 +1717,9 @@ const struct PokedexEntry gPokedexEntries[] =
     [NATIONAL_DEX_PORYGONZ] =
     {
         .categoryName = _("VIRTUAL"),
-        .height = 8,
-        .weight = 365,
-        .description = gPorygonPokedexText,
+        .height = 9,
+        .weight = 340,
+        .description = gPorygonZPokedexText,
         .pokemonScale = 328,
         .pokemonOffset = 15,
         .trainerScale = 256,
@@ -2366,6 +2390,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .description = gAipomPokedexText,
         .pokemonScale = 363,
         .pokemonOffset = 6,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_AMBIPOM] =
+    {
+        .categoryName = _("LONG TAIL"),
+        .height = 12,
+        .weight = 203,
+        .description = gAmbipomPokedexText,
+        .pokemonScale = 280,
+        .pokemonOffset = 3,
         .trainerScale = 256,
         .trainerOffset = 0,
     },
@@ -4458,6 +4494,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 3,
         .trainerScale = 299,
         .trainerOffset = 1,
+    },
+
+    [NATIONAL_DEX_DUSKNOIR] =
+    {
+        .categoryName = _("GRIPPER"),
+        .height = 22,
+        .weight = 1066,
+        .description = gDusknoirPokedexText,
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 318,
+        .trainerOffset = 6,
     },
 
     [NATIONAL_DEX_TROPIUS] =

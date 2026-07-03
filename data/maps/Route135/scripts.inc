@@ -117,7 +117,7 @@ eeveeTrainer::
 	trainerbattle_single FLAG_EEVEE_TRAINER, eeveeIntro, eeveeOutro, giftEevee
 eeveeTrainer_1:
 # 69 "data/maps/Route135/scripts.pory"
-	release
+	releaseall
 	end
 
 eeveeTrainer_2:
@@ -270,6 +270,146 @@ leftovers_get_2:
 	goto leftovers_get_1
 
 
+punchTutor::
+# 202 "data/maps/Route135/scripts.pory"
+	lock
+# 203 "data/maps/Route135/scripts.pory"
+	faceplayer
+# 204 "data/maps/Route135/scripts.pory"
+	msgbox punchTutorIntro
+# 205 "data/maps/Route135/scripts.pory"
+	waitmessage
+# 206 "data/maps/Route135/scripts.pory"
+	call punchTutorChooseMove
+# 207 "data/maps/Route135/scripts.pory"
+	msgbox punchTutorComeBack
+# 208 "data/maps/Route135/scripts.pory"
+	waitmessage
+# 209 "data/maps/Route135/scripts.pory"
+	release
+	end
+
+
+punchTutorChooseMove::
+# 214 "data/maps/Route135/scripts.pory"
+	multichoice 0, 0, MULTI_ROUTE135_PUNCH_TUTOR, FALSE
+# 215 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, 0
+	goto_if_eq punchTutorChooseMove_2
+# 219 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, 1
+	goto_if_eq punchTutorChooseMove_5
+# 223 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, 2
+	goto_if_eq punchTutorChooseMove_8
+# 227 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, 3
+	goto_if_eq punchTutorChooseMove_11
+# 231 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, 4
+	goto_if_eq punchTutorChooseMove_14
+punchTutorChooseMove_13:
+	return
+
+punchTutorChooseMove_2:
+# 216 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachFire
+	return
+
+punchTutorChooseMove_5:
+# 220 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachThunder
+	return
+
+punchTutorChooseMove_8:
+# 224 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachIce
+	return
+
+punchTutorChooseMove_11:
+# 228 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachMega
+	return
+
+punchTutorChooseMove_14:
+# 232 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachDynamic
+	goto punchTutorChooseMove_13
+
+
+punchTutorTeachFire::
+# 238 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_FIRE_PUNCH
+# 239 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachSelectedMove
+	return
+
+
+punchTutorTeachThunder::
+# 244 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_THUNDER_PUNCH
+# 245 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachSelectedMove
+	return
+
+
+punchTutorTeachIce::
+# 250 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_ICE_PUNCH
+# 251 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachSelectedMove
+	return
+
+
+punchTutorTeachMega::
+# 256 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_MEGA_PUNCH
+# 257 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachSelectedMove
+	return
+
+
+punchTutorTeachDynamic::
+# 262 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_DYNAMIC_PUNCH
+# 263 "data/maps/Route135/scripts.pory"
+	call punchTutorTeachSelectedMove
+	return
+
+
+punchTutorTeachSelectedMove::
+# 268 "data/maps/Route135/scripts.pory"
+	msgbox punchTutorChooseMon
+# 269 "data/maps/Route135/scripts.pory"
+	waitmessage
+# 270 "data/maps/Route135/scripts.pory"
+	special ChooseMonForMoveTutor
+# 271 "data/maps/Route135/scripts.pory"
+	waitstate
+# 272 "data/maps/Route135/scripts.pory"
+	lock
+# 273 "data/maps/Route135/scripts.pory"
+	faceplayer
+# 274 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, TRUE
+	goto_if_eq punchTutorTeachSelectedMove_2
+punchTutorTeachSelectedMove_1:
+	return
+
+punchTutorTeachSelectedMove_2:
+# 275 "data/maps/Route135/scripts.pory"
+	msgbox punchTutorAnythingElse, MSGBOX_YESNO
+# 276 "data/maps/Route135/scripts.pory"
+	compare VAR_RESULT, YES
+	goto_if_eq punchTutorTeachSelectedMove_4
+	goto punchTutorTeachSelectedMove_1
+
+punchTutorTeachSelectedMove_4:
+# 277 "data/maps/Route135/scripts.pory"
+	call punchTutorChooseMove
+	goto punchTutorTeachSelectedMove_1
+
+
 magmaMale_Text_0:
 # 8 "data/maps/Route135/scripts.pory"
 	.string "We defected from our respective teams \n because we were afraid of \p what we were becoming.$"
@@ -349,3 +489,22 @@ archieOutro::
 archietext::
 # 177 "data/maps/Route135/scripts.pory"
 	.string "FIGHT ME MAXIE$"
+
+punchTutorIntro::
+# 283 "data/maps/Route135/scripts.pory"
+	.string "I've trained my fists against rock,\n"
+	.string "ice, and thunder itself.\p"
+	.string "If your POKeMON can handle it,\n"
+	.string "I can teach some serious punches.$"
+
+punchTutorChooseMon::
+# 290 "data/maps/Route135/scripts.pory"
+	.string "Which POKeMON should throw the punch?$"
+
+punchTutorAnythingElse::
+# 294 "data/maps/Route135/scripts.pory"
+	.string "Want me to teach another punching move?$"
+
+punchTutorComeBack::
+# 298 "data/maps/Route135/scripts.pory"
+	.string "Come back if you want to hit harder.$"
