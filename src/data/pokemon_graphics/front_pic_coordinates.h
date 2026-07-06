@@ -229,7 +229,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SHUCKLE]     = { .size = MON_COORDS_SIZE(48, 48), .y_offset =  9 },
     [SPECIES_HERACROSS]   = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  3 },
     [SPECIES_SNEASEL]     = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  5 },
-    [SPECIES_WEAVILLE]     = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  5 },
+    [SPECIES_WEAVILE]     = { .size = MON_COORDS_SIZE(48, 56), .y_offset =  5 },
     [SPECIES_TEDDIURSA]   = { .size = MON_COORDS_SIZE(32, 40), .y_offset = 13 },
     [SPECIES_URSARING]    = { .size = MON_COORDS_SIZE(56, 64), .y_offset =  1 },
     [SPECIES_SLUGMA]      = { .size = MON_COORDS_SIZE(32, 40), .y_offset = 13 },

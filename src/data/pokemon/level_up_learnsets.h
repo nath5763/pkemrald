@@ -3301,7 +3301,7 @@ static const u16 sSneaselLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const u16 sWeavilleLevelUpLearnset[] = {
+static const u16 sWeavileLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_TAUNT),
@@ -5618,6 +5618,7 @@ static const u16 sGorebyssLevelUpLearnset[] = {
     LEVEL_UP_MOVE(29, MOVE_CALM_MIND),
     LEVEL_UP_MOVE(36, MOVE_PSYCHIC),
     LEVEL_UP_MOVE(43, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE(46, MOVE_TIDAL_RING),
     LEVEL_UP_MOVE(50, MOVE_AURA_SPHERE),
     LEVEL_UP_MOVE(58, MOVE_PSYCHO_BOOST),
     LEVEL_UP_END

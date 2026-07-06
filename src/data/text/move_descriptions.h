@@ -1109,6 +1109,10 @@ static const u8 sIngrainDescription[] = _(
     "Lays roots that restore HP.\n"
     "The user can't switch out.");
 
+static const u8 sTidalRingDescription[] = _(
+    "Lays roots and summons rain\n"
+    "for 5 turns.");
+
 static const u8 sSuperpowerDescription[] = _(
     "Boosts strength sharply,\n"
     "but lowers abilities.");
@@ -1814,4 +1818,5 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_SHADOW_CLAW - 1] = sShockWaveDescription,
     [MOVE_THUNDER_FANG - 1] = sWaterPulseDescription,
     [MOVE_AQUA_JET - 1] = sDoomDesireDescription,
+    [MOVE_TIDAL_RING - 1] = sTidalRingDescription,
 };

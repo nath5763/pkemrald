@@ -386,5 +386,6 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_AQUA_JET] = _("AQUA JET"),
     [MOVE_INCINERATE] = _("INCINERATE"),
     [MOVE_BULLDOZE] = _("BULLDOZE"),
+    [MOVE_TIDAL_RING] = _("TIDAL RING"),
 
 };

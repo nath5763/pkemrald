@@ -82,6 +82,7 @@ static const u8 sScrappyDescription[] = _("Lets normal and fighting moves hit Gh
 static const u8 sDownloadDescription[] = _("Adjusts power by foe's defenses.");
 static const u8 sAdaptabilityDescription[] = _("Powers up same-type moves.");
 static const u8 sLeafGuardDescription[] = _("Blocks status in sunshine.");
+static const u8 sGluttonyDescription[] = _("Eats pinch BERRIES early.");
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
@@ -169,6 +170,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_DOWNLOAD] = _("DOWNLOAD"),
     [ABILITY_ADAPTABILITY] = _("ADAPTABILITY"),
     [ABILITY_LEAF_GUARD] = _("LEAF GUARD"),
+    [ABILITY_GLUTTONY] = _("GLUTTONY"),
 };
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
@@ -257,4 +259,5 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_DOWNLOAD] = sDownloadDescription,
     [ABILITY_ADAPTABILITY] = sAdaptabilityDescription,
     [ABILITY_LEAF_GUARD] = sLeafGuardDescription,
+    [ABILITY_GLUTTONY] = sGluttonyDescription,
 };

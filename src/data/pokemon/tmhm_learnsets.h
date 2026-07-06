@@ -5774,7 +5774,7 @@ const union {
         .ROCK_SMASH = TRUE,
     } },
 
-    [SPECIES_WEAVILLE] = { .learnset = {
+    [SPECIES_WEAVILE] = { .learnset = {
         .FOCUS_PUNCH = TRUE,
         .CALM_MIND = TRUE,
         .TOXIC = TRUE,

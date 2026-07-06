@@ -5889,6 +5889,12 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
                 lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
+        case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY_NUM:
+            {
+                const struct TrainerMonItemCustomMovesAbility *party = gTrainers[trainerId].party.ItemCustomMovesAbility;
+                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+            }
+            break;
         }
 
         for (; gTrainerMoneyTable[i].classId != 0xFF; i++)
@@ -6769,6 +6775,26 @@ static void Cmd_various(void)
     case VARIOUS_PLAY_TRAINER_DEFEATED_MUSIC:
         BtlController_EmitPlayFanfareOrBGM(B_COMM_TO_CONTROLLER, MUS_VICTORY_TRAINER, TRUE);
         MarkBattlerForControllerExec(gActiveBattler);
+        break;
+    case VARIOUS_TRY_SET_ROOTS_AND_RAIN:
+        gBattleCommunication[1] = 0;
+
+        if (!(gStatuses3[gActiveBattler] & STATUS3_ROOTED))
+        {
+            gStatuses3[gActiveBattler] |= STATUS3_ROOTED;
+            gBattleCommunication[1] |= 1;
+        }
+
+        if (!(gBattleWeather & B_WEATHER_RAIN))
+        {
+            gBattleWeather = B_WEATHER_RAIN_TEMPORARY;
+            gWishFutureKnock.weatherDuration = 5;
+            gBattleCommunication[1] |= 2;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_RAIN;
+        }
+
+        if (gBattleCommunication[1] == 0)
+            gMoveResultFlags |= MOVE_RESULT_MISSED;
         break;
     }
 

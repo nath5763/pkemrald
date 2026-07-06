@@ -2727,7 +2727,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-    [NATIONAL_DEX_WEAVILLE] =
+    [NATIONAL_DEX_WEAVILE] =
     {
         .categoryName = _("SHARP CLAW"),
         .height = 9,

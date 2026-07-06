@@ -402,6 +402,7 @@ gBattleAnims_Moves::
 	.4byte Move_ICE_SHARD
 	.4byte Move_INCINERATE
 	.4byte Move_BULLDOZE
+	.4byte Move_RAIN_DANCE
 	.4byte Move_COUNT @ cannot be reached, because last move is Psycho Boost
 
 	.align 2
@@ -9945,6 +9946,8 @@ Move_AURA_SPHERE:
 	waitforvisualfinish
 	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 8, 0, 16, 1
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 5, 2, 12, 0, RGB_WHITEALPHA
 	waitforvisualfinish
 	restorebg
 	waitbgfadein

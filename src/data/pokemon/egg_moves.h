@@ -775,7 +775,7 @@ const u16 gEggMoves[] = {
               MOVE_CRUSH_CLAW,
               MOVE_FAKE_OUT),
 
-    egg_moves(WEAVILLE,
+    egg_moves(WEAVILE,
               MOVE_COUNTER,
               MOVE_SPITE,
               MOVE_FORESIGHT,

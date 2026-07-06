@@ -72,6 +72,7 @@ static void CB2_HandleStartMultiBattle(void);
 static void CB2_HandleStartBattle(void);
 static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer);
+static u32 GetTrainerMonPersonality(struct Pokemon *mon, u8 targetNature);
 static void BattleMainCB1(void);
 static void CB2_EndLinkBattle(void);
 static void EndLinkBattleInSteps(void);
@@ -2069,6 +2070,37 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 }
                 break;
             }
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY_NUM:
+            {
+                const struct TrainerMonItemCustomMovesAbility *partyData = gTrainers[trainerNum].party.ItemCustomMovesAbility;
+                u32 personality;
+
+                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
+                    nameHash += gSpeciesNames[partyData[i].species][j];
+
+                personalityValue += nameHash << 8;
+                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                ForceWattsonManectricHiddenPowerGrass(&party[i], trainerNum, partyData[i].species);
+
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].abilityNum);
+
+                if (partyData[i].nature < NUM_NATURES)
+                {
+                    personality = GetTrainerMonPersonality(&party[i], partyData[i].nature);
+                    SetMonData(&party[i], MON_DATA_PERSONALITY, &personality);
+                    CalculateMonStats(&party[i]);
+                }
+                break;
+            }
             }
         }
 
@@ -2076,6 +2108,24 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     }
 
     return gTrainers[trainerNum].partySize;
+}
+
+static u32 GetTrainerMonPersonality(struct Pokemon *mon, u8 targetNature)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 gender = GetMonGender(mon);
+    u32 otId = GetMonData(mon, MON_DATA_OT_ID);
+    bool8 isShiny = IsShinyOtIdPersonality(otId, GetMonData(mon, MON_DATA_PERSONALITY));
+    u32 personality;
+
+    do
+    {
+        personality = Random32();
+    } while (GetNatureFromPersonality(personality) != targetNature
+          || IsShinyOtIdPersonality(otId, personality) != isShiny
+          || (gender != MON_GENDERLESS && GetGenderFromSpeciesAndPersonality(species, personality) != gender));
+
+    return personality;
 }
 
 static void ForceWattsonManectricHiddenPowerGrass(struct Pokemon *mon, u16 trainerNum, u16 species)

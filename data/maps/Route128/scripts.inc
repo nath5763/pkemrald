@@ -615,6 +615,27 @@ GymBlockerScript::
 	end
 
 
+# 317 "data/maps/Route128/scripts.pory"
+Route128_Movement_PlayerStepBackFromEverGrande:
+# 318 "data/maps/Route128/scripts.pory"
+	walk_left
+# 319 "data/maps/Route128/scripts.pory"
+	step_end
+
+Route128_EventScript_GymBlockerTrigger::
+# 323 "data/maps/Route128/scripts.pory"
+	lockall
+# 324 "data/maps/Route128/scripts.pory"
+	applymovement LOCALID_PLAYER, Route128_Movement_PlayerStepBackFromEverGrande
+# 325 "data/maps/Route128/scripts.pory"
+	waitmovement 0
+# 326 "data/maps/Route128/scripts.pory"
+	msgbox GymBlockerText
+# 327 "data/maps/Route128/scripts.pory"
+	releaseall
+	end
+
+
 GymBlockerText::
 # 305 "data/maps/Route128/scripts.pory"
-	.string "Challenge the GYM first,\nthen we'll let you through.$"
+	.string "Wait! You have to try our gym before you leave,\nwe just made it.$"

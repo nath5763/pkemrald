@@ -1,4 +1,4 @@
-﻿static const union AnimCmd sAnim_None_1[] =
+static const union AnimCmd sAnim_None_1[] =
 {
     ANIMCMD_FRAME(0, 30),
     ANIMCMD_FRAME(1, 30),
@@ -2577,7 +2577,7 @@ static const union AnimCmd sAnim_Sneasel_1[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd sAnim_Weaville_1[] =
+static const union AnimCmd sAnim_Weavile_1[] =
 {
     ANIMCMD_FRAME(1, 15),
     ANIMCMD_FRAME(0, 15),
@@ -5176,7 +5176,7 @@ SINGLE_ANIMATION(Scizor);
 SINGLE_ANIMATION(Shuckle);
 DOUBLE_ANIMATION(Heracross);
 SINGLE_ANIMATION(Sneasel);
-SINGLE_ANIMATION(Weaville);
+SINGLE_ANIMATION(Weavile);
 SINGLE_ANIMATION(Teddiursa);
 SINGLE_ANIMATION(Ursaring);
 DOUBLE_ANIMATION(Slugma);
@@ -5624,7 +5624,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SHUCKLE]     = sAnims_Shuckle,
     [SPECIES_HERACROSS]   = sAnims_Heracross,
     [SPECIES_SNEASEL]     = sAnims_Sneasel,
-    [SPECIES_WEAVILLE]     = sAnims_Weaville,
+    [SPECIES_WEAVILE]     = sAnims_Weavile,
     [SPECIES_TEDDIURSA]   = sAnims_Teddiursa,
     [SPECIES_URSARING]    = sAnims_Ursaring,
     [SPECIES_SLUGMA]      = sAnims_Slugma,

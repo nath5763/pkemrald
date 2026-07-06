@@ -233,6 +233,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectDragonDance            @ EFFECT_DRAGON_DANCE
 	.4byte BattleScript_EffectCamouflage             @ EFFECT_CAMOUFLAGE
 	.4byte BattleScript_EffectCloseCombat			 @ EFFECT_CLOSE_COMBAT
+	.4byte BattleScript_EffectTidalRing              @ EFFECT_TIDAL_RING
 
 BattleScript_EffectHit::
 	jumpifnotmove MOVE_SURF, BattleScript_HitFromAtkCanceler
@@ -2424,6 +2425,34 @@ BattleScript_EffectIngrain::
 	waitanimation
 	printstring STRINGID_PKMNPLANTEDROOTS
 	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectTidalRing::
+	attackcanceler
+	attackstring
+	ppreduce
+	various BS_ATTACKER, VARIOUS_TRY_SET_ROOTS_AND_RAIN
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, 0, BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, 1, BattleScript_TidalRingPrintRoots
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, 2, BattleScript_TidalRingPrintRain
+	printstring STRINGID_PKMNPLANTEDROOTS
+	waitmessage B_WAIT_TIME_LONG
+	printfromtable gMoveWeatherChangeStringIds
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_WeatherFormChanges
+	goto BattleScript_MoveEnd
+
+BattleScript_TidalRingPrintRoots:
+	printstring STRINGID_PKMNPLANTEDROOTS
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+
+BattleScript_TidalRingPrintRain:
+	printfromtable gMoveWeatherChangeStringIds
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_WeatherFormChanges
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectSuperpower::

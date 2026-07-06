@@ -1594,13 +1594,13 @@ extern const u32 gMonStillFrontPic_Sneasel[];
 extern const u8 gMonIcon_Sneasel[];
 extern const u8 gMonFootprint_Sneasel[];
 
-extern const u32 gMonFrontPic_Weaville[];
-extern const u32 gMonPalette_Weaville[];
-extern const u32 gMonBackPic_Weaville[];
-extern const u32 gMonShinyPalette_Weaville[];
-extern const u32 gMonStillFrontPic_Weaville[];
-extern const u8 gMonIcon_Weaville[];
-extern const u8 gMonFootprint_Weaville[];
+extern const u32 gMonFrontPic_Weavile[];
+extern const u32 gMonPalette_Weavile[];
+extern const u32 gMonBackPic_Weavile[];
+extern const u32 gMonShinyPalette_Weavile[];
+extern const u32 gMonStillFrontPic_Weavile[];
+extern const u8 gMonIcon_Weavile[];
+extern const u8 gMonFootprint_Weavile[];
 
 extern const u32 gMonFrontPic_Teddiursa[];
 extern const u32 gMonPalette_Teddiursa[];

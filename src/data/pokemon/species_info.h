@@ -6724,7 +6724,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .noFlip = TRUE,
     },
 
-    [SPECIES_WEAVILLE] =
+    [SPECIES_WEAVILE] =
     {
         .baseHP        = 70,
         .baseAttack    = 120,
@@ -11178,7 +11178,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_ERRATIC,
         .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
-        .abilities = {ABILITY_IMMUNITY, ABILITY_NONE},
+        .abilities = {ABILITY_IMMUNITY, ABILITY_GLUTTONY},
         .safariZoneFleeRate = 0,
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = TRUE,

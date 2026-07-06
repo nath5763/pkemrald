@@ -119,6 +119,8 @@ static u8 GetHighestLevelInTrainerParty(u16 trainerId)
             currentLevel = trainer->party.ItemDefaultMoves[i].lvl;
         else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM))
             currentLevel = trainer->party.ItemCustomMoves[i].lvl;
+        else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY_NUM))
+            currentLevel = trainer->party.ItemCustomMovesAbility[i].lvl;
 
         if (currentLevel > maxLevel)
             maxLevel = currentLevel;
@@ -381,7 +383,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(SHUCKLE),
     SPECIES_TO_HOENN(HERACROSS),
     SPECIES_TO_HOENN(SNEASEL),
-    SPECIES_TO_HOENN(WEAVILLE),
+    SPECIES_TO_HOENN(WEAVILE),
     SPECIES_TO_HOENN(TEDDIURSA),
     SPECIES_TO_HOENN(URSARING),
     SPECIES_TO_HOENN(SLUGMA),
@@ -815,7 +817,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(SHUCKLE),
     SPECIES_TO_NATIONAL(HERACROSS),
     SPECIES_TO_NATIONAL(SNEASEL),
-    SPECIES_TO_NATIONAL(WEAVILLE),
+    SPECIES_TO_NATIONAL(WEAVILE),
     SPECIES_TO_NATIONAL(TEDDIURSA),
     SPECIES_TO_NATIONAL(URSARING),
     SPECIES_TO_NATIONAL(SLUGMA),
@@ -1394,7 +1396,7 @@ static const u16 sHoennToNationalOrder[NUM_SPECIES - 1] =
     HOENN_TO_NATIONAL(SCIZOR),
     HOENN_TO_NATIONAL(SHUCKLE),
     HOENN_TO_NATIONAL(SNEASEL),
-    HOENN_TO_NATIONAL(WEAVILLE),
+    HOENN_TO_NATIONAL(WEAVILE),
     HOENN_TO_NATIONAL(TEDDIURSA),
     HOENN_TO_NATIONAL(URSARING),
     HOENN_TO_NATIONAL(SWINUB),
@@ -1729,7 +1731,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_SHUCKLE - 1]     = ANIM_SWING_CONCAVE,
     [SPECIES_HERACROSS - 1]   = ANIM_LUNGE_GROW,
     [SPECIES_SNEASEL - 1]     = ANIM_H_STRETCH,
-    [SPECIES_WEAVILLE - 1]     = ANIM_H_STRETCH,
+    [SPECIES_WEAVILE - 1]     = ANIM_H_STRETCH,
     [SPECIES_TEDDIURSA - 1]   = ANIM_V_STRETCH,
     [SPECIES_URSARING - 1]    = ANIM_V_SHAKE,
     [SPECIES_SLUGMA - 1]      = ANIM_V_STRETCH,

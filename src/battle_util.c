@@ -3287,7 +3287,7 @@ enum
     }
 
 #define TRY_EAT_STAT_UP_BERRY(stat)                                                         \
-    if (gBattleMons[battler].hp <= gBattleMons[battler].maxHP / battlerHoldEffectParam  \
+    if (ShouldConsumePinchBerry(battler, battlerHoldEffectParam)                         \
     && !moveTurn && gBattleMons[battler].statStages[stat] < MAX_STAT_STAGE)               \
     {                                                                                       \
         PREPARE_STAT_BUFFER(gBattleTextBuff1, stat);                                        \
@@ -3298,6 +3298,14 @@ enum
         BattleScriptExecute(BattleScript_BerryStatRaiseEnd2);                               \
         effect = ITEM_STATS_CHANGE;                                                         \
     }
+
+static bool8 ShouldConsumePinchBerry(u8 battler, u8 holdEffectParam)
+{
+    if (gBattleMons[battler].ability == ABILITY_GLUTTONY && holdEffectParam > 2)
+        holdEffectParam = 2;
+
+    return gBattleMons[battler].hp <= gBattleMons[battler].maxHP / holdEffectParam;
+}
 
 u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
 {
@@ -3473,7 +3481,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 TRY_EAT_CONFUSE_BERRY(FLAVOR_SOUR);
                 break;
             case HOLD_EFFECT_ATTACK_UP:
-                if (gBattleMons[battler].hp <= gBattleMons[battler].maxHP / battlerHoldEffectParam
+                if (ShouldConsumePinchBerry(battler, battlerHoldEffectParam)
                 && !moveTurn && gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE)
                 {
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
@@ -3499,7 +3507,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 TRY_EAT_STAT_UP_BERRY(STAT_SPDEF);
                 break;
             case HOLD_EFFECT_CRITICAL_UP:
-                if (gBattleMons[battler].hp <= gBattleMons[battler].maxHP / battlerHoldEffectParam && !moveTurn
+                if (ShouldConsumePinchBerry(battler, battlerHoldEffectParam) && !moveTurn
                     && !(gBattleMons[battler].status2 & STATUS2_FOCUS_ENERGY))
                 {
                     gBattleMons[battler].status2 |= STATUS2_FOCUS_ENERGY;
@@ -3508,7 +3516,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 }
                 break;
             case HOLD_EFFECT_RANDOM_STAT_UP:
-                if (!moveTurn && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / battlerHoldEffectParam)
+                if (!moveTurn && ShouldConsumePinchBerry(battler, battlerHoldEffectParam))
                 {
                     for (i = 0; i < NUM_STATS - 1; i++)
                     {

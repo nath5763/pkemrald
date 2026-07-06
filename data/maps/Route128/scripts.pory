@@ -303,7 +303,7 @@ Route128_Text_StevenImGoingToSootopolis:
 
 `
 text GymBlockerText {
-    "Challenge the GYM first,\nthen we'll let you through."
+    "Wait! You have to try our gym before you leave,\nwe just made it."
 }
 
 script GymBlockerScript {
@@ -311,5 +311,19 @@ script GymBlockerScript {
     faceplayer
     msgbox(GymBlockerText)
     release
+    end
+}
+
+movement Route128_Movement_PlayerStepBackFromEverGrande {
+    walk_left
+    step_end
+}
+
+script Route128_EventScript_GymBlockerTrigger {
+    lockall
+    applymovement(LOCALID_PLAYER, Route128_Movement_PlayerStepBackFromEverGrande)
+    waitmovement(0)
+    msgbox(GymBlockerText)
+    releaseall
     end
 }

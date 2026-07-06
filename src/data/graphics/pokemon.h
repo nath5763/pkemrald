@@ -1568,12 +1568,12 @@ const u32 gMonShinyPalette_Sneasel[] = INCBIN_U32("graphics/pokemon/sneasel/shin
 const u8 gMonIcon_Sneasel[] = INCBIN_U8("graphics/pokemon/sneasel/icon.4bpp");
 const u8 gMonFootprint_Sneasel[] = INCBIN_U8("graphics/pokemon/sneasel/footprint.1bpp");
 
-const u32 gMonStillFrontPic_Weaville[] = INCBIN_U32("graphics/pokemon/weaville/front.4bpp.lz");
-const u32 gMonPalette_Weaville[] = INCBIN_U32("graphics/pokemon/weaville/normal.gbapal.lz");
-const u32 gMonBackPic_Weaville[] = INCBIN_U32("graphics/pokemon/weaville/back.4bpp.lz");
-const u32 gMonShinyPalette_Weaville[] = INCBIN_U32("graphics/pokemon/weaville/shiny.gbapal.lz");
-const u8 gMonIcon_Weaville[] = INCBIN_U8("graphics/pokemon/weaville/icon.4bpp");
-const u8 gMonFootprint_Weaville[] = INCBIN_U8("graphics/pokemon/weaville/footprint.1bpp");
+const u32 gMonStillFrontPic_Weavile[] = INCBIN_U32("graphics/pokemon/weavile/front.4bpp.lz");
+const u32 gMonPalette_Weavile[] = INCBIN_U32("graphics/pokemon/weavile/normal.gbapal.lz");
+const u32 gMonBackPic_Weavile[] = INCBIN_U32("graphics/pokemon/weavile/back.4bpp.lz");
+const u32 gMonShinyPalette_Weavile[] = INCBIN_U32("graphics/pokemon/weavile/shiny.gbapal.lz");
+const u8 gMonIcon_Weavile[] = INCBIN_U8("graphics/pokemon/weavile/icon.4bpp");
+const u8 gMonFootprint_Weavile[] = INCBIN_U8("graphics/pokemon/weavile/footprint.1bpp");
 
 const u32 gMonStillFrontPic_Teddiursa[] = INCBIN_U32("graphics/pokemon/teddiursa/front.4bpp.lz");
 const u32 gMonPalette_Teddiursa[] = INCBIN_U32("graphics/pokemon/teddiursa/normal.gbapal.lz");
