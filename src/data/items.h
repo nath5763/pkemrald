@@ -2752,11 +2752,12 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E3] =
+    [ITEM_LIGHT_CLAY] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
+        .name = _("LIGHT CLAY"),
+        .itemId = ITEM_LIGHT_CLAY,
+        .price = 100,
+        .holdEffect = HOLD_EFFECT_LIGHT_CLAY,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,

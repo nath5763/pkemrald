@@ -3483,6 +3483,7 @@ static void Cmd_getexp(void)
         {
             u16 calculatedExp;
             s32 viaSentIn;
+            bool8 teamExpShareEnabled = FlagGet(FLAG_TEAM_EXP_SHARE_ENABLED);
 
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; i++)
             {
@@ -3498,7 +3499,7 @@ static void Cmd_getexp(void)
                 else
                     holdEffect = GetItemHoldEffect(item);
 
-                if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                if (holdEffect == HOLD_EFFECT_EXP_SHARE || (teamExpShareEnabled && !(gBitTable[i] & sentIn)))
                     viaExpShare++;
             }
 
@@ -3530,6 +3531,8 @@ static void Cmd_getexp(void)
     case 2: // set exp value to the poke in expgetter_id and print message
         if (gBattleControllerExecFlags == 0)
         {
+            bool8 teamExpShareEnabled = FlagGet(FLAG_TEAM_EXP_SHARE_ENABLED);
+
             item = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HELD_ITEM);
 
             if (item == ITEM_ENIGMA_BERRY)
@@ -3537,7 +3540,9 @@ static void Cmd_getexp(void)
             else
                 holdEffect = GetItemHoldEffect(item);
 
-            if (holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
+            if (holdEffect != HOLD_EFFECT_EXP_SHARE
+             && !(gBattleStruct->sentInPokes & 1)
+             && !teamExpShareEnabled)
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
@@ -3566,7 +3571,7 @@ static void Cmd_getexp(void)
                     else
                         gBattleMoveDamage = 0;
 
-                    if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                    if (holdEffect == HOLD_EFFECT_EXP_SHARE || (teamExpShareEnabled && !(gBattleStruct->sentInPokes & 1)))
                         gBattleMoveDamage += gExpShareExp;
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
@@ -6953,8 +6958,10 @@ static void Cmd_setreflect(void)
     }
     else
     {
+        u8 holdEffect = GetItemHoldEffect(gBattleMons[gBattlerAttacker].item);
+
         gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] |= SIDE_STATUS_REFLECT;
-        gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].reflectTimer = 5;
+        gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].reflectTimer = (holdEffect == HOLD_EFFECT_LIGHT_CLAY) ? 8 : 5;
         gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].reflectBattlerId = gBattlerAttacker;
 
         if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && CountAliveMonsInBattle(BATTLE_ALIVE_ATK_SIDE) == 2)
@@ -7747,8 +7754,10 @@ static void Cmd_setlightscreen(void)
     }
     else
     {
+        u8 holdEffect = GetItemHoldEffect(gBattleMons[gBattlerAttacker].item);
+
         gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] |= SIDE_STATUS_LIGHTSCREEN;
-        gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].lightscreenTimer = 5;
+        gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].lightscreenTimer = (holdEffect == HOLD_EFFECT_LIGHT_CLAY) ? 8 : 5;
         gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].lightscreenBattlerId = gBattlerAttacker;
 
         if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && CountAliveMonsInBattle(BATTLE_ALIVE_ATK_SIDE) == 2)
@@ -8362,7 +8371,7 @@ static void Cmd_settypetorandomresistance(void)
 
         for (rands = 0; rands < 1000; rands++)
         {
-            while (((i = Random() % 128) > sizeof(gTypeEffectiveness) / 3));
+            while (((i = Random() % 128) >= sizeof(gTypeEffectiveness) / 3));
 
             i *= 3;
 

@@ -254,7 +254,7 @@
 #define ITEM_THICK_CLUB 224
 #define ITEM_STICK 225
 #define ITEM_FOCUS_SASH 226
-#define ITEM_0E3 227
+#define ITEM_LIGHT_CLAY 227
 #define ITEM_0E4 228
 #define ITEM_0E5 229
 #define ITEM_0E6 230
