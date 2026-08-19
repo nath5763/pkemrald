@@ -75,6 +75,12 @@ SuicuneFight_1:
 	return
 
 
+ResevoirCave_EventScript_ItemLifeOrb::
+# 62 "data/maps/ResevoirCave/scripts.pory"
+	finditem ITEM_LIFE_ORB
+	end
+
+
 aquaBattleScript_Text_0:
 # 21 "data/maps/ResevoirCave/scripts.pory"
 	.string "I need this guy to build me a tunnel.\nYou dare oppose Team Aqua?\p Prepare to battle!$"

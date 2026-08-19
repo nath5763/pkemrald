@@ -132,8 +132,8 @@ static void Cmd_get_move_type_from_result(void);
 static void Cmd_get_move_power_from_result(void);
 static void Cmd_get_move_effect_from_result(void);
 static void Cmd_get_protect_count(void);
-static void Cmd_nop_52(void);
-static void Cmd_nop_53(void);
+static void Cmd_smart_tactics(void);
+static void Cmd_smart_singles(void);
 static void Cmd_nop_54(void);
 static void Cmd_nop_55(void);
 static void Cmd_nop_56(void);
@@ -241,8 +241,8 @@ static const BattleAICmdFunc sBattleAICmdTable[] =
     Cmd_get_move_power_from_result,                 // 0x4F
     Cmd_get_move_effect_from_result,                // 0x50
     Cmd_get_protect_count,                          // 0x51
-    Cmd_nop_52,                                     // 0x52
-    Cmd_nop_53,                                     // 0x53
+    Cmd_smart_tactics,                              // 0x52
+    Cmd_smart_singles,                              // 0x53
     Cmd_nop_54,                                     // 0x54
     Cmd_nop_55,                                     // 0x55
     Cmd_nop_56,                                     // 0x56
@@ -2162,12 +2162,473 @@ static void Cmd_get_protect_count(void)
     gAIScriptPtr += 2;
 }
 
-static void Cmd_nop_52(void)
+static bool8 IsOffensiveSetupEffect(u8 effect)
 {
+    switch (effect)
+    {
+    case EFFECT_ATTACK_UP:
+    case EFFECT_ATTACK_UP_2:
+    case EFFECT_SPEED_UP:
+    case EFFECT_SPEED_UP_2:
+    case EFFECT_SPECIAL_ATTACK_UP:
+    case EFFECT_SPECIAL_ATTACK_UP_2:
+    case EFFECT_BELLY_DRUM:
+    case EFFECT_BULK_UP:
+    case EFFECT_CALM_MIND:
+    case EFFECT_DRAGON_DANCE:
+        return TRUE;
+    default:
+        return FALSE;
+    }
 }
 
-static void Cmd_nop_53(void)
+static bool8 BattlerHasUsableMoveEffect(u8 battler, u8 effect)
 {
+    s32 i;
+
+    if (gAbsentBattlerFlags & gBitTable[battler] || gBattleMons[battler].hp == 0)
+        return FALSE;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[battler].moves[i];
+
+        if (move != MOVE_NONE && gBattleMons[battler].pp[i] != 0 && gBattleMoves[move].effect == effect)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static bool8 BattlerHasUsableOffensiveSetup(u8 battler)
+{
+    s32 i;
+
+    if (gAbsentBattlerFlags & gBitTable[battler] || gBattleMons[battler].hp == 0)
+        return FALSE;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[battler].moves[i];
+
+        if (move != MOVE_NONE && gBattleMons[battler].pp[i] != 0 && IsOffensiveSetupEffect(gBattleMoves[move].effect))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static bool8 BattlerCanRaiseOffensiveStat(u8 battler, u8 effect)
+{
+    switch (effect)
+    {
+    case EFFECT_ATTACK_UP:
+    case EFFECT_ATTACK_UP_2:
+    case EFFECT_BELLY_DRUM:
+        return gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE;
+    case EFFECT_SPEED_UP:
+    case EFFECT_SPEED_UP_2:
+        return gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE;
+    case EFFECT_SPECIAL_ATTACK_UP:
+    case EFFECT_SPECIAL_ATTACK_UP_2:
+        return gBattleMons[battler].statStages[STAT_SPATK] < MAX_STAT_STAGE;
+    case EFFECT_BULK_UP:
+        return gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE;
+    case EFFECT_CALM_MIND:
+        return gBattleMons[battler].statStages[STAT_SPATK] < MAX_STAT_STAGE;
+    case EFFECT_DRAGON_DANCE:
+        return gBattleMons[battler].statStages[STAT_ATK] < MAX_STAT_STAGE
+            || gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE;
+    default:
+        return FALSE;
+    }
+}
+
+static s32 GetKnownMoveDamage(u8 attacker, u8 defender, u16 move)
+{
+    u16 savedMove = gCurrentMove;
+    u16 savedDynamicPower = gDynamicBasePower;
+    u8 savedDynamicType = gBattleStruct->dynamicMoveType;
+    u8 savedMoveResult = gMoveResultFlags;
+    u8 savedCrit = gCritMultiplier;
+    u8 savedDmgMultiplier = gBattleScripting.dmgMultiplier;
+    s32 savedDamage = gBattleMoveDamage;
+    s32 damage;
+
+    if (move == MOVE_NONE || gBattleMoves[move].power <= 1)
+        return 0;
+
+    gDynamicBasePower = 0;
+    gBattleStruct->dynamicMoveType = 0;
+    gBattleScripting.dmgMultiplier = 1;
+    gMoveResultFlags = 0;
+    gCritMultiplier = 1;
+    gCurrentMove = move;
+    AI_CalcDmg(attacker, defender);
+    TypeCalc(move, attacker, defender);
+    damage = gBattleMoveDamage;
+
+    gCurrentMove = savedMove;
+    gDynamicBasePower = savedDynamicPower;
+    gBattleStruct->dynamicMoveType = savedDynamicType;
+    gMoveResultFlags = savedMoveResult;
+    gCritMultiplier = savedCrit;
+    gBattleScripting.dmgMultiplier = savedDmgMultiplier;
+    gBattleMoveDamage = savedDamage;
+    return damage;
+}
+
+static s32 GetBestKnownDamage(u8 attacker, u8 defender)
+{
+    s32 bestDamage = 0;
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[attacker].moves[i];
+        s32 damage;
+
+        if (move == MOVE_NONE || gBattleMons[attacker].pp[i] == 0 || gBattleMoves[move].power <= 1)
+            continue;
+
+        damage = GetKnownMoveDamage(attacker, defender, move);
+        if (damage > bestDamage)
+            bestDamage = damage;
+    }
+
+    return bestDamage;
+}
+
+static bool8 IsPrimaryStatusEffect(u8 effect)
+{
+    switch (effect)
+    {
+    case EFFECT_SLEEP:
+    case EFFECT_TOXIC:
+    case EFFECT_POISON:
+    case EFFECT_PARALYZE:
+    case EFFECT_WILL_O_WISP:
+    case EFFECT_YAWN:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+static bool8 IsRedundantStatusMove(u8 target, u8 effect)
+{
+    if (effect == EFFECT_CONFUSE)
+        return (gBattleMons[target].status2 & STATUS2_CONFUSION) != 0;
+    if (effect == EFFECT_YAWN)
+        return gBattleMons[target].status1 != 0 || (gStatuses3[target] & STATUS3_YAWN) != 0;
+    if (IsPrimaryStatusEffect(effect))
+        return gBattleMons[target].status1 != 0;
+    return FALSE;
+}
+
+static bool8 UserActsBeforeAllLethalMoves(u8 user, u8 target, u16 consideredMove)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 opposingMove = gBattleMons[target].moves[i];
+
+        if (opposingMove == MOVE_NONE || gBattleMons[target].pp[i] == 0
+            || GetKnownMoveDamage(target, user, opposingMove) < gBattleMons[user].hp)
+            continue;
+        if (gBattleMoves[consideredMove].priority < gBattleMoves[opposingMove].priority)
+            return FALSE;
+        if (gBattleMoves[consideredMove].priority == gBattleMoves[opposingMove].priority
+            && GetWhoStrikesFirst(user, target, TRUE) != 0)
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+static s32 GetWorstKnownIncomingDamage(u8 defender)
+{
+    s32 damage = 0;
+    s32 battler;
+
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        if (GetBattlerSide(battler) != GetBattlerSide(defender)
+            && !(gAbsentBattlerFlags & gBitTable[battler])
+            && gBattleMons[battler].hp != 0)
+            damage += GetBestKnownDamage(battler, defender);
+    }
+
+    return damage;
+}
+
+static bool8 TargetHasUsefulResidualDamage(u8 battler)
+{
+    return (gBattleMons[battler].status1 & (STATUS1_POISON | STATUS1_TOXIC_POISON | STATUS1_BURN))
+        || (gBattleMons[battler].status2 & STATUS2_CURSED)
+        || (gStatuses3[battler] & (STATUS3_LEECHSEED | STATUS3_PERISH_SONG));
+}
+
+static bool8 PartnerCanCapitalizeOnProtection(u8 battler)
+{
+    u8 partner;
+    s32 foe;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+        return FALSE;
+
+    partner = BATTLE_PARTNER(battler);
+    if (gAbsentBattlerFlags & gBitTable[partner] || gBattleMons[partner].hp == 0)
+        return FALSE;
+
+    if (BattlerHasUsableOffensiveSetup(partner))
+        return TRUE;
+
+    for (foe = 0; foe < gBattlersCount; foe++)
+    {
+        if (GetBattlerSide(foe) != GetBattlerSide(battler)
+            && !(gAbsentBattlerFlags & gBitTable[foe])
+            && gBattleMons[foe].hp != 0)
+        {
+            if (TargetHasUsefulResidualDamage(foe) || GetBestKnownDamage(partner, foe) >= gBattleMons[foe].hp)
+                return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+static s8 GetWeatherFromMoveEffect(u8 effect)
+{
+    switch (effect)
+    {
+    case EFFECT_RAIN_DANCE:
+        return AI_WEATHER_RAIN;
+    case EFFECT_SUNNY_DAY:
+        return AI_WEATHER_SUN;
+    case EFFECT_SANDSTORM:
+        return AI_WEATHER_SANDSTORM;
+    case EFFECT_HAIL:
+        return AI_WEATHER_HAIL;
+    default:
+        return -1;
+    }
+}
+
+static s8 GetCurrentBattleWeather(void)
+{
+    if (gBattleWeather & B_WEATHER_RAIN)
+        return AI_WEATHER_RAIN;
+    if (gBattleWeather & B_WEATHER_SUN)
+        return AI_WEATHER_SUN;
+    if (gBattleWeather & B_WEATHER_SANDSTORM)
+        return AI_WEATHER_SANDSTORM;
+    if (gBattleWeather & B_WEATHER_HAIL)
+        return AI_WEATHER_HAIL;
+    return -1;
+}
+
+static s32 GetWeatherUtility(u16 species, u8 ability, const u16 *moves, s8 weather)
+{
+    s32 utility = 0;
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = moves[i];
+
+        if (move == MOVE_NONE)
+            continue;
+        if (move == MOVE_WEATHER_BALL)
+            utility += 2;
+        if (weather == AI_WEATHER_RAIN)
+        {
+            if (gBattleMoves[move].type == TYPE_WATER && gBattleMoves[move].power > 1)
+                utility += 2;
+            if (gBattleMoves[move].type == TYPE_FIRE && gBattleMoves[move].power > 1)
+                utility--;
+            if (move == MOVE_THUNDER)
+                utility += 2;
+            if (move == MOVE_SOLAR_BEAM)
+                utility -= 2;
+        }
+        else if (weather == AI_WEATHER_SUN)
+        {
+            if (gBattleMoves[move].type == TYPE_FIRE && gBattleMoves[move].power > 1)
+                utility += 2;
+            if (gBattleMoves[move].type == TYPE_WATER && gBattleMoves[move].power > 1)
+                utility--;
+            if (move == MOVE_SOLAR_BEAM)
+                utility += 2;
+        }
+        else if (weather == AI_WEATHER_HAIL && gBattleMoves[move].type == TYPE_ICE && gBattleMoves[move].power > 1)
+        {
+            utility += 2;
+        }
+    }
+
+    if (weather == AI_WEATHER_RAIN && (ability == ABILITY_SWIFT_SWIM || ability == ABILITY_RAIN_DISH))
+        utility += 3;
+    else if (weather == AI_WEATHER_SUN && ability == ABILITY_CHLOROPHYLL)
+        utility += 3;
+    else if (weather == AI_WEATHER_SANDSTORM && ability == ABILITY_SAND_VEIL)
+        utility += 3;
+    else if (weather == AI_WEATHER_HAIL && ability == ABILITY_SNOW_CLOAK)
+        utility += 3;
+
+    if (weather == AI_WEATHER_SANDSTORM
+        && (gSpeciesInfo[species].types[0] == TYPE_ROCK || gSpeciesInfo[species].types[1] == TYPE_ROCK
+         || gSpeciesInfo[species].types[0] == TYPE_GROUND || gSpeciesInfo[species].types[1] == TYPE_GROUND
+         || gSpeciesInfo[species].types[0] == TYPE_STEEL || gSpeciesInfo[species].types[1] == TYPE_STEEL))
+        utility++;
+    if (weather == AI_WEATHER_HAIL
+        && (gSpeciesInfo[species].types[0] == TYPE_ICE || gSpeciesInfo[species].types[1] == TYPE_ICE))
+        utility++;
+
+    return utility;
+}
+
+static s32 GetSideWeatherUtility(u8 side, s8 weather)
+{
+    struct Pokemon *party = side == B_SIDE_PLAYER ? gPlayerParty : gEnemyParty;
+    s32 utility = 0;
+    s32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 species = GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG);
+
+        if (species != SPECIES_NONE && species != SPECIES_EGG && GetMonData(&party[i], MON_DATA_HP) != 0)
+        {
+            u16 moves[MAX_MON_MOVES];
+            s32 j;
+
+            for (j = 0; j < MAX_MON_MOVES; j++)
+                moves[j] = GetMonData(&party[i], MON_DATA_MOVE1 + j);
+            utility += GetWeatherUtility(species, GetMonAbility(&party[i]), moves, weather);
+        }
+    }
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (GetBattlerSide(i) == side && !(gAbsentBattlerFlags & gBitTable[i]) && gBattleMons[i].hp != 0)
+            utility += GetWeatherUtility(gBattleMons[i].species, gBattleMons[i].ability, gBattleMons[i].moves, weather);
+    }
+
+    return utility;
+}
+
+static s32 GetSmartWeatherScore(u8 battler, s8 proposedWeather)
+{
+    s8 currentWeather = GetCurrentBattleWeather();
+    s32 proposedUtility;
+    s32 currentUtility = 0;
+    s32 delta;
+
+    if (currentWeather == proposedWeather)
+        return -8;
+
+    proposedUtility = GetSideWeatherUtility(GetBattlerSide(battler), proposedWeather)
+        - GetSideWeatherUtility(GetBattlerSide(battler) ^ BIT_SIDE, proposedWeather);
+    if (currentWeather >= 0)
+    {
+        currentUtility = GetSideWeatherUtility(GetBattlerSide(battler), currentWeather)
+            - GetSideWeatherUtility(GetBattlerSide(battler) ^ BIT_SIDE, currentWeather);
+    }
+
+    delta = proposedUtility - currentUtility;
+    if (delta >= 8)
+        return 5;
+    if (delta >= 4)
+        return 3;
+    if (delta > 0)
+        return 1;
+    if (delta < 0)
+        return -3;
+    return 0;
+}
+
+static void Cmd_smart_tactics(void)
+{
+    u16 move = AI_THINKING_STRUCT->moveConsidered;
+    u8 effect = gBattleMoves[move].effect;
+    s32 score = 0;
+    s8 weather = GetWeatherFromMoveEffect(effect);
+
+    if (weather >= 0)
+    {
+        score += GetSmartWeatherScore(sBattler_AI, weather);
+        if (GetWorstKnownIncomingDamage(sBattler_AI) >= gBattleMons[sBattler_AI].hp)
+            score -= 3;
+    }
+    else if (effect == EFFECT_PROTECT)
+    {
+        bool8 endangered = GetWorstKnownIncomingDamage(sBattler_AI) >= gBattleMons[sBattler_AI].hp;
+        bool8 usefulTurn = PartnerCanCapitalizeOnProtection(sBattler_AI);
+
+        if (endangered && usefulTurn)
+            score += 4;
+        else if (endangered)
+            score -= 2;
+        else if (usefulTurn)
+            score += 1;
+    }
+    else if (effect == EFFECT_FOLLOW_ME && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+    {
+        u8 partner = BATTLE_PARTNER(sBattler_AI);
+
+        if (!(gAbsentBattlerFlags & gBitTable[partner]) && BattlerHasUsableOffensiveSetup(partner))
+            score += 4;
+    }
+    else if (IsOffensiveSetupEffect(effect) && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+    {
+        u8 partner = BATTLE_PARTNER(sBattler_AI);
+
+        if (!(gAbsentBattlerFlags & gBitTable[partner])
+            && BattlerHasUsableMoveEffect(partner, EFFECT_FOLLOW_ME)
+            && gBattleMons[partner].hp * 100 / gBattleMons[partner].maxHP > 30
+            && BattlerCanRaiseOffensiveStat(sBattler_AI, effect))
+            score += 3;
+    }
+
+    AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] += score;
+    if (AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] < 0)
+        AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] = 0;
+    gAIScriptPtr++;
+}
+
+static void Cmd_smart_singles(void)
+{
+    u16 move = AI_THINKING_STRUCT->moveConsidered;
+    u8 effect = gBattleMoves[move].effect;
+    s32 score;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        gAIScriptPtr++;
+        return;
+    }
+
+    if (IsRedundantStatusMove(gBattlerTarget, effect))
+    {
+        AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] = 0;
+        gAIScriptPtr++;
+        return;
+    }
+
+    score = AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex];
+    if (IsPrimaryStatusEffect(effect) || effect == EFFECT_CONFUSE)
+        score += 3;
+
+    if (GetKnownMoveDamage(sBattler_AI, gBattlerTarget, move) >= gBattleMons[gBattlerTarget].hp
+        && UserActsBeforeAllLethalMoves(sBattler_AI, gBattlerTarget, move))
+        score += 8;
+
+    if (score > 127)
+        score = 127;
+    AI_THINKING_STRUCT->score[AI_THINKING_STRUCT->movesetIndex] = score;
+    gAIScriptPtr++;
 }
 
 static void Cmd_nop_54(void)

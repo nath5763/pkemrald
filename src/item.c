@@ -897,6 +897,13 @@ u8 GetItemHoldEffectParam(u16 itemId)
     return gItems[SanitizeItemId(itemId)].holdEffectParam;
 }
 
+bool8 IsHoldEffectChoice(u8 holdEffect)
+{
+    return holdEffect == HOLD_EFFECT_CHOICE_BAND
+        || holdEffect == HOLD_EFFECT_CHOICE_SPECS
+        || holdEffect == HOLD_EFFECT_CHOICE_SCARF;
+}
+
 const u8 *GetItemDescription(u16 itemId)
 {
     return gItems[SanitizeItemId(itemId)].description;

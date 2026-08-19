@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_setup.h"
+#include "champions_club.h"
 #include "battle_transition.h"
 #include "main.h"
 #include "task.h"
@@ -786,6 +787,14 @@ static u8 GetSumOfEnemyPartyLevel(u16 opponentId, u8 numMons)
                 sum += party[i].lvl;
         }
         break;
+    case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY:
+        {
+            const struct TrainerMonItemCustomMovesAbility *party;
+            party = gTrainers[opponentId].party.ItemCustomMovesAbility;
+            for (i = 0; i < count; i++)
+                sum += party[i].lvl;
+        }
+        break;
     }
 
     return sum;
@@ -984,16 +993,6 @@ static u16 TrainerBattleLoadArg16(const u8 *ptr)
 static u8 TrainerBattleLoadArg8(const u8 *ptr)
 {
     return T1_READ_8(ptr);
-}
-
-static u16 GetTrainerAFlag(void)
-{
-    return TRAINER_FLAGS_START + gTrainerBattleOpponent_A;
-}
-
-static u16 GetTrainerBFlag(void)
-{
-    return TRAINER_FLAGS_START + gTrainerBattleOpponent_B;
 }
 
 static bool32 IsPlayerDefeated(u32 battleOutcome)
@@ -1219,8 +1218,8 @@ void SetUpTwoTrainersBattle(void)
 
 bool32 GetTrainerFlagFromScriptPointer(const u8 *data)
 {
-    u32 flag = TrainerBattleLoadArg16(data + 2);
-    return FlagGet(TRAINER_FLAGS_START + flag);
+    u16 trainerId = TrainerBattleLoadArg16(data + 2);
+    return HasTrainerBeenFought(trainerId);
 }
 
 // Set trainer's movement type so they stop and remain facing that direction
@@ -1244,34 +1243,42 @@ bool8 GetTrainerFlag(void)
     else if (InTrainerHill())
         return GetHillTrainerFlag(gSelectedObjectEvent);
     else
-        return FlagGet(GetTrainerAFlag());
+        return HasTrainerBeenFought(gTrainerBattleOpponent_A);
 }
 
 static void SetBattledTrainersFlags(void)
 {
     if (gTrainerBattleOpponent_B != 0)
-        FlagSet(GetTrainerBFlag());
-    FlagSet(GetTrainerAFlag());
+        SetTrainerFlag(gTrainerBattleOpponent_B);
+    SetTrainerFlag(gTrainerBattleOpponent_A);
 }
 
 static void UNUSED SetBattledTrainerFlag(void)
 {
-    FlagSet(GetTrainerAFlag());
+    SetTrainerFlag(gTrainerBattleOpponent_A);
 }
 
 bool8 HasTrainerBeenFought(u16 trainerId)
 {
+    if (IsChampionsClubTrainer(trainerId))
+        return HasChampionsClubTrainerBeenFought(trainerId);
     return FlagGet(TRAINER_FLAGS_START + trainerId);
 }
 
 void SetTrainerFlag(u16 trainerId)
 {
-    FlagSet(TRAINER_FLAGS_START + trainerId);
+    if (IsChampionsClubTrainer(trainerId))
+        SetChampionsClubTrainerFought(trainerId);
+    else
+        FlagSet(TRAINER_FLAGS_START + trainerId);
 }
 
 void ClearTrainerFlag(u16 trainerId)
 {
-    FlagClear(TRAINER_FLAGS_START + trainerId);
+    if (IsChampionsClubTrainer(trainerId))
+        ClearChampionsClubTrainerFought(trainerId);
+    else
+        FlagClear(TRAINER_FLAGS_START + trainerId);
 }
 
 void BattleSetup_StartTrainerBattle(void)

@@ -41,34 +41,58 @@ EverGrandeCity_EventScript_PokemonLeagueSign::
 # 21 "data/maps/EverGrandeCity/scripts.pory"
 
 # 22 "data/maps/EverGrandeCity/scripts.pory"
-EverGrandeCity_EventScript_SetVisitedEverGrande::
+EverGrandeCity_EventScript_VictoryRoadGuard::
 # 23 "data/maps/EverGrandeCity/scripts.pory"
-	setflag FLAG_VISITED_EVER_GRANDE_CITY
+	lock
 # 24 "data/maps/EverGrandeCity/scripts.pory"
-	setvar VAR_TEMP_1, 1
+	faceplayer
 # 25 "data/maps/EverGrandeCity/scripts.pory"
-	end
+	msgbox EverGrandeCity_Text_VictoryRoadGuard, MSGBOX_DEFAULT
 # 26 "data/maps/EverGrandeCity/scripts.pory"
-
+	release
 # 27 "data/maps/EverGrandeCity/scripts.pory"
-EverGrandeCity_Text_EnteringVictoryRoad:
+	end
 # 28 "data/maps/EverGrandeCity/scripts.pory"
-	.string "ENTERING VICTORY ROAD$"
-# 29 "data/maps/EverGrandeCity/scripts.pory"
 
+# 29 "data/maps/EverGrandeCity/scripts.pory"
+EverGrandeCity_EventScript_SetVisitedEverGrande::
 # 30 "data/maps/EverGrandeCity/scripts.pory"
-EverGrandeCity_Text_EnteringPokemonLeague:
+	setflag FLAG_VISITED_EVER_GRANDE_CITY
 # 31 "data/maps/EverGrandeCity/scripts.pory"
-	.string "ENTERING POKéMON LEAGUE\n"
+	setvar VAR_TEMP_1, 1
 # 32 "data/maps/EverGrandeCity/scripts.pory"
-	.string "CENTER GATE$"
+	end
 # 33 "data/maps/EverGrandeCity/scripts.pory"
 
 # 34 "data/maps/EverGrandeCity/scripts.pory"
-EverGrandeCity_Text_CitySign:
+EverGrandeCity_Text_EnteringVictoryRoad:
 # 35 "data/maps/EverGrandeCity/scripts.pory"
-	.string "EVER GRANDE CITY\p"
+	.string "ENTERING VICTORY ROAD$"
 # 36 "data/maps/EverGrandeCity/scripts.pory"
-	.string "“The paradise of flowers, the sea,\n"
+
 # 37 "data/maps/EverGrandeCity/scripts.pory"
+EverGrandeCity_Text_EnteringPokemonLeague:
+# 38 "data/maps/EverGrandeCity/scripts.pory"
+	.string "ENTERING POKéMON LEAGUE\n"
+# 39 "data/maps/EverGrandeCity/scripts.pory"
+	.string "CENTER GATE$"
+# 40 "data/maps/EverGrandeCity/scripts.pory"
+
+# 41 "data/maps/EverGrandeCity/scripts.pory"
+EverGrandeCity_Text_CitySign:
+# 42 "data/maps/EverGrandeCity/scripts.pory"
+	.string "EVER GRANDE CITY\p"
+# 43 "data/maps/EverGrandeCity/scripts.pory"
+	.string "“The paradise of flowers, the sea,\n"
+# 44 "data/maps/EverGrandeCity/scripts.pory"
 	.string "and POKéMON.”$"
+# 45 "data/maps/EverGrandeCity/scripts.pory"
+
+# 46 "data/maps/EverGrandeCity/scripts.pory"
+EverGrandeCity_Text_VictoryRoadGuard:
+# 47 "data/maps/EverGrandeCity/scripts.pory"
+	.string "You cannot enter VICTORY ROAD\n"
+# 48 "data/maps/EverGrandeCity/scripts.pory"
+	.string "until you've defeated the ninth\l"
+# 49 "data/maps/EverGrandeCity/scripts.pory"
+	.string "GYM LEADER.$"

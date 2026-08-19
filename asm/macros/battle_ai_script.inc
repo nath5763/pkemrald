@@ -467,11 +467,11 @@
 	.byte \battler
 	.endm
 
-	.macro nop_52
+	.macro smart_tactics
 	.byte 0x52
 	.endm
 
-	.macro nop_53
+	.macro smart_singles
 	.byte 0x53
 	.endm
 

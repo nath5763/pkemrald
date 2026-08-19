@@ -789,15 +789,15 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_NatureCandy,
     },
 
-    [ITEM_03E] =
+    [ITEM_ABILITY_CAPSULE] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("ABILITY CAPS."),
+        .itemId = ITEM_ABILITY_CAPSULE,
+        .price = 9800,
+        .description = sAbilityCapsuleDesc,
         .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_AbilityCapsule,
     },
 
 // Vitamins
@@ -1765,7 +1765,7 @@ const struct Item gItems[] =
         .itemId = ITEM_FIGY_BERRY,
         .price = 20,
         .holdEffect = HOLD_EFFECT_CONFUSE_SPICY,
-        .holdEffectParam = 8,
+        .holdEffectParam = 2,
         .description = sFigyBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
@@ -1778,7 +1778,7 @@ const struct Item gItems[] =
         .itemId = ITEM_WIKI_BERRY,
         .price = 20,
         .holdEffect = HOLD_EFFECT_CONFUSE_DRY,
-        .holdEffectParam = 8,
+        .holdEffectParam = 2,
         .description = sWikiBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
@@ -1791,7 +1791,7 @@ const struct Item gItems[] =
         .itemId = ITEM_MAGO_BERRY,
         .price = 20,
         .holdEffect = HOLD_EFFECT_CONFUSE_SWEET,
-        .holdEffectParam = 8,
+        .holdEffectParam = 2,
         .description = sMagoBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
@@ -1804,7 +1804,7 @@ const struct Item gItems[] =
         .itemId = ITEM_AGUAV_BERRY,
         .price = 20,
         .holdEffect = HOLD_EFFECT_CONFUSE_BITTER,
-        .holdEffectParam = 8,
+        .holdEffectParam = 2,
         .description = sAguavBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
@@ -1817,7 +1817,7 @@ const struct Item gItems[] =
         .itemId = ITEM_IAPAPA_BERRY,
         .price = 20,
         .holdEffect = HOLD_EFFECT_CONFUSE_SOUR,
-        .holdEffectParam = 8,
+        .holdEffectParam = 2,
         .description = sIapapaBerryDesc,
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
@@ -2758,51 +2758,55 @@ const struct Item gItems[] =
         .itemId = ITEM_LIGHT_CLAY,
         .price = 100,
         .holdEffect = HOLD_EFFECT_LIGHT_CLAY,
-        .description = sDummyDesc,
+        .description = sLightClayDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E4] =
+    [ITEM_CHOICE_SPECS] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("CHOICE SPECS"),
+        .itemId = ITEM_CHOICE_SPECS,
+        .price = 100,
+        .holdEffect = HOLD_EFFECT_CHOICE_SPECS,
+        .description = sChoiceSpecsDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E5] =
+    [ITEM_CHOICE_SCARF] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("CHOICE SCARF"),
+        .itemId = ITEM_CHOICE_SCARF,
+        .price = 100,
+        .holdEffect = HOLD_EFFECT_CHOICE_SCARF,
+        .description = sChoiceScarfDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E6] =
+    [ITEM_LIFE_ORB] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("LIFE ORB"),
+        .itemId = ITEM_LIFE_ORB,
+        .price = 200,
+        .holdEffect = HOLD_EFFECT_LIFE_ORB,
+        .description = sLifeOrbDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E7] =
+    [ITEM_RAZOR_CLAW] =
     {
-        .name = _("????????"),
-        .itemId = ITEM_NONE,
-        .price = 0,
-        .description = sDummyDesc,
+        .name = _("RAZOR CLAW"),
+        .itemId = ITEM_RAZOR_CLAW,
+        .price = 2100,
+        .holdEffect = HOLD_EFFECT_SCOPE_LENS,
+        .description = sRazorClawDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,

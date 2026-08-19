@@ -98,6 +98,17 @@ const struct SpriteTemplate gShadowBallSpriteTemplate =
     .callback = AnimShadowBall,
 };
 
+const struct SpriteTemplate gEnergyBallSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_ENERGY_BALL,
+    .paletteTag = ANIM_TAG_ENERGY_BALL,
+    .oam = &gOamData_AffineNormal_ObjNormal_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = sAffineAnims_ShadowBall,
+    .callback = AnimShadowBall,
+};
+
 static const union AnimCmd sAnim_Lick[] =
 {
     ANIMCMD_FRAME(0, 2),

@@ -4627,9 +4627,19 @@
       "width": 10,
       "height": 10,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_LilycoveMuseum",
+      "secondary_tileset": "gTileset_GenericBuilding",
       "border_filepath": "data/layouts/ChampionsClub/border.bin",
       "blockdata_filepath": "data/layouts/ChampionsClub/map.bin"
+    },
+    {
+      "id": "LAYOUT_CHAMPIONS_CLUB_FLOOR2",
+      "name": "ChampionsClubFloor2_Layout",
+      "width": 10,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/ChampionsClubFloor2/border.bin",
+      "blockdata_filepath": "data/layouts/ChampionsClubFloor2/map.bin"
     }
   ]
 }

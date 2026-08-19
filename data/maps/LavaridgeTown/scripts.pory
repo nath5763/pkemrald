@@ -22,8 +22,8 @@ LavaridgeTown_EventScript_CheckSetRivalPos::
 	goto LavaridgeTown_EventScript_SetRivalPos
 
 LavaridgeTown_EventScript_SetRivalPos::
-	setobjectxyperm LOCALID_LAVARIDGE_RIVAL, 6, 15
-	setobjectxyperm LOCALID_LAVARIDGE_RIVAL_ON_BIKE, 6, 15
+	setobjectxyperm LOCALID_LAVARIDGE_RIVAL, 5, 17
+	setobjectxyperm LOCALID_LAVARIDGE_RIVAL_ON_BIKE, 5, 17
 	setobjectmovementtype LOCALID_LAVARIDGE_RIVAL_ON_BIKE, MOVEMENT_TYPE_FACE_UP
 	clearflag FLAG_HIDE_LAVARIDGE_TOWN_RIVAL
 	return
@@ -95,6 +95,9 @@ LavaridgeTown_Movement_RivalExit2:
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up

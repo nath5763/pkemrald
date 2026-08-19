@@ -3,6 +3,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "battle_main.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_interface.h"
 #include "battle_pike.h"
@@ -65,6 +66,7 @@
 #include "union_room.h"
 #include "window.h"
 #include "constants/battle.h"
+#include "constants/abilities.h"
 #include "constants/battle_frontier.h"
 #include "constants/field_effects.h"
 #include "constants/item_effects.h"
@@ -5039,18 +5041,12 @@ void ItemUseCB_NatureCandy(u8 taskId, TaskFunc task)
     u32 personality;
 
     if (GetMonData(mon, MON_DATA_IS_EGG))
-    {
-        PlaySE(SE_SELECT);
-        gPartyMenuUseExitCallback = FALSE;
-        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
-        ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = task;
-        return;
-    }
+        goto CANT_USE;
 
     targetNature = GetNatureCandyTargetNature(mon);
     personality = GetNatureCandyPersonality(mon, targetNature);
-    SetMonData(mon, MON_DATA_PERSONALITY, &personality);
+    if (!SetMonPersonality(mon, personality))
+        goto CANT_USE;
     CalculateMonStats(mon);
 
     gPartyMenuUseExitCallback = TRUE;
@@ -5060,6 +5056,53 @@ void ItemUseCB_NatureCandy(u8 taskId, TaskFunc task)
     StringCopy(gStringVar2, gNatureNamePointers[targetNature]);
     StringExpandPlaceholders(gStringVar4, gText_PkmnNatureChangedToVar2);
     DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+    return;
+
+CANT_USE:
+    PlaySE(SE_SELECT);
+    gPartyMenuUseExitCallback = FALSE;
+    DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
+void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 species;
+    u8 abilityNum;
+    u8 ability;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG))
+        goto CANT_USE;
+
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    if (gSpeciesInfo[species].abilities[0] == ABILITY_NONE
+     || gSpeciesInfo[species].abilities[1] == ABILITY_NONE
+     || gSpeciesInfo[species].abilities[0] == gSpeciesInfo[species].abilities[1])
+        goto CANT_USE;
+
+    abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM) ^ 1;
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+    ability = GetMonAbility(mon);
+
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    GetMonNickname(mon, gStringVar1);
+    StringCopy(gStringVar2, gAbilityNames[ability]);
+    StringExpandPlaceholders(gStringVar4, gText_PkmnAbilityChangedToVar2);
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+    return;
+
+CANT_USE:
+    PlaySE(SE_SELECT);
+    gPartyMenuUseExitCallback = FALSE;
+    DisplayPartyMenuMessage(gText_PkmnDoesntHaveTwoAbilities, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = task;
 }

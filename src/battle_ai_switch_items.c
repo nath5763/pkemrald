@@ -3,11 +3,14 @@
 #include "battle_anim.h"
 #include "battle_controllers.h"
 #include "battle_main.h"
+#include "battle_setup.h"
 #include "data.h"
 #include "pokemon.h"
 #include "random.h"
 #include "util.h"
 #include "constants/abilities.h"
+#include "constants/battle_ai.h"
+#include "constants/battle_move_effects.h"
 #include "constants/item_effects.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -16,6 +19,374 @@
 static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng);
 static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent);
 static bool8 ShouldUseItem(void);
+static void ModulateByTypeEffectiveness(u8 atkType, u8 defType1, u8 defType2, u8 *var);
+
+static bool8 SmartTacticsEnabled(void)
+{
+    u32 aiFlags;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || GetBattlerSide(gActiveBattler) != B_SIDE_OPPONENT)
+        return FALSE;
+
+    aiFlags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
+    if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        aiFlags |= gTrainers[gTrainerBattleOpponent_B].aiFlags;
+    return (aiFlags & AI_SCRIPT_SMART_TACTICS) != 0;
+}
+
+static bool8 SmartSinglesEnabled(void)
+{
+    u32 aiFlags;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+        return FALSE;
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || GetBattlerSide(gActiveBattler) != B_SIDE_OPPONENT)
+        return FALSE;
+
+    aiFlags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
+    if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        aiFlags |= gTrainers[gTrainerBattleOpponent_B].aiFlags;
+    return (aiFlags & AI_SCRIPT_SMART_SINGLES) != 0;
+}
+
+static bool8 IsOffensiveSetupEffect(u8 effect)
+{
+    switch (effect)
+    {
+    case EFFECT_ATTACK_UP:
+    case EFFECT_ATTACK_UP_2:
+    case EFFECT_SPEED_UP:
+    case EFFECT_SPEED_UP_2:
+    case EFFECT_SPECIAL_ATTACK_UP:
+    case EFFECT_SPECIAL_ATTACK_UP_2:
+    case EFFECT_BELLY_DRUM:
+    case EFFECT_BULK_UP:
+    case EFFECT_CALM_MIND:
+    case EFFECT_DRAGON_DANCE:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+static bool8 BattleMonHasMoveEffect(u8 battler, u8 effect)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[battler].moves[i];
+
+        if (move != MOVE_NONE && gBattleMoves[move].effect == effect)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 BattleMonHasOffensiveSetup(u8 battler)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[battler].moves[i];
+
+        if (move != MOVE_NONE && IsOffensiveSetupEffect(gBattleMoves[move].effect))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 PartyMonHasMoveEffect(struct Pokemon *mon, u8 effect)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = GetMonData(mon, MON_DATA_MOVE1 + i);
+
+        if (move != MOVE_NONE && gBattleMoves[move].effect == effect)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 PartyMonHasOffensiveSetup(struct Pokemon *mon)
+{
+    s32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = GetMonData(mon, MON_DATA_MOVE1 + i);
+
+        if (move != MOVE_NONE && IsOffensiveSetupEffect(gBattleMoves[move].effect))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static void BuildBattleMonFromParty(struct Pokemon *mon, struct BattlePokemon *battleMon)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    s32 i;
+
+    *battleMon = (struct BattlePokemon){0};
+    battleMon->species = species;
+    battleMon->attack = GetMonData(mon, MON_DATA_ATK);
+    battleMon->defense = GetMonData(mon, MON_DATA_DEF);
+    battleMon->speed = GetMonData(mon, MON_DATA_SPEED);
+    battleMon->spAttack = GetMonData(mon, MON_DATA_SPATK);
+    battleMon->spDefense = GetMonData(mon, MON_DATA_SPDEF);
+    battleMon->hp = GetMonData(mon, MON_DATA_HP);
+    battleMon->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
+    battleMon->level = GetMonData(mon, MON_DATA_LEVEL);
+    battleMon->item = GetMonData(mon, MON_DATA_HELD_ITEM);
+    battleMon->status1 = GetMonData(mon, MON_DATA_STATUS);
+    battleMon->abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    battleMon->ability = GetMonAbility(mon);
+    battleMon->types[0] = gSpeciesInfo[species].types[0];
+    battleMon->types[1] = gSpeciesInfo[species].types[1];
+    for (i = 0; i < NUM_BATTLE_STATS; i++)
+        battleMon->statStages[i] = DEFAULT_STAT_STAGE;
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        battleMon->moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+}
+
+static s32 EstimateMoveDamageAgainstMon(u8 attacker, struct BattlePokemon *defender, u8 defenderBattler, u16 move)
+{
+    u16 savedMove = gCurrentMove;
+    u16 savedDynamicPower = gDynamicBasePower;
+    u8 savedDynamicType = gBattleStruct->dynamicMoveType;
+    u8 savedCrit = gCritMultiplier;
+    u8 typeDmg = TYPE_MUL_NORMAL;
+    s32 damage;
+
+    if (move == MOVE_NONE || gBattleMoves[move].power <= 1
+        || (AI_TypeCalc(move, defender->species, defender->ability) & MOVE_RESULT_DOESNT_AFFECT_FOE))
+        return 0;
+
+    gCurrentMove = move;
+    gDynamicBasePower = 0;
+    gBattleStruct->dynamicMoveType = 0;
+    gCritMultiplier = 1;
+    damage = CalculateBaseDamage(&gBattleMons[attacker], defender, move,
+                                 gSideStatuses[GetBattlerSide(defenderBattler)], 0, 0,
+                                 attacker, defenderBattler);
+    if (gBattleMoves[move].type == gBattleMons[attacker].types[0]
+        || gBattleMoves[move].type == gBattleMons[attacker].types[1])
+        damage = damage * 15 / 10;
+    ModulateByTypeEffectiveness(gBattleMoves[move].type, defender->types[0], defender->types[1], &typeDmg);
+    damage = damage * typeDmg / TYPE_MUL_NORMAL;
+
+    gCurrentMove = savedMove;
+    gDynamicBasePower = savedDynamicPower;
+    gBattleStruct->dynamicMoveType = savedDynamicType;
+    gCritMultiplier = savedCrit;
+    return damage;
+}
+
+static s32 EstimateWorstIncomingDamage(struct BattlePokemon *defender)
+{
+    s32 totalDamage = 0;
+    s32 battler;
+
+    for (battler = 0; battler < gBattlersCount; battler++)
+    {
+        s32 bestDamage = 0;
+        s32 moveIndex;
+
+        if (GetBattlerSide(battler) == GetBattlerSide(gActiveBattler)
+            || gAbsentBattlerFlags & gBitTable[battler]
+            || gBattleMons[battler].hp == 0)
+            continue;
+
+        for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+        {
+            s32 damage = EstimateMoveDamageAgainstMon(battler, defender, gActiveBattler, gBattleMons[battler].moves[moveIndex]);
+
+            if (damage > bestDamage)
+                bestDamage = damage;
+        }
+        totalDamage += bestDamage;
+    }
+
+    return totalDamage;
+}
+
+static bool8 ActiveMoveIsSafeFaint(u8 target, u16 move)
+{
+    s32 i;
+
+    if (EstimateMoveDamageAgainstMon(gActiveBattler, &gBattleMons[target], target, move) < gBattleMons[target].hp)
+        return FALSE;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 opposingMove = gBattleMons[target].moves[i];
+
+        if (opposingMove == MOVE_NONE || gBattleMons[target].pp[i] == 0
+            || EstimateMoveDamageAgainstMon(target, &gBattleMons[gActiveBattler], gActiveBattler, opposingMove) < gBattleMons[gActiveBattler].hp)
+            continue;
+        if (gBattleMoves[move].priority < gBattleMoves[opposingMove].priority)
+            return FALSE;
+        if (gBattleMoves[move].priority == gBattleMoves[opposingMove].priority
+            && GetWhoStrikesFirst(gActiveBattler, target, TRUE) != 0)
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+static bool8 HasSafeFaintingMove(void)
+{
+    u8 target = BATTLE_OPPOSITE(gActiveBattler);
+    s32 i;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+        return FALSE;
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        u16 move = gBattleMons[gActiveBattler].moves[i];
+
+        if (move != MOVE_NONE && gBattleMons[gActiveBattler].pp[i] != 0
+            && ActiveMoveIsSafeFaint(target, move))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static s32 GetFormationScore(struct Pokemon *candidate)
+{
+    u8 partner;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+        return 0;
+    partner = BATTLE_PARTNER(gActiveBattler);
+    if (gAbsentBattlerFlags & gBitTable[partner] || gBattleMons[partner].hp == 0)
+        return 0;
+
+    if (BattleMonHasOffensiveSetup(partner) && PartyMonHasMoveEffect(candidate, EFFECT_FOLLOW_ME))
+        return 30;
+    if (BattleMonHasMoveEffect(partner, EFFECT_FOLLOW_ME) && PartyMonHasOffensiveSetup(candidate))
+        return 30;
+    return 0;
+}
+
+static s32 GetCandidateOffenseScore(struct Pokemon *candidate)
+{
+    s32 score = 0;
+    s32 foe;
+    s32 moveIndex;
+
+    for (foe = 0; foe < gBattlersCount; foe++)
+    {
+        if (GetBattlerSide(foe) == GetBattlerSide(gActiveBattler)
+            || gAbsentBattlerFlags & gBitTable[foe]
+            || gBattleMons[foe].hp == 0)
+            continue;
+        for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+        {
+            u16 move = GetMonData(candidate, MON_DATA_MOVE1 + moveIndex);
+            u8 result;
+
+            if (move == MOVE_NONE || gBattleMoves[move].power <= 1)
+                continue;
+            result = AI_TypeCalc(move, gBattleMons[foe].species, gBattleMons[foe].ability);
+            if (result & MOVE_RESULT_SUPER_EFFECTIVE)
+                score += 8;
+            else if (!(result & MOVE_RESULT_DOESNT_AFFECT_FOE))
+                score += 2;
+        }
+    }
+    return score;
+}
+
+static u8 GetSmartSwitchCandidate(bool8 requireMeaningfulImprovement, bool8 requireSurvivor)
+{
+    struct Pokemon *party = GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER ? gPlayerParty : gEnemyParty;
+    struct BattlePokemon activeMon = gBattleMons[gActiveBattler];
+    u8 partner = gActiveBattler;
+    s32 firstId = 0;
+    s32 lastId = PARTY_SIZE;
+    s32 activeDamage = EstimateWorstIncomingDamage(&activeMon);
+    s32 activePercent = activeDamage * 100 / activeMon.maxHP;
+    s32 bestScore = -10000;
+    u8 bestMon = PARTY_SIZE;
+    s32 i;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+        partner = BATTLE_PARTNER(gActiveBattler);
+    if (gBattleTypeFlags & (BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TOWER_LINK_MULTI))
+    {
+        if ((gActiveBattler & BIT_FLANK) == B_FLANK_LEFT)
+            lastId = PARTY_SIZE / 2;
+        else
+            firstId = PARTY_SIZE / 2;
+    }
+
+    for (i = firstId; i < lastId; i++)
+    {
+        struct BattlePokemon candidate;
+        s32 candidateDamage;
+        s32 candidatePercent;
+        s32 score;
+
+        if (GetMonData(&party[i], MON_DATA_HP) == 0
+            || GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+            || GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG
+            || i == gBattlerPartyIndexes[gActiveBattler]
+            || i == gBattlerPartyIndexes[partner]
+            || i == gBattleStruct->monToSwitchIntoId[gActiveBattler]
+            || i == gBattleStruct->monToSwitchIntoId[partner])
+            continue;
+
+        BuildBattleMonFromParty(&party[i], &candidate);
+        candidateDamage = EstimateWorstIncomingDamage(&candidate);
+        candidatePercent = candidateDamage * 100 / candidate.maxHP;
+        if (requireSurvivor && candidateDamage >= candidate.hp)
+            continue;
+        if (requireMeaningfulImprovement
+            && (candidateDamage >= candidate.hp || candidatePercent + 25 > activePercent))
+            continue;
+
+        score = 200 - candidatePercent + GetCandidateOffenseScore(&party[i]) + GetFormationScore(&party[i]);
+        if (score > bestScore)
+        {
+            bestScore = score;
+            bestMon = i;
+        }
+    }
+
+    return bestMon;
+}
+
+static bool8 ShouldSwitchIfThreatened(bool8 lethalOnly)
+{
+    struct BattlePokemon activeMon = gBattleMons[gActiveBattler];
+    s32 incomingDamage = EstimateWorstIncomingDamage(&activeMon);
+    u8 candidate;
+
+    if (lethalOnly)
+    {
+        if (incomingDamage < activeMon.hp || HasSafeFaintingMove())
+            return FALSE;
+    }
+    else
+    {
+        if (incomingDamage < activeMon.hp && incomingDamage * 2 < activeMon.hp)
+            return FALSE;
+        if (incomingDamage < activeMon.hp && HasSuperEffectiveMoveAgainstOpponents(TRUE))
+            return FALSE;
+    }
+
+    candidate = GetSmartSwitchCandidate(!lethalOnly, lethalOnly);
+    if (candidate == PARTY_SIZE)
+        return FALSE;
+
+    gBattleStruct->AI_monToSwitchIntoId[gActiveBattler] = candidate;
+    BtlController_EmitTwoReturnValues(B_COMM_TO_ENGINE, B_ACTION_SWITCH, 0);
+    return TRUE;
+}
 
 static bool8 ShouldSwitchIfPerishSong(void)
 {
@@ -514,6 +885,10 @@ static bool8 ShouldSwitch(void)
         return TRUE;
     if (ShouldSwitchIfNaturalCure())
         return TRUE;
+    if (SmartSinglesEnabled() && ShouldSwitchIfThreatened(TRUE))
+        return TRUE;
+    if (SmartTacticsEnabled() && ShouldSwitchIfThreatened(FALSE))
+        return TRUE;
     if (HasSuperEffectiveMoveAgainstOpponents(FALSE))
         return FALSE;
     if (AreStatsRaised())
@@ -647,6 +1022,13 @@ u8 GetMostSuitableMonToSwitchInto(void)
         return *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
         return gBattlerPartyIndexes[gActiveBattler] + 1;
+    if (SmartTacticsEnabled() || SmartSinglesEnabled())
+    {
+        u8 smartMon = GetSmartSwitchCandidate(FALSE, FALSE);
+
+        if (smartMon != PARTY_SIZE)
+            return smartMon;
+    }
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {

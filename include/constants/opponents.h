@@ -866,11 +866,30 @@
 #define TRAINER_ANGIE_TEST                        862
 #define TRAINER_SIRUS_TEST                        863
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// Champion's Club Floor 2 trainers use a separate daily-win bitmask instead
+// of the normal trainer flag range. Keep MAX_TRAINERS_COUNT unchanged so the
+// system flag IDs that follow the trainer flags remain save-compatible.
+#define TRAINER_CHAMPIONS_CLUB_ROXANNE            864
+#define TRAINER_CHAMPIONS_CLUB_BRAWLY             865
+#define TRAINER_CHAMPIONS_CLUB_WATTSON            866
+#define TRAINER_CHAMPIONS_CLUB_FLANNERY           867
+#define TRAINER_CHAMPIONS_CLUB_NORMAN             868
+#define TRAINER_CHAMPIONS_CLUB_WINONA             869
+#define TRAINER_CHAMPIONS_CLUB_TATE_AND_LIZA      870
+#define TRAINER_CHAMPIONS_CLUB_JUAN               871
+#define TRAINER_CHAMPIONS_CLUB_SIDNEY             872
+#define TRAINER_CHAMPIONS_CLUB_PHOEBE             873
+#define TRAINER_CHAMPIONS_CLUB_GLACIA             874
+#define TRAINER_CHAMPIONS_CLUB_DRAKE              875
+#define TRAINER_CHAMPIONS_CLUB_WALLACE            876
+#define TRAINER_CHAMPIONS_CLUB_STEVEN             877
+#define TRAINER_CHAMPIONS_CLUB_LEAF               878
+#define TRAINER_CHAMPIONS_CLUB_BRENDAN            879
+#define TRAINER_CHAMPIONS_CLUB_MAY                880
 
-#define TRAINERS_COUNT                      864
+// MAX_TRAINERS_COUNT only covers trainers that use the normal trainer flags.
+// Champion's Club trainers above this range are handled by champions_club.c.
+#define TRAINERS_COUNT                      881
 #define MAX_TRAINERS_COUNT                  864
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

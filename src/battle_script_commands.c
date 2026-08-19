@@ -1288,91 +1288,56 @@ static void Cmd_critcalc(void)
     gBattlescriptCurrInstr++;
 }
 
-static bool8 berryUsage(u16 item, u8 moveType) 
+static bool8 TryApplyTypeResistBerry(u16 item, u8 moveType, u8 battler, bool8 recordUsage)
 {
+    u8 resistedType;
+
     switch (gItems[item].holdEffect)
     {
-        case HOLD_EFFECT_OCCA_BERRY:
-            if (moveType == TYPE_FIRE) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_PASSHO_BERRY:
-            if (moveType == TYPE_WATER) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_WACAN_BERRY:
-            if (moveType == TYPE_ELECTRIC) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_RINDO_BERRY:
-            if (moveType == TYPE_GRASS) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_YACHE_BERRY:
-            if (moveType == TYPE_ICE) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_CHOPLE_BERRY:
-            if (moveType == TYPE_FIGHTING) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_SHUCA_BERRY:
-            if (moveType == TYPE_GROUND) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_COBA_BERRY:
-            if (moveType == TYPE_FLYING) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_TANGA_BERRY:
-            if (moveType == TYPE_BUG) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_CHARTI_BERRY:
-            if (moveType == TYPE_ROCK) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        case HOLD_EFFECT_COLBUR_BERRY:
-            if (moveType == TYPE_DARK) {
-                gBattleMoveDamage /= 2;
-                gSpecialStatuses[gBattlerTarget].usedTypeResistBerry = TRUE;
-                return TRUE;
-            }
-            break;
-        default:
-            break;
+    case HOLD_EFFECT_OCCA_BERRY:
+        resistedType = TYPE_FIRE;
+        break;
+    case HOLD_EFFECT_PASSHO_BERRY:
+        resistedType = TYPE_WATER;
+        break;
+    case HOLD_EFFECT_WACAN_BERRY:
+        resistedType = TYPE_ELECTRIC;
+        break;
+    case HOLD_EFFECT_RINDO_BERRY:
+        resistedType = TYPE_GRASS;
+        break;
+    case HOLD_EFFECT_YACHE_BERRY:
+        resistedType = TYPE_ICE;
+        break;
+    case HOLD_EFFECT_CHOPLE_BERRY:
+        resistedType = TYPE_FIGHTING;
+        break;
+    case HOLD_EFFECT_SHUCA_BERRY:
+        resistedType = TYPE_GROUND;
+        break;
+    case HOLD_EFFECT_COBA_BERRY:
+        resistedType = TYPE_FLYING;
+        break;
+    case HOLD_EFFECT_TANGA_BERRY:
+        resistedType = TYPE_BUG;
+        break;
+    case HOLD_EFFECT_CHARTI_BERRY:
+        resistedType = TYPE_ROCK;
+        break;
+    case HOLD_EFFECT_COLBUR_BERRY:
+        resistedType = TYPE_DARK;
+        break;
+    default:
+        return FALSE;
     }
-    return FALSE;
+
+    if (moveType != resistedType)
+        return FALSE;
+
+    gBattleMoveDamage /= 2;
+    if (recordUsage)
+        gSpecialStatuses[battler].usedTypeResistBerry = TRUE;
+    return TRUE;
 }
 
 static void Cmd_damagecalc(void)
@@ -1433,14 +1398,8 @@ static void ModulateDmgByType(u8 multiplier)
         {
             if (gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
                 gMoveResultFlags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
-            else {
+            else
                 gMoveResultFlags |= MOVE_RESULT_SUPER_EFFECTIVE;
-                if(gBattleMons[gBattlerTarget].item != ITEM_NONE) 
-                    {
-                        if (berryUsage(gBattleMons[gBattlerTarget].item, gBattleMoves[gCurrentMove].type))
-                            return; 
-                    }
-            }   
         }
         break;
     }
@@ -1517,6 +1476,10 @@ static void Cmd_typecalc(void)
         gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_DMG;
         RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
     }
+    if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE
+        && !(gMoveResultFlags & (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE))
+        && gBattleMons[gBattlerTarget].item != ITEM_NONE)
+        TryApplyTypeResistBerry(gBattleMons[gBattlerTarget].item, moveType, gBattlerTarget, TRUE);
     if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
         gProtectStructs[gBattlerAttacker].targetNotAffected = 1;
 
@@ -1638,14 +1601,8 @@ static void ModulateDmgByType2(u8 multiplier, u16 move, u8 *flags)
         {
             if (*flags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
                 *flags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
-            else {
+            else
                 *flags |= MOVE_RESULT_SUPER_EFFECTIVE;
-                if(gBattleMons[gBattlerTarget].item != ITEM_NONE) 
-                    {
-                       berryUsage(gBattleMons[gBattlerTarget].item, gBattleMoves[gCurrentMove].type);
-                    }
-            }
-                
         }
         break;
     }
@@ -1712,6 +1669,10 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     {
         flags |= MOVE_RESULT_MISSED;
     }
+    if (flags & MOVE_RESULT_SUPER_EFFECTIVE
+        && !(flags & (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE))
+        && gBattleMons[defender].item != ITEM_NONE)
+        TryApplyTypeResistBerry(gBattleMons[defender].item, moveType, defender, FALSE);
     return flags;
 }
 
@@ -2023,6 +1984,12 @@ static void Cmd_datahpupdate(void)
                 gDisableStructs[gActiveBattler].substituteHP = 0;
             }
 
+            if (gHpDealt > 0
+                && gActiveBattler != gBattlerAttacker
+                && gBattleMoves[gCurrentMove].power != 0
+                && GetItemHoldEffect(gBattleMons[gBattlerAttacker].item) == HOLD_EFFECT_LIFE_ORB)
+                gBattleStruct->lifeOrbDidDamage = TRUE;
+
             if (gDisableStructs[gActiveBattler].substituteHP == 0)
             {
                 // Substitute fades
@@ -2069,6 +2036,13 @@ static void Cmd_datahpupdate(void)
                     gHpDealt = gBattleMons[gActiveBattler].hp;
                     gBattleMons[gActiveBattler].hp = 0;
                 }
+
+                if (gHpDealt > 0
+                    && gActiveBattler != gBattlerAttacker
+                    && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)
+                    && gBattleMoves[gCurrentMove].power != 0
+                    && GetItemHoldEffect(gBattleMons[gBattlerAttacker].item) == HOLD_EFFECT_LIFE_ORB)
+                    gBattleStruct->lifeOrbDidDamage = TRUE;
 
                 // Record damage for Shell Bell
                 if (gSpecialStatuses[gActiveBattler].shellBellDmg == 0 && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE))
@@ -3398,26 +3372,36 @@ static void Cmd_jumpiftype(void)
         gBattlescriptCurrInstr += 7;
 }
 
-static s8 GetLevelDeltaFromMax(u8 partyIndex)
+static s8 GetCatchUpLevelDelta(u8 partyIndex)
 {
     u8 currLevel = (u8)GetMonData(&gPlayerParty[partyIndex], MON_DATA_LEVEL);
-    u8 highestLevel = currLevel;
+    u8 referenceLevel = currLevel;
     u8 i;
 
-    for (i = 0; i < PARTY_SIZE; i++)
+    if (FlagGet(FLAG_LEVEL_CAP_ENABLED))
     {
-        if (i == partyIndex)
-            continue;
-
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+        referenceLevel = GetCurrentLevelCap();
+    }
+    else
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
         {
-            u8 lvl = (u8)GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
-            if (lvl > highestLevel)
-                highestLevel = lvl;
+            if (i == partyIndex)
+                continue;
+
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+            {
+                u8 level = (u8)GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+                if (level > referenceLevel)
+                    referenceLevel = level;
+            }
         }
     }
 
-    return (s8)(highestLevel - currLevel);
+    if (referenceLevel <= currLevel)
+        return 0;
+
+    return (s8)(referenceLevel - currLevel);
 }
 
 static u32 GetExpToNextLevel_ByPartyIndex(u8 partyIndex)
@@ -3597,7 +3581,7 @@ static void Cmd_getexp(void)
                     }
 
                     if (FlagGet(FLAG_CATCHUP_ENABLED)) {
-                        levelDiff = GetLevelDeltaFromMax(gBattleStruct->expGetterMonId);
+                        levelDiff = GetCatchUpLevelDelta(gBattleStruct->expGetterMonId);
                         if (levelDiff > 0) // only if behind
                         {
                             u8 idx = gBattleStruct->expGetterMonId;
@@ -4542,9 +4526,9 @@ static void Cmd_moveend(void)
                 effect = TRUE;
             gBattleScripting.moveendState++;
             break;
-        case MOVEEND_CHOICE_MOVE: // update choice band move
+        case MOVEEND_CHOICE_MOVE: // update choice item move
             if (gHitMarker & HITMARKER_OBEYS
-             && holdEffectAtk == HOLD_EFFECT_CHOICE_BAND
+             && IsHoldEffectChoice(holdEffectAtk)
              && gChosenMove != MOVE_STRUGGLE
              && (*choicedMoveAtk == MOVE_NONE || *choicedMoveAtk == MOVE_UNAVAILABLE))
             {
@@ -5865,6 +5849,12 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemCustomMoves *party = gTrainers[trainerId].party.ItemCustomMoves;
+                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+            }
+            break;
+        case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY:
+            {
+                const struct TrainerMonItemCustomMovesAbility *party = gTrainers[trainerId].party.ItemCustomMovesAbility;
                 lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;

@@ -1225,7 +1225,7 @@
 #define FLAG_EEVEE_TRAINER                                          0x493 // Unused Flag
 #define FLAG_EEVEE_DEFEAT                                           0x494 // Unused Flag
 #define FLAG_EEVEE_GIFTED                                           0x495 // Unused Flag
-#define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
+#define FLAG_ITEM_RESEVOIR_CAVE_LIFE_ORB                           0x496
 #define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
 #define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
 #define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
@@ -1540,10 +1540,10 @@
 #define FLAG_PERMADEATH                           (SYSTEM_FLAGS + 0xA2) // Unused Flag
 #define FLAG_WATER_PULSE_HIDDEN                           (SYSTEM_FLAGS + 0xA3) // Unused Flag
 #define FLAG_TEAM_EXP_SHARE_ENABLED                           (SYSTEM_FLAGS + 0xA4) // Unused Flag
-#define FLAG_UNUSED_0x905                           (SYSTEM_FLAGS + 0xA5) // Unused Flag
-#define FLAG_UNUSED_0x906                           (SYSTEM_FLAGS + 0xA6) // Unused Flag
-#define FLAG_UNUSED_0x907                           (SYSTEM_FLAGS + 0xA7) // Unused Flag
-#define FLAG_UNUSED_0x908                           (SYSTEM_FLAGS + 0xA8) // Unused Flag
+#define FLAG_GALADRIA_GYM_VENUSAUR_MOVED           (SYSTEM_FLAGS + 0xA5)
+#define FLAG_GALADRIA_GYM_MEGANIUM_MOVED           (SYSTEM_FLAGS + 0xA6)
+#define FLAG_GALADRIA_GYM_BRELOOM_MOVED            (SYSTEM_FLAGS + 0xA7)
+#define FLAG_SYS_FAST_CLOCK_INITIALIZED             (SYSTEM_FLAGS + 0xA8)
 #define FLAG_UNUSED_0x909                           (SYSTEM_FLAGS + 0xA9) // Unused Flag
 #define FLAG_UNUSED_0x90A                           (SYSTEM_FLAGS + 0xAA) // Unused Flag
 #define FLAG_UNUSED_0x90B                           (SYSTEM_FLAGS + 0xAB) // Unused Flag

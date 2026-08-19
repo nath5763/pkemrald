@@ -117,7 +117,7 @@ eeveeTrainer::
 	trainerbattle_single FLAG_EEVEE_TRAINER, eeveeIntro, eeveeOutro, giftEevee
 eeveeTrainer_1:
 # 69 "data/maps/Route135/scripts.pory"
-	release
+	releaseall
 	end
 
 eeveeTrainer_2:
@@ -228,7 +228,7 @@ andrewDefeat::
 # 142 "data/maps/Route135/scripts.pory"
 	setflag FLAG_ANDREW_MAGMA
 # 143 "data/maps/Route135/scripts.pory"
-	removeobject 3
+	removeobject VAR_LAST_TALKED
 # 144 "data/maps/Route135/scripts.pory"
 	fadescreen FADE_FROM_BLACK
 # 145 "data/maps/Route135/scripts.pory"
@@ -269,6 +269,113 @@ leftovers_get_2:
 	removeobject 20
 	goto leftovers_get_1
 
+
+# 201 "data/maps/Route135/scripts.pory"
+
+# 202 "data/maps/Route135/scripts.pory"
+punchTutor::
+# 203 "data/maps/Route135/scripts.pory"
+	lockall
+# 204 "data/maps/Route135/scripts.pory"
+	faceplayer
+# 205 "data/maps/Route135/scripts.pory"
+	msgbox punchTutor_Text_Intro, MSGBOX_DEFAULT
+# 206 "data/maps/Route135/scripts.pory"
+
+# 207 "data/maps/Route135/scripts.pory"
+punchTutor_ChooseMove::
+# 208 "data/maps/Route135/scripts.pory"
+	multichoice 20, 2, MULTI_ROUTE135_PUNCH_TUTOR, FALSE
+# 209 "data/maps/Route135/scripts.pory"
+	switch VAR_RESULT
+# 210 "data/maps/Route135/scripts.pory"
+	case 0, punchTutor_SetIcePunch
+# 211 "data/maps/Route135/scripts.pory"
+	case 1, punchTutor_SetFirePunch
+# 212 "data/maps/Route135/scripts.pory"
+	case 2, punchTutor_SetThunderPunch
+# 213 "data/maps/Route135/scripts.pory"
+	case 3, punchTutor_SetMegaPunch
+# 214 "data/maps/Route135/scripts.pory"
+	case 4, punchTutor_SetDynamicPunch
+# 215 "data/maps/Route135/scripts.pory"
+	case 5, punchTutor_Exit
+# 216 "data/maps/Route135/scripts.pory"
+	case MULTI_B_PRESSED, punchTutor_Exit
+# 217 "data/maps/Route135/scripts.pory"
+
+# 218 "data/maps/Route135/scripts.pory"
+punchTutor_SetIcePunch::
+# 219 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_ICE_PUNCH
+# 220 "data/maps/Route135/scripts.pory"
+	goto punchTutor_ChooseMon
+# 221 "data/maps/Route135/scripts.pory"
+
+# 222 "data/maps/Route135/scripts.pory"
+punchTutor_SetFirePunch::
+# 223 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_FIRE_PUNCH
+# 224 "data/maps/Route135/scripts.pory"
+	goto punchTutor_ChooseMon
+# 225 "data/maps/Route135/scripts.pory"
+
+# 226 "data/maps/Route135/scripts.pory"
+punchTutor_SetThunderPunch::
+# 227 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_THUNDER_PUNCH
+# 228 "data/maps/Route135/scripts.pory"
+	goto punchTutor_ChooseMon
+# 229 "data/maps/Route135/scripts.pory"
+
+# 230 "data/maps/Route135/scripts.pory"
+punchTutor_SetMegaPunch::
+# 231 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_MEGA_PUNCH
+# 232 "data/maps/Route135/scripts.pory"
+	goto punchTutor_ChooseMon
+# 233 "data/maps/Route135/scripts.pory"
+
+# 234 "data/maps/Route135/scripts.pory"
+punchTutor_SetDynamicPunch::
+# 235 "data/maps/Route135/scripts.pory"
+	setvar VAR_0x8005, TUTOR_MOVE_DYNAMIC_PUNCH
+# 236 "data/maps/Route135/scripts.pory"
+	goto punchTutor_ChooseMon
+# 237 "data/maps/Route135/scripts.pory"
+
+# 238 "data/maps/Route135/scripts.pory"
+punchTutor_ChooseMon::
+# 239 "data/maps/Route135/scripts.pory"
+	msgbox punchTutor_Text_ChooseMon, MSGBOX_DEFAULT
+# 240 "data/maps/Route135/scripts.pory"
+	special ChooseMonForMoveTutor
+# 241 "data/maps/Route135/scripts.pory"
+	waitstate
+# 242 "data/maps/Route135/scripts.pory"
+	compare VAR_0x8004, PARTY_SIZE + 1
+# 243 "data/maps/Route135/scripts.pory"
+	goto_if_eq punchTutor_ChooseMove
+# 244 "data/maps/Route135/scripts.pory"
+
+# 245 "data/maps/Route135/scripts.pory"
+punchTutor_Exit::
+# 246 "data/maps/Route135/scripts.pory"
+	releaseall
+# 247 "data/maps/Route135/scripts.pory"
+	end
+# 248 "data/maps/Route135/scripts.pory"
+
+# 249 "data/maps/Route135/scripts.pory"
+punchTutor_Text_Intro:
+# 250 "data/maps/Route135/scripts.pory"
+	.string "I tutor only the art of the fist.\pPick a punch, then choose the\nPOKEMON to learn it.$"
+# 251 "data/maps/Route135/scripts.pory"
+
+# 252 "data/maps/Route135/scripts.pory"
+punchTutor_Text_ChooseMon:
+# 253 "data/maps/Route135/scripts.pory"
+	.string "Which POKEMON should learn that\npunching move?$"
 
 magmaMale_Text_0:
 # 8 "data/maps/Route135/scripts.pory"

@@ -81,6 +81,7 @@ void HandleAction_UseMove(void)
     u8 var = 4;
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+    gBattleStruct->lifeOrbDidDamage = FALSE;
 
     if (*(&gBattleStruct->absentBattlerFlags) & gBitTable[gBattlerAttacker])
     {
@@ -657,6 +658,21 @@ void HandleAction_NothingIsFainted(void)
 
 void HandleAction_ActionFinished(void)
 {
+    gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+    if (gBattleStruct->lifeOrbDidDamage)
+    {
+        gBattleStruct->lifeOrbDidDamage = FALSE;
+        if (gBattleMons[gBattlerAttacker].hp != 0)
+        {
+            gLastUsedItem = ITEM_LIFE_ORB;
+            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 10;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+            BattleScriptExecute(BattleScript_LifeOrbRecoil);
+            return;
+        }
+    }
+
     *(gBattleStruct->monToSwitchIntoId + gBattlerByTurnOrder[gCurrentTurnActionNumber]) = PARTY_SIZE;
     gCurrentTurnActionNumber++;
     gCurrentActionFuncId = gActionsByTurnOrder[gCurrentTurnActionNumber];
@@ -1048,7 +1064,7 @@ u8 TrySetCantSelectMoveBattleScript(void)
 
     gPotentialItemEffectBattler = gActiveBattler;
 
-    if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
+    if (IsHoldEffectChoice(holdEffect) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != move)
     {
         gCurrentMove = *choicedMove;
         gLastUsedItem = gBattleMons[gActiveBattler].item;
@@ -1115,8 +1131,8 @@ u8 CheckMoveLimitations(u8 battler, u8 unusableMoves, u8 check)
         // Encore
         if (gDisableStructs[battler].encoreTimer && gDisableStructs[battler].encoredMove != gBattleMons[battler].moves[i])
             unusableMoves |= gBitTable[i];
-        // Choice Band
-        if (holdEffect == HOLD_EFFECT_CHOICE_BAND && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != gBattleMons[battler].moves[i])
+        // Choice items
+        if (IsHoldEffectChoice(holdEffect) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != gBattleMons[battler].moves[i])
             unusableMoves |= gBitTable[i];
     }
     return unusableMoves;
@@ -3647,12 +3663,14 @@ u8 ItemBattleEffects(u8 caseID, u8 battler, bool8 moveTurn)
                 battlerHoldEffect = GetItemHoldEffect(gLastUsedItem);
                 battlerHoldEffectParam = GetItemHoldEffectParam(gLastUsedItem);
             }
-            if(gSpecialStatuses[battler].usedTypeResistBerry)
+            if (gSpecialStatuses[battler].usedTypeResistBerry)
             {
                 gSpecialStatuses[battler].usedTypeResistBerry = FALSE;
-                gBattleMons[battler].item = ITEM_NONE;
+                gBattleScripting.battler = battler;
+                gPotentialItemEffectBattler = battler;
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_TypeResistBerry;
+                effect = ITEM_EFFECT_OTHER;
                 return effect;
             }
             switch (battlerHoldEffect)

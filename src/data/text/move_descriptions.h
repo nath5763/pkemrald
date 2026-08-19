@@ -1437,6 +1437,10 @@ static const u8 sMoonblastDescription[] = _(
     "Attacks with moon power\n"
     "and may lower SP. ATK.");
 
+static const u8 sStoneEdgeDescription[] = _(
+    "Stabs the foe with stones.\n"
+    "High critical-hit ratio.");
+
 static const u8 sDoomDesireDescription[] = _(
     "Summons strong sunlight to\n"
     "attack 2 turns later.");
@@ -1839,4 +1843,5 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_DRAINING_KISS - 1] = sDrainingKissDescription,
     [MOVE_PLAY_ROUGH - 1] = sPlayRoughDescription,
     [MOVE_MOONBLAST - 1] = sMoonblastDescription,
+    [MOVE_STONE_EDGE - 1] = sStoneEdgeDescription,
 };
