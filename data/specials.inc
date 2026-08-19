@@ -540,3 +540,5 @@ gSpecials::
 	def_special CheckCastform
 	def_special CheckHooh
 	def_special CheckMew
+	def_special ChampionsClubFloor2_SetupDailyTrainers
+	def_special ChampionsClubFloor2_GetTrainerForLastTalked

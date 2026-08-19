@@ -275,6 +275,7 @@ static void BufferLeftColumnStats(void);
 static void PrintLeftColumnStats(void);
 static void BufferRightColumnStats(void);
 static void PrintRightColumnStats(void);
+static s8 GetNatureDeltaForSummaryStatFromNature(u8 nature, u8 sIdx);
 static void PrintExpPointsNextLevel(void);
 static void PrintBattleMoves(void);
 static void Task_PrintBattleMoves(u8);
@@ -863,6 +864,10 @@ static const union AnimCmd sSpriteAnim_TypeDark[] = {
     ANIMCMD_FRAME(TYPE_DARK * 8, 0, FALSE, FALSE),
     ANIMCMD_END
 };
+static const union AnimCmd sSpriteAnim_TypeFairy[] = {
+    ANIMCMD_FRAME(TYPE_FAIRY * 8, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
 static const union AnimCmd sSpriteAnim_CategoryCool[] = {
     ANIMCMD_FRAME((CONTEST_CATEGORY_COOL + NUMBER_OF_MON_TYPES) * 8, 0, FALSE, FALSE),
     ANIMCMD_END
@@ -902,6 +907,7 @@ static const union AnimCmd *const sSpriteAnimTable_MoveTypes[NUMBER_OF_MON_TYPES
     sSpriteAnim_TypeIce,
     sSpriteAnim_TypeDragon,
     sSpriteAnim_TypeDark,
+    sSpriteAnim_TypeFairy,
     sSpriteAnim_CategoryCool,
     sSpriteAnim_CategoryBeauty,
     sSpriteAnim_CategoryCute,
@@ -945,6 +951,7 @@ static const u8 sMoveTypeToOamPaletteNum[NUMBER_OF_MON_TYPES + CONTEST_CATEGORIE
     [TYPE_ICE] = 14,
     [TYPE_DRAGON] = 15,
     [TYPE_DARK] = 13,
+    [TYPE_FAIRY] = 14,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_COOL] = 13,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_BEAUTY] = 14,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_CUTE] = 14,
@@ -3428,7 +3435,21 @@ static void BufferLeftColumnStats(void)
 
 static void PrintLeftColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 1, 0, 0);
+    u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT);
+    u8 attackString[8];
+    u8 defenseString[8];
+
+    PrintTextOnWindow(windowId, gStringVar4, 4, 1, 0, 0);
+
+    ConvertIntToDecimalStringN(attackString, sMonSummaryScreen->summary.atk, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    ConvertIntToDecimalStringN(defenseString, sMonSummaryScreen->summary.def, STR_CONV_MODE_RIGHT_ALIGN, 7);
+
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, 4, 17, 0, 0,
+                                 GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_ATK)),
+                                 0, attackString);
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, 4, 33, 0, 0,
+                                 GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_DEF)),
+                                 0, defenseString);
 }
 
 static s8 GetNatureDeltaForSummaryStatFromNature(u8 nature, u8 sIdx)
@@ -3448,7 +3469,7 @@ static const u8 *GetColorsForNatureDelta(s8 delta)
 {
     if (delta > 0)  return sTextColors_Red;   // +1 → red
     if (delta < 0)  return sTextColors_Blue;  // -1 → blue
-    return sTextColors_Green;                  //  0 → gray
+    return sTextColors[0];
 }
 
 static void BufferRightColumnStats(void)
@@ -3466,7 +3487,26 @@ static void BufferRightColumnStats(void)
 
 static void PrintRightColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar4, 2, 1, 0, 0);
+    u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT);
+    u8 spatkString[4];
+    u8 spdefString[4];
+    u8 speedString[4];
+
+    PrintTextOnWindow(windowId, gStringVar4, 2, 1, 0, 0);
+
+    ConvertIntToDecimalStringN(spatkString, sMonSummaryScreen->summary.spatk, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    ConvertIntToDecimalStringN(spdefString, sMonSummaryScreen->summary.spdef, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    ConvertIntToDecimalStringN(speedString, sMonSummaryScreen->summary.speed, STR_CONV_MODE_RIGHT_ALIGN, 3);
+
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, 2, 1, 0, 0,
+                                 GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPA)),
+                                 0, spatkString);
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, 2, 17, 0, 0,
+                                 GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPD)),
+                                 0, spdefString);
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, 2, 33, 0, 0,
+                                 GetColorsForNatureDelta(GetNatureDeltaForSummaryStatFromNature(sMonSummaryScreen->summary.nature, SUMMARY_STAT_SPE)),
+                                 0, speedString);
 }
 
 static void PrintExpPointsNextLevel(void)

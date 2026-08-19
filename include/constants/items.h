@@ -73,7 +73,7 @@
 #define ITEM_03B 59
 #define ITEM_03C 60
 #define ITEM_NATURE_CANDY 61
-#define ITEM_03E 62
+#define ITEM_ABILITY_CAPSULE 62
 #define ITEM_HP_UP 63
 #define ITEM_PROTEIN 64
 #define ITEM_IRON 65
@@ -254,11 +254,11 @@
 #define ITEM_THICK_CLUB 224
 #define ITEM_STICK 225
 #define ITEM_FOCUS_SASH 226
-#define ITEM_0E3 227
-#define ITEM_0E4 228
-#define ITEM_0E5 229
-#define ITEM_0E6 230
-#define ITEM_0E7 231
+#define ITEM_LIGHT_CLAY 227
+#define ITEM_CHOICE_SPECS 228
+#define ITEM_CHOICE_SCARF 229
+#define ITEM_LIFE_ORB 230
+#define ITEM_RAZOR_CLAW 231
 #define ITEM_0E8 232
 #define ITEM_0E9 233
 #define ITEM_0EA 234

@@ -286,6 +286,11 @@ static const u8 sNatureCandyDesc[] = _(
     "nature to a new\n"
     "one.");
 
+static const u8 sAbilityCapsuleDesc[] = _(
+    "Switches a POKéMON's\n"
+    "ABILITY if it has\n"
+    "two.");
+
 static const u8 sPPUpDesc[] = _(
     "Raises the maximum\n"
     "PP of a selected\n"
@@ -554,28 +559,28 @@ static const u8 sSitrusBerryDesc[] = _(
 
 static const u8 sFigyBerryDesc[] = _(
     "A hold item that\n"
-    "restores HP but\n"
-    "may confuse.");
+    "restores half HP\n"
+    "but may confuse.");
 
 static const u8 sWikiBerryDesc[] = _(
     "A hold item that\n"
-    "restores HP but\n"
-    "may confuse.");
+    "restores half HP\n"
+    "but may confuse.");
 
 static const u8 sMagoBerryDesc[] = _(
     "A hold item that\n"
-    "restores HP but\n"
-    "may confuse.");
+    "restores half HP\n"
+    "but may confuse.");
 
 static const u8 sAguavBerryDesc[] = _(
     "A hold item that\n"
-    "restores HP but\n"
-    "may confuse.");
+    "restores half HP\n"
+    "but may confuse.");
 
 static const u8 sIapapaBerryDesc[] = _(
     "A hold item that\n"
-    "restores HP but\n"
-    "may confuse.");
+    "restores half HP\n"
+    "but may confuse.");
 
 static const u8 sRazzBerryDesc[] = _(
     "{POKEBLOCK} ingredient.\n"
@@ -754,9 +759,34 @@ static const u8 sMentalHerbDesc[] = _(
     "of infatuation.");
 
 static const u8 sChoiceBandDesc[] = _(
-    "Raises a move's\n"
-    "power, but permits\n"
-    "only that move.");
+    "Boosts ATTACK, but\n"
+    "allows the use of\n"
+    "only one move.");
+
+static const u8 sChoiceSpecsDesc[] = _(
+    "Boosts SP. ATK, but\n"
+    "allows the use of\n"
+    "only one move.");
+
+static const u8 sChoiceScarfDesc[] = _(
+    "Boosts SPEED, but\n"
+    "allows the use of\n"
+    "only one move.");
+
+static const u8 sLightClayDesc[] = _(
+    "Extends the length\n"
+    "of barrier moves\n"
+    "used by the holder.");
+
+static const u8 sLifeOrbDesc[] = _(
+    "Boosts move power\n"
+    "but holder loses HP\n"
+    "with each attack.");
+
+static const u8 sRazorClawDesc[] = _(
+    "A hooked claw that\n"
+    "ups the holder's\n"
+    "critical-hit ratio.");
 
 static const u8 sKingsRockDesc[] = _(
     "A hold item that\n"

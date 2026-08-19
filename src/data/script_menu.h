@@ -771,6 +771,22 @@ static const struct MenuAction MultichoiceList_TagMatchType[] =
     {gText_Exit},
 };
 
+static const u8 sText_IcePunch[] = _("Ice Punch");
+static const u8 sText_FirePunch[] = _("Fire Punch");
+static const u8 sText_ThunderPunch[] = _("ThunderPunch");
+static const u8 sText_MegaPunch[] = _("Mega Punch");
+static const u8 sText_DynamicPunch[] = _("DynamicPunch");
+
+static const struct MenuAction MultichoiceList_Route135PunchTutor[] =
+{
+    {sText_IcePunch},
+    {sText_FirePunch},
+    {sText_ThunderPunch},
+    {sText_MegaPunch},
+    {sText_DynamicPunch},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -898,6 +914,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_ROUTE135_PUNCH_TUTOR]       = MULTICHOICE(MultichoiceList_Route135PunchTutor),
 };
 
 const u8 *const gStdStrings[] =

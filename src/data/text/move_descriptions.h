@@ -1417,6 +1417,30 @@ static const u8 sWaterPulseDescription[] = _(
     "Attacks with ultrasonic\n"
     "waves. May confuse the foe.");
 
+static const u8 sFairyWindDescription[] = _(
+    "Stirs up a fairy wind to\n"
+    "strike the foe.");
+
+static const u8 sDisarmingVoiceDescription[] = _(
+    "Lets out a lovely cry that\n"
+    "never misses.");
+
+static const u8 sDrainingKissDescription[] = _(
+    "A kiss that drains HP\n"
+    "from the foe.");
+
+static const u8 sPlayRoughDescription[] = _(
+    "The user plays rough and\n"
+    "may lower ATTACK.");
+
+static const u8 sMoonblastDescription[] = _(
+    "Attacks with moon power\n"
+    "and may lower SP. ATK.");
+
+static const u8 sStoneEdgeDescription[] = _(
+    "Stabs the foe with stones.\n"
+    "High critical-hit ratio.");
+
 static const u8 sDoomDesireDescription[] = _(
     "Summons strong sunlight to\n"
     "attack 2 turns later.");
@@ -1814,4 +1838,10 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_SHADOW_CLAW - 1] = sShockWaveDescription,
     [MOVE_THUNDER_FANG - 1] = sWaterPulseDescription,
     [MOVE_AQUA_JET - 1] = sDoomDesireDescription,
+    [MOVE_FAIRY_WIND - 1] = sFairyWindDescription,
+    [MOVE_DISARMING_VOICE - 1] = sDisarmingVoiceDescription,
+    [MOVE_DRAINING_KISS - 1] = sDrainingKissDescription,
+    [MOVE_PLAY_ROUGH - 1] = sPlayRoughDescription,
+    [MOVE_MOONBLAST - 1] = sMoonblastDescription,
+    [MOVE_STONE_EDGE - 1] = sStoneEdgeDescription,
 };

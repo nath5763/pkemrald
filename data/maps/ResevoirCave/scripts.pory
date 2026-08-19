@@ -57,3 +57,8 @@ script SuicuneFight {
         dowildbattle
     }
 }
+
+script ResevoirCave_EventScript_ItemLifeOrb {
+    finditem(ITEM_LIFE_ORB)
+    end
+}

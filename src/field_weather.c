@@ -14,6 +14,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
+#include "time_of_day.h"
 #include "trig.h"
 #include "gpu_regs.h"
 
@@ -49,9 +50,12 @@ static void ApplyColorMap(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex);
 static void ApplyColorMapWithBlend(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex, u8 blendCoeff, u16 blendColor);
 static void ApplyDroughtColorMapWithBlend(s8 colorMapIndex, u8 blendCoeff, u16 blendColor);
 static void ApplyFogBlend(u8 blendCoeff, u16 blendColor);
+static void ApplyTimeOfDayColorMap(u8 startPalIndex, u8 numPalettes);
 static bool8 FadeInScreen_RainShowShade(void);
 static bool8 FadeInScreen_Drought(void);
 static bool8 FadeInScreen_FogHorizontal(void);
+static bool8 FadeInScreen_TimeOfDay(void);
+static void BlendFadedPalettes(u8 blendCoeff, u16 blendColor);
 static void FadeInScreenWithWeather(void);
 static void DoNothing(void);
 static void Task_WeatherInit(u8 taskId);
@@ -402,9 +406,18 @@ static void FadeInScreenWithWeather(void)
     case WEATHER_FOG_DIAGONAL:
     case WEATHER_UNDERWATER:
     default:
-        if (!gPaletteFade.active)
+        if (IsTimeOfDayLightingEnabled())
+        {
+            if (FadeInScreen_TimeOfDay() == FALSE)
+            {
+                gWeatherPtr->colorMapIndex = gWeatherPtr->targetColorMapIndex;
+                gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
+            }
+        }
+        else if (!gPaletteFade.active)
         {
             gWeatherPtr->colorMapIndex = gWeatherPtr->targetColorMapIndex;
+            ApplyColorMap(0, 32, gWeatherPtr->colorMapIndex);
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
         break;
@@ -453,6 +466,39 @@ static bool8 FadeInScreen_FogHorizontal(void)
     return TRUE;
 }
 
+static bool8 FadeInScreen_TimeOfDay(void)
+{
+    if (gWeatherPtr->fadeScreenCounter == 16)
+        return FALSE;
+
+    if (++gWeatherPtr->fadeScreenCounter >= 16)
+    {
+        ApplyColorMap(0, 32, gWeatherPtr->targetColorMapIndex);
+        gWeatherPtr->fadeScreenCounter = 16;
+        return FALSE;
+    }
+
+    ApplyColorMap(0, 32, gWeatherPtr->targetColorMapIndex);
+    BlendFadedPalettes(16 - gWeatherPtr->fadeScreenCounter, gWeatherPtr->fadeDestColor);
+    return TRUE;
+}
+
+static void BlendFadedPalettes(u8 blendCoeff, u16 blendColor)
+{
+    u16 i;
+    struct RGBColor targetColor = *(struct RGBColor *)&blendColor;
+
+    for (i = 0; i < PLTT_BUFFER_SIZE; i++)
+    {
+        struct RGBColor color = *(struct RGBColor *)&gPlttBufferFaded[i];
+        u8 red = color.r + (((targetColor.r - color.r) * blendCoeff) >> 4);
+        u8 green = color.g + (((targetColor.g - color.g) * blendCoeff) >> 4);
+        u8 blue = color.b + (((targetColor.b - color.b) * blendCoeff) >> 4);
+
+        gPlttBufferFaded[i] = RGB2(red, green, blue);
+    }
+}
+
 static void DoNothing(void)
 { }
 
@@ -462,6 +508,7 @@ static void ApplyColorMap(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex)
     u16 palOffset;
     u8 *colorMap;
     u16 i;
+    u8 paletteCount = numPalettes;
 
     if (colorMapIndex > 0)
     {
@@ -535,6 +582,8 @@ static void ApplyColorMap(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex)
         // No palette blending.
         CpuFastCopy(&gPlttBufferUnfaded[PLTT_ID(startPalIndex)], &gPlttBufferFaded[PLTT_ID(startPalIndex)], numPalettes * PLTT_SIZE_4BPP);
     }
+
+    ApplyTimeOfDayColorMap(startPalIndex, paletteCount);
 }
 
 static void ApplyColorMapWithBlend(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex, u8 blendCoeff, u16 blendColor)
@@ -586,6 +635,8 @@ static void ApplyColorMapWithBlend(u8 startPalIndex, u8 numPalettes, s8 colorMap
 
         curPalIndex++;
     }
+
+    ApplyTimeOfDayColorMap(startPalIndex, numPalettes - startPalIndex);
 }
 
 static void ApplyDroughtColorMapWithBlend(s8 colorMapIndex, u8 blendCoeff, u16 blendColor)
@@ -641,6 +692,8 @@ static void ApplyDroughtColorMapWithBlend(s8 colorMapIndex, u8 blendCoeff, u16 b
             }
         }
     }
+
+    ApplyTimeOfDayColorMap(0, 32);
 }
 
 static void ApplyFogBlend(u8 blendCoeff, u16 blendColor)
@@ -688,6 +741,20 @@ static void ApplyFogBlend(u8 blendCoeff, u16 blendColor)
             BlendPalette(PLTT_ID(curPalIndex), 16, blendCoeff, blendColor);
         }
     }
+
+    ApplyTimeOfDayColorMap(0, 32);
+}
+
+static void ApplyTimeOfDayColorMap(u8 startPalIndex, u8 numPalettes)
+{
+    u16 curPalIndex;
+    u16 endPalIndex = startPalIndex + numPalettes;
+
+    for (curPalIndex = startPalIndex; curPalIndex < endPalIndex; curPalIndex++)
+    {
+        if (sPaletteColorMapTypes[curPalIndex] != COLOR_MAP_NONE)
+            ApplyTimeOfDayPalette(PLTT_ID(curPalIndex), 16);
+    }
 }
 
 static void MarkFogSpritePalToLighten(u8 paletteIndex)
@@ -732,6 +799,17 @@ void ApplyWeatherColorMapIfIdle_Gradual(u8 colorMapIndex, u8 targetColorMapIndex
         gWeatherPtr->colorMapStepDelay = colorMapStepDelay;
         ApplyWeatherColorMapIfIdle(colorMapIndex);
     }
+}
+
+void RefreshWeatherPalettesForTimeOfDay(void)
+{
+    if (gWeatherPtr->palProcessingState != WEATHER_PAL_STATE_IDLE)
+        return;
+
+    if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
+        ApplyFogBlend(0, RGB_BLACK);
+    else
+        ApplyColorMap(0, 32, gWeatherPtr->colorMapIndex);
 }
 
 void FadeScreen(u8 mode, s8 delay)
@@ -780,7 +858,7 @@ void FadeScreen(u8 mode, s8 delay)
 
     if (fadeOut)
     {
-        if (useWeatherPal)
+        if (useWeatherPal || IsTimeOfDayLightingEnabled())
             CpuFastCopy(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
 
         BeginNormalPaletteFade(PALETTES_ALL, delay, 0, 16, fadeColor);
@@ -789,7 +867,7 @@ void FadeScreen(u8 mode, s8 delay)
     else
     {
         gWeatherPtr->fadeDestColor = fadeColor;
-        if (useWeatherPal)
+        if (useWeatherPal || IsTimeOfDayLightingEnabled())
             gWeatherPtr->fadeScreenCounter = 0;
         else
             BeginNormalPaletteFade(PALETTES_ALL, delay, 16, 0, fadeColor);
@@ -840,6 +918,7 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex)
         {
             paletteIndex = PLTT_ID(paletteIndex);
             BlendPalette(paletteIndex, 16, 12, RGB(28, 31, 28));
+            ApplyTimeOfDayColorMap(16 + spritePaletteIndex, 1);
         }
         break;
     }

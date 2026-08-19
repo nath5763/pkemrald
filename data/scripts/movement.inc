@@ -100,13 +100,8 @@ Common_Movement_WalkUp2::
 	step_end
 
 Galadria_Movement_Ven:
-	face_up
-	walk_up
-	walk_up
-	walk_up
-	face_left
-	walk_left
 	face_right
+	walk_right
 	step_end
 
 Galadria_Movement_Meg:
@@ -115,6 +110,6 @@ Galadria_Movement_Meg:
 	step_end
 
 Galadria_Movement_Bre:
-	walk_up
-	face_down
+	face_left
+	walk_left
 	step_end

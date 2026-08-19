@@ -2,6 +2,26 @@ mapscripts ChampionsClub_MapScripts {
     
 }
 
+script ChampionsClub_EventScript_WorthySign {
+    lockall
+    if(flag(FLAG_DEFEATED_SIRUS)) {
+        goto(ChampionsClub_EventScript_WorthyWarp)
+    }
+    msgbox(ChampionsClub_Text_OnlyWorthyShallPass)
+    releaseall
+    end
+}
+
+script ChampionsClub_EventScript_WorthyWarp {
+    warp(MAP_CHAMPIONS_CLUB_FLOOR2, 2, 9)
+    waitstate
+    end
+}
+
+text ChampionsClub_Text_OnlyWorthyShallPass {
+    "Only the worthy shall pass."
+}
+
 
 script benLoss {
     setflag(FLAG_DEFEATED_BEN)

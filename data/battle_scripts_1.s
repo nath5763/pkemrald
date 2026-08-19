@@ -4264,6 +4264,15 @@ BattleScript_RoughSkinActivates::
 	tryfaintmon BS_ATTACKER
 	return
 
+BattleScript_LifeOrbRecoil::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNHURTBYITEM
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_ATTACKER
+	end2
+
 BattleScript_CuteCharmActivates::
 	status2animation BS_ATTACKER, STATUS2_INFATUATION
 	printstring STRINGID_PKMNSXINFATUATEDY
@@ -4438,9 +4447,10 @@ BattleScript_ItemHealHP_RemoveItem::
 	end2
 
 BattleScript_TypeResistBerry::
-    playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT
+    playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT
     printstring STRINGID_BERRYWEAKENEDATTACK
     waitmessage B_WAIT_TIME_LONG
+	removeitem BS_SCRIPTING
 	return
 
 BattleScript_BerryPPHealEnd2::

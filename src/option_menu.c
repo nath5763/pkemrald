@@ -31,10 +31,11 @@
 #define tWindowFrameType data[6]
 #define tCatchupExp data[7]
 #define tLevelCap data[8]
-#define tRandomizedStarters data[9]
-#define tMenuScrollOffset data[10]
-#define tPreviousSelection data[11]
-#define tPermadeath data[12]
+#define tTeamExpShare data[9]
+#define tRandomizedStarters data[10]
+#define tMenuScrollOffset data[11]
+#define tPreviousSelection data[12]
+#define tPermadeath data[13]
 
 enum
 {
@@ -44,6 +45,7 @@ enum
     MENUITEM_SOUND,
     MENUITEM_RANDOMIZED_STARTERS,
     MENUITEM_CATCHUPEXP,
+    MENUITEM_TEAMEXPSHARE,
     MENUITEM_LEVELCAP,
     MENUITEM_PERMADEATH,
     MENUITEM_BUTTONMODE,
@@ -64,6 +66,7 @@ enum
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_RANDOMIZED_STARTERS (MENUITEM_RANDOMIZED_STARTERS * 16)
 #define YPOS_CATCHUPEXP   (MENUITEM_CATCHUPEXP * 16)
+#define YPOS_TEAMEXPSHARE (MENUITEM_TEAMEXPSHARE * 16)
 #define YPOS_LEVELCAP     (MENUITEM_LEVELCAP * 16)
 #define YPOS_PERMADEATH   (MENUITEM_PERMADEATH * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
@@ -94,6 +97,8 @@ static void DrawOptionMenuTexts(u8 scrollOffset);
 static void DrawBgWindowFrames(void);
 static u8  CatchupExp_ProcessInput(u8 selection);
 static void CatchupExp_DrawChoices(u8 selection, u8 scrollOffset);
+static u8  TeamExpShare_ProcessInput(u8 selection);
+static void TeamExpShare_DrawChoices(u8 selection, u8 scrollOffset);
 static u8  LevelCap_ProcessInput(u8 selection);
 static void LevelCap_DrawChoices(u8 selection, u8 scrollOffset);
 static u8  RandomizedStarters_ProcessInput(u8 selection);
@@ -107,6 +112,7 @@ static void RedrawOptionMenu(u8 taskId);
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
 
 static const u8 sText_CatchupExp[] = _("Catch-up EXP");
+static const u8 sText_TeamExpShare[] = _("Team EXP Share");
 static const u8 sText_LevelCap[] = _("Level Cap");
 static const u8 sText_RandomizedStarters[] = _("Random Starters");
 static const u8 sText_Permadeath[] = _("Permadeath");
@@ -150,6 +156,9 @@ static void DrawAllOptionChoices(u8 taskId)
             case MENUITEM_CATCHUPEXP:
                 CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, scrollOffset);
                 break;
+            case MENUITEM_TEAMEXPSHARE:
+                TeamExpShare_DrawChoices(gTasks[taskId].tTeamExpShare, scrollOffset);
+                break;
             case MENUITEM_LEVELCAP:
                 LevelCap_DrawChoices(gTasks[taskId].tLevelCap, scrollOffset);
                 break;
@@ -175,6 +184,7 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_SOUND]       = gText_Sound,
     [MENUITEM_RANDOMIZED_STARTERS] = sText_RandomizedStarters,
     [MENUITEM_CATCHUPEXP]  = sText_CatchupExp,
+    [MENUITEM_TEAMEXPSHARE] = sText_TeamExpShare,
     [MENUITEM_LEVELCAP]    = sText_LevelCap,
     [MENUITEM_PERMADEATH]  = sText_Permadeath,
     [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
@@ -333,8 +343,9 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tCatchupExp = FlagGet(FLAG_CATCHUP_ENABLED);
+        gTasks[taskId].tTeamExpShare = FlagGet(FLAG_TEAM_EXP_SHARE_ENABLED);
         gTasks[taskId].tLevelCap = FlagGet(FLAG_LEVEL_CAP_ENABLED);
-    gTasks[taskId].tPermadeath = FlagGet(FLAG_PERMADEATH);
+        gTasks[taskId].tPermadeath = FlagGet(FLAG_PERMADEATH);
         gTasks[taskId].tRandomizedStarters = FlagGet(FLAG_RANDOM_STARTER);
 
         TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed, 0);
@@ -342,6 +353,7 @@ void CB2_InitOptionMenu(void)
         BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle, 0);
         Sound_DrawChoices(gTasks[taskId].tSound, 0);
         CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, 0);
+        TeamExpShare_DrawChoices(gTasks[taskId].tTeamExpShare, 0);
         LevelCap_DrawChoices(gTasks[taskId].tLevelCap, 0);
         Permadeath_DrawChoices(gTasks[taskId].tPermadeath, 0);
         RandomizedStarters_DrawChoices(gTasks[taskId].tRandomizedStarters, 0);
@@ -442,6 +454,12 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tCatchupExp)
                 CatchupExp_DrawChoices(gTasks[taskId].tCatchupExp, gTasks[taskId].tMenuScrollOffset);
             break;
+        case MENUITEM_TEAMEXPSHARE:
+            previousOption = gTasks[taskId].tTeamExpShare;
+            gTasks[taskId].tTeamExpShare = TeamExpShare_ProcessInput(gTasks[taskId].tTeamExpShare);
+            if (previousOption != gTasks[taskId].tTeamExpShare)
+                TeamExpShare_DrawChoices(gTasks[taskId].tTeamExpShare, gTasks[taskId].tMenuScrollOffset);
+            break;
         case MENUITEM_LEVELCAP:
             previousOption = gTasks[taskId].tLevelCap;
             gTasks[taskId].tLevelCap = LevelCap_ProcessInput(gTasks[taskId].tLevelCap);
@@ -499,6 +517,11 @@ static void Task_OptionMenuSave(u8 taskId)
         FlagSet(FLAG_CATCHUP_ENABLED);
     else
         FlagClear(FLAG_CATCHUP_ENABLED);
+
+    if (gTasks[taskId].tTeamExpShare)
+        FlagSet(FLAG_TEAM_EXP_SHARE_ENABLED);
+    else
+        FlagClear(FLAG_TEAM_EXP_SHARE_ENABLED);
 
     if (gTasks[taskId].tLevelCap)
         FlagSet(FLAG_LEVEL_CAP_ENABLED);
@@ -637,6 +660,27 @@ static void CatchupExp_DrawChoices(u8 selection, u8 scrollOffset)
     styles[selection] = 1;
 
     // Right-side value column mimics other rows (x=104 and right-align at 198)
+    DrawOptionMenuChoice(sText_Off, 104, yPos, styles[0]);
+    DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
+                         yPos, styles[1]);
+}
+
+static u8 TeamExpShare_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void TeamExpShare_DrawChoices(u8 selection, u8 scrollOffset)
+{
+    u8 styles[2] = {0, 0};
+    s32 yPos = CALC_YPOS(MENUITEM_TEAMEXPSHARE, scrollOffset);
+
+    styles[selection] = 1;
     DrawOptionMenuChoice(sText_Off, 104, yPos, styles[0]);
     DrawOptionMenuChoice(sText_On, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198),
                          yPos, styles[1]);

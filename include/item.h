@@ -67,6 +67,7 @@ const u8 *GetItemName(u16 itemId);
 u16 GetItemPrice(u16 itemId);
 u8 GetItemHoldEffect(u16 itemId);
 u8 GetItemHoldEffectParam(u16 itemId);
+bool8 IsHoldEffectChoice(u8 holdEffect);
 const u8 *GetItemDescription(u16 itemId);
 u8 GetItemImportance(u16 itemId);
 u8 GetItemPocket(u16 itemId);

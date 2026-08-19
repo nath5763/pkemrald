@@ -1,0 +1,204 @@
+mapscripts ChampionsClubFloor2_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: ChampionsClubFloor2_OnTransition
+}
+
+script ChampionsClubFloor2_OnTransition {
+    special(ChampionsClubFloor2_SetupDailyTrainers)
+    end
+}
+
+script ChampionsClubFloor2_EventScript_DailyTrainer {
+    lockall
+    faceplayer
+    specialvar(VAR_RESULT, ChampionsClubFloor2_GetTrainerForLastTalked)
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_ROXANNE) {
+        goto(ChampionsClubFloor2_EventScript_BattleRoxanne)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_BRAWLY) {
+        goto(ChampionsClubFloor2_EventScript_BattleBrawly)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_WATTSON) {
+        goto(ChampionsClubFloor2_EventScript_BattleWattson)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_FLANNERY) {
+        goto(ChampionsClubFloor2_EventScript_BattleFlannery)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_NORMAN) {
+        goto(ChampionsClubFloor2_EventScript_BattleNorman)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_WINONA) {
+        goto(ChampionsClubFloor2_EventScript_BattleWinona)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_TATE_AND_LIZA) {
+        goto(ChampionsClubFloor2_EventScript_BattleTateAndLiza)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_JUAN) {
+        goto(ChampionsClubFloor2_EventScript_BattleJuan)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_SIDNEY) {
+        goto(ChampionsClubFloor2_EventScript_BattleSidney)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_PHOEBE) {
+        goto(ChampionsClubFloor2_EventScript_BattlePhoebe)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_GLACIA) {
+        goto(ChampionsClubFloor2_EventScript_BattleGlacia)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_DRAKE) {
+        goto(ChampionsClubFloor2_EventScript_BattleDrake)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_WALLACE) {
+        goto(ChampionsClubFloor2_EventScript_BattleWallace)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_STEVEN) {
+        goto(ChampionsClubFloor2_EventScript_BattleSteven)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_LEAF) {
+        goto(ChampionsClubFloor2_EventScript_BattleLeaf)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_BRENDAN) {
+        goto(ChampionsClubFloor2_EventScript_BattleBrendan)
+    }
+    if(var(VAR_RESULT) == TRAINER_CHAMPIONS_CLUB_MAY) {
+        goto(ChampionsClubFloor2_EventScript_BattleMay)
+    }
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleRoxanne {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_ROXANNE, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_ROXANNE, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleBrawly {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_BRAWLY, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_BRAWLY, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleWattson {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_WATTSON, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_WATTSON, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleFlannery {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_FLANNERY, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_FLANNERY, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleNorman {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_NORMAN, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_NORMAN, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleWinona {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_WINONA, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_WINONA, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleTateAndLiza {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_TATE_AND_LIZA, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_TATE_AND_LIZA, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleJuan {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_JUAN, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_JUAN, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleSidney {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_SIDNEY, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_SIDNEY, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattlePhoebe {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_PHOEBE, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_PHOEBE, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleGlacia {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_GLACIA, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_GLACIA, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleDrake {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_DRAKE, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_DRAKE, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleWallace {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_WALLACE, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_WALLACE, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleSteven {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_STEVEN, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_STEVEN, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleLeaf {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_LEAF, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_LEAF, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleBrendan {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_BRENDAN, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_BRENDAN, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_BattleMay {
+    goto_if_defeated(TRAINER_CHAMPIONS_CLUB_MAY, ChampionsClubFloor2_EventScript_AlreadyBattled)
+    trainerbattle_single(TRAINER_CHAMPIONS_CLUB_MAY, ChampionsClubFloor2_Text_BattleIntro, ChampionsClubFloor2_Text_BattleDefeat)
+    releaseall
+    end
+}
+
+script ChampionsClubFloor2_EventScript_AlreadyBattled {
+    msgbox(ChampionsClubFloor2_Text_AlreadyBattled)
+    releaseall
+    end
+}
+
+text ChampionsClubFloor2_Text_BattleIntro {
+    "Let's see what a fellow Champion\ncan do!"
+}
+
+text ChampionsClubFloor2_Text_BattleDefeat {
+    "A worthy victory."
+}
+
+text ChampionsClubFloor2_Text_AlreadyBattled {
+    "We've already battled today.\nLet's meet again another day."
+}

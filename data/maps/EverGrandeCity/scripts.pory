@@ -19,6 +19,13 @@ EverGrandeCity_EventScript_PokemonLeagueSign::
 	msgbox EverGrandeCity_Text_EnteringPokemonLeague, MSGBOX_SIGN
 	end
 
+EverGrandeCity_EventScript_VictoryRoadGuard::
+	lock
+	faceplayer
+	msgbox EverGrandeCity_Text_VictoryRoadGuard, MSGBOX_DEFAULT
+	release
+	end
+
 EverGrandeCity_EventScript_SetVisitedEverGrande::
 	setflag FLAG_VISITED_EVER_GRANDE_CITY
 	setvar VAR_TEMP_1, 1
@@ -35,5 +42,10 @@ EverGrandeCity_Text_CitySign:
 	.string "EVER GRANDE CITY\p"
 	.string "“The paradise of flowers, the sea,\n"
 	.string "and POKéMON.”$"
+
+EverGrandeCity_Text_VictoryRoadGuard:
+	.string "You cannot enter VICTORY ROAD\n"
+	.string "until you've defeated the ninth\l"
+	.string "GYM LEADER.$"
 
 `

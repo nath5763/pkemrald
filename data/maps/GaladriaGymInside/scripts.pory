@@ -1,4 +1,20 @@
 mapscripts GaladriaGymInside_MapScripts {
+    MAP_SCRIPT_ON_LOAD: GaladriaGymInside_OnLoad
+}
+
+script GaladriaGymInside_OnLoad {
+    if (flag(FLAG_GALADRIA_GYM_VENUSAUR_MOVED)) {
+        setobjectxyperm(Venesaur, 3, 7)
+        setobjectmovementtype(Venesaur, MOVEMENT_TYPE_FACE_RIGHT)
+    }
+    if (flag(FLAG_GALADRIA_GYM_MEGANIUM_MOVED)) {
+        setobjectxyperm(Meganium, 14, 8)
+        setobjectmovementtype(Meganium, MOVEMENT_TYPE_FACE_LEFT)
+    }
+    if (flag(FLAG_GALADRIA_GYM_BRELOOM_MOVED)) {
+        setobjectxyperm(Breloom, 17, 4)
+        setobjectmovementtype(Breloom, MOVEMENT_TYPE_FACE_LEFT)
+    }
 }
 
 text LeafIntroText {
@@ -59,19 +75,23 @@ script LeafDefeated {
 script VenusaurTrainer {
     lock
     faceplayer
-    if(flag(TRAINER_RED)) {
-        call(venesaurDefeat)
-    }
+    goto_if_defeated(TRAINER_RED, VenusaurTrainer_Defeated)
     msgbox("Venesaur is slept on!")
     waitmessage
     trainerbattle_single(TRAINER_RED, VenusaurIntro, VenusaurDefeatText, venesaurDefeat)
+    releaseall
+    end
+}
+
+script VenusaurTrainer_Defeated {
     msgbox("You still won't beat Leaf!")
     waitmessage
-    release
+    releaseall
     end
 }
 
 script venesaurDefeat {
+    setflag(FLAG_GALADRIA_GYM_VENUSAUR_MOVED)
     msgbox("You still won't beat Leaf!")
     waitmessage
     applymovement(Venesaur, Galadria_Movement_Ven)
@@ -83,19 +103,23 @@ script venesaurDefeat {
 script MeganiumTrainer {
     lock
     faceplayer
-    if (flag(TRAINER_MAY_PLACEHOLDER)) {
-        call(meganiumDefeat)
-    }
+    goto_if_defeated(TRAINER_MAY_PLACEHOLDER, MeganiumTrainer_Defeated)
     msgbox("This is my dream.")
     waitmessage
     trainerbattle_single(TRAINER_MAY_PLACEHOLDER, MeganiumIntro, MeganiumDefeatText, meganiumDefeat)
+    releaseall
+    end
+}
+
+script MeganiumTrainer_Defeated {
     msgbox("I dream a lot...")
     waitmessage
-    release
+    releaseall
     end
 }
 
 script meganiumDefeat {
+    setflag(FLAG_GALADRIA_GYM_MEGANIUM_MOVED)
     msgbox("I dream a lot...")
     waitmessage
     applymovement(Meganium, Galadria_Movement_Meg)
@@ -107,19 +131,23 @@ script meganiumDefeat {
 script BreloomTrainer {
     lock
     faceplayer
-    if(flag(TRAINER_BRENDAN_PLACEHOLDER)) {
-        call(breloomDefeat)
-    }
+    goto_if_defeated(TRAINER_BRENDAN_PLACEHOLDER, BreloomTrainer_Defeated)
     msgbox("Brawly was too weak for me.")
     waitmessage
     trainerbattle_single(TRAINER_BRENDAN_PLACEHOLDER, BreloomIntro, BreloomDefeatText, breloomDefeat)
+    releaseall
+    end
+}
+
+script BreloomTrainer_Defeated {
     msgbox("I know Brawly went easy on me.")
     waitmessage
-    release
+    releaseall
     end
 }
 
 script breloomDefeat {
+    setflag(FLAG_GALADRIA_GYM_BRELOOM_MOVED)
     msgbox("I know Brawly went easy on me.")
     waitmessage
     applymovement(Breloom, Galadria_Movement_Bre)

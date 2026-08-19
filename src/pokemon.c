@@ -108,7 +108,7 @@ static u8 GetHighestLevelInTrainerParty(u16 trainerId)
 
     for (i = 0; i < trainer->partySize; i++)
     {
-        // Pokeemerald uses 4 different data structures for trainer parties
+        // Pokeemerald uses different data structures for trainer parties
         // We must check the flags to read the 'lvl' variable from the correct struct
         if (trainer->partyFlags == 0)
             currentLevel = trainer->party.NoItemDefaultMoves[i].lvl;
@@ -118,6 +118,8 @@ static u8 GetHighestLevelInTrainerParty(u16 trainerId)
             currentLevel = trainer->party.ItemDefaultMoves[i].lvl;
         else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM))
             currentLevel = trainer->party.ItemCustomMoves[i].lvl;
+        else if (trainer->partyFlags == (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM | F_TRAINER_PARTY_ABILITY))
+            currentLevel = trainer->party.ItemCustomMovesAbility[i].lvl;
 
         if (currentLevel > maxLevel)
             maxLevel = currentLevel;
@@ -3217,6 +3219,31 @@ void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
     (var) /= (gStatStageRatios)[(mon)->statStages[(statIndex)]][1];                 \
 }
 
+static bool8 IsSharpnessBoostedMove(u32 move)
+{
+    switch (move)
+    {
+    case MOVE_AERIAL_ACE:
+    case MOVE_AIR_CUTTER:
+    case MOVE_CROSS_POISON:
+    case MOVE_CRUSH_CLAW:
+    case MOVE_CUT:
+    case MOVE_DRAGON_CLAW:
+    case MOVE_FURY_CUTTER:
+    case MOVE_LEAF_BLADE:
+    case MOVE_METAL_CLAW:
+    case MOVE_NIGHT_SLASH:
+    case MOVE_PSYCHO_CUT:
+    case MOVE_RAZOR_LEAF:
+    case MOVE_SHADOW_CLAW:
+    case MOVE_SLASH:
+    case MOVE_XSCISSOR:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
@@ -3234,6 +3261,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = gBattleMoves[move].power;
     else
         gBattleMovePower = powerOverride;
+
+    if (attacker->ability == ABILITY_SHARPNESS && IsSharpnessBoostedMove(move))
+        gBattleMovePower = (gBattleMovePower * 3) / 2;
 
     if (!typeOverride)
         type = gBattleMoves[move].type;
@@ -3299,6 +3329,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // Apply boosts from hold items
     if (attackerHoldEffect == HOLD_EFFECT_CHOICE_BAND)
         attack = (150 * attack) / 100;
+    if (attackerHoldEffect == HOLD_EFFECT_CHOICE_SPECS)
+        spAttack = (150 * spAttack) / 100;
     if (attackerHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS))
         spAttack = (150 * spAttack) / 100;
     if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
@@ -3522,7 +3554,22 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damage = (15 * damage) / 10;
     }
 
-    return damage + 2;
+    damage += 2;
+
+    if (defender->ability == ABILITY_DESERT_GUARD && WEATHER_HAS_EFFECT2
+        && (((gBattleWeather & B_WEATHER_SUN) && type == TYPE_FIRE)
+            || ((gBattleWeather & B_WEATHER_RAIN) && type == TYPE_WATER)
+            || ((gBattleWeather & B_WEATHER_SANDSTORM) && (type == TYPE_ROCK || type == TYPE_GROUND))))
+    {
+        damage /= 4;
+        if (damage == 0)
+            damage = 1;
+    }
+
+    if (attackerHoldEffect == HOLD_EFFECT_LIFE_ORB && battlerIdAtk != battlerIdDef)
+        damage = (damage * 13) / 10;
+
+    return damage;
 }
 
 u8 CountAliveMonsInBattle(u8 caseId)
@@ -4271,6 +4318,35 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
         SetBoxMonData(&mon->box, field, data);
         break;
     }
+}
+
+bool8 SetMonPersonality(struct Pokemon *mon, u32 personality)
+{
+    struct BoxPokemon *boxMon = &mon->box;
+    union PokemonSubstruct substructs[4];
+    u32 oldPersonality = boxMon->personality;
+    u32 i;
+
+    DecryptBoxMon(boxMon);
+    if (CalculateBoxMonChecksum(boxMon) != boxMon->checksum)
+    {
+        boxMon->isBadEgg = TRUE;
+        boxMon->isEgg = TRUE;
+        GetSubstruct(boxMon, oldPersonality, 3)->type3.isEgg = TRUE;
+        EncryptBoxMon(boxMon);
+        return FALSE;
+    }
+
+    for (i = 0; i < ARRAY_COUNT(substructs); i++)
+        memcpy(&substructs[i], GetSubstruct(boxMon, oldPersonality, i), sizeof(substructs[i]));
+
+    boxMon->personality = personality;
+    for (i = 0; i < ARRAY_COUNT(substructs); i++)
+        memcpy(GetSubstruct(boxMon, personality, i), &substructs[i], sizeof(substructs[i]));
+
+    boxMon->checksum = CalculateBoxMonChecksum(boxMon);
+    EncryptBoxMon(boxMon);
+    return TRUE;
 }
 
 void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)

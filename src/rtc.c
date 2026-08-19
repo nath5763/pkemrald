@@ -1,7 +1,12 @@
 #include "global.h"
+#include "event_data.h"
 #include "rtc.h"
 #include "string_util.h"
 #include "text.h"
+#include "constants/flags.h"
+
+#define SECONDS_PER_HOUR (MINUTES_PER_HOUR * SECONDS_PER_MINUTE)
+#define SECONDS_PER_DAY  (HOURS_PER_DAY * SECONDS_PER_HOUR)
 
 // iwram bss
 static u16 sErrorStatus;
@@ -31,6 +36,57 @@ static const s32 sNumDaysInMonths[MONTH_COUNT] =
     [MONTH_NOV - 1] = 30,
     [MONTH_DEC - 1] = 31,
 };
+
+static s32 TimeOfDayToSeconds(const struct Time *time)
+{
+    return time->hours * SECONDS_PER_HOUR
+         + time->minutes * SECONDS_PER_MINUTE
+         + time->seconds;
+}
+
+static void SetTimeFromDaysAndSeconds(s32 days, s32 daySeconds, struct Time *time)
+{
+    days += daySeconds / SECONDS_PER_DAY;
+    daySeconds %= SECONDS_PER_DAY;
+    if (daySeconds < 0)
+    {
+        daySeconds += SECONDS_PER_DAY;
+        days--;
+    }
+
+    time->days = days;
+    time->hours = daySeconds / SECONDS_PER_HOUR;
+    daySeconds %= SECONDS_PER_HOUR;
+    time->minutes = daySeconds / SECONDS_PER_MINUTE;
+    time->seconds = daySeconds % SECONDS_PER_MINUTE;
+}
+
+static void ScaleTime(struct Time *time)
+{
+    SetTimeFromDaysAndSeconds(time->days * RTC_TIME_SCALE,
+                              TimeOfDayToSeconds(time) * RTC_TIME_SCALE,
+                              time);
+}
+
+static void UnscaleTime(const struct Time *time, struct Time *unscaledTime)
+{
+    s32 days = time->days / RTC_TIME_SCALE;
+    s32 remainingDays = time->days % RTC_TIME_SCALE;
+    s32 remainingSeconds = remainingDays * SECONDS_PER_DAY + TimeOfDayToSeconds(time);
+
+    SetTimeFromDaysAndSeconds(days, remainingSeconds / RTC_TIME_SCALE, unscaledTime);
+}
+
+static void MigrateLocalTimeOffsetToFastClock(void)
+{
+    struct Time localTime;
+    struct Time unscaledTime;
+
+    RtcCalcTimeDifference(&sRtc, &localTime, &gSaveBlock2Ptr->localTimeOffset);
+    UnscaleTime(&localTime, &unscaledTime);
+    RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &unscaledTime);
+    FlagSet(FLAG_SYS_FAST_CLOCK_INITIALIZED);
+}
 
 void RtcDisableInterrupts(void)
 {
@@ -290,7 +346,13 @@ void RtcCalcTimeDifference(struct SiiRtcInfo *rtc, struct Time *result, struct T
 void RtcCalcLocalTime(void)
 {
     RtcGetInfo(&sRtc);
+
+    if (FlagGet(FLAG_SYS_CLOCK_SET) && !FlagGet(FLAG_SYS_FAST_CLOCK_INITIALIZED))
+        MigrateLocalTimeOffsetToFastClock();
+
     RtcCalcTimeDifference(&sRtc, &gLocalTime, &gSaveBlock2Ptr->localTimeOffset);
+    if (FlagGet(FLAG_SYS_FAST_CLOCK_INITIALIZED))
+        ScaleTime(&gLocalTime);
 }
 
 void RtcInitLocalTimeOffset(s32 hour, s32 minute)
@@ -300,12 +362,18 @@ void RtcInitLocalTimeOffset(s32 hour, s32 minute)
 
 void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds)
 {
-    gLocalTime.days = days;
-    gLocalTime.hours = hours;
-    gLocalTime.minutes = minutes;
-    gLocalTime.seconds = seconds;
+    struct Time localTime;
+    struct Time unscaledTime;
+
+    localTime.days = days;
+    localTime.hours = hours;
+    localTime.minutes = minutes;
+    localTime.seconds = seconds;
+    UnscaleTime(&localTime, &unscaledTime);
     RtcGetInfo(&sRtc);
-    RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &gLocalTime);
+    RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &unscaledTime);
+    FlagSet(FLAG_SYS_FAST_CLOCK_INITIALIZED);
+    RtcCalcLocalTime();
 }
 
 void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
@@ -342,5 +410,6 @@ u32 RtcGetMinuteCount(void)
 
 u32 RtcGetLocalDayCount(void)
 {
-    return RtcGetDayCount(&sRtc);
+    RtcCalcLocalTime();
+    return gLocalTime.days;
 }

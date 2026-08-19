@@ -25,8 +25,8 @@ gBattleAI_ScriptsTable::
 	.4byte AI_DoubleBattle 	        @ AI_SCRIPT_DOUBLE_BATTLE
 	.4byte AI_HPAware               @ AI_SCRIPT_HP_AWARE
 	.4byte AI_TrySunnyDayStart      @ AI_SCRIPT_TRY_SUNNY_DAY_START
-	.4byte AI_Ret
-	.4byte AI_Ret
+	.4byte AI_SmartTactics          @ AI_SCRIPT_SMART_TACTICS
+	.4byte AI_SmartSingles          @ AI_SCRIPT_SMART_SINGLES
 	.4byte AI_Ret
 	.4byte AI_Ret
 	.4byte AI_Ret
@@ -47,6 +47,14 @@ gBattleAI_ScriptsTable::
 	.4byte AI_Roaming               @ AI_SCRIPT_ROAMING
 	.4byte AI_Safari                @ AI_SCRIPT_SAFARI
 	.4byte AI_FirstBattle           @ AI_SCRIPT_FIRST_BATTLE
+
+AI_SmartTactics:
+	smart_tactics
+	end
+
+AI_SmartSingles:
+	smart_singles
+	end
 
 AI_CheckBadMove:
 	if_target_is_ally AI_Ret
@@ -2350,10 +2358,14 @@ AI_CV_Trick_EffectsToEncourage:
 	.byte HOLD_EFFECT_CONFUSE_SOUR
 	.byte HOLD_EFFECT_MACHO_BRACE
 	.byte HOLD_EFFECT_CHOICE_BAND
+	.byte HOLD_EFFECT_CHOICE_SPECS
+	.byte HOLD_EFFECT_CHOICE_SCARF
 	.byte -1
 
 AI_CV_Trick_EffectsToEncourage2:
 	.byte HOLD_EFFECT_CHOICE_BAND
+	.byte HOLD_EFFECT_CHOICE_SPECS
+	.byte HOLD_EFFECT_CHOICE_SCARF
 	.byte -1
 
 AI_CV_ChangeSelfAbility:

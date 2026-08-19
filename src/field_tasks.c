@@ -7,6 +7,7 @@
 #include "field_player_avatar.h"
 #include "field_special_scene.h"
 #include "field_tasks.h"
+#include "field_weather.h"
 #include "fieldmap.h"
 #include "item.h"
 #include "main.h"
@@ -145,7 +146,8 @@ static void Task_RunPerStepCallback(u8 taskId)
 #define tAmbientCryState data[1]
 #define tAmbientCryDelay data[2]
 
-#define TIME_UPDATE_INTERVAL (1 << 12)
+// Refresh once every 512 frames (about 8.5 real seconds / 51 game seconds).
+#define TIME_UPDATE_INTERVAL (1 << 8)
 
 static void RunTimeBasedEvents(s16 *data)
 {
@@ -155,6 +157,7 @@ static void RunTimeBasedEvents(s16 *data)
         if (gMain.vblankCounter1 & TIME_UPDATE_INTERVAL)
         {
             DoTimeBasedEvents();
+            RefreshWeatherPalettesForTimeOfDay();
             tState++;
         }
         break;

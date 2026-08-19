@@ -387,7 +387,13 @@
 #define MOVE_ICE_SHARD 383
 #define MOVE_INCINERATE 384
 #define MOVE_BULLDOZE 385
-#define MOVES_COUNT 386
+#define MOVE_FAIRY_WIND 386
+#define MOVE_DISARMING_VOICE 387
+#define MOVE_DRAINING_KISS 388
+#define MOVE_PLAY_ROUGH 389
+#define MOVE_MOONBLAST 390
+#define MOVE_STONE_EDGE 391
+#define MOVES_COUNT 392
 
 // Used for checks for moves affected by Disable, Mimic, etc.
 #define MOVE_UNAVAILABLE 0xFFFF

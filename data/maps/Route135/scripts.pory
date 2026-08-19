@@ -140,7 +140,7 @@ script andrewFight {
 script andrewDefeat {
     fadescreen(FADE_TO_BLACK)
     setflag(FLAG_ANDREW_MAGMA)
-    removeobject(3)
+    removeobject(VAR_LAST_TALKED)
     fadescreen(FADE_FROM_BLACK)
     releaseall
     end
@@ -197,3 +197,58 @@ script leftovers_get {
     releaseall
     end
 }
+
+raw `
+punchTutor::
+	lockall
+	faceplayer
+	msgbox punchTutor_Text_Intro, MSGBOX_DEFAULT
+
+punchTutor_ChooseMove::
+	multichoice 20, 2, MULTI_ROUTE135_PUNCH_TUTOR, FALSE
+	switch VAR_RESULT
+	case 0, punchTutor_SetIcePunch
+	case 1, punchTutor_SetFirePunch
+	case 2, punchTutor_SetThunderPunch
+	case 3, punchTutor_SetMegaPunch
+	case 4, punchTutor_SetDynamicPunch
+	case 5, punchTutor_Exit
+	case MULTI_B_PRESSED, punchTutor_Exit
+
+punchTutor_SetIcePunch::
+	setvar VAR_0x8005, TUTOR_MOVE_ICE_PUNCH
+	goto punchTutor_ChooseMon
+
+punchTutor_SetFirePunch::
+	setvar VAR_0x8005, TUTOR_MOVE_FIRE_PUNCH
+	goto punchTutor_ChooseMon
+
+punchTutor_SetThunderPunch::
+	setvar VAR_0x8005, TUTOR_MOVE_THUNDER_PUNCH
+	goto punchTutor_ChooseMon
+
+punchTutor_SetMegaPunch::
+	setvar VAR_0x8005, TUTOR_MOVE_MEGA_PUNCH
+	goto punchTutor_ChooseMon
+
+punchTutor_SetDynamicPunch::
+	setvar VAR_0x8005, TUTOR_MOVE_DYNAMIC_PUNCH
+	goto punchTutor_ChooseMon
+
+punchTutor_ChooseMon::
+	msgbox punchTutor_Text_ChooseMon, MSGBOX_DEFAULT
+	special ChooseMonForMoveTutor
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE + 1
+	goto_if_eq punchTutor_ChooseMove
+
+punchTutor_Exit::
+	releaseall
+	end
+
+punchTutor_Text_Intro:
+	.string "I tutor only the art of the fist.\pPick a punch, then choose the\nPOKEMON to learn it.$"
+
+punchTutor_Text_ChooseMon:
+	.string "Which POKEMON should learn that\npunching move?$"
+`

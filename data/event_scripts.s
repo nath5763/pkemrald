@@ -1100,3 +1100,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/PokecenterRoute135/scripts.inc"
 
 	.include "data/maps/ChampionsClub/scripts.inc"
+
+	.include "data/maps/ChampionsClubFloor2/scripts.inc"
