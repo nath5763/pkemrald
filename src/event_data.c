@@ -76,6 +76,8 @@ void EnableNationalPokedex(void)
 
 bool32 IsNationalPokedexEnabled(void)
 {
+    if (FlagGet(FLAG_SYS_POKEDEX_GET))
+        return TRUE;
     if (gSaveBlock2Ptr->pokedex.nationalMagic == 0xDA && VarGet(VAR_NATIONAL_DEX) == 0x302 && FlagGet(FLAG_SYS_NATIONAL_DEX))
         return TRUE;
     else

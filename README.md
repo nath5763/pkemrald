@@ -67,6 +67,8 @@ When Permadeath is enabled, fainted Pokémon are removed from active use after b
 
 ## Pokémon and Encounter Variety
 
+The Pokédex includes all 404 Pokémon available in Epoch Emerald as soon as it is received. The Regional listing keeps Hoenn's Pokémon first and then continues with the remaining species, while the National listing presents the same complete roster in National Pokédex order.
+
 Wild encounter tables across Hoenn have been extensively revised to make more Pokémon from Generations I–III available during a normal playthrough. Fishing tables and many trainer rosters were also rebuilt around the expanded selection.
 
 The following 18 Pokémon have been added with battle sprites, icons, Pokédex data, cries, learnsets, evolution data, and supporting assets:
@@ -330,6 +332,10 @@ On the project's Windows/WSL setup, the equivalent command is:
 ```sh
 wsl make -j4
 ```
+
+## Support
+
+Support the development of Pokémon Epoch Emerald on [Patreon](https://patreon.com/NathBlu3?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink).
 
 ## Credits
 

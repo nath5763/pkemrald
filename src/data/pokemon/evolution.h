@@ -77,6 +77,8 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_EEVEE]      = {{EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_JOLTEON},
                             {EVO_ITEM, ITEM_WATER_STONE, SPECIES_VAPOREON},
                             {EVO_ITEM, ITEM_FIRE_STONE, SPECIES_FLAREON},
+                            {EVO_ITEM, ITEM_LEAF_STONE, SPECIES_LEAFEON},
+                            {EVO_ITEM, ITEM_ICE_STONE, SPECIES_GLACEON},
                             {EVO_FRIENDSHIP_DAY, 0, SPECIES_ESPEON},
                             {EVO_FRIENDSHIP_NIGHT, 0, SPECIES_UMBREON}},
     [SPECIES_PORYGON]    = {{EVO_LEVEL, 25, SPECIES_PORYGON2}},

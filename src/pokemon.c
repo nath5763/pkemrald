@@ -586,6 +586,8 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(JIRACHI),
     SPECIES_TO_HOENN(DEOXYS),
     SPECIES_TO_HOENN(CHIMECHO),
+    SPECIES_TO_HOENN(LEAFEON),
+    SPECIES_TO_HOENN(GLACEON),
 };
 
 // Assigns all species to the National Dex Index (Summary No. for National Dex)
@@ -1020,6 +1022,8 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(JIRACHI),
     SPECIES_TO_NATIONAL(DEOXYS),
     SPECIES_TO_NATIONAL(CHIMECHO),
+    SPECIES_TO_NATIONAL(LEAFEON),
+    SPECIES_TO_NATIONAL(GLACEON),
 };
 
 // Assigns all Hoenn Dex Indexes to a National Dex Index
@@ -1423,6 +1427,8 @@ static const u16 sHoennToNationalOrder[NUM_SPECIES - 1] =
     HOENN_TO_NATIONAL(LUGIA),
     HOENN_TO_NATIONAL(HO_OH),
     HOENN_TO_NATIONAL(CELEBI),
+    HOENN_TO_NATIONAL(LEAFEON),
+    HOENN_TO_NATIONAL(GLACEON),
     HOENN_TO_NATIONAL(OLD_UNOWN_B),
     HOENN_TO_NATIONAL(OLD_UNOWN_C),
     HOENN_TO_NATIONAL(OLD_UNOWN_D),
@@ -1693,6 +1699,8 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_AZUMARILL - 1]   = ANIM_BOUNCE_ROTATE_TO_SIDES_SMALL_SLOW,
     [SPECIES_SUDOWOODO - 1]   = ANIM_H_SLIDE_SLOW,
     [SPECIES_BONSLY - 1]      = ANIM_BOUNCE_ROTATE_TO_SIDES,
+    [SPECIES_LEAFEON - 1]     = ANIM_V_STRETCH,
+    [SPECIES_GLACEON - 1]     = ANIM_V_SHAKE,
     [SPECIES_POLITOED - 1]    = ANIM_H_JUMPS_V_STRETCH,
     [SPECIES_HOPPIP - 1]      = ANIM_V_SLIDE_WOBBLE,
     [SPECIES_SKIPLOOM - 1]    = ANIM_RISING_WOBBLE,
@@ -5911,6 +5919,11 @@ u16 HoennToNationalOrder(u16 hoennNum)
 
 u16 SpeciesToCryId(u16 species)
 {
+    if (species == SPECIES_LEAFEON)
+        return 402;
+    if (species == SPECIES_GLACEON)
+        return 403;
+
     if (species <= SPECIES_CELEBI - 1)
         return species;
 

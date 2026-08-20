@@ -1021,7 +1021,7 @@ annabellSpeech::
 # 512 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	faceplayer
 # 513 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
-	goto_if_set FLAG_SYS_NATIONAL_DEX, annabellSpeech_2
+	goto_if_set FLAG_SYS_POKEDEX_GET, annabellSpeech_2
 # 528 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"
 	msgbox scaredAnnabell
 # 529 "data/maps/MossdeepCity_SpaceCenter_2F/scripts.pory"

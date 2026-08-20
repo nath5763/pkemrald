@@ -411,6 +411,8 @@ enum {
     NATIONAL_DEX_RAYQUAZA,
     NATIONAL_DEX_JIRACHI,
     NATIONAL_DEX_DEOXYS,
+    NATIONAL_DEX_LEAFEON,
+    NATIONAL_DEX_GLACEON,
     // Old Unown
     NATIONAL_DEX_OLD_UNOWN_B,
     NATIONAL_DEX_OLD_UNOWN_C,
@@ -441,7 +443,7 @@ enum {
 
 #define KANTO_DEX_COUNT     NATIONAL_DEX_MEW
 #define JOHTO_DEX_COUNT     NATIONAL_DEX_CELEBI
-#define NATIONAL_DEX_COUNT  NATIONAL_DEX_DEOXYS
+#define NATIONAL_DEX_COUNT  NATIONAL_DEX_GLACEON
 
 // Hoenn Pokédex order
 enum {
@@ -655,8 +657,8 @@ enum {
     HOENN_DEX_RAYQUAZA,
     HOENN_DEX_JIRACHI,
     HOENN_DEX_DEOXYS,
-    // End of Hoenn Dex (see HOENN_DEX_COUNT)
-    // Here below have values but are excluded from the Pokédex
+    // End of the original expanded Hoenn Dex
+    // Remaining species continue the regional listing in Hoenn-first order
     HOENN_DEX_BULBASAUR,
     HOENN_DEX_IVYSAUR,
     HOENN_DEX_VENUSAUR,
@@ -852,6 +854,8 @@ enum {
     HOENN_DEX_LUGIA,
     HOENN_DEX_HO_OH,
     HOENN_DEX_CELEBI,
+    HOENN_DEX_LEAFEON,
+    HOENN_DEX_GLACEON,
     HOENN_DEX_OLD_UNOWN_B,
     HOENN_DEX_OLD_UNOWN_C,
     HOENN_DEX_OLD_UNOWN_D,
@@ -879,6 +883,6 @@ enum {
     HOENN_DEX_OLD_UNOWN_Z,
 };
 
-#define HOENN_DEX_COUNT HOENN_DEX_DEOXYS
+#define HOENN_DEX_COUNT HOENN_DEX_GLACEON
 
 #endif // GUARD_CONSTANTS_POKEDEX_H

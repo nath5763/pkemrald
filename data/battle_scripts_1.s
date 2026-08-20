@@ -4211,6 +4211,12 @@ BattleScript_PSNPrevention::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
+BattleScript_LeafGuardPrevention::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNSXMADEITINEFFECTIVE
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_ObliviousPreventsAttraction::
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNPREVENTSROMANCEWITH

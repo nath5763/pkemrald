@@ -125,28 +125,30 @@ LilycoveCity_DepartmentStore_2F_Pokemart2:
 # 63 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
 	.2byte ITEM_MECH_MAIL
 # 64 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	pokemartlistend
+	.2byte ITEM_ICE_STONE
 # 65 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-
+	pokemartlistend
 # 66 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-LilycoveCity_DepartmentStore_2F_Text_LearnToUseItemsProperly:
+
 # 67 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	.string "Learn to use items properly.\n"
+LilycoveCity_DepartmentStore_2F_Text_LearnToUseItemsProperly:
 # 68 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	.string "That's basic, really.$"
+	.string "Learn to use items properly.\n"
 # 69 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-
+	.string "That's basic, really.$"
 # 70 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-LilycoveCity_DepartmentStore_2F_Text_GoodGiftForHusband:
-# 71 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	.string "My husband is waiting at home.\n"
-# 72 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	.string "What would make a good gift for him?$"
-# 73 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
 
+# 71 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
+LilycoveCity_DepartmentStore_2F_Text_GoodGiftForHusband:
+# 72 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
+	.string "My husband is waiting at home.\n"
+# 73 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
+	.string "What would make a good gift for him?$"
 # 74 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-LilycoveCity_DepartmentStore_2F_Text_StockUpOnItems:
+
 # 75 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
-	.string "I'm leaving on a long journey soon.\n"
+LilycoveCity_DepartmentStore_2F_Text_StockUpOnItems:
 # 76 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
+	.string "I'm leaving on a long journey soon.\n"
+# 77 "data/maps/LilycoveCity_DepartmentStore_2F/scripts.pory"
 	.string "I need to stock up on items.$"

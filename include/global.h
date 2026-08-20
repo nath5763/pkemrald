@@ -138,9 +138,9 @@
 
 #define ROUND_BITS_TO_BYTES(numBits) DIV_ROUND_UP(numBits, 8)
 
-// NUM_DEX_FLAG_BYTES allocates more flags than it needs to, as NUM_SPECIES includes the "old unown"
-// values that don't appear in the Pokédex. NATIONAL_DEX_COUNT does not include these values.
-#define NUM_DEX_FLAG_BYTES ROUND_BITS_TO_BYTES(NUM_SPECIES)
+// Keep this persisted bitfield at 54 bytes so existing save block layouts remain stable.
+// It has capacity for 432 Pokédex entries, including the expanded regional dex.
+#define NUM_DEX_FLAG_BYTES 54
 #define NUM_FLAG_BYTES ROUND_BITS_TO_BYTES(FLAGS_COUNT)
 #define NUM_TRENDY_SAYING_BYTES ROUND_BITS_TO_BYTES(NUM_TRENDY_SAYINGS)
 
@@ -154,6 +154,8 @@
 // This produces an error at compile-time if expr is zero.
 // It looks like file.c:line: size of array `id' is negative
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
+
+STATIC_ASSERT(HOENN_DEX_COUNT <= NUM_DEX_FLAG_BYTES * 8, PokedexFlagsTooSmall)
 
 struct Coords8
 {

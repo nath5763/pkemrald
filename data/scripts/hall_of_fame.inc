@@ -21,7 +21,7 @@ EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags::
 	call_if_unset FLAG_RECEIVED_BELDUM, EverGrandeCity_HallOfFame_EventScript_ShowStevensHouseBeldum
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
-	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0, EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent
+	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0, Common_EventScript_AdvanceDexRewardState
 	return
 
 EverGrandeCity_HallOfFame_EventScript_ResetDefeatedEventLegendaries::
@@ -46,6 +46,16 @@ EverGrandeCity_HallOfFame_EventScript_ReadyReceiveSSTicketEvent::
 	clearflag FLAG_HIDE_PLAYERS_HOUSE_DAD
 	return
 
-EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent::
-	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1
+Common_EventScript_AdvanceDexRewardState::
+	clearflag FLAG_HIDE_MAP_NAME_POPUP
+	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
+	setvar VAR_SCOTT_BF_CALL_STEP_COUNTER, 0
+	setflag FLAG_SCOTT_CALL_BATTLE_FRONTIER
 	return
+
+Common_EventScript_SkipDexUpgrade::
+	clearflag FLAG_HIDE_MAP_NAME_POPUP
+	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
+	setvar VAR_SCOTT_BF_CALL_STEP_COUNTER, 0
+	setflag FLAG_SCOTT_CALL_BATTLE_FRONTIER
+	end

@@ -2382,6 +2382,21 @@ void SetMoveEffect(bool8 primary, u8 certain)
     if (gBattleMons[gEffectBattler].status2 & STATUS2_SUBSTITUTE && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
+    if (gBattleCommunication[MOVE_EFFECT_BYTE] <= PRIMARY_STATUS_MOVE_EFFECT
+        && IsLeafGuardProtected(gEffectBattler))
+    {
+        if (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)
+        {
+            gLastUsedAbility = ABILITY_LEAF_GUARD;
+            RecordAbilityBattle(gEffectBattler, ABILITY_LEAF_GUARD);
+            gBattleScripting.battler = gEffectBattler;
+            BattleScriptPush(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = BattleScript_LeafGuardPrevention;
+            RESET_RETURN
+        }
+        INCREMENT_RESET_RETURN
+    }
+
     if (gBattleCommunication[MOVE_EFFECT_BYTE] <= PRIMARY_STATUS_MOVE_EFFECT)
     {
         switch (sStatusFlagsForMoveEffects[gBattleCommunication[MOVE_EFFECT_BYTE]])
@@ -7081,7 +7096,8 @@ static void Cmd_jumpifcantmakeasleep(void)
         gBattlescriptCurrInstr = jumpPtr;
     }
     else if (gBattleMons[gBattlerTarget].ability == ABILITY_INSOMNIA
-            || gBattleMons[gBattlerTarget].ability == ABILITY_VITAL_SPIRIT)
+            || gBattleMons[gBattlerTarget].ability == ABILITY_VITAL_SPIRIT
+            || IsLeafGuardProtected(gBattlerTarget))
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STAYED_AWAKE_USING;

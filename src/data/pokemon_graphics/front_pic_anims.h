@@ -4938,6 +4938,22 @@ static const union AnimCmd sAnim_UnownQMark_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Leafeon_1[] =
+{
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 20),
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Glaceon_1[] =
+{
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_FRAME(1, 36),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
 #define SINGLE_ANIMATION(name)                      \
 static const union AnimCmd *const sAnims_##name[] = \
 {                                                   \
@@ -5092,6 +5108,8 @@ SINGLE_ANIMATION(Eevee);
 SINGLE_ANIMATION(Vaporeon);
 SINGLE_ANIMATION(Jolteon);
 SINGLE_ANIMATION(Flareon);
+SINGLE_ANIMATION(Leafeon);
+SINGLE_ANIMATION(Glaceon);
 SINGLE_ANIMATION(Porygon);
 SINGLE_ANIMATION(Porygonz);
 SINGLE_ANIMATION(Omanyte);
@@ -5539,6 +5557,8 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_VAPOREON]    = sAnims_Vaporeon,
     [SPECIES_JOLTEON]     = sAnims_Jolteon,
     [SPECIES_FLAREON]     = sAnims_Flareon,
+    [SPECIES_LEAFEON]     = sAnims_Leafeon,
+    [SPECIES_GLACEON]     = sAnims_Glaceon,
     [SPECIES_PORYGON]     = sAnims_Porygon,
     [SPECIES_PORYGONZ]     = sAnims_Porygonz,
     [SPECIES_OMANYTE]     = sAnims_Omanyte,

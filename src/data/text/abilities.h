@@ -81,6 +81,7 @@ static const u8 sSnowCloakDescription[] = _("Whips up a snow storm.");
 static const u8 sScrappyDescription[] = _("Lets normal and fighting moves hit Ghosts.");
 static const u8 sDesertGuardDescription[] = _("Cuts weather-matched damage.");
 static const u8 sSharpnessDescription[] = _("Powers up slicing moves.");
+static const u8 sLeafGuardDescription[] = _("Blocks status in sunshine.");
 
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
@@ -167,6 +168,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_SCRAPPY] = _("SCRAPPY"),
     [ABILITY_DESERT_GUARD] = _("DESERT GUARD"),
     [ABILITY_SHARPNESS] = _("SHARPNESS"),
+    [ABILITY_LEAF_GUARD] = _("LEAF GUARD"),
 };
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
@@ -254,4 +256,5 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SCRAPPY] = sScrappyDescription,
     [ABILITY_DESERT_GUARD] = sDesertGuardDescription,
     [ABILITY_SHARPNESS] = sSharpnessDescription,
+    [ABILITY_LEAF_GUARD] = sLeafGuardDescription,
 };
