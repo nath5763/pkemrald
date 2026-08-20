@@ -15,11 +15,11 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 # 8 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	@ State descriptions for VAR_DEX_UPGRADE_JOHTO_STARTER_STATE
 # 9 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	@ 1: Beat Elite Four, Dex upgrade ready
+	@ 1: Legacy save awaiting the former National Dex upgrade
 # 10 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	@ 2: Received National Dex
+	@ 2: Legacy save received the National Dex
 # 11 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	@ 3: Left lab after receiving National Dex
+	@ 3: Beat Elite Four, Dex completion rewards available
 # 12 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	@ 4: Entered lab after catching all Hoenn mons
 # 13 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
@@ -201,7 +201,7 @@ LittlerootTown_ProfessorBirchsLab_OnFrame:
 # 101 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 # 102 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
-	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
+	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, Common_EventScript_SkipDexUpgrade
 # 103 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter
 # 104 "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.pory"

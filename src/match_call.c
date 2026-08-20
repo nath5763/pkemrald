@@ -1987,56 +1987,49 @@ static u16 GetFrontierStreakInfo(u16 facilityId, u32 *topicTextId)
 
 static u8 GetPokedexRatingLevel(u16 numSeen)
 {
-    if (numSeen < 10)
-        return 0;
     if (numSeen < 20)
-        return 1;
-    if (numSeen < 30)
-        return 2;
+        return 0;
     if (numSeen < 40)
-        return 3;
-    if (numSeen < 50)
-        return 4;
+        return 1;
     if (numSeen < 60)
-        return 5;
-    if (numSeen < 70)
-        return 6;
+        return 2;
     if (numSeen < 80)
-        return 7;
-    if (numSeen < 90)
-        return 8;
+        return 3;
     if (numSeen < 100)
-        return 9;
-    if (numSeen < 110)
-        return 10;
+        return 4;
     if (numSeen < 120)
-        return 11;
-    if (numSeen < 130)
-        return 12;
+        return 5;
     if (numSeen < 140)
-        return 13;
-    if (numSeen < 150)
-        return 14;
+        return 6;
     if (numSeen < 160)
-        return 15;
-    if (numSeen < 170)
-        return 16;
+        return 7;
     if (numSeen < 180)
+        return 8;
+    if (numSeen < 200)
+        return 9;
+    if (numSeen < 220)
+        return 10;
+    if (numSeen < 240)
+        return 11;
+    if (numSeen < 260)
+        return 12;
+    if (numSeen < 280)
+        return 13;
+    if (numSeen < 300)
+        return 14;
+    if (numSeen < 320)
+        return 15;
+    if (numSeen < 340)
+        return 16;
+    if (numSeen < 360)
         return 17;
-    if (numSeen < 190)
+    if (numSeen < 380)
         return 18;
-    if (numSeen < 200)
+    if (numSeen < HOENN_DEX_COUNT)
         return 19;
-
-    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(SPECIES_DEOXYS), FLAG_GET_CAUGHT))
-        numSeen--;
-    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(SPECIES_JIRACHI), FLAG_GET_CAUGHT))
-        numSeen--;
-
-    if (numSeen < 200)
-        return 19;
-    else
+    if (numSeen == HOENN_DEX_COUNT)
         return 20;
+    return 19;
 }
 
 static const u8 *const sBirchDexRatingTexts[] =

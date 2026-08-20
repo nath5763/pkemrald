@@ -510,7 +510,7 @@ MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
 script annabellSpeech {
 	lockall
 	faceplayer
-	if(flag(FLAG_SYS_NATIONAL_DEX)) {
+	if(flag(FLAG_SYS_POKEDEX_GET)) {
 		if(flag(FLAG_DEOXIS)) {
 			msgbox(completedAnnabell)
 			waitmessage

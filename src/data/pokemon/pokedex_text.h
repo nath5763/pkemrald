@@ -2341,3 +2341,15 @@ const u8 gBonslyPokedexText[] = _(
     "fluids in its body, it leaks water from\n"
     "its eyes, which makes it look as if\n"
     "it is always crying.");
+
+const u8 gLeafeonPokedexText[] = _(
+    "Its cellular composition is closer to\n"
+    "that of a plant than an animal. It uses\n"
+    "photosynthesis to produce its energy\n"
+    "supply without eating food.");
+
+const u8 gGlaceonPokedexText[] = _(
+    "It can control its body temperature\n"
+    "at will. This enables it to freeze the\n"
+    "moisture in the atmosphere, creating\n"
+    "flurries of diamond dust.");

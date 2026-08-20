@@ -254,7 +254,7 @@
 #define EVO_GENDER_FEMALE    16
 #define EVO_GENDER_MALE      17
 
-#define EVOS_PER_MON 5
+#define EVOS_PER_MON 7
 
 // Evolution 'modes,' for GetEvolutionTargetSpecies
 #define EVO_MODE_NORMAL     0
