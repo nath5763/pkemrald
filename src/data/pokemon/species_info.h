@@ -4267,12 +4267,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_OMASTAR] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 60,
+        .baseHP        = 80,
+        .baseAttack    = 50,
         .baseDefense   = 125,
         .baseSpeed     = 55,
         .baseSpAttack  = 115,
-        .baseSpDefense = 70,
+        .baseSpDefense = 90,
         .types = { TYPE_ROCK, TYPE_WATER },
         .catchRate = 45,
         .expYield = 199,
