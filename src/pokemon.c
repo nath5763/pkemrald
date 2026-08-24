@@ -144,7 +144,20 @@ u32 GetCurrentLevelCap(void)
 
     if (!FlagGet(FLAG_IS_CHAMPION)) return GetHighestLevelInTrainerParty(TRAINER_WALLACE);
 
-    return MAX_LEVEL; // No level cap after defeating Wallace
+    if (!FlagGet(FLAG_DEFEATED_METEOR_FALLS_STEVEN))
+        return GetHighestLevelInTrainerParty(TRAINER_STEVEN);
+
+    // Ben's team is level 77, but his cap remains even with Steven's level 78 cap.
+    if (!FlagGet(FLAG_DEFEATED_BEN))
+        return GetHighestLevelInTrainerParty(TRAINER_TEST) + 1;
+    if (!FlagGet(FLAG_DEFEATED_RYAN))
+        return GetHighestLevelInTrainerParty(TRAINER_RYAN_TEST);
+    if (!FlagGet(FLAG_DEFEATED_ANGIE))
+        return GetHighestLevelInTrainerParty(TRAINER_ANGIE_TEST);
+    if (!FlagGet(FLAG_DEFEATED_SIRUS))
+        return GetHighestLevelInTrainerParty(TRAINER_SIRUS_TEST);
+
+    return MAX_LEVEL;
 }
 
 // NOTE: The order of the elements in the 3 arrays below is irrelevant.
@@ -1654,7 +1667,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_KABUTOPS - 1]    = ANIM_H_SHAKE,
     [SPECIES_AERODACTYL - 1]  = ANIM_V_SLIDE_SLOW,
     [SPECIES_SNORLAX - 1]     = ANIM_SWING_CONCAVE,
-    [SPECIES_MUNCHLAX - 1]    = ANIM_SWING_CONCAVE,
+    [SPECIES_MUNCHLAX - 1]    = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
     [SPECIES_ARTICUNO - 1]    = ANIM_GROW_VIBRATE,
     [SPECIES_ZAPDOS - 1]      = ANIM_FLASH_YELLOW,
     [SPECIES_MOLTRES - 1]     = ANIM_V_SQUISH_AND_BOUNCE_SLOW,

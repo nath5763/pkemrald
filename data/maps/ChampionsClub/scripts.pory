@@ -119,7 +119,7 @@ script sirusFight {
         end
     }
     if(flag(FLAG_DEFEATED_ANGIE)) {
-        trainerbattle_single(TRAINER_ANGIE_TEST, sirusReady, sirusDefeat, sirusLoss)
+        trainerbattle_single(TRAINER_SIRUS_TEST, sirusReady, sirusDefeat, sirusLoss)
         releaseall
         end
     } else {
