@@ -183,7 +183,7 @@ sirusFight_2:
 
 sirusFight_4:
 # 122 "data/maps/ChampionsClub/scripts.pory"
-	trainerbattle_single TRAINER_ANGIE_TEST, sirusReady, sirusDefeat, sirusLoss
+	trainerbattle_single TRAINER_SIRUS_TEST, sirusReady, sirusDefeat, sirusLoss
 # 123 "data/maps/ChampionsClub/scripts.pory"
 	releaseall
 	end

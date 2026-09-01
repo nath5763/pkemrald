@@ -1364,6 +1364,16 @@ static const union AnimCmd sAnim_Rhydon_2[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Rhyperior_1[] =
+{
+    ANIMCMD_FRAME(0, 50),
+    ANIMCMD_FRAME(1, 25),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_FRAME(1, 25),
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Chansey_1[] =
 {
     ANIMCMD_FRAME(0, 30),
@@ -1723,6 +1733,14 @@ static const union AnimCmd sAnim_Snorlax_1[] =
     ANIMCMD_FRAME(1, 50),
     ANIMCMD_FRAME(1, 50),
     ANIMCMD_FRAME(0, 10),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Munchlax_1[] =
+{
+    ANIMCMD_FRAME(0, 30),
+    ANIMCMD_FRAME(1, 30),
+    ANIMCMD_FRAME(0, 20),
     ANIMCMD_END,
 };
 
@@ -2226,6 +2244,16 @@ static const union AnimCmd sAnim_Sudowoodo_1[] =
     ANIMCMD_FRAME(0, 15),
     ANIMCMD_FRAME(1, 15),
     ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_Bonsly_1[] =
+{
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 25),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 20),
+    ANIMCMD_FRAME(0, 10),
     ANIMCMD_END,
 };
 
@@ -4074,6 +4102,14 @@ static const union AnimCmd sAnim_Roselia_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Budew_1[] =
+{
+    ANIMCMD_FRAME(0, 30),
+    ANIMCMD_FRAME(1, 30),
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Roserade_1[] =
 {
     ANIMCMD_FRAME(1, 30),
@@ -5083,6 +5119,7 @@ DOUBLE_ANIMATION(Koffing);
 DOUBLE_ANIMATION(Weezing);
 DOUBLE_ANIMATION(Rhyhorn);
 DOUBLE_ANIMATION(Rhydon);
+SINGLE_ANIMATION(Rhyperior);
 SINGLE_ANIMATION(Chansey);
 SINGLE_ANIMATION(Tangela);
 SINGLE_ANIMATION(Kangaskhan);
@@ -5118,6 +5155,7 @@ SINGLE_ANIMATION(Kabuto);
 SINGLE_ANIMATION(Kabutops);
 SINGLE_ANIMATION(Aerodactyl);
 SINGLE_ANIMATION(Snorlax);
+SINGLE_ANIMATION(Munchlax);
 SINGLE_ANIMATION(Articuno);
 SINGLE_ANIMATION(Zapdos);
 SINGLE_ANIMATION(Moltres);
@@ -5161,6 +5199,7 @@ SINGLE_ANIMATION(Bellossom);
 SINGLE_ANIMATION(Marill);
 SINGLE_ANIMATION(Azumarill);
 SINGLE_ANIMATION(Sudowoodo);
+SINGLE_ANIMATION(Bonsly);
 SINGLE_ANIMATION(Politoed);
 SINGLE_ANIMATION(Hoppip);
 SINGLE_ANIMATION(Skiploom);
@@ -5331,6 +5370,7 @@ SINGLE_ANIMATION(Wynaut);
 SINGLE_ANIMATION(Duskull);
 SINGLE_ANIMATION(Dusclops);
 SINGLE_ANIMATION(Roselia);
+SINGLE_ANIMATION(Budew);
 SINGLE_ANIMATION(Roserade);
 SINGLE_ANIMATION(Slakoth);
 SINGLE_ANIMATION(Vigoroth);
@@ -5531,7 +5571,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_WEEZING]     = sAnims_Weezing,
     [SPECIES_RHYHORN]     = sAnims_Rhyhorn,
     [SPECIES_RHYDON]      = sAnims_Rhydon,
-    [SPECIES_RHYPERIOR]   = sAnims_Rhydon,
+    [SPECIES_RHYPERIOR]   = sAnims_Rhyperior,
     [SPECIES_CHANSEY]     = sAnims_Chansey,
     [SPECIES_TANGELA]     = sAnims_Tangela,
     [SPECIES_KANGASKHAN]  = sAnims_Kangaskhan,
@@ -5610,7 +5650,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_MARILL]      = sAnims_Marill,
     [SPECIES_AZUMARILL]   = sAnims_Azumarill,
     [SPECIES_SUDOWOODO]   = sAnims_Sudowoodo,
-    [SPECIES_BONSLY]      = sAnims_Sudowoodo,
+    [SPECIES_BONSLY]      = sAnims_Bonsly,
     [SPECIES_POLITOED]    = sAnims_Politoed,
     [SPECIES_HOPPIP]      = sAnims_Hoppip,
     [SPECIES_SKIPLOOM]    = sAnims_Skiploom,
@@ -5847,8 +5887,8 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_JIRACHI]     = sAnims_Jirachi,
     [SPECIES_DEOXYS]      = sAnims_Deoxys,
     [SPECIES_CHIMECHO]    = sAnims_Chimecho,
-    [SPECIES_BUDEW]       = sAnims_Roselia,
-    [SPECIES_MUNCHLAX]    = sAnims_Snorlax,
+    [SPECIES_BUDEW]       = sAnims_Budew,
+    [SPECIES_MUNCHLAX]    = sAnims_Munchlax,
     [SPECIES_EGG]         = sAnims_Egg,
     [SPECIES_UNOWN_B]     = sAnims_UnownB,
     [SPECIES_UNOWN_C]     = sAnims_UnownC,

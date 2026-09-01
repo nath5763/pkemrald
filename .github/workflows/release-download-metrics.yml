@@ -1,0 +1,90 @@
+name: Release download metrics
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: release-download-metrics
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    name: Collect latest release downloads
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Restore rolling history
+        id: history
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p previous
+
+          artifact_url="$(
+            gh api --method GET \
+              "repos/${REPOSITORY}/actions/artifacts" \
+              -f name=release-download-metrics \
+              -f per_page=100 \
+              --jq '[.artifacts[] | select(.expired == false)][0].archive_download_url // ""'
+          )"
+
+          if [ -z "${artifact_url}" ]; then
+            echo "No previous metrics artifact found; starting a new history."
+            exit 0
+          fi
+
+          if curl --fail --location --silent --show-error \
+              --header "Authorization: Bearer ${GH_TOKEN}" \
+              --header "Accept: application/vnd.github+json" \
+              --header "X-GitHub-Api-Version: 2026-03-10" \
+              "${artifact_url}" \
+              --output previous.zip \
+            && unzip -q previous.zip -d previous \
+            && test -f previous/download-history.csv; then
+            echo "Restored download history from the previous workflow artifact."
+            echo "path=previous/download-history.csv" >> "${GITHUB_OUTPUT}"
+          else
+            echo "::warning::Previous history was unavailable; starting a new history."
+          fi
+
+      - name: Collect download metrics
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          HISTORY_PATH: ${{ steps.history.outputs.path }}
+        run: |
+          set -euo pipefail
+          history_arguments=()
+          if [ -n "${HISTORY_PATH}" ]; then
+            history_arguments=(--history "${HISTORY_PATH}")
+          fi
+          python3 .github/scripts/collect_release_downloads.py \
+            --repository "${REPOSITORY}" \
+            --output-dir metrics \
+            "${history_arguments[@]}"
+
+      - name: Add report to workflow summary
+        run: cat metrics/summary.md >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-download-metrics
+          path: |
+            metrics/download-history.csv
+            metrics/latest-downloads.json
+            metrics/summary.md
+          if-no-files-found: error
+          retention-days: 90
