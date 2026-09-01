@@ -3176,14 +3176,11 @@ static void BattleStartClearSetData(void)
         gHitMarker |= HITMARKER_NO_ANIMATIONS;
     }
 
-if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-{
-    gBattleScripting.battleStyle = gTrainers[gTrainerBattleOpponent_A].battlestyle;
-}
-else
-{
     gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
-}
+    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+     && gTrainers[gTrainerBattleOpponent_A].battlestyle == OPTIONS_BATTLE_STYLE_SET)
+        gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
+
     gMultiHitCounter = 0;
     gBattleOutcome = 0;
     gBattleControllerExecFlags = 0;
